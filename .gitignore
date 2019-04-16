@@ -1,0 +1,9 @@
+/x64
+/Release
+/Debug
+/Core/x64
+/Core/Release
+/Core/Debug
+/SolarSystem/bin
+/SolarSystem/obj
+/.vs
