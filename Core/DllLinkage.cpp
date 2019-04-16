@@ -1,3 +1,4 @@
+//Copyright Maarten 't Hart 2019
 #include "stdafx.h"
 #include "DllLinkage.h"
 #include <string>

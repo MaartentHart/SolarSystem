@@ -1,3 +1,4 @@
+//Copyright Maarten 't Hart 2019
 #pragma once
 
 #define DLL __declspec(dllexport) 

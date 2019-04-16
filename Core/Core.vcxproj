@@ -159,15 +159,23 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CException.h" />
+    <ClInclude Include="Convert.h" />
     <ClInclude Include="DllLinkage.h" />
+    <ClInclude Include="Element3D.h" />
+    <ClInclude Include="Geodesic.h" />
     <ClInclude Include="Point3D.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Convert.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DllLinkage.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Element3D.cpp" />
+    <ClCompile Include="Geodesic.cpp" />
+    <ClCompile Include="Point3D.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
