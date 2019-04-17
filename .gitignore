@@ -6,4 +6,9 @@
 /Core/Debug
 /SolarSystem/bin
 /SolarSystem/obj
+/packages/OpenGL.Net.WinForms.0.8.4/.signature.p7s
+/packages/OpenGL.Net.WinForms.0.8.4/lib
+/packages/OpenGL.Net.0.8.4/.signature.p7s
+/packages/OpenGL.Net.0.8.4/lib
+/packages
 /.vs

@@ -550,11 +550,11 @@ void SolarSystem::SetTimeSinceJ2000(double days)
 		if (planet->isMoon)
 			moonPos = planet->PositionByTime(days);
 		else if (planet->isSun)
-			planet->Position = Point3D(0, 0, 0);
+			planet->position = Point3D(0, 0, 0);
 		else
-			planet->Position = planet->PositionByTime(days);
+			planet->position = planet->PositionByTime(days);
 	}
 	//sun is always at 0. 
-	Sun().Position = 0;
-	Moon().Position = moonPos + Earth().Position;
+	Sun().position = 0;
+	Moon().position = moonPos + Earth().position;
 }

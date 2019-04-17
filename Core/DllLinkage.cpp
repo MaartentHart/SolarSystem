@@ -15,3 +15,8 @@ int ExampleGetInt()
 	int c = a + b;
 	return c;
 }
+
+void SetRenderTarget(HWND hwnd, int width, int height)
+{
+	HWND test = hwnd; 
+}

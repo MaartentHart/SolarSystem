@@ -165,16 +165,16 @@ public:
 	friend struct SectionRowOrColumn;
 };
 
+//precalculated tangent values for speeding up the system. 
 struct TanArray
 {
-	std::vector<double> Tangens;
+	std::vector<double> Tangent;
 	int Generation;
 
 	TanArray(int generation);
 	~TanArray();
 
-	unsigned long TanIndex(double tan, int generation, bool removegenerationbit = true) const;//returns the index of the tangens in the tangensarray - with the first 1 of the index removed.
-
+	unsigned long TanIndex(double tan, int generation, bool removegenerationbit = true) const;//returns the index of the tangent in the tangentarray - with the first of the index removed.
 };
 
 struct GridCell

@@ -33,7 +33,7 @@ void GravityAffectedObject::MoveByGravity(std::vector<Planet*>& gravitySoruces, 
 
 void GravityAffectedObject::PullGravity(Planet * planet, double seconds)
 {
-	PullGravity(planet->Position, planet->SurfaceGravity, planet->radius, seconds);
+	PullGravity(planet->position, planet->SurfaceGravity, planet->radius, seconds);
 }
 
 Point3D GravityAffectedObject::PullGravity(const Point3D & gravityPosition, double surfaceGravity, double gravityRadius, double seconds)

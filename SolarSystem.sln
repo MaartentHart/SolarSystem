@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolarSystem", "SolarSystem\SolarSystem.csproj", "{85BE7174-AF81-416E-9BE9-E73EA2D6BCD0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{059AE550-919F-4AA6-82FC-89C58A396A23} = {059AE550-919F-4AA6-82FC-89C58A396A23}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{059AE550-919F-4AA6-82FC-89C58A396A23}"
 EndProject

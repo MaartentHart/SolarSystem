@@ -5,7 +5,8 @@
 const double sin60 = sqrt(3. / 4.);
 static const Icosahedron icosahedron;
 Segment segment;
-TanArray tanarray(20);
+TanArray tanArray(11);
+int tanArrayGeneration = 11; 
 std::vector<GeodesicGrid*> geodesicGrids;
 
 char FrontBitPos(unsigned long that)
@@ -310,9 +311,9 @@ const Segment & MainSegment()
 	return segment; 
 }
 
-const TanArray&MainTanArray()
+const TanArray & MainTanArray()
 {
-	return tanarray;
+	return tanArray;
 }
 
 const GeodesicGrid & GetGeodesicGrid(unsigned int generation)
@@ -342,7 +343,7 @@ void SectionRowOrColumn::Build(unsigned short generation, const TanPlane&tanPlan
 	for (unsigned long n = 0; n < PointsPerRow; n++)
 	{
 		unsigned long ArrayIndex = TreeIndex2ArrayIndex(n, generation);
-		slicingplanes[ArrayIndex] = tanPlane.PlaneFromTan(MainTanArray().Tangens[n]);
+		slicingplanes[ArrayIndex] = tanPlane.PlaneFromTan(MainTanArray().Tangent[n]);
 	}
 	slicingplanes[PointsPerRow] = tanPlane.PlaneBase();
 }
@@ -394,6 +395,11 @@ GeodesicGrid::GeodesicGrid()
 
 GeodesicGrid::GeodesicGrid(unsigned short maxgeneration)
 {
+	if (tanArrayGeneration < maxgeneration + 1)
+	{
+		tanArrayGeneration = maxgeneration + 1; 
+		tanArray = TanArray(tanArrayGeneration); 
+	}
 	MaxGeneration = maxgeneration;
 	grids.resize(10);//making 10 grids. 
 	//generatin 0 is the base icosahedron. For other generations, the following applies:
@@ -430,7 +436,7 @@ GeodesicGrid::GeodesicGrid(unsigned short maxgeneration)
 
 	if (geodesicGrids.size()<maxgeneration)
 	{
-		int prevSize = geodesicGrids.size();
+		int prevSize = (int) geodesicGrids.size();
 		geodesicGrids.resize(maxgeneration + 1);
 		for (int i = prevSize; i < maxgeneration + 1; i++)
 			geodesicGrids[i] = 0;
@@ -532,12 +538,12 @@ GridCell GeodesicGrid::Touch(Point3D position) const
 
 unsigned long GeodesicGrid::Dummy1() const
 {
-	return points.size() - 2;
+	return (unsigned long) (points.size() - 2);
 }
 
 unsigned long GeodesicGrid::Dummy2() const
 {
-	return points.size() - 1;
+	return (unsigned long) (points.size() - 1);
 }
 
 unsigned long GeodesicGrid::PointIndex(Point3D position) const
@@ -573,24 +579,22 @@ GridCell GeodesicGrid::GridCell(unsigned long index) const
 
 TanArray::TanArray(int generation) :Generation(generation)
 {
-	Tangens.resize((unsigned long)2 << generation);
-	Tangens[0] = Segment().TanOf(Segment().IcoRibMid);//the first tan
-	Tangens[1] = Segment().TanOf(Segment().ArcTopFront);
+	Tangent.resize((unsigned long)2 << generation);
+	Tangent[0] = Segment().TanOf(Segment().IcoRibMid);//the first tan
+	Tangent[1] = Segment().TanOf(Segment().ArcTopFront);
 	unsigned int curgenbit(1);
 	double CurPriTan, CurSecTan;
 	for (unsigned long t(1); t < ((unsigned long)1) << generation; t++)
 	{
 		if (t >= curgenbit)
-		{
 			curgenbit <<= 1;
-		}
-		CurPriTan = Segment().PrimaryTan(Tangens[t]);
-		//fout:
+		
+		CurPriTan = Segment().PrimaryTan(Tangent[t]);
 		CurSecTan = Segment().SecondaryTan(CurPriTan);
 		unsigned long PIndex = TanIndex(CurPriTan, curgenbit, false);
 		unsigned long CIndex = TanIndex(CurSecTan, curgenbit, false);
-		Tangens[PIndex] = CurPriTan;
-		Tangens[CIndex] = CurSecTan;
+		Tangent[PIndex] = CurPriTan;
+		Tangent[CIndex] = CurSecTan;
 	}
 }
 
@@ -603,9 +607,8 @@ unsigned long TanArray::TanIndex(double tan, int generationbit, bool removegener
 	unsigned long current = 1;
 	while (target > current)
 	{
-		//punit debug = Tangens[current];
 
-		if (tan >= Tangens[current])
+		if (tan >= Tangent[current])
 		{
 			current = (current << 1) + 1;
 		}
