@@ -108,7 +108,7 @@ const Segment&MainSegment();
 const TanArray&MainTanArray();
 
 //Gets a geodesic grid by generation, and puts a new geodesic grid into a vector if it did not yet exist. 
-const GeodesicGrid&GetGeodesicGrid(int generation);
+const GeodesicGrid&GetGeodesicGrid(unsigned int generation);
 
 struct SectionRowOrColumn
 {
@@ -188,7 +188,7 @@ struct GridCell
 	//points have 6 neighbors, except for the corners, which have 5. In stead of throwing an exception,
 	//the program gives a valid duplicate with this warning attached to it. 
 	GridCell(); 
-	GridCell(unsigned long generation);
+	GridCell(unsigned short generation);
 	GridCell(const GeodesicGrid&grid);
 	GridCell(const GeodesicGrid&grid, const Point3D&position);
 	GridCell(const GeodesicGrid&grid, char squareGrid, unsigned long Row, unsigned long Column);
@@ -232,14 +232,19 @@ private:
 	std::vector<bool> UseMask;
 	GridCellIterator*current;
 	bool CurrentIsValid;
+	//the geodesic grid generation. 
+	unsigned short generation;
 
 	void Setup(const GridCell&that);
 	void StepBack();
-
+	
 public:
-	GridCellEnumerator(unsigned long index);
-	GridCellEnumerator(const Point3D&there, unsigned short generation = GeoGrid().Generation());
-	GridCellEnumerator(const GridCell&that);
+	//index is the start position of the enumartor. Generation is the generation of the geodesic grid. 
+	GridCellEnumerator(unsigned long index, unsigned short generation);
+	//point3d is the start position of the enumarator. Generation is the generation of the geodesic grid. 
+	GridCellEnumerator(const Point3D&there, unsigned short generation);
+	//gridCell is the start position of the enumarator. 
+	GridCellEnumerator(const GridCell&gridCell);
 	GridCellEnumerator();
 	~GridCellEnumerator();
 

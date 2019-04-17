@@ -315,12 +315,14 @@ const TanArray&MainTanArray()
 	return tanarray;
 }
 
-const GeodesicGrid & GetGeodesicGrid(int generation)
+const GeodesicGrid & GetGeodesicGrid(unsigned int generation)
 {
 	if (geodesicGrids.size() <= generation)
 		if (geodesicGrids[generation] != NULL)
 			return *geodesicGrids[generation];
-	return GeodesicGrid(generation); 
+	//initialize a new GeodesicGrid with that generation. 
+	geodesicGrids[generation] = &GeodesicGrid(generation);
+	return *geodesicGrids[generation];
 }
 
 SectionRowOrColumn::SectionRowOrColumn()
@@ -405,7 +407,7 @@ GeodesicGrid::GeodesicGrid(unsigned short maxgeneration)
 	indices.resize(20 * PointsPerSquare);
 	for (size_t nr = 0; nr < grids.size(); ++nr)
 	{
-		grids[nr].Generate(this, nr, maxgeneration);
+		grids[nr].Generate(this, (char) nr, maxgeneration);
 	}
 	points[PointsPerSquare * 10] = Icosahedron().Corner(7);
 	points[PointsPerSquare * 10 + 1] = Icosahedron().Corner(4);
@@ -622,7 +624,7 @@ GridCell::GridCell() : row(0), column(0), pointindex(0), squaregrid(0), CornerDu
 {
 }
 
-GridCell::GridCell(unsigned long generation) : row(0), column(0), pointindex(0), squaregrid(0), CornerDuplicateWarning(false)
+GridCell::GridCell(unsigned short generation) : row(0), column(0), pointindex(0), squaregrid(0), CornerDuplicateWarning(false)
 {
 	this->generation = generation;
 }
@@ -962,6 +964,7 @@ GridCellIterator::GridCellIterator(GridCellIterator*parent)
 
 void GridCellEnumerator::Setup(const ::GridCell&that)
 {
+	generation = that.generation; 
 	current = new GridCellIterator;
 	current->Parent = NULL;
 	current->base = this;
@@ -988,19 +991,19 @@ void GridCellEnumerator::StepBack()//sets current iterator back to a valid paren
 	} while (current->index == 6);
 }
 
-GridCellEnumerator::GridCellEnumerator(unsigned long index)
+GridCellEnumerator::GridCellEnumerator(unsigned long index, unsigned short generation)
 {
 	Setup(GetGeodesicGrid(generation).GridCell(index));
 }
 
 GridCellEnumerator::GridCellEnumerator(const ::Point3D&that, unsigned short generation)
 {
-	Setup(GridCell(that));
+	Setup(::GridCell(GetGeodesicGrid(generation), that));
 }
 
-GridCellEnumerator::GridCellEnumerator(const GridCell&that)
+GridCellEnumerator::GridCellEnumerator(const ::GridCell&gridCell)
 {
-	Setup(that);
+	Setup(gridCell);
 }
 
 GridCellEnumerator::GridCellEnumerator()

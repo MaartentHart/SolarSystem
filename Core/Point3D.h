@@ -81,7 +81,7 @@ struct Point3D
 	std::string ToString() const; 
 };
 
-inline const Point3D& NoPoint()
+inline const Point3D NoPoint()
 {
 	return Point3D(-1E99, -1E99, -1E99);
 }
