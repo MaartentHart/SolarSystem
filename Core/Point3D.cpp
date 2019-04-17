@@ -7,8 +7,6 @@ const double deg2rad = pi / 180;
 const double rad2deg = 180 / pi;
 const double verysmall = 1.0e-15;
 
-
-
 Point3D::Point3D() : X(1), Y(0), Z(0) {}
 Point3D::Point3D(double x, double y, double z) : X(x), Y(y), Z(z) {}
 Point3D::Point3D(double that) : X(that), Y(that), Z(that) {}
@@ -48,21 +46,21 @@ std::string Point3D::ToString() const
 	return strs.str();
 }
 
-Point3D Point3D::rotateX(double angle) const
+Point3D Point3D::RotateX(double angle) const
 {
 	double cosA = cos(angle);
 	double sinA = sin(angle);
-	return Point3D(X, Y*cosA + Z * sinA, Z*cosA - Y * sinA);
+	return Point3D(X, Y *cosA + Z * sinA, Z*cosA - Y * sinA);
 }
 
-Point3D Point3D::rotateY(double angle) const
+Point3D Point3D::RotateY(double angle) const
 {
 	double cosA = cos(angle);
 	double sinA = sin(angle);
 	return Point3D(X*cosA - Z * sinA, Y, Z*cosA + X * sinA);
 }
 
-Point3D Point3D::rotateZ(double angle) const
+Point3D Point3D::RotateZ(double angle) const
 {
 	double cosA = cos(angle);
 	double sinA = sin(angle);
@@ -121,6 +119,8 @@ double Determinant(const Point3D&A, const Point3D&B, const Point3D&C)
 }
 
 double VerySmall() { return verysmall; }
+double Deg2Rad(double degrees){ return deg2rad * degrees;}
+double Rad2Deg(double radian) { return rad2deg * radian; }
 
 LatLon::LatLon() : E(0), N(0)
 {}

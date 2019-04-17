@@ -60,9 +60,9 @@ struct Point3D
 	inline Point3D operator-() { return Point3D(-X, -Y, -Z); }
 	inline bool operator==(const Point3D&that) const { return (X == that.X && Y == that.Y && Z == that.Z); }
 
-	Point3D rotateX(double angle) const;//angle in radian
-	Point3D rotateY(double angle) const;//angle in radian
-	Point3D rotateZ(double angle) const;//angle in radian
+	Point3D RotateX(double angle) const;//angle in radian
+	Point3D RotateY(double angle) const;//angle in radian
+	Point3D RotateZ(double angle) const;//angle in radian
 
 	inline double DistTo(const Point3D&that) const { return X * that.X + Y * that.Y + Z * that.Z; }
 	inline double DistSquared() const { return X * X + Y * Y + Z * Z; }
@@ -91,6 +91,8 @@ Point3D CrossMultiply(const Point3D&A, const Point3D&B);
 Point3D NormalVector(const Point3D&A, const Point3D&B);
 double Determinant(const Point3D&A, const Point3D&B, const Point3D&C);
 double VerySmall(); 
+double Deg2Rad(double degrees);
+double Rad2Deg(double degrees);
 
 struct LatLon
 {
