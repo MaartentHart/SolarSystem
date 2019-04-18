@@ -31,7 +31,7 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.TestButton = new System.Windows.Forms.Button();
       this.OpenGLPanel = new System.Windows.Forms.Panel();
-      this.testGLButton = new System.Windows.Forms.Button();
+      this.TestEarthButton = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // TestButton
@@ -54,22 +54,22 @@
       this.OpenGLPanel.Size = new System.Drawing.Size(479, 296);
       this.OpenGLPanel.TabIndex = 2;
       // 
-      // testGLButton
+      // TestEarthButton
       // 
-      this.testGLButton.Location = new System.Drawing.Point(93, 12);
-      this.testGLButton.Name = "testGLButton";
-      this.testGLButton.Size = new System.Drawing.Size(75, 23);
-      this.testGLButton.TabIndex = 3;
-      this.testGLButton.Text = "Test GL";
-      this.testGLButton.UseVisualStyleBackColor = true;
-      this.testGLButton.Click += new System.EventHandler(this.testGLButton_Click);
+      this.TestEarthButton.Location = new System.Drawing.Point(93, 12);
+      this.TestEarthButton.Name = "TestEarthButton";
+      this.TestEarthButton.Size = new System.Drawing.Size(75, 23);
+      this.TestEarthButton.TabIndex = 3;
+      this.TestEarthButton.Text = "Earth";
+      this.TestEarthButton.UseVisualStyleBackColor = true;
+      this.TestEarthButton.Click += new System.EventHandler(this.TestEarthButton_Click);
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(503, 349);
-      this.Controls.Add(this.testGLButton);
+      this.Controls.Add(this.TestEarthButton);
       this.Controls.Add(this.OpenGLPanel);
       this.Controls.Add(this.TestButton);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -83,7 +83,7 @@
 
     private System.Windows.Forms.Button TestButton;
     private System.Windows.Forms.Panel OpenGLPanel;
-    private System.Windows.Forms.Button testGLButton;
+    private System.Windows.Forms.Button TestEarthButton;
   }
 }
 

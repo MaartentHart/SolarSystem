@@ -1,0 +1,27 @@
+//distance in km. 
+//Earth   = 	147090000
+//Jupiter =     740000000
+//Neptune =    4444450000 
+distanceFromSun:500000000
+
+//direction of position seen from the sun. 
+//x and y are in the solar system plain 
+positionVectorX:1.0
+positionVectorY:0.0
+positionVectorZ:0.0
+
+//speed of the ball in km/s "before" explosion
+//earth speed is about 30 km/second
+//jupiter speed is about 13 km/second
+speed:16
+speedDirectionX:0.0
+speedDirectionY:1.0
+speedDirectionZ:0.0
+
+//speed of the explosion
+explosionSpeed:20.0
+
+//determines the amount of meteorites
+//level 0: 12
+//level 9:millions. 
+explosionLevel:5

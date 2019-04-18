@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include "DllLinkage.h"
 #include <string>
+#include "SolarSystem.h"
+#include "Geodesic.h"
 
 void ExampleSetString(const char*theString)
 {
@@ -19,4 +21,9 @@ int ExampleGetInt()
 void SetRenderTarget(HWND hwnd, int width, int height)
 {
 	HWND test = hwnd; 
+}
+
+void InitiateGeodesicGrid(int generation)
+{
+	GetGeodesicGrid((unsigned int)generation);
 }

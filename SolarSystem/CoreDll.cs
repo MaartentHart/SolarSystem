@@ -19,5 +19,8 @@ namespace SolarSystem
 
     [DllImport("Core.dll", EntryPoint = "SetRenderTarget", CallingConvention = CallingConvention.Cdecl)]
     static public extern void SetRenderTarget(IntPtr hwnd, int width, int height);
+
+    [DllImport("Core.dll", EntryPoint = "InitiateGeodesicGrid", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void InitiateGeodesicGrid(int generation);
   }
 }

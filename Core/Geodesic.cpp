@@ -318,7 +318,7 @@ const TanArray & MainTanArray()
 
 const GeodesicGrid & GetGeodesicGrid(unsigned int generation)
 {
-	if (geodesicGrids.size() <= generation)
+	if (geodesicGrids.size() > generation)
 		if (geodesicGrids[generation] != NULL)
 			return *geodesicGrids[generation];
 	//initialize a new GeodesicGrid with that generation. 
