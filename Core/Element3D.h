@@ -31,11 +31,11 @@ struct TriangleIndices
 	{
 		struct
 		{
-			unsigned long a, b, c;
+			int a, b, c;
 		};
-		unsigned long i[3];
+		int i[3];
 	};
-	void Set(unsigned long A, unsigned long B, unsigned long C);
+	void Set(int A, int B, int C);
 };
 
 struct Triangle : public TriangleIndices

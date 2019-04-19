@@ -18,12 +18,26 @@ int ExampleGetInt()
 	return c;
 }
 
-void SetRenderTarget(HWND hwnd, int width, int height)
+double* GeodesicGridVertices(int generation)
 {
-	HWND test = hwnd; 
+	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
+	return grid.points[0].XYZ;
 }
 
-void InitiateGeodesicGrid(int generation)
+int GeodesicGridVerticesCount(int generation)
 {
-	GetGeodesicGrid((unsigned int)generation);
+	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
+	return grid.points.size(); 
+}
+
+const int* GeodesicGridIndices(int generation)
+{
+	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
+	return &(grid.GetTriangleIndices()[0]).a;
+}
+
+int GeodesicGridIndicesCount(int generation)
+{
+	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
+	return grid.GetTriangleIndices().size() * 3; 
 }

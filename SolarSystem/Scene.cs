@@ -103,7 +103,6 @@ namespace SolarSystem
 
       Gl.MultMatrix(mat);
     }
-
   }
 
   public class ColorFloat

@@ -7,9 +7,38 @@ static const Icosahedron icosahedron;
 Segment segment;
 TanArray tanArray(11);
 int tanArrayGeneration = 11; 
-std::vector<GeodesicGrid*> geodesicGrids;
+struct GeodesicGridContainer
+{
+	std::vector<GeodesicGrid*> grids;
+	~GeodesicGridContainer()
+	{
+		for (GeodesicGrid* grid:grids)
+		{
+			if (grid)
+				delete grid; 
+		}
+	}
+	GeodesicGrid*GetGrid(int generation)
+	{
+		if (grids.size() > generation)
+		{
+			if (grids[generation] != NULL)
+				return grids[generation];
+		}
+		else
+		{
+			grids.resize(generation + 1);
+		}
 
-char FrontBitPos(unsigned long that)
+		//initialize a new GeodesicGrid with that generation. 
+		grids[generation] = new GeodesicGrid(generation);
+		return grids[generation];
+	}
+
+}geodesicGrids;
+
+
+char FrontBitPos(int that)
 {
 	char out = 0;
 	while (that != 0)
@@ -20,7 +49,7 @@ char FrontBitPos(unsigned long that)
 	return out - 1;
 }
 
-char LowestBitPos(unsigned long that)
+char LowestBitPos(int that)
 {
 	if (that == 0)
 		return -1;
@@ -33,17 +62,17 @@ char LowestBitPos(unsigned long that)
 	return out;
 }
 
-unsigned long TreeIndex2ArrayIndex(unsigned long that, unsigned short generation)
+int TreeIndex2ArrayIndex(int that, unsigned short generation)
 {
 	if (that == 0) return 0;
 	char FBP = FrontBitPos(that);
 	char InvertFBP = generation - FBP;
-	unsigned long NewLastBit = 1 << (InvertFBP - 1);
-	unsigned long OldFrontBit = 1 << FBP;
+	int NewLastBit = 1 << (InvertFBP - 1);
+	int OldFrontBit = 1 << FBP;
 	return ((that - OldFrontBit) << (InvertFBP)) + NewLastBit;
 }
 
-unsigned long ArrayIndex2TreeIndex(unsigned long that, unsigned short generation)
+int ArrayIndex2TreeIndex(int that, unsigned short generation)
 {
 	if (that == 0) return 0;
 	char LB = LowestBitPos(that) + 1;
@@ -316,14 +345,9 @@ const TanArray & MainTanArray()
 	return tanArray;
 }
 
-const GeodesicGrid & GetGeodesicGrid(unsigned int generation)
+const GeodesicGrid& GetGeodesicGrid(unsigned int generation)
 {
-	if (geodesicGrids.size() > generation)
-		if (geodesicGrids[generation] != NULL)
-			return *geodesicGrids[generation];
-	//initialize a new GeodesicGrid with that generation. 
-	geodesicGrids[generation] = &GeodesicGrid(generation);
-	return *geodesicGrids[generation];
+	return *geodesicGrids.GetGrid(generation);
 }
 
 SectionRowOrColumn::SectionRowOrColumn()
@@ -338,11 +362,11 @@ SectionRowOrColumn::~SectionRowOrColumn()
 
 void SectionRowOrColumn::Build(unsigned short generation, const TanPlane&tanPlane)
 {
-	unsigned long PointsPerRow = 1 << generation;
+	int PointsPerRow = 1 << generation;
 	slicingplanes.resize(PointsPerRow + 1);
-	for (unsigned long n = 0; n < PointsPerRow; n++)
+	for (int n = 0; n < PointsPerRow; n++)
 	{
-		unsigned long ArrayIndex = TreeIndex2ArrayIndex(n, generation);
+		int ArrayIndex = TreeIndex2ArrayIndex(n, generation);
 		slicingplanes[ArrayIndex] = tanPlane.PlaneFromTan(MainTanArray().Tangent[n]);
 	}
 	slicingplanes[PointsPerRow] = tanPlane.PlaneBase();
@@ -370,9 +394,9 @@ void SquareGrid::Generate(GeodesicGrid*parent, char index /*0 to 9*/, unsigned s
 
 	Pair = MainIcosahedron().pair[index];
 
-	for (unsigned long row = 0; row < Parent->PointsPerRow; row++)
+	for (int row = 0; row < Parent->PointsPerRow; row++)
 	{
-		for (unsigned long column = 0; column < Parent->PointsPerRow; column++)
+		for (int column = 0; column < Parent->PointsPerRow; column++)
 		{
 			if (row + (Parent->PointsPerRow - column) <= (Parent->PointsPerRow))
 			{
@@ -419,12 +443,12 @@ GeodesicGrid::GeodesicGrid(unsigned short maxgeneration)
 	points[PointsPerSquare * 10 + 1] = Icosahedron().Corner(4);
 
 	//build the indices:
-	unsigned long triangle(0);
-	unsigned long a, b, c, d;
+	int triangle(0);
+	int a, b, c, d;
 
 	for (char GridNr(0); GridNr < 10; GridNr++)
-		for (unsigned long row(0); row < PointsPerRow; row++)
-			for (unsigned long col(0); col < PointsPerRow; col++, triangle += 2)
+		for (int row(0); row < PointsPerRow; row++)
+			for (int col(0); col < PointsPerRow; col++, triangle += 2)
 			{
 				a = PointIndex(GridNr, row, col);
 				b = PointIndex(GridNr, row, col + 1);
@@ -433,17 +457,6 @@ GeodesicGrid::GeodesicGrid(unsigned short maxgeneration)
 				indices[triangle].Set(a, b, c);
 				indices[triangle + 1].Set(a, c, d);
 			}
-
-	if (geodesicGrids.size()<maxgeneration)
-	{
-		int prevSize = (int) geodesicGrids.size();
-		geodesicGrids.resize(maxgeneration + 1);
-		for (int i = prevSize; i < maxgeneration + 1; i++)
-			geodesicGrids[i] = 0;
-	}
-
-	if (geodesicGrids[maxgeneration] == NULL)
-		geodesicGrids[maxgeneration] = this; 
 }
 
 GeodesicGrid::~GeodesicGrid()
@@ -451,7 +464,7 @@ GeodesicGrid::~GeodesicGrid()
 
 }
 
-Point3D GeodesicGrid::Point(unsigned long that) const
+Point3D GeodesicGrid::Point(int that) const
 {
 	return points[that];
 }
@@ -461,7 +474,7 @@ const std::vector<Point3D>& GeodesicGrid::PointList() const
 	return points;
 }
 
-unsigned long GeodesicGrid::PointIndex(char squaregrid, unsigned long row, unsigned long column) const
+int GeodesicGrid::PointIndex(char squaregrid, int row, int column) const
 {
 	if (squaregrid & 1)	//odd
 	{
@@ -525,8 +538,8 @@ GridCell GeodesicGrid::Touch(Point3D position) const
 	double TanCol = icoTriangle->tanPlane[0].TanOf(position);
 	
 	unsigned int maxRowCol = 1 << MaxGeneration;
-	unsigned long rowIndex = MainTanArray().TanIndex(TanRow, maxRowCol, true);
-	unsigned long colIndex = MainTanArray().TanIndex(TanCol, maxRowCol, true);
+	int rowIndex = MainTanArray().TanIndex(TanRow, maxRowCol, true);
+	int colIndex = MainTanArray().TanIndex(TanCol, maxRowCol, true);
 	
 	if (TriangleA)
 		colIndex = maxRowCol - colIndex - 1;
@@ -536,17 +549,17 @@ GridCell GeodesicGrid::Touch(Point3D position) const
 	return ::GridCell(*this, squaregrid, rowIndex, colIndex);
 }
 
-unsigned long GeodesicGrid::Dummy1() const
+int GeodesicGrid::Dummy1() const
 {
-	return (unsigned long) (points.size() - 2);
+	return (int) (points.size() - 2);
 }
 
-unsigned long GeodesicGrid::Dummy2() const
+int GeodesicGrid::Dummy2() const
 {
-	return (unsigned long) (points.size() - 1);
+	return (int) (points.size() - 1);
 }
 
-unsigned long GeodesicGrid::PointIndex(Point3D position) const
+int GeodesicGrid::PointIndex(Point3D position) const
 {
 	return Touch(position).pointindex;
 }
@@ -556,7 +569,7 @@ const std::vector<SquareGrid>& GeodesicGrid::Grids() const
 	return grids;
 }
 
-const std::vector<TriangleIndices>& GeodesicGrid::TriangleIndices() const
+const std::vector<TriangleIndices>& GeodesicGrid::GetTriangleIndices() const
 {
 	return indices;
 }
@@ -566,7 +579,7 @@ unsigned short GeodesicGrid::Generation() const
 	return MaxGeneration;
 }
 
-GridCell GeodesicGrid::GridCell(unsigned long index) const
+GridCell GeodesicGrid::GridCell(int index) const
 {
 	::GridCell gridcell(Generation());
 	gridcell.squaregrid = (char)(index / PointsPerSquare);
@@ -579,20 +592,20 @@ GridCell GeodesicGrid::GridCell(unsigned long index) const
 
 TanArray::TanArray(int generation) :Generation(generation)
 {
-	Tangent.resize((unsigned long)2 << generation);
+	Tangent.resize((int)2 << generation);
 	Tangent[0] = Segment().TanOf(Segment().IcoRibMid);//the first tan
 	Tangent[1] = Segment().TanOf(Segment().ArcTopFront);
 	unsigned int curgenbit(1);
 	double CurPriTan, CurSecTan;
-	for (unsigned long t(1); t < ((unsigned long)1) << generation; t++)
+	for (int t(1); t < ((int)1) << generation; t++)
 	{
 		if (t >= curgenbit)
 			curgenbit <<= 1;
 		
 		CurPriTan = Segment().PrimaryTan(Tangent[t]);
 		CurSecTan = Segment().SecondaryTan(CurPriTan);
-		unsigned long PIndex = TanIndex(CurPriTan, curgenbit, false);
-		unsigned long CIndex = TanIndex(CurSecTan, curgenbit, false);
+		int PIndex = TanIndex(CurPriTan, curgenbit, false);
+		int CIndex = TanIndex(CurSecTan, curgenbit, false);
 		Tangent[PIndex] = CurPriTan;
 		Tangent[CIndex] = CurSecTan;
 	}
@@ -601,10 +614,10 @@ TanArray::TanArray(int generation) :Generation(generation)
 TanArray::~TanArray()
 {}
 
-unsigned long TanArray::TanIndex(double tan, int generationbit, bool removegenerationbit) const
+int TanArray::TanIndex(double tan, int generationbit, bool removegenerationbit) const
 {
-	unsigned long target = generationbit;
-	unsigned long current = 1;
+	int target = generationbit;
+	int current = 1;
 	while (target > current)
 	{
 
@@ -642,25 +655,25 @@ GridCell::GridCell(const GeodesicGrid&grid, const ::Point3D&position)
 	*this = grid.Touch(position);
 }
 
-GridCell::GridCell(const GeodesicGrid&grid, char squareGrid, unsigned long Row, unsigned long Column)
+GridCell::GridCell(const GeodesicGrid&grid, char squareGrid, int Row, int Column)
 	: squaregrid(squareGrid), row(Row), column(Column), CornerDuplicateWarning(false)
 {
 	generation = grid.Generation();
 	PointIndex(grid);
 }
 
-GridCell::GridCell(char squareGrid, unsigned long Row, unsigned long Column, unsigned short Generation)
+GridCell::GridCell(char squareGrid, int Row, int Column, unsigned short Generation)
 	: squaregrid(squareGrid), row(Row), column(Column), generation(Generation), CornerDuplicateWarning(false)
 {
 	PointIndex(GetGeodesicGrid(Generation));
 }
 
-unsigned long GridCell::PointIndex()
+int GridCell::PointIndex()
 {
 	return PointIndex(GetGeodesicGrid(generation));
 }
 
-unsigned long GridCell::PointIndex(const GeodesicGrid&grid)
+int GridCell::PointIndex(const GeodesicGrid&grid)
 {
 	if (grid.Generation() == generation)
 		return pointindex = grid.PointIndex(squaregrid, row, column);
@@ -679,7 +692,7 @@ unsigned long GridCell::PointIndex(const GeodesicGrid&grid)
 GridCell GridCell::Neighbor(char index) const
 {
 	GridCell neighbor = *this;
-	unsigned long Bound = (1 << generation) - 1;
+	int Bound = (1 << generation) - 1;
 
 	//see document geodesic grid 20nov2013 figure 10. 
 	//giving the neighbors of a geodesic point. 
@@ -973,7 +986,7 @@ void GridCellEnumerator::Setup(const ::GridCell&that)
 	current->base = this;
 	current->Current = that;
 	current->index = 0;
-	unsigned long arraysize = ArraySizeForGeneration(that.generation);
+	int arraysize = ArraySizeForGeneration(that.generation);
 	UseMask.resize(arraysize);
 	ProcessedMask.resize(arraysize);
 	std::fill(UseMask.begin(), UseMask.end(), false);
@@ -994,7 +1007,7 @@ void GridCellEnumerator::StepBack()//sets current iterator back to a valid paren
 	} while (current->index == 6);
 }
 
-GridCellEnumerator::GridCellEnumerator(unsigned long index, unsigned short generation)
+GridCellEnumerator::GridCellEnumerator(int index, unsigned short generation)
 {
 	Setup(GetGeodesicGrid(generation).GridCell(index));
 }
@@ -1064,7 +1077,7 @@ Point3D GridCellEnumerator::Point3D() const
 	return GridCell().Point3D();
 }
 
-unsigned long GridCellEnumerator::Index() const
+int GridCellEnumerator::Index() const
 {
 	return GridCell().pointindex;
 }

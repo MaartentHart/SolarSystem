@@ -17,10 +17,19 @@ namespace SolarSystem
     [DllImport("Core.dll", EntryPoint = "ExampleSetString", CallingConvention = CallingConvention.Cdecl)]
     static public extern int ExampleSetString(string theString);
 
-    [DllImport("Core.dll", EntryPoint = "SetRenderTarget", CallingConvention = CallingConvention.Cdecl)]
-    static public extern void SetRenderTarget(IntPtr hwnd, int width, int height);
+    [DllImport("Core.dll", EntryPoint = "GeodesicGridVertices", CallingConvention = CallingConvention.Cdecl)]
+    //return value is an IntPtr to a type double.
+    static public extern IntPtr GeodesicGridVertices(int generation);
 
-    [DllImport("Core.dll", EntryPoint = "InitiateGeodesicGrid", CallingConvention = CallingConvention.Cdecl)]
-    static public extern void InitiateGeodesicGrid(int generation);
+    [DllImport("Core.dll", EntryPoint = "GeodesicGridVerticesCount", CallingConvention = CallingConvention.Cdecl)]
+    static public extern int GeodesicGridVerticesCount(int generation);
+
+    [DllImport("Core.dll", EntryPoint = "GeodesicGridIndices", CallingConvention = CallingConvention.Cdecl)]
+    //return value is an IntPtr to a type ulong.
+    static public extern IntPtr GeodesicGridIndices(int generation);
+
+    [DllImport("Core.dll", EntryPoint = "GeodesicGridIndicesCount", CallingConvention = CallingConvention.Cdecl)]
+    static public extern int GeodesicGridIndicesCount(int generation);
+
   }
 }

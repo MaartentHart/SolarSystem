@@ -11,12 +11,12 @@ struct GridCellEnumerator;
 class GridCellIterator;
 struct TanArray; 
 
-inline unsigned long GenerationFactor(unsigned int Generation)
+inline int GenerationFactor(unsigned int Generation)
 {
 	return (1 << (Generation * 2));
 }
 
-inline unsigned long ArraySizeForGeneration(unsigned short Generation)
+inline int ArraySizeForGeneration(unsigned short Generation)
 {
 	return GenerationFactor(Generation) * 10 + 2;
 }
@@ -139,8 +139,8 @@ struct GeodesicGrid
 private:
 	std::vector<TriangleIndices> indices;
 	std::vector<SquareGrid> grids;
-	unsigned long PointsPerSquare;
-	unsigned long PointsPerRow;
+	int PointsPerSquare;
+	int PointsPerRow;
 	unsigned short MaxGeneration;
 
 public:
@@ -149,17 +149,17 @@ public:
 	GeodesicGrid(unsigned short maxgeneration);
 	~GeodesicGrid();
 
-	Point3D Point(unsigned long index) const;
+	Point3D Point(int index) const;
 	const std::vector<Point3D>& PointList() const;
-	unsigned long PointIndex(char squaregrid, unsigned long row, unsigned long column) const;
+	int PointIndex(char squaregrid, int row, int column) const;
 	GridCell Touch(Point3D there)const;
-	unsigned long Dummy1() const;
-	unsigned long Dummy2() const;
-	unsigned long PointIndex(Point3D position) const;
+	int Dummy1() const;
+	int Dummy2() const;
+	int PointIndex(Point3D position) const;
 	const std::vector<SquareGrid>& Grids() const;
-	const std::vector<TriangleIndices>& TriangleIndices() const;
+	const std::vector<TriangleIndices>& GetTriangleIndices() const;
 	unsigned short Generation()const;
-	GridCell GridCell(unsigned long index) const;
+	GridCell GridCell(int index) const;
 
 	friend struct SquareGrid;
 	friend struct SectionRowOrColumn;
@@ -174,14 +174,14 @@ struct TanArray
 	TanArray(int generation);
 	~TanArray();
 
-	unsigned long TanIndex(double tan, int generation, bool removegenerationbit = true) const;//returns the index of the tangent in the tangentarray - with the first of the index removed.
+	int TanIndex(double tan, int generation, bool removegenerationbit = true) const;//returns the index of the tangent in the tangentarray - with the first of the index removed.
 };
 
 struct GridCell
 {
 	char squaregrid;
 	unsigned short generation;
-	unsigned long row, column, pointindex;
+	int row, column, pointindex;
 
 	bool CornerDuplicateWarning;
 	//usually false. Only true when this may be a duplicate gridcell is generated from 1 of the 12 cornerpoints.
@@ -191,8 +191,8 @@ struct GridCell
 	GridCell(unsigned short generation);
 	GridCell(const GeodesicGrid&grid);
 	GridCell(const GeodesicGrid&grid, const Point3D&position);
-	GridCell(const GeodesicGrid&grid, char squareGrid, unsigned long Row, unsigned long Column);
-	GridCell(char squareGrid, unsigned long Row, unsigned long Column, unsigned short Generation);
+	GridCell(const GeodesicGrid&grid, char squareGrid, int Row, int Column);
+	GridCell(char squareGrid, int Row, int Column, unsigned short Generation);
 	
 	inline bool operator==(const GridCell&that) const
 	{
@@ -200,8 +200,8 @@ struct GridCell
 			(row == that.row) && (column == that.column) && (pointindex == that.pointindex);
 	}
 
-	unsigned long PointIndex();
-	unsigned long PointIndex(const GeodesicGrid&grid);//recalculates the pointindex. If it is already correct this is a waste of time, use pointindex in stead. 
+	int PointIndex();
+	int PointIndex(const GeodesicGrid&grid);//recalculates the pointindex. If it is already correct this is a waste of time, use pointindex in stead. 
 	GridCell Neighbor(char index) const; //0 up, 1 right, 2 down, 3 left, 4 upleft, 5 downright. 
 	GridCell Child(char index) const; //generation up, row and column * 2. 0 is top left, 1 is top right, 2 is bottom left, 3 is bottom right. 
 	GridCell Parent() const; //generation down, row and column shift 1 bit, or devided by 2. 
@@ -240,7 +240,7 @@ private:
 	
 public:
 	//index is the start position of the enumartor. Generation is the generation of the geodesic grid. 
-	GridCellEnumerator(unsigned long index, unsigned short generation);
+	GridCellEnumerator(int index, unsigned short generation);
 	//point3d is the start position of the enumarator. Generation is the generation of the geodesic grid. 
 	GridCellEnumerator(const Point3D&there, unsigned short generation);
 	//gridCell is the start position of the enumarator. 
@@ -251,6 +251,6 @@ public:
 	bool MoveNext();
 	::GridCell GridCell() const;
 	::Point3D Point3D() const;
-	unsigned long Index() const;
+	int Index() const;
 	void SetFalse();
 };

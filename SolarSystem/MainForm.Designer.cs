@@ -32,6 +32,7 @@
       this.TestButton = new System.Windows.Forms.Button();
       this.OpenGLPanel = new System.Windows.Forms.Panel();
       this.TestEarthButton = new System.Windows.Forms.Button();
+      this.PaintButton = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // TestButton
@@ -64,11 +65,22 @@
       this.TestEarthButton.UseVisualStyleBackColor = true;
       this.TestEarthButton.Click += new System.EventHandler(this.TestEarthButton_Click);
       // 
+      // PaintButton
+      // 
+      this.PaintButton.Location = new System.Drawing.Point(174, 12);
+      this.PaintButton.Name = "PaintButton";
+      this.PaintButton.Size = new System.Drawing.Size(75, 23);
+      this.PaintButton.TabIndex = 4;
+      this.PaintButton.Text = "Paint";
+      this.PaintButton.UseVisualStyleBackColor = true;
+      this.PaintButton.Click += new System.EventHandler(this.PaintButton_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(503, 349);
+      this.Controls.Add(this.PaintButton);
       this.Controls.Add(this.TestEarthButton);
       this.Controls.Add(this.OpenGLPanel);
       this.Controls.Add(this.TestButton);
@@ -84,6 +96,7 @@
     private System.Windows.Forms.Button TestButton;
     private System.Windows.Forms.Panel OpenGLPanel;
     private System.Windows.Forms.Button TestEarthButton;
+    private System.Windows.Forms.Button PaintButton;
   }
 }
 

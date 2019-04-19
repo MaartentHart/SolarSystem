@@ -79,7 +79,7 @@ void InfiniteLine::ResetToZero()
 	position = NearestToOrigin();
 }
 
-void TriangleIndices::Set(unsigned long A, unsigned long B, unsigned long C)
+void TriangleIndices::Set(int A, int B, int C)
 {
 	a = A; b = B; c = C;
 }

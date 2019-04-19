@@ -18,11 +18,15 @@ namespace SolarSystem
     public IntPtr vertices;
     public IntPtr indices;
     public IntPtr colors;
-    public bool enableColors = false; 
+    public IntPtr normals; 
+    public bool enableColors = false;
+    public bool enableNormals = false; 
+
     public int verticesCount;
     public int indicesCount;
     public RenderMode renderMode;
-    public float pointSize = 1; 
+    public float pointSize = 1;
+
     public void Render()
     {
       switch (renderMode)
@@ -57,7 +61,41 @@ namespace SolarSystem
 
     private void RenderTriangles()
     {
-      throw new NotImplementedException();
+      Gl.EnableClientState(EnableCap.VertexArray);
+      Gl.VertexPointer(3, VertexPointerType.Double, 0, vertices);
+      if (enableNormals)
+      {
+        Gl.Enable(EnableCap.Lighting);
+        Gl.NormalPointer(NormalPointerType.Double, 0, normals);
+        Gl.EnableClientState(EnableCap.NormalArray);
+      }
+      else
+        Gl.DisableClientState(EnableCap.NormalArray);
+
+      if (enableColors)
+      {
+        Gl.Enable(EnableCap.ColorMaterial);
+        Gl.EnableClientState(EnableCap.ColorArray);
+        Gl.ColorPointer(4, ColorPointerType.Float, 0, colors);
+      }
+      else
+        Gl.DisableClientState(EnableCap.ColorArray);
+
+      Gl.DrawElements(PrimitiveType.Triangles, indicesCount, DrawElementsType.UnsignedInt, indices);
+    }    
+
+    public void SetGeodesicGrid(int generation)
+    {
+      vertices = CoreDll.GeodesicGridVertices(generation);
+      verticesCount = CoreDll.GeodesicGridVerticesCount(generation);
+
+      indices = CoreDll.GeodesicGridIndices(generation);
+      indicesCount = CoreDll.GeodesicGridIndicesCount(generation); 
+
+      normals = vertices;
+      enableNormals = true;
+
+      renderMode = RenderMode.triangles; 
     }
   }
 
@@ -73,6 +111,12 @@ namespace SolarSystem
       set => Translation.Position = value; 
     }
 
+    public Point3D Scale
+    {
+      get => Translation.Scale;
+      set => Translation.Scale = value; 
+    }
+
     public Rotation Rotation
     {
       get => Translation.Rotation;
@@ -83,15 +127,26 @@ namespace SolarSystem
 
     public void Render()
     {
-      using (GlPushPop rotate = new GlPushPop())
+      using (GlPushPop scale = new GlPushPop(Translation.ScaleActive))
       {
-        GlRotate();
-        using (GlPushPop translate = new GlPushPop())
+        GlScale(); 
+        using (GlPushPop rotate = new GlPushPop(Rotation.Active))
         {
-          GlTranslate();
-          RenderGeometry.Render(); 
+          GlRotate();
+          using (GlPushPop translate = new GlPushPop(Translation.Active))
+          {
+            GlTranslate();
+            RenderGeometry.Render();
+          }
         }
-      }     
+      }   
+    }
+
+    public void GlScale()
+    {
+      if (!Translation.ScaleActive)
+        return;
+      Gl.Scale(Translation.Scale.x, Translation.Scale.y, Translation.Scale.z);
     }
 
     public void GlRotate()
@@ -115,14 +170,19 @@ namespace SolarSystem
 
   public class GlPushPop : IDisposable
   {
-    public GlPushPop()
+    private readonly bool active;
+
+    public GlPushPop(bool active = true)
     {
-      Gl.PushMatrix();
+      this.active = active; 
+      if (active)
+        Gl.PushMatrix();
     }
 
     public void Dispose()
     {
-      Gl.PopMatrix();
+      if (active)
+       Gl.PopMatrix();
     }
   }
 }

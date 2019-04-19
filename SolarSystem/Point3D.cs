@@ -143,7 +143,10 @@ namespace SolarSystem
 
   public class Translation
   {
-    public Point3D Position { get; set; } = new Point3D(); 
-    public Rotation Rotation { get; set; } = new Rotation(); 
+    public Point3D Position { get; set; } = new Point3D();
+    public Point3D Scale { get; set; } = new Point3D(1,1,1);
+    public Rotation Rotation { get; set; } = new Rotation();
+    public bool Active => Position.x != 0 || Position.y != 0 || Position.z != 0;
+    public bool ScaleActive => Scale.x != 1 || Scale.y != 1 || Scale.z != 1;
   }
 }
