@@ -7,7 +7,16 @@ using OpenGL;
 
 namespace SolarSystem
 {
-  public class RenderGeometry
+  public interface IRenderable
+  {
+    bool On { get; set; }
+    string Name { get; set; }
+    bool Changed { get; }
+
+    void Render();
+  }
+
+  public class CRenderGeometry
   {
     public enum RenderMode
     {
@@ -99,7 +108,7 @@ namespace SolarSystem
     }
   }
 
-  public class RenderableObject
+  public class CRenderableObject : IRenderable, IPositionObject
   {
     public string Name { get; set; } = "Default";
     public bool On { get; set; } = true;
@@ -123,7 +132,8 @@ namespace SolarSystem
       set => Translation.Rotation = value; 
     }
 
-    public RenderGeometry RenderGeometry { get; set; } = new RenderGeometry();
+    public CRenderGeometry RenderGeometry { get; set; } = new CRenderGeometry();
+    public bool Changed { get; set; } = false; 
 
     public void Render()
     {
@@ -183,6 +193,46 @@ namespace SolarSystem
     {
       if (active)
        Gl.PopMatrix();
+    }
+  }
+
+  public class Mesh : IRenderable
+  {
+    public int[] indices;
+    public float[] colors; 
+    public double[] vertices;
+    public double[] normals; 
+    public bool On { get; set; } = true;
+    public string Name { get; set; } = "Mesh";
+    public bool Changed { get; set; } = false; 
+
+    public void Render()
+    {
+      if (vertices == null || indices == null || vertices.Length == 0 || indices.Length == 0)
+        return;
+
+      Gl.EnableClientState(EnableCap.VertexArray);
+      Gl.VertexPointer(3, VertexPointerType.Double, 0, vertices);
+      if (normals!=null && normals.Length == vertices.Length)
+      {
+        Gl.Enable(EnableCap.Lighting);
+        Gl.NormalPointer(NormalPointerType.Double, 0, normals);
+        Gl.EnableClientState(EnableCap.NormalArray);
+      }
+      else
+        Gl.DisableClientState(EnableCap.NormalArray);
+
+      if (colors!=null && colors.Length/4 == vertices.Length/3)
+      {
+        Gl.Enable(EnableCap.ColorMaterial);
+        Gl.EnableClientState(EnableCap.ColorArray);
+        Gl.ColorPointer(4, ColorPointerType.Float, 0, colors);
+      }
+      else
+        Gl.DisableClientState(EnableCap.ColorArray);
+
+      Gl.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, indices);
+
     }
   }
 }

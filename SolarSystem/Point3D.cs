@@ -11,11 +11,45 @@ namespace SolarSystem
     public double x;
     public double y;
     public double z;
+
+    public double MagnitudeSquared
+    {
+      get
+      {
+        return x * x + y * y + z * z;
+      }
+    }
+
+    public double Magnitude
+    {
+      get
+      {
+        return Math.Sqrt(MagnitudeSquared);
+      }
+    }
+
+    public Point3D Normal
+    {
+      get
+      {
+        if (x == 0 && y == 0 && z == 0)
+          return new Point3D(1, 0, 0);
+        return this / Magnitude;
+      }
+    }
+
     public Point3D(double x=0, double y=0, double z=0)
     {
       this.x = x;
       this.y = y;
       this.z = z;
+    }
+
+    public Point3D(Point3D other)
+    {
+      x = other.x;
+      y = other.y;
+      z = other.z; 
     }
 
     public static Point3D operator -(Point3D A)
@@ -56,30 +90,6 @@ namespace SolarSystem
     public static double operator *(Point3D A, Point3D B)
     {
       return A.x * B.x + A.y * B.y + A.z * B.z;
-    }
-
-    public double MagnitudeSquared
-    {
-      get
-      {
-        return x * x + y * y + z * z;
-      }
-    }
-    
-    public double Magnitude
-    {
-      get
-      {
-        return Math.Sqrt(MagnitudeSquared);
-      }
-    }
-    
-    public Point3D Normal
-    {
-      get
-      {
-        return this / Magnitude; 
-      }
     }
 
     public void Normalize()
