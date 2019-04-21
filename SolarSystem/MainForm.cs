@@ -13,25 +13,23 @@ namespace SolarSystem
 {
   public partial class MainForm : Form
   {
-    private GlControl OpenGLControl;
-    private Renderer Renderer { get; } = new Renderer();
-    private Scene Scene => Renderer.Scene;
-    private Camera Camera => Renderer.Scene.Camera;
+    private double cameraRotationTest = 0;
 
-    private double cameraRotationTest = 0; 
-
+    private GlControlExtended GlControlExtended { get; set; }
+    private Scene Scene => GlControlExtended.Scene;
+    private Camera Camera => GlControlExtended.Camera;
 
     public MainForm()
     {
       InitializeComponent();
-      OpenGLControl = new GlControl
+      GlControlExtended = new GlControlExtended
       {
         Width = OpenGLPanel.Width,
         Height = OpenGLPanel.Height,
         Anchor = AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top
       };
-      OpenGLControl.Render += Renderer.UpdateRender; 
-      OpenGLPanel.Controls.Add(OpenGLControl);
+
+      OpenGLPanel.Controls.Add(GlControlExtended);
     }
 
     private void TestButton_Click(object sender, EventArgs e)
@@ -87,7 +85,7 @@ namespace SolarSystem
     private void CameraTestButton_Click(object sender, EventArgs e)
     {
       cameraRotationTest += 0.01; 
-      Scene.Camera.Eye = new PositionObject(15 * Math.Cos(cameraRotationTest), 15 * Math.Sin(cameraRotationTest), 0); 
+      Camera.Eye = new PositionObject(15 * Math.Cos(cameraRotationTest), 15 * Math.Sin(cameraRotationTest), 0); 
     }
 
     private void BackgroudColorButton_Click(object sender, EventArgs e)
@@ -98,14 +96,14 @@ namespace SolarSystem
         if (colorDialog.ShowDialog() != DialogResult.OK)
           return;
 
-        Renderer.Scene.BackgroundColor = new ColorFloat(colorDialog.Color);
+        GlControlExtended.Camera.BackgroundColor = new ColorFloat(colorDialog.Color);
         ForceRender(); 
       }
     }
 
     private void UpdateTimer_Tick(object sender, EventArgs e)
     {
-      if (Scene.Changed)
+      if (Scene.Changed || Camera.Changed)
         ForceRender();
     }
 

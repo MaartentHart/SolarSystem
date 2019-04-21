@@ -10,33 +10,31 @@ namespace SolarSystem
   public class Scene
   {
     private bool changed = false;
-    private ColorFloat backgroundColor = new ColorFloat();
-
-    public ColorFloat BackgroundColor
-    {
-      get
-      {
-        return backgroundColor;
-      }
-      set
-      {
-        Changed = true;
-        backgroundColor = value; 
-      }
-    }
-    public Camera Camera { get; } = new Camera();
+ 
     public List<IRenderable> RenderableObjects { get; } = new List<IRenderable>();
+    private List<IRenderable> PreviousRenderableObjects { get; } = new List<IRenderable>();
+
     public bool Changed
     {
       get
       {
-        if (Camera.Changed)
-          return true;
+        bool wasChanged = changed;
+        changed = false;
+
+        if (RenderableObjects.Count != PreviousRenderableObjects.Count)
+          wasChanged = true;
+        else
+          for (int i = 0; i < RenderableObjects.Count; i++)
+            if (RenderableObjects[i] != PreviousRenderableObjects[i])
+              wasChanged = true;
+        PreviousRenderableObjects.Clear();
+        PreviousRenderableObjects.AddRange(RenderableObjects);
+
         foreach (IRenderable renderable in RenderableObjects)
           if (renderable.Changed)
-            return true; 
+            return true;
 
-        return changed; 
+        return wasChanged;
       }
       set
       {
@@ -44,21 +42,12 @@ namespace SolarSystem
       }
     }
 
-
-    public void Render(int width, int height)
+    internal void Render()
     {
-      Changed = false; 
-
-      Gl.ClearColor(BackgroundColor.R, BackgroundColor.G, BackgroundColor.B, BackgroundColor.A);
-
-      Gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-      Gl.Viewport(0, 0, width, height);
-      Gl.MatrixMode(MatrixMode.Projection);
-      Gl.LoadIdentity();
-      Camera.Set(width, height);
       foreach (IRenderable renderableObject in RenderableObjects)
         renderableObject.Render();
     }
+
   }
 
   public interface IPositionObject
@@ -89,7 +78,11 @@ namespace SolarSystem
     private Point3D previousTarget = new Point3D();
     private double previousNear;
     private double previousFar;
-    private double previousFieldOfView; 
+    private double previousFieldOfView;
+
+    private ColorFloat previousBackgroundColor = new ColorFloat();
+
+    public ColorFloat BackgroundColor { get; set; } = new ColorFloat();
 
     /// <summary>
     /// automatically set the near and far clipping plane. 
@@ -115,14 +108,15 @@ namespace SolarSystem
       {
         bool changed = false;
         if (previousEye != Eye.Position || previousTarget != Target.Position || previousFieldOfView != FieldOfView
-          || previousNear != near || previousFar != far)
+          || previousNear != near || previousFar != far || BackgroundColor!=previousBackgroundColor)
           changed = true;
 
         previousEye = new Point3D(Eye.Position);
         previousTarget = new Point3D(Target.Position);
         previousNear = near;
         previousFar = far;
-        previousFieldOfView = FieldOfView; 
+        previousFieldOfView = FieldOfView;
+        previousBackgroundColor = BackgroundColor; 
 
         return changed;
       }
@@ -131,6 +125,10 @@ namespace SolarSystem
 
     public void Set(int width, int height)
     {
+      Gl.ClearColor(BackgroundColor.R, BackgroundColor.G, BackgroundColor.B, BackgroundColor.A);
+      Gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+      Gl.Viewport(0, 0, width, height);
+      Gl.MatrixMode(MatrixMode.Projection);
       Gl.LoadIdentity(); 
       GluPerspective(FieldOfView, ((double)width) / height, near, far);
       Gl.MatrixMode(MatrixMode.Modelview);
