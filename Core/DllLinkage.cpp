@@ -5,6 +5,8 @@
 #include "SolarSystem.h"
 #include "Geodesic.h"
 
+
+//Tests and Examples. 
 void ExampleSetString(const char*theString)
 {
 	std::string example(theString);
@@ -17,6 +19,43 @@ int ExampleGetInt()
 	int c = a + b;
 	return c;
 }
+
+std::vector<double> testVertices{
+	-1, 0.5, 0,
+		1, 0.5, 0,
+		0, -1, 0,
+		0, 0, 1 
+};
+
+std::vector<int> testIndices
+{
+	2, 1, 0,
+		3, 0, 1,
+		3, 1, 2,
+		3, 2, 0
+};
+
+double* TestVertices(int generation)
+{
+	return &testVertices[0];
+}
+
+int TestVerticesCount(int generation)
+{
+	return testVertices.size(); 
+}
+
+const int* TestIndices(int generation)
+{
+	return &testIndices[0];
+}
+
+int TestIndicesCount(int generation)
+{
+	return testIndices.size(); 
+}
+//End of Tests and Examples. 
+
 
 double* GeodesicGridVertices(int generation)
 {
@@ -33,11 +72,11 @@ int GeodesicGridVerticesCount(int generation)
 const int* GeodesicGridIndices(int generation)
 {
 	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
-	return &(grid.GetTriangleIndices()[0]).a;
+	return grid.GetTriangleIndices()[0].i;
 }
 
 int GeodesicGridIndicesCount(int generation)
 {
 	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
-	return grid.GetTriangleIndices().size() * 3; 
+	return grid.GetTriangleIndices().size()*3; 
 }

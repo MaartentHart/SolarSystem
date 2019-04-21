@@ -5,8 +5,14 @@
 #define DLL __declspec(dllexport) 
 extern "C"
 {
+	//Tests and Examples
 	DLL void __cdecl ExampleSetString(const char*theString);
 	DLL int __cdecl ExampleGetInt();
+	DLL double* __cdecl TestVertices(int generation);
+	DLL int __cdecl TestVerticesCount(int generation);
+	DLL const int* __cdecl TestIndices(int generation);
+	DLL int __cdecl TestIndicesCount(int generation);
+	//End of Tests and Examples. 
 
 	DLL double* __cdecl GeodesicGridVertices(int generation);
 	DLL int __cdecl GeodesicGridVerticesCount(int generation); 

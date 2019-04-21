@@ -40,7 +40,7 @@ namespace SolarSystem
     private void TestEarthButton_Click(object sender, EventArgs e)
     {
       CRenderableObject earth = new CRenderableObject();
-      earth.RenderGeometry.SetGeodesicGrid(6);
+      earth.RenderGeometry.SetGeodesicGrid(0);
       Scene.RenderableObjects.Add(earth);
       Camera.Eye = new PositionObject(10, 0, 0);
       Camera.Target = new PositionObject(0, 0, 0); 
@@ -114,6 +114,13 @@ namespace SolarSystem
     private void TargetTestButton_Click(object sender, EventArgs e)
     {
       Camera.Target = new PositionObject(1, 0, 1);
+    }
+
+    private void CPPTestButton_Click(object sender, EventArgs e)
+    {
+      CRenderableObject test = new CRenderableObject();
+      test.RenderGeometry.SetTest();
+      Scene.RenderableObjects.Add(test); 
     }
   }
 }

@@ -11,11 +11,27 @@ namespace SolarSystem
 {
   public static class CoreDll
   {
+    #region TestsAndExamples; 
     [DllImport("Core.dll", EntryPoint = "ExampleGetInt", CallingConvention = CallingConvention.Cdecl)]
     static public extern int ExampleGetInt();
 
     [DllImport("Core.dll", EntryPoint = "ExampleSetString", CallingConvention = CallingConvention.Cdecl)]
     static public extern int ExampleSetString(string theString);
+
+    [DllImport("Core.dll", EntryPoint = "TestVertices", CallingConvention = CallingConvention.Cdecl)]
+    //return value is an IntPtr to a type double.
+    static public extern IntPtr TestVertices();
+
+    [DllImport("Core.dll", EntryPoint = "TestVerticesCount", CallingConvention = CallingConvention.Cdecl)]
+    static public extern int TestVerticesCount();
+
+    [DllImport("Core.dll", EntryPoint = "TestIndices", CallingConvention = CallingConvention.Cdecl)]
+    //return value is an IntPtr to a type ulong.
+    static public extern IntPtr TestIndices();
+
+    [DllImport("Core.dll", EntryPoint = "TestIndicesCount", CallingConvention = CallingConvention.Cdecl)]
+    static public extern int TestIndicesCount();
+    #endregion
 
     [DllImport("Core.dll", EntryPoint = "GeodesicGridVertices", CallingConvention = CallingConvention.Cdecl)]
     //return value is an IntPtr to a type double.

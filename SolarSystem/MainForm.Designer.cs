@@ -39,6 +39,7 @@
       this.BackgroudColorButton = new System.Windows.Forms.ToolStripButton();
       this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
       this.TargetTestButton = new System.Windows.Forms.Button();
+      this.CPPTestButton = new System.Windows.Forms.Button();
       this.ToolStrip.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -128,11 +129,22 @@
       this.TargetTestButton.UseVisualStyleBackColor = true;
       this.TargetTestButton.Click += new System.EventHandler(this.TargetTestButton_Click);
       // 
+      // CPPTestButton
+      // 
+      this.CPPTestButton.Location = new System.Drawing.Point(417, 28);
+      this.CPPTestButton.Name = "CPPTestButton";
+      this.CPPTestButton.Size = new System.Drawing.Size(75, 23);
+      this.CPPTestButton.TabIndex = 9;
+      this.CPPTestButton.Text = "c++ mesh";
+      this.CPPTestButton.UseVisualStyleBackColor = true;
+      this.CPPTestButton.Click += new System.EventHandler(this.CPPTestButton_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(503, 389);
+      this.Controls.Add(this.CPPTestButton);
       this.Controls.Add(this.TargetTestButton);
       this.Controls.Add(this.ToolStrip);
       this.Controls.Add(this.CameraTestButton);
@@ -160,6 +172,7 @@
     private System.Windows.Forms.ToolStripButton BackgroudColorButton;
     private System.Windows.Forms.Timer UpdateTimer;
     private System.Windows.Forms.Button TargetTestButton;
+    private System.Windows.Forms.Button CPPTestButton;
   }
 }
 

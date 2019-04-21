@@ -106,6 +106,16 @@ namespace SolarSystem
 
       renderMode = RenderMode.triangles; 
     }
+
+    public void SetTest()
+    {
+      vertices = CoreDll.TestVertices();
+      verticesCount = CoreDll.TestVerticesCount();
+
+      indices = CoreDll.TestIndices();
+      indicesCount = CoreDll.TestIndicesCount();
+      renderMode = RenderMode.triangles;
+    }
   }
 
   public class CRenderableObject : IRenderable, IPositionObject
