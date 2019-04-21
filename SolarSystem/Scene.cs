@@ -81,7 +81,6 @@ namespace SolarSystem
     private double previousFieldOfView;
 
     private ColorFloat previousBackgroundColor = new ColorFloat();
-
     public ColorFloat BackgroundColor { get; set; } = new ColorFloat();
 
     /// <summary>
@@ -99,9 +98,10 @@ namespace SolarSystem
 
     public IPositionObject Target { get; set; } = new PositionObject(0, 0, 0);
     public IPositionObject Eye { get; set; } = new PositionObject(10, 0, 0); 
-    //public double ViewDistance => (Target - Position).Magnitude;
-    //public Point3D ViewDirection => (Target - Position) / ViewDistance;
     public Point3D UpVector { get; set; } = new Point3D(0, 0, 1);
+    public Point3D ViewDirection => Target.Position - Eye.Position;
+    public Point3D Orientation => ViewDirection.Normal; 
+
     public bool Changed
     {
       get
@@ -120,7 +120,6 @@ namespace SolarSystem
 
         return changed;
       }
-
     }
 
     public void Set(int width, int height)
@@ -137,7 +136,7 @@ namespace SolarSystem
       GluLookAt(Eye.Position, Target.Position, UpVector);
     }
 
-    void GluPerspective(double fovY, double aspect, double zNear, double zFar)
+    public static void GluPerspective(double fovY, double aspect, double zNear, double zFar)
     {
       //https://stackoverflow.com/questions/12943164/replacement-for-gluperspective-with-glfrustrum
       const double pi = Math.PI;
@@ -147,7 +146,7 @@ namespace SolarSystem
       Gl.Frustum(-fW, fW, -fH, fH, zNear, zFar);
     }
 
-    void GluLookAt(Point3D position, Point3D target, Point3D upVector)
+    public static void GluLookAt(Point3D position, Point3D target, Point3D upVector)
     {
       //https://www.gamedev.net/forums/topic/421529-manual-alternative-to-glulookat-/
       //https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluLookAt.xml
@@ -185,23 +184,35 @@ namespace SolarSystem
       Gl.Translate(-position.x, -position.y, -position.z);
     }
 
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="matrix"></param>
-    /// <param name="position"></param>
-    /// <param name="target"></param>
-    /// <param name="upVector">Usually Point3D(0,0,1)</param>
-    void GluLookAt2( Point3D position,
-                  Point3D target, Point3D upVector)
+    public void Rotate(int x, int y, bool targetPivot = true, double step = 0.005)
     {
-      //https://www.khronos.org/opengl/wiki/GluLookAt_code
-      //https://github.com/openMVG/openMVG/blob/master/src/openMVG/numeric/numeric.cpp
-      Point3D forward = (target - position).Normal;
-      Point3D side = forward.Cross(upVector).Normal;
-      Point3D up = side.Cross(forward).Normal; 
+      Point3D difference = ViewDirection;
+      double distance = difference.Magnitude; 
+      Point3D direction = difference/distance;
+      double tilt = Math.Asin(direction.z);
+      double orientation = Math.Atan2(direction.y, direction.x);
 
+      tilt -= y * step;
+      if (tilt > Math.PI / 2)
+        tilt = Math.PI / 2;
+      if (tilt < -Math.PI / 2)
+        tilt = -Math.PI / 2;
+      orientation -= x * step;
+      
+      Point3D newDirection = new Point3D(Math.Cos(tilt) * Math.Cos(orientation), Math.Cos(tilt) * Math.Sin(orientation), Math.Sin(tilt));
+      Point3D shift = newDirection * distance;
+
+
+      if (targetPivot)
+      {
+        if (Eye is PositionObject eye)
+          eye.Position = Target.Position - shift; 
+      }
+      else
+      {
+        if (Target is PositionObject target)
+          target.Position = Eye.Position + shift; 
+      }
 
     }
   }

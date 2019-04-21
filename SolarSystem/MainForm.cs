@@ -16,8 +16,8 @@ namespace SolarSystem
     private double cameraRotationTest = 0;
 
     private GlControlExtended GlControlExtended { get; set; }
-    private Scene Scene => GlControlExtended.Scene;
     private Camera Camera => GlControlExtended.Camera;
+    private Scene Scene => GlControlExtended.Scene;
 
     public MainForm()
     {
@@ -61,17 +61,21 @@ namespace SolarSystem
     {
       Mesh mesh = new Mesh
       {
-        indices = new int[]
-        { 0, 1, 2,
-          1, 0, 3,
-          2, 1, 3,
-          0, 2, 3
-        },
         vertices = new double[]
-        { 0, 1, 0,
-          1, 0, 0,
-          -1, 0, 0,
+        {
+          -1, 0.5, 0,
+          1, 0.5, 0,
+          0, -1, 0,
           0, 0, 1 },
+
+        indices = new int[]
+        {
+          2, 1, 0,
+          3, 0, 1,
+          3, 1, 2,
+          3, 2, 0
+        },
+
         colors = new float[]
         { 0, 1, 0, 1,
           1, 0, 0, 1,

@@ -1,6 +1,7 @@
 ﻿using OpenGL;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,47 @@ namespace SolarSystem
 {
   class GlControlExtended : GlControl
   {
+    private Point mouseLeftDownLocation;
+
+    public Camera Camera { get; set; } = new Camera();
     public Scene Scene { get; set; } = new Scene();
-    public Camera Camera { get; set; } = new Camera(); 
 
     public GlControlExtended()
     {
-      Render += UpdateRender; 
+      InitializeComponent();
+      ContextCreated += ContextCreatedEvent;
+      MouseDown += MouseDownEvent;
+      MouseMove += MouseMoveEvent; 
+      Render += UpdateRender;
+    }
+
+    private void ContextCreatedEvent(object sender, GlControlEventArgs e)
+    {
+      Gl.ClearColor(0.0f, 0.0f, 0.0f, 0.5f); // Black Background
+      Gl.ClearDepth(1.0f);
+      Gl.Enable(EnableCap.DepthTest); // Enables Depth Testing
+      Gl.DepthFunc(DepthFunction.Lequal); // The Type Of Depth Testing To Do
+      Gl.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
+    }
+
+
+    private void MouseDownEvent(object sender, MouseEventArgs e)
+    {
+      if (e.Button == MouseButtons.Left)
+      {
+        mouseLeftDownLocation = e.Location;
+      }
+    }
+
+    private void MouseMoveEvent(object sender, MouseEventArgs e)
+    {
+      if (e.Button == MouseButtons.Left)
+      {
+        int x = e.X - mouseLeftDownLocation.X;
+        int y = e.Y - mouseLeftDownLocation.Y;
+        Camera.Rotate(x, y, true, Math.PI*2/Width);
+        mouseLeftDownLocation = e.Location; 
+      }
     }
 
     public void UpdateRender(object sender, GlControlEventArgs e)
@@ -27,5 +63,17 @@ namespace SolarSystem
       Scene.Render();
     }
 
+    private void InitializeComponent()
+    {
+      this.SuspendLayout();
+      // 
+      // GlControlExtended
+      // 
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.DepthBits = ((uint)(24u));
+      this.Name = "GlControlExtended";
+      this.ResumeLayout(false);
+
+    }
   }
 }
