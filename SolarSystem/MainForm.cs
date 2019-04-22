@@ -40,9 +40,12 @@ namespace SolarSystem
     private void TestEarthButton_Click(object sender, EventArgs e)
     {
       CRenderableObject earth = new CRenderableObject();
+      double scale = 2;
+
+      earth.Scale = new Point3D(scale, scale, scale);
       earth.RenderGeometry.SetGeodesicGrid(6);
       Scene.RenderableObjects.Add(earth);
-      Camera.Eye = new PositionObject(10, 0, 0);
+      Camera.Eye = new PositionObject(5*scale, 0, 0);
       Camera.Target = new PositionObject(0, 0, 0); 
     }
 

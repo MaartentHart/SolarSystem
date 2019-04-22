@@ -295,13 +295,13 @@ namespace SolarSystem
 
     public bool On { get; set; } = true;
 
-    public ColorFloat Color { get; set; } = new ColorFloat(); 
+    public ColorFloat Color { get; set; } = new ColorFloat();
 
     public Point3D Position => camera.Eye.Position
       + camera.ForwardNormal * relativePosition.x
       + camera.RightNormal * relativePosition.y
       + camera.UpNormal * relativePosition.z; 
-
+      
     public CameraLight(Camera camera)
     {
       this.camera = camera; 
