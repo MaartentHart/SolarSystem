@@ -11,6 +11,6 @@ namespace SolarSystem
   /// </summary>
   public class Planet
   {
-
+    public CRenderableObject CRenderableObject { get; set; } = new CRenderableObject(); 
   }
 }

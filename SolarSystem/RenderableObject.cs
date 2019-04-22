@@ -75,6 +75,7 @@ namespace SolarSystem
       if (enableNormals)
       {
         Gl.Enable(EnableCap.Lighting);
+        Gl.Enable(EnableCap.Normalize); 
         Gl.NormalPointer(NormalPointerType.Double, 0, normals);
         Gl.EnableClientState(EnableCap.NormalArray);
       }
@@ -127,19 +128,30 @@ namespace SolarSystem
     public Point3D Position
     {
       get => Translation.Position;
-      set => Translation.Position = value; 
+      set
+      {
+        Translation.Position = value;
+        Changed = true; 
+      }
     }
 
     public Point3D Scale
     {
       get => Translation.Scale;
-      set => Translation.Scale = value; 
+      set
+      {
+        Translation.Scale = value;
+        Changed = true;
+      }
     }
-
     public Rotation Rotation
     {
       get => Translation.Rotation;
-      set => Translation.Rotation = value; 
+      set
+      {
+        Translation.Rotation = value;
+        Changed = true;
+      }
     }
 
     public CRenderGeometry RenderGeometry { get; set; } = new CRenderGeometry();

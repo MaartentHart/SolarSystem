@@ -13,23 +13,16 @@ namespace SolarSystem
 {
   public partial class MainForm : Form
   {
+    private Planet TestEarth; 
     private double cameraRotationTest = 0;
 
-    private GlControlExtended GlControlExtended { get; set; }
-    private Camera Camera => GlControlExtended.Camera;
-    private Scene Scene => GlControlExtended.Scene;
+
+    private Camera Camera => GlView.Camera;
+    private Scene Scene => GlView.Scene;
 
     public MainForm()
     {
       InitializeComponent();
-      GlControlExtended = new GlControlExtended
-      {
-        Width = OpenGLPanel.Width,
-        Height = OpenGLPanel.Height,
-        Anchor = AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top
-      };
-
-      OpenGLPanel.Controls.Add(GlControlExtended);
     }
 
     private void TestButton_Click(object sender, EventArgs e)
@@ -39,19 +32,18 @@ namespace SolarSystem
 
     private void TestEarthButton_Click(object sender, EventArgs e)
     {
-      CRenderableObject earth = new CRenderableObject();
-      double scale = 2;
+      if (TestEarth != null)
+        return;
 
-      earth.Scale = new Point3D(scale, scale, scale);
-      earth.RenderGeometry.SetGeodesicGrid(6);
-      Scene.RenderableObjects.Add(earth);
-      Camera.Eye = new PositionObject(5*scale, 0, 0);
-      Camera.Target = new PositionObject(0, 0, 0); 
+      TestEarth = new Planet();
+      TestEarth.CRenderableObject.RenderGeometry.SetGeodesicGrid(6);
+      Scene.RenderableObjects.Add(TestEarth.CRenderableObject);
+      
     }
 
     private void ForceRender()
     {
-      Refresh(); 
+      GlView.Refresh(); 
     }
 
     private void CamLightTestButton_Click(object sender, EventArgs e)
@@ -88,24 +80,13 @@ namespace SolarSystem
       Scene.RenderableObjects.Add(mesh); 
     }
 
-    private void CameraTestButton_Click(object sender, EventArgs e)
+    private void SampleFormTestButton_Click(object sender, EventArgs e)
     {
-      cameraRotationTest += 0.01; 
-      Camera.Eye = new PositionObject(15 * Math.Cos(cameraRotationTest), 15 * Math.Sin(cameraRotationTest), 0); 
+      using (HelloTriangle.ANGLE.SampleForm form = new HelloTriangle.ANGLE.SampleForm())
+        form.ShowDialog(); 
     }
 
-    private void BackgroudColorButton_Click(object sender, EventArgs e)
-    {
-      using (ColorDialog colorDialog = new ColorDialog())
-      {
-        colorDialog.Tag = "Choose background color.";
-        if (colorDialog.ShowDialog() != DialogResult.OK)
-          return;
 
-        GlControlExtended.Camera.BackgroundColor = new ColorFloat(colorDialog.Color);
-        ForceRender(); 
-      }
-    }
 
     private void UpdateTimer_Tick(object sender, EventArgs e)
     {
@@ -123,6 +104,13 @@ namespace SolarSystem
       CRenderableObject test = new CRenderableObject();
       test.RenderGeometry.SetTest();
       Scene.RenderableObjects.Add(test); 
+    }
+
+    private void ScaleTestButton_Click(object sender, EventArgs e)
+    {
+      if (TestEarth == null)
+        return;
+      TestEarth.CRenderableObject.Scale *= 1.2; 
     }
   }
 }

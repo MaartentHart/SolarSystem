@@ -78,6 +78,7 @@ namespace SolarSystem
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.DepthBits = ((uint)(24u));
       this.Name = "GlControlExtended";
+      this.Size = new System.Drawing.Size(618, 294);
       this.ResumeLayout(false);
 
     }
