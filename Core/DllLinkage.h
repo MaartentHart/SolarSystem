@@ -14,7 +14,7 @@ extern "C"
 	DLL int __cdecl TestIndicesCount(int generation);
 	//End of Tests and Examples. 
 
-	DLL double* __cdecl GeodesicGridVertices(int generation);
+	DLL const double* __cdecl GeodesicGridVertices(int generation);
 	DLL int __cdecl GeodesicGridVerticesCount(int generation); 
 	DLL const int* __cdecl GeodesicGridIndices(int generation);
 	DLL int __cdecl GeodesicGridIndicesCount(int generation);

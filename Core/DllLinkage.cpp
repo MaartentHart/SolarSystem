@@ -57,26 +57,26 @@ int TestIndicesCount(int generation)
 //End of Tests and Examples. 
 
 
-double* GeodesicGridVertices(int generation)
+const double* GeodesicGridVertices(int generation)
 {
-	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
-	return grid.points[0].XYZ;
+	const GeodesicGrid*grid = GetGeodesicGrid((unsigned int)generation);
+	return grid->points[0].XYZ;
 }
 
 int GeodesicGridVerticesCount(int generation)
 {
-	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
-	return grid.points.size(); 
+	const GeodesicGrid*grid = GetGeodesicGrid((unsigned int)generation);
+	return grid->points.size(); 
 }
 
 const int* GeodesicGridIndices(int generation)
 {
-	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
-	return grid.GetTriangleIndices()[0].i;
+	const GeodesicGrid*grid = GetGeodesicGrid((unsigned int)generation);
+	return grid->GetTriangleIndices()[0].i;
 }
 
 int GeodesicGridIndicesCount(int generation)
 {
-	GeodesicGrid grid = GetGeodesicGrid((unsigned int)generation);
-	return grid.GetTriangleIndices().size()*3; 
+	const GeodesicGrid*grid = GetGeodesicGrid((unsigned int)generation);
+	return grid->GetTriangleIndices().size()*3; 
 }

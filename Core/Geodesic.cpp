@@ -345,9 +345,9 @@ const TanArray & MainTanArray()
 	return tanArray;
 }
 
-const GeodesicGrid& GetGeodesicGrid(unsigned int generation)
+const GeodesicGrid* GetGeodesicGrid(unsigned int generation)
 {
-	return *geodesicGrids.GetGrid(generation);
+	return geodesicGrids.GetGrid(generation);
 }
 
 SectionRowOrColumn::SectionRowOrColumn()
@@ -659,18 +659,18 @@ GridCell::GridCell(const GeodesicGrid&grid, char squareGrid, int Row, int Column
 	: squaregrid(squareGrid), row(Row), column(Column), CornerDuplicateWarning(false)
 {
 	generation = grid.Generation();
-	PointIndex(grid);
+	PointIndex(generation);
 }
 
 GridCell::GridCell(char squareGrid, int Row, int Column, unsigned short Generation)
 	: squaregrid(squareGrid), row(Row), column(Column), generation(Generation), CornerDuplicateWarning(false)
 {
-	PointIndex(GetGeodesicGrid(Generation));
+	PointIndex(*GetGeodesicGrid(Generation));
 }
 
 int GridCell::PointIndex()
 {
-	return PointIndex(GetGeodesicGrid(generation));
+	return PointIndex(*GetGeodesicGrid(generation));
 }
 
 int GridCell::PointIndex(const GeodesicGrid&grid)
@@ -730,7 +730,7 @@ GridCell GridCell::Neighbor(char index) const
 				throw std::domain_error("GRIDCELL::Neighbor value must be between 0 and 5");
 			}
 		}
-		neighbor.PointIndex(GetGeodesicGrid(generation));
+		neighbor.PointIndex(*GetGeodesicGrid(generation));
 		return neighbor;
 	}
 
@@ -913,7 +913,7 @@ GridCell GridCell::Neighbor(char index) const
 		throw std::domain_error("GRIDCELL::Neighbor value must be between 0 and 5");
 	}
 
-	neighbor.PointIndex(GetGeodesicGrid(generation));
+	neighbor.PointIndex(*GetGeodesicGrid(generation));
 	return neighbor;
 }
 
@@ -944,7 +944,7 @@ GridCell GridCell::Parent() const
 
 Point3D GridCell::Point3D() const
 {
-	return GetGeodesicGrid(generation).Point(pointindex); 
+	return GetGeodesicGrid(generation)->Point(pointindex); 
 }
 
 GridCell DummyCell1(unsigned short generation)
@@ -1009,12 +1009,12 @@ void GridCellEnumerator::StepBack()//sets current iterator back to a valid paren
 
 GridCellEnumerator::GridCellEnumerator(int index, unsigned short generation)
 {
-	Setup(GetGeodesicGrid(generation).GridCell(index));
+	Setup(GetGeodesicGrid(generation)->GridCell(index));
 }
 
 GridCellEnumerator::GridCellEnumerator(const ::Point3D&that, unsigned short generation)
 {
-	Setup(::GridCell(GetGeodesicGrid(generation), that));
+	Setup(::GridCell(*GetGeodesicGrid(generation), that));
 }
 
 GridCellEnumerator::GridCellEnumerator(const ::GridCell&gridCell)

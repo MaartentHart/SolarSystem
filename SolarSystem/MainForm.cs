@@ -40,7 +40,7 @@ namespace SolarSystem
     private void TestEarthButton_Click(object sender, EventArgs e)
     {
       CRenderableObject earth = new CRenderableObject();
-      earth.RenderGeometry.SetGeodesicGrid(0);
+      earth.RenderGeometry.SetGeodesicGrid(6);
       Scene.RenderableObjects.Add(earth);
       Camera.Eye = new PositionObject(10, 0, 0);
       Camera.Target = new PositionObject(0, 0, 0); 
@@ -48,13 +48,12 @@ namespace SolarSystem
 
     private void ForceRender()
     {
-      OpenGLPanel.Visible = false;
-      OpenGLPanel.Visible = true; 
+      Refresh(); 
     }
 
-    private void PaintButton_Click(object sender, EventArgs e)
+    private void CamLightTestButton_Click(object sender, EventArgs e)
     {
-      ForceRender(); 
+      Camera.Light.On = !Camera.Light.On; 
     }
 
     private void TetrahedronTestButton_Click(object sender, EventArgs e)

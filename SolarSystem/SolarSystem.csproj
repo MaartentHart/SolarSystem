@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoreDll.cs" />
+    <Compile Include="Debug.cs" />
     <Compile Include="GlControlExtended.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -108,7 +108,7 @@ const Segment&MainSegment();
 const TanArray&MainTanArray();
 
 //Gets a geodesic grid by generation, and puts a new geodesic grid into a vector if it did not yet exist. 
-const GeodesicGrid&GetGeodesicGrid(unsigned int generation);
+const GeodesicGrid*GetGeodesicGrid(unsigned int generation);
 
 struct SectionRowOrColumn
 {

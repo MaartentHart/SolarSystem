@@ -32,7 +32,7 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.OpenGLPanel = new System.Windows.Forms.Panel();
       this.TestEarthButton = new System.Windows.Forms.Button();
-      this.PaintButton = new System.Windows.Forms.Button();
+      this.CamLightTestButton = new System.Windows.Forms.Button();
       this.TriangleTestButton = new System.Windows.Forms.Button();
       this.CameraTestButton = new System.Windows.Forms.Button();
       this.ToolStrip = new System.Windows.Forms.ToolStrip();
@@ -63,15 +63,15 @@
       this.TestEarthButton.UseVisualStyleBackColor = true;
       this.TestEarthButton.Click += new System.EventHandler(this.TestEarthButton_Click);
       // 
-      // PaintButton
+      // CamLightTestButton
       // 
-      this.PaintButton.Location = new System.Drawing.Point(93, 28);
-      this.PaintButton.Name = "PaintButton";
-      this.PaintButton.Size = new System.Drawing.Size(75, 23);
-      this.PaintButton.TabIndex = 4;
-      this.PaintButton.Text = "Paint";
-      this.PaintButton.UseVisualStyleBackColor = true;
-      this.PaintButton.Click += new System.EventHandler(this.PaintButton_Click);
+      this.CamLightTestButton.Location = new System.Drawing.Point(93, 28);
+      this.CamLightTestButton.Name = "CamLightTestButton";
+      this.CamLightTestButton.Size = new System.Drawing.Size(75, 23);
+      this.CamLightTestButton.TabIndex = 4;
+      this.CamLightTestButton.Text = "CamLight";
+      this.CamLightTestButton.UseVisualStyleBackColor = true;
+      this.CamLightTestButton.Click += new System.EventHandler(this.CamLightTestButton_Click);
       // 
       // TriangleTestButton
       // 
@@ -149,7 +149,7 @@
       this.Controls.Add(this.ToolStrip);
       this.Controls.Add(this.CameraTestButton);
       this.Controls.Add(this.TriangleTestButton);
-      this.Controls.Add(this.PaintButton);
+      this.Controls.Add(this.CamLightTestButton);
       this.Controls.Add(this.TestEarthButton);
       this.Controls.Add(this.OpenGLPanel);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -165,7 +165,7 @@
     #endregion
     private System.Windows.Forms.Panel OpenGLPanel;
     private System.Windows.Forms.Button TestEarthButton;
-    private System.Windows.Forms.Button PaintButton;
+    private System.Windows.Forms.Button CamLightTestButton;
     private System.Windows.Forms.Button TriangleTestButton;
     private System.Windows.Forms.Button CameraTestButton;
     private System.Windows.Forms.ToolStrip ToolStrip;

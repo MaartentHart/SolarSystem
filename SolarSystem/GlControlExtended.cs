@@ -21,8 +21,15 @@ namespace SolarSystem
       InitializeComponent();
       ContextCreated += ContextCreatedEvent;
       MouseDown += MouseDownEvent;
-      MouseMove += MouseMoveEvent; 
+      MouseMove += MouseMoveEvent;
+      MouseWheel += MouseWheelEvent;
       Render += UpdateRender;
+    }
+
+    private void MouseWheelEvent(object sender, MouseEventArgs e)
+    {
+      double zoomFactor = Math.Pow(0.8, e.Delta/120);
+      Camera.Zoom(zoomFactor);
     }
 
     private void ContextCreatedEvent(object sender, GlControlEventArgs e)
@@ -33,7 +40,6 @@ namespace SolarSystem
       Gl.DepthFunc(DepthFunction.Lequal); // The Type Of Depth Testing To Do
       Gl.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
     }
-
 
     private void MouseDownEvent(object sender, MouseEventArgs e)
     {
@@ -59,7 +65,7 @@ namespace SolarSystem
       Control senderControl = (Control)sender;
       int width = senderControl.ClientSize.Width;
       int height = senderControl.ClientSize.Height;
-      Camera.Set(width, height);
+      Camera.Render(width, height);
       Scene.Render();
     }
 
