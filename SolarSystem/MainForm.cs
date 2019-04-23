@@ -13,10 +13,8 @@ namespace SolarSystem
 {
   public partial class MainForm : Form
   {
-    private Planet TestEarth; 
-    private double cameraRotationTest = 0;
-
-
+    private Planet TestEarth { get; set; }
+    
     private Camera Camera => GlView.Camera;
     private Scene Scene => GlView.Scene;
 
@@ -35,10 +33,9 @@ namespace SolarSystem
       if (TestEarth != null)
         return;
 
-      TestEarth = new Planet();
-      TestEarth.CRenderableObject.RenderGeometry.SetGeodesicGrid(6);
-      Scene.RenderableObjects.Add(TestEarth.CRenderableObject);
-      
+      TestEarth = new Planet(SolarSystemPlanet.Earth);
+      TestEarth.RenderableObject.RenderGeometry.SetGeodesicGrid(9);
+      Scene.RenderableObjects.Add(TestEarth.RenderableObject);      
     }
 
     private void ForceRender()
@@ -86,8 +83,6 @@ namespace SolarSystem
         form.ShowDialog(); 
     }
 
-
-
     private void UpdateTimer_Tick(object sender, EventArgs e)
     {
       if (Scene.Changed || Camera.Changed)
@@ -99,18 +94,16 @@ namespace SolarSystem
       Camera.Target = new PositionObject(1, 0, 1);
     }
 
-    private void CPPTestButton_Click(object sender, EventArgs e)
-    {
-      CRenderableObject test = new CRenderableObject();
-      test.RenderGeometry.SetTest();
-      Scene.RenderableObjects.Add(test); 
-    }
-
     private void ScaleTestButton_Click(object sender, EventArgs e)
     {
       if (TestEarth == null)
         return;
-      TestEarth.CRenderableObject.Scale *= 1.2; 
+      TestEarth.RenderableObject.Scale *= 1.2; 
+    }
+
+    private void HeigtmapTestButton_Click(object sender, EventArgs e)
+    {
+      HeightMap heightMap = new HeightMap(SolarSystemPlanet.Earth); 
     }
   }
 }

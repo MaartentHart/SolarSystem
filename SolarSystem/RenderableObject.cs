@@ -156,6 +156,7 @@ namespace SolarSystem
 
     public CRenderGeometry RenderGeometry { get; set; } = new CRenderGeometry();
     public bool Changed { get; set; } = false; 
+    public HeightMap HeightMap { get; set; }
 
     public void Render()
     {

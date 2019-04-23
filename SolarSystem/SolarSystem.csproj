@@ -96,6 +96,7 @@
     <Compile Include="GlView.Designer.cs">
       <DependentUpon>GlView.cs</DependentUpon>
     </Compile>
+    <Compile Include="HeightMap.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +116,7 @@
     </Compile>
     <Compile Include="Scene.cs" />
     <Compile Include="Shader.cs" />
+    <Compile Include="StringValueAttribute.cs" />
     <EmbeddedResource Include="GlControlExtended.resx">
       <DependentUpon>GlControlExtended.cs</DependentUpon>
     </EmbeddedResource>
@@ -165,6 +167,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shaders\TestFrag.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shaders\TestVec.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -54,7 +54,6 @@ namespace HelloTriangle.ANGLE
       // Create resources
       StringBuilder infolog = new StringBuilder(1024);
       int infologLength;
-      int compiled;
 
       infolog.EnsureCapacity(1024);
 
@@ -62,7 +61,7 @@ namespace HelloTriangle.ANGLE
       uint vertexShader = Gl.CreateShader(ShaderType.VertexShader);
       Gl.ShaderSource(vertexShader, _Es2_ShaderVertexSource);
       Gl.CompileShader(vertexShader);
-      Gl.GetShader(vertexShader, ShaderParameterName.CompileStatus, out compiled);
+      Gl.GetShader(vertexShader, ShaderParameterName.CompileStatus, out int compiled);
       if (compiled == 0)
       {
         Gl.GetShaderInfoLog(vertexShader, 1024, out infologLength, infolog);
@@ -84,8 +83,7 @@ namespace HelloTriangle.ANGLE
       Gl.AttachShader(_Es2_Program, fragmentShader);
       Gl.LinkProgram(_Es2_Program);
 
-      int linked;
-      Gl.GetProgram(_Es2_Program, ProgramProperty.LinkStatus, out linked);
+      Gl.GetProgram(_Es2_Program, ProgramProperty.LinkStatus, out int linked);
 
       if (linked == 0)
       {
@@ -128,8 +126,6 @@ namespace HelloTriangle.ANGLE
       _Es2_Program = 0;
     }
 
-    private float _Angle;
-
     private uint _Es2_Program;
 
     private int _Es2_Program_Location_aPosition;
@@ -138,27 +134,9 @@ namespace HelloTriangle.ANGLE
 
     private int _Es2_Program_Location_uMVP;
 
-    private readonly string[] _Es2_ShaderVertexSource = new string[] {
-      "uniform mat4 uMVP;\n",
-      "attribute vec2 aPosition;\n",
-      "attribute vec3 aColor;\n",
-      "varying vec3 vColor;\n",
-      "void main() {\n",
-      "	gl_Position = uMVP * vec4(aPosition, 0.0, 1.0);\n",
-      "	vColor = aColor;\n",
-      "}\n"
-    };
 
-    
-    private readonly string[] _Es2_ShaderFragmentSource_original = new string[] {
-      "precision mediump float;\n",
-      "varying vec3 vColor;\n",
-      "void main() {\n",
-      "	gl_FragColor = vec4(vColor, 1.0);\n",
-      "}\n"
-    };
-
-    private readonly string[] _Es2_ShaderFragmentSource = SolarSystem.Shader.Load(@"Shaders\TestFrag.glsl");
+    private readonly string[] _Es2_ShaderVertexSource = SolarSystem.Shader.Load("TestVec");
+    private readonly string[] _Es2_ShaderFragmentSource = SolarSystem.Shader.Load("TestFrag");
 
     /// <summary>
     /// Vertex position array.
@@ -177,5 +155,6 @@ namespace HelloTriangle.ANGLE
       0.0f, 1.0f, 0.0f,
       0.0f, 0.0f, 1.0f
     };
+
   }
 }
