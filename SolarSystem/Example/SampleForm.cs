@@ -149,14 +149,17 @@ namespace HelloTriangle.ANGLE
       "}\n"
     };
 
-    private readonly string[] _Es2_ShaderFragmentSource = new string[] {
+    
+    private readonly string[] _Es2_ShaderFragmentSource_original = new string[] {
       "precision mediump float;\n",
       "varying vec3 vColor;\n",
       "void main() {\n",
       "	gl_FragColor = vec4(vColor, 1.0);\n",
       "}\n"
     };
-   
+
+    private readonly string[] _Es2_ShaderFragmentSource = SolarSystem.Shader.Load(@"Shaders\TestFrag.glsl");
+
     /// <summary>
     /// Vertex position array.
     /// </summary>

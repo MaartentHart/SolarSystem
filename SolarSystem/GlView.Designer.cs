@@ -33,8 +33,8 @@
       SolarSystem.Scene scene1 = new SolarSystem.Scene();
       this.ToolStrip = new System.Windows.Forms.ToolStrip();
       this.BackgroundColorButton = new System.Windows.Forms.ToolStripButton();
-      this.GlControlExtended = new SolarSystem.GlControlExtended();
       this.CameraLightButton = new System.Windows.Forms.ToolStripButton();
+      this.GlControlExtended = new SolarSystem.GlControlExtended();
       this.ToolStrip.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -45,7 +45,7 @@
             this.CameraLightButton});
       this.ToolStrip.Location = new System.Drawing.Point(0, 0);
       this.ToolStrip.Name = "ToolStrip";
-      this.ToolStrip.Size = new System.Drawing.Size(150, 25);
+      this.ToolStrip.Size = new System.Drawing.Size(682, 25);
       this.ToolStrip.TabIndex = 0;
       this.ToolStrip.Text = "toolStrip1";
       // 
@@ -58,6 +58,16 @@
       this.BackgroundColorButton.Size = new System.Drawing.Size(23, 22);
       this.BackgroundColorButton.Text = "Background Color";
       this.BackgroundColorButton.Click += new System.EventHandler(this.BackgroudColorButton_Click);
+      // 
+      // CameraLightButton
+      // 
+      this.CameraLightButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.CameraLightButton.Image = ((System.Drawing.Image)(resources.GetObject("CameraLightButton.Image")));
+      this.CameraLightButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.CameraLightButton.Name = "CameraLightButton";
+      this.CameraLightButton.Size = new System.Drawing.Size(23, 22);
+      this.CameraLightButton.Text = "Camera Light";
+      this.CameraLightButton.Click += new System.EventHandler(this.CameraLightButton_Click);
       // 
       // GlControlExtended
       // 
@@ -74,19 +84,9 @@
       this.GlControlExtended.Name = "GlControlExtended";
       scene1.Changed = false;
       this.GlControlExtended.Scene = scene1;
-      this.GlControlExtended.Size = new System.Drawing.Size(150, 122);
+      this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
       this.GlControlExtended.StencilBits = ((uint)(0u));
       this.GlControlExtended.TabIndex = 1;
-      // 
-      // CameraLightButton
-      // 
-      this.CameraLightButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.CameraLightButton.Image = ((System.Drawing.Image)(resources.GetObject("CameraLightButton.Image")));
-      this.CameraLightButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.CameraLightButton.Name = "CameraLightButton";
-      this.CameraLightButton.Size = new System.Drawing.Size(23, 22);
-      this.CameraLightButton.Text = "Camera Light";
-      this.CameraLightButton.Click += new System.EventHandler(this.CameraLightButton_Click);
       // 
       // GlView
       // 
@@ -95,6 +95,7 @@
       this.Controls.Add(this.GlControlExtended);
       this.Controls.Add(this.ToolStrip);
       this.Name = "GlView";
+      this.Size = new System.Drawing.Size(682, 426);
       this.ToolStrip.ResumeLayout(false);
       this.ToolStrip.PerformLayout();
       this.ResumeLayout(false);

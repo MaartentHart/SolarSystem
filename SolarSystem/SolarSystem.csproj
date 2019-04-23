@@ -114,6 +114,7 @@
       <DependentUpon>SampleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Scene.cs" />
+    <Compile Include="Shader.cs" />
     <EmbeddedResource Include="GlControlExtended.resx">
       <DependentUpon>GlControlExtended.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,6 +162,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resource\step 1000.cmap">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shaders\TestFrag.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
