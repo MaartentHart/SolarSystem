@@ -98,7 +98,7 @@ namespace SolarSystem
     {
       if (TestEarth == null)
         return;
-      TestEarth.RenderableObject.Scale *= 1.2; 
+      TestEarth.RenderableObject.Scale *= 1.2;
     }
 
     private void HeigtmapTestButton_Click(object sender, EventArgs e)

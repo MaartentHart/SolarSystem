@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
@@ -33,6 +34,12 @@ namespace HelloTriangle.ANGLE
   /// </summary>
   public partial class SampleForm : Form
   {
+    SolarSystem.Shader shader;
+    string uMVP = "uMVP";
+    string aPosition = "aPosition";
+    string aColor = "aColor";
+    string aScale = "aScale"; 
+
     /// <summary>
     /// Construct a SampleForm.
     /// </summary>
@@ -51,6 +58,21 @@ namespace HelloTriangle.ANGLE
       // Update Form caption
       Text = String.Format("Hello triangle with ANGLE (Version: {0})", Gl.GetString(StringName.Version));
 
+      List<string> uniformNames = new List<string>();
+      List<string> attributeNames = new List<string>();
+
+      uniformNames.Add(uMVP);
+      attributeNames.Add(aPosition);
+      attributeNames.Add(aColor);
+      attributeNames.Add(aScale); 
+
+      //_Es2_Program_Location_uMVP = Gl.GetUniformLocation(_Es2_Program, "uMVP");
+      //_Es2_Program_Location_aPosition = Gl.GetAttribLocation(_Es2_Program, "aPosition");
+      //_Es2_Program_Location_aColor = Gl.GetAttribLocation(_Es2_Program, "aColor");
+      
+      shader = new SolarSystem.Shader("TestVec", "TestFrag", uniformNames, attributeNames);
+
+      /*
       // Create resources
       StringBuilder infolog = new StringBuilder(1024);
       int infologLength;
@@ -93,7 +115,8 @@ namespace HelloTriangle.ANGLE
       _Es2_Program_Location_uMVP = Gl.GetUniformLocation(_Es2_Program, "uMVP");
       _Es2_Program_Location_aPosition = Gl.GetAttribLocation(_Es2_Program, "aPosition");
       _Es2_Program_Location_aColor = Gl.GetAttribLocation(_Es2_Program, "aColor");
-    }
+      */  
+  }
 
     private void RenderControl_Render(object sender, GlControlEventArgs e)
     {
@@ -102,18 +125,23 @@ namespace HelloTriangle.ANGLE
       Gl.Viewport(0, 0, control.Width, control.Height);
       Gl.Clear(ClearBufferMask.ColorBufferBit);
 
-      Gl.UseProgram(_Es2_Program);
+      shader.Render(); 
+      //Gl.UseProgram(_Es2_Program);
 
       using (MemoryLock arrayPosition = new MemoryLock(_ArrayPosition))
       using (MemoryLock arrayColor = new MemoryLock(_ArrayColor))
+      using (MemoryLock arrayScale = new MemoryLock(_ArrayScale))
       {
-        Gl.VertexAttribPointer((uint)_Es2_Program_Location_aPosition, 2, VertexAttribType.Float, false, 0, arrayPosition.Address);
-        Gl.EnableVertexAttribArray((uint)_Es2_Program_Location_aPosition);
+        Gl.VertexAttribPointer((uint)shader.Attributes[aPosition], 2, VertexAttribType.Float, false, 0, arrayPosition.Address);
+        Gl.EnableVertexAttribArray((uint)shader.Attributes[aPosition]);
 
-        Gl.VertexAttribPointer((uint)_Es2_Program_Location_aColor, 3, VertexAttribType.Float, false, 0, arrayColor.Address);
-        Gl.EnableVertexAttribArray((uint)_Es2_Program_Location_aColor);
+        Gl.VertexAttribPointer((uint)shader.Attributes[aColor], 3, VertexAttribType.Float, false, 0, arrayColor.Address);
+        Gl.EnableVertexAttribArray((uint)shader.Attributes[aColor]);
 
-        Gl.UniformMatrix4f(_Es2_Program_Location_uMVP, 1, false, Matrix4x4f.Ortho2D(0.0f, 1.0f, 0.0f, 1.0f));
+        Gl.VertexAttribPointer((uint)shader.Attributes[aScale], 1, VertexAttribType.Float, false, 0, arrayScale.Address);
+        Gl.EnableVertexAttribArray((uint)shader.Attributes[aScale]);
+
+        Gl.UniformMatrix4f(shader.Uniforms[uMVP], 1, false, Matrix4x4f.Ortho2D(0.0f, 1.0f, 0.0f, 1.0f));
 
         Gl.DrawArrays(PrimitiveType.Triangles, 0, 3);
       }
@@ -121,22 +149,25 @@ namespace HelloTriangle.ANGLE
 
     private void RenderControl_ContextDestroying(object sender, OpenGL.GlControlEventArgs e)
     {
+      shader.Destroy(); 
+      /*
       if (_Es2_Program != 0)
         Gl.DeleteProgram(_Es2_Program);
       _Es2_Program = 0;
+      */
     }
 
-    private uint _Es2_Program;
+    //private uint _Es2_Program;
 
-    private int _Es2_Program_Location_aPosition;
+    //private int _Es2_Program_Location_aPosition;
 
-    private int _Es2_Program_Location_aColor;
+    //private int _Es2_Program_Location_aColor;
 
-    private int _Es2_Program_Location_uMVP;
+    //private int _Es2_Program_Location_uMVP;
 
 
-    private readonly string[] _Es2_ShaderVertexSource = SolarSystem.Shader.Load("TestVec");
-    private readonly string[] _Es2_ShaderFragmentSource = SolarSystem.Shader.Load("TestFrag");
+    //private readonly string[] _Es2_ShaderVertexSource = SolarSystem.Shader.Load("TestVec");
+    //private readonly string[] _Es2_ShaderFragmentSource = SolarSystem.Shader.Load("TestFrag");
 
     /// <summary>
     /// Vertex position array.
@@ -154,6 +185,12 @@ namespace HelloTriangle.ANGLE
       1.0f, 0.0f, 0.0f,
       0.0f, 1.0f, 0.0f,
       0.0f, 0.0f, 1.0f
+    };
+
+    private static readonly float[] _ArrayScale = new float[]{
+      0.5f,
+      0.8f,
+      1.0f
     };
 
   }
