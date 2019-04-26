@@ -13,6 +13,7 @@ namespace SolarSystem
 {
   public partial class MainForm : Form
   {
+    private ColorMapForm colorMapForm = new ColorMapForm();
     private double Exxageration
     {
       get => Scene.Exxageration;
@@ -22,6 +23,7 @@ namespace SolarSystem
     private Scene Scene => GlView.Scene;
 
     public Planet Earth { get; private set; }
+    public Planet Moon { get; private set; }
 
     public MainForm()
     {
@@ -34,6 +36,13 @@ namespace SolarSystem
     private void IntializeEarth(object sender, DoWorkEventArgs e)
     {
       Earth = AddPlanet(SolarSystemPlanet.Earth);
+      Earth.SetColorMap(new ColorMap("Earth")); 
+    }
+
+    private void InitializeMoon(object sender, DoWorkEventArgs e)
+    {
+      Moon = AddPlanet(SolarSystemPlanet.Moon);
+      Moon.SetColorMap(new ColorMap("Moon"));
     }
 
     private void TestButton_Click(object sender, EventArgs e)
@@ -65,7 +74,7 @@ namespace SolarSystem
       GlView.Refresh(); 
     }
 
-    private void TetrahedronTestButton_Click(object sender, EventArgs e)
+    /*private void TetrahedronTestButton_Click(object sender, EventArgs e)
     {
       Mesh mesh = new Mesh
       {
@@ -92,13 +101,13 @@ namespace SolarSystem
       };
 
       Scene.RenderableObjects.Add(mesh); 
-    }
+    }*/
 
-    private void SampleFormTestButton_Click(object sender, EventArgs e)
+    /*private void SampleFormTestButton_Click(object sender, EventArgs e)
     {
       using (HelloTriangle.ANGLE.SampleForm form = new HelloTriangle.ANGLE.SampleForm())
         form.ShowDialog(); 
-    }
+    }*/
 
     private void UpdateTimer_Tick(object sender, EventArgs e)
     {
@@ -112,12 +121,6 @@ namespace SolarSystem
           SceneContentBox.Items.Add(renderable.Name, renderable.On);
       }
     }
-
-    private void TargetTestButton_Click(object sender, EventArgs e)
-    {
-      Camera.Target = new PositionObject(1, 0, 1);
-    }
-
 
     private void ExxagerateTestButton_Click(object sender, EventArgs e)
     {
@@ -186,7 +189,29 @@ namespace SolarSystem
     {
       if (Earth == null || Earth.HeightMap == null || Earth.HeightMap.Heights == null)
         return;
-      Earth.SetColorMap(new ColorMap("Example"), Earth.HeightMap.Heights); 
+      Earth.SetColorMap(new ColorMap("step 1000"), Earth.HeightMap.Heights); 
+    }
+
+    private void ColorMapEditorButton_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        if (colorMapForm.ShowDialog() != DialogResult.OK)
+          return;
+        if (SceneContentBox.SelectedIndex >= 0 && SceneContentBox.SelectedIndex < Scene.RenderableObjects.Count)
+          Scene.RenderableObjects[SceneContentBox.SelectedIndex].SetColorMap(colorMapForm.ColorMap);
+      }
+      catch
+      {
+        MessageBox.Show("Cannot apply color.");
+      }
+    }
+
+    private void AddMoonTestButton_Click(object sender, EventArgs e)
+    {
+      BackgroundWorker backgroundWorker = new BackgroundWorker();
+      backgroundWorker.DoWork += InitializeMoon;
+      backgroundWorker.RunWorkerAsync(); 
     }
   }
 }

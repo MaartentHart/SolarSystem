@@ -50,8 +50,7 @@ namespace SolarSystem
     public Point3D Scale { get; }
     public double[] ColorableValues { get; set; }
     public ColorMap ColorMap { get; set; }
-
-
+    
     public List<string> PlanetUniforms { get; } = new List<string>
     {
       "uRadius",
@@ -90,6 +89,7 @@ namespace SolarSystem
       PlanetID = planet;
       RenderableObject.RenderGeometry.SetGeodesicGrid(generation);
       HeightMap = new HeightMap(planet, generation);
+      ColorableValues = HeightMap.Heights; 
       //Shader = new Shader("PlanetHeightMapVertex", "TestFrag", PlanetUniforms, PlanetAttributes); 
       //Color = new ColorFloat[CoreDll.GeodesicGridVerticesCount(9)];
       Name = planet.ToString();
@@ -118,12 +118,25 @@ namespace SolarSystem
       backgroundWorker.RunWorkerAsync();
     }
 
+
     public void SetColorMap(ColorMap colorMap, double[] values)
     {
+      if (values != null)
+      {
+        ColorableValues = values;
+      }
+      SetColorMap(colorMap); 
+    }
+
+    public void SetColorMap(ColorMap colorMap)
+    {
       ColorMap = colorMap;
-      ColorableValues = values; 
-      paint = true;
-      StartBackgroundWorker();
+
+      if (ColorableValues!=null)
+      { 
+        paint = true;
+        StartBackgroundWorker();
+      }
     }
 
     /// <summary>
@@ -216,6 +229,9 @@ namespace SolarSystem
       }
     }
 
+    /// <summary>
+    /// Paint should be called by the background worker. 
+    /// </summary>
     private void Paint()
     {
       paint = false; 
@@ -329,6 +345,7 @@ namespace SolarSystem
       // TODO: uncomment the following line if the finalizer is overridden above.
       // GC.SuppressFinalize(this);
     }
+
     #endregion
   }
 }

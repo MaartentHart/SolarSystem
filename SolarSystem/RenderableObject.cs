@@ -14,6 +14,8 @@ namespace SolarSystem
     bool Changed { get; }
 
     void Render();
+    void SetColorMap(ColorMap colorMap); 
+
   }
 
   public class CRenderGeometry
@@ -199,6 +201,11 @@ namespace SolarSystem
     {
       Gl.Translate(Position.x, Position.y, Position.z);
     }
+
+    public void SetColorMap(ColorMap colorMap)
+    {
+      throw new NotImplementedException();
+    }
   }
 
   public class GlPushPop : IDisposable
@@ -256,6 +263,11 @@ namespace SolarSystem
 
       Gl.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, indices);
 
+    }
+
+    public void SetColorMap(ColorMap colorMap)
+    {
+      throw new NotImplementedException();
     }
   }
 }
