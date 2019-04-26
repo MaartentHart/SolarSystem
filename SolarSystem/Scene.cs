@@ -9,6 +9,7 @@ namespace SolarSystem
 {
   public class Scene
   {
+    private double exxageration = 0; 
     private bool changed = false;
     private List<IRenderable> PreviousRenderableObjects { get; } = new List<IRenderable>();
     private List<ILight> PreviousLights { get; } = new List<ILight>(); 
@@ -50,6 +51,24 @@ namespace SolarSystem
       }
     }
 
+    public double Exxageration
+    {
+      get
+      {
+        return exxageration; 
+      }
+      set
+      {
+        if (exxageration == value)
+          return;
+        exxageration = value; 
+        foreach (IRenderable renderable in RenderableObjects)
+          if (renderable is Planet planet)
+            planet.SetExxageration(exxageration);
+      }
+
+    }
+
     internal void Render()
     {
       if (Lights.Count > 0)
@@ -65,7 +84,6 @@ namespace SolarSystem
       foreach (IRenderable renderableObject in RenderableObjects)
         renderableObject.Render();
     }
-
   }
 
   public interface IPositionObject
@@ -93,6 +111,8 @@ namespace SolarSystem
     
     private double near = 0.001;
     private double far = 1000.0;
+    private IPositionObject target = new PositionObject(0, 0, 0);
+    private IPositionObject eye = new PositionObject(10, 0, 0);
 
     //track changes. 
     private Point3D previousEye = new Point3D();
@@ -118,8 +138,23 @@ namespace SolarSystem
     }
     public double FieldOfView { get; set; } = 25;
 
-    public IPositionObject Target { get; set; } = new PositionObject(0, 0, 0);
-    public IPositionObject Eye { get; set; } = new PositionObject(10, 0, 0);
+    public IPositionObject Target {
+      get => target;
+      set
+      {
+        target = value;
+        ViewRadius = (target.Position - eye.Position).Magnitude; 
+      }
+    } 
+    public IPositionObject Eye {
+      get => eye;
+      set
+      {
+        eye = value;
+        ViewRadius = (target.Position - eye.Position).Magnitude; 
+      }
+    }
+
     public Point3D UpVector { get; set; } = new Point3D(0, 0, 1);
     public Point3D ViewDirection => Target.Position - Eye.Position;
 
@@ -169,7 +204,7 @@ namespace SolarSystem
       GluLookAt(Eye.Position, Target.Position, UpVector);
       Light.Render(0); 
     }
-
+    
     public static void GluPerspective(double fovY, double aspect, double zNear, double zFar)
     {
       //https://stackoverflow.com/questions/12943164/replacement-for-gluperspective-with-glfrustrum
@@ -252,7 +287,25 @@ namespace SolarSystem
     public void Zoom(double zoomFactor)
     {
       if (Eye is PositionObject eye)
-        eye.Position = (eye.Position - Target.Position) * zoomFactor + Target.Position; 
+      {
+        eye.Position = (eye.Position - Target.Position) * zoomFactor + Target.Position;
+        
+        //force an update.
+        Eye = Eye; 
+      }
+    }
+
+    public void Lookat(Planet planet)
+    {
+      Target = planet.RenderableObject;
+      if (Eye is PositionObject eye)
+      {
+        double viewDistance = planet.Scale.x * 3;
+        Point3D direction = eye.Position - Target.Position;
+        direction *= (viewDistance / direction.Magnitude);
+        eye.Position = Target.Position + direction;
+        Eye = Eye; 
+      }
     }
   }
 
@@ -271,9 +324,9 @@ namespace SolarSystem
     //track changes. 
     private bool wasOn;
     private ColorFloat previousColor = new ColorFloat(1,1,1,1);
-    private Point3D previousPosition = new Point3D(); 
+    private Point3D previousDirection = new Point3D(); 
 
-    public Point3D relativePosition = new Point3D(0, 5, 5);
+    public Point3D RelativeDirection { get; set; } = new Point3D(-1, 1, 1);
     
     public bool Changed
     {
@@ -284,11 +337,11 @@ namespace SolarSystem
           changed = true;
         if (previousColor != Color)
           changed = true;
-        if (previousPosition != Position)
+        if (previousDirection != Position)
           changed = true;
         wasOn = On;
         previousColor = Color; 
-        previousPosition = Position;
+        previousDirection = Position;
         return changed; 
       }
     }
@@ -297,10 +350,10 @@ namespace SolarSystem
 
     public ColorFloat Color { get; set; } = new ColorFloat();
 
-    public Point3D Position => camera.Eye.Position
-      + camera.ForwardNormal * relativePosition.x
-      + camera.RightNormal * relativePosition.y
-      + camera.UpNormal * relativePosition.z; 
+    public Point3D Position => 
+      camera.ForwardNormal * RelativeDirection.x
+      + camera.RightNormal * RelativeDirection.y
+      + camera.UpNormal * RelativeDirection.z; 
       
     public CameraLight(Camera camera)
     {
@@ -393,14 +446,14 @@ namespace SolarSystem
     }
   }
 
-  public class ColorFloat
+  public struct ColorFloat
   {
-    public float A { get; set; } = 1.0f;
-    public float R { get; set; } = 0.0f;
-    public float G { get; set; } = 0.0f;
-    public float B { get; set; } = 0.0f;
+    public float R;
+    public float G;
+    public float B;
+    public float A;
 
-    public ColorFloat(float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f)
+    public ColorFloat(float r = 1.0f, float g = 1.0f, float b = 1.0f, float a = 1.0f)
     {
       A = a;
       R = r;
@@ -410,9 +463,9 @@ namespace SolarSystem
 
     public ColorFloat(System.Drawing.Color color)
     {
-      R = color.R / 256f;
-      G = color.G / 256f;
-      B = color.B / 256f;
+      R = color.R / 255f;
+      G = color.G / 255f;
+      B = color.B / 255f;
       A = 1.0f;
     }
 
@@ -425,17 +478,7 @@ namespace SolarSystem
     {
       return a.A != b.A || a.B != b.B || a.G != b.G || a.R != b.R;
     }
-
-    public override bool Equals(object obj)
-    {
-      var @float = obj as ColorFloat;
-      return @float != null &&
-             A == @float.A &&
-             R == @float.R &&
-             G == @float.G &&
-             B == @float.B;
-    }
-
+       
     public override int GetHashCode()
     {
       var hashCode = -1749689076;
@@ -444,6 +487,31 @@ namespace SolarSystem
       hashCode = hashCode * -1521134295 + G.GetHashCode();
       hashCode = hashCode * -1521134295 + B.GetHashCode();
       return hashCode;
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (!(obj is ColorFloat))
+      {
+        return false;
+      }
+
+      var @float = (ColorFloat)obj;
+      return A == @float.A &&
+             R == @float.R &&
+             G == @float.G &&
+             B == @float.B;
+    }
+
+    public static ColorFloat Interpolate(float interpolation, ColorFloat colorA, ColorFloat colorB)
+    {
+      float inverse = 1 - interpolation;
+      return new ColorFloat(
+        colorA.R * interpolation + colorB.R * inverse,
+        colorA.G * interpolation + colorB.G * inverse,
+        colorA.B * interpolation + colorB.B * inverse,
+        colorA.A * interpolation + colorB.A * inverse
+        );
     }
   }
 }

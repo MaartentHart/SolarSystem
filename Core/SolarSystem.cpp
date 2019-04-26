@@ -4,17 +4,17 @@
 
 double undefined = 9999999;
 
-Planet earth(6378.137, 6356.752315, 0.00981, "earth");
-Planet moon(1737.10, 1735.97, 0.00162, "moon");
-Planet mercury(2439.7, 2439.7, 0.0037, "mercury");
-Planet mars(3396.2, 3376.2, 0.00374, "mars");
-Planet venus(6051.8, 6051.8, 0.0087, "venus");
-Planet sun(696342, 696342, 0.247, "sun");
-Planet jupiter(71492, 66854, 0.02481, "jupiter");
-Planet saturn(60268, 54364,  0.01045, "saturn");
-Planet uranus(25559, 24973, 0.008683, "uranus");
-Planet neptune(24764, 24341, 0.00111, "neptune");
-Planet pluto(1195, 1195, 0.00058, "pluto");
+Planet earth(6378.137, 6356.752315, 0.00981, "Earth");
+Planet moon(1737.10, 1735.97, 0.00162, "Moon");
+Planet mercury(2439.7, 2439.7, 0.0037, "Mercury");
+Planet mars(3396.2, 3376.2, 0.00374, "Mars");
+Planet venus(6051.8, 6051.8, 0.0087, "Venus");
+Planet sun(696342, 696342, 0.247, "Sun");
+Planet jupiter(71492, 66854, 0.02481, "Jupiter");
+Planet saturn(60268, 54364,  0.01045, "Saturn");
+Planet uranus(25559, 24973, 0.008683, "Uranus");
+Planet neptune(24764, 24341, 0.00111, "Neptune");
+Planet pluto(1195, 1195, 0.00058, "Pluto");
 
 void CelestialBody::SetMercury()
 {

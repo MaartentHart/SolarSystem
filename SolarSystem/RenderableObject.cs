@@ -75,7 +75,7 @@ namespace SolarSystem
       if (enableNormals)
       {
         Gl.Enable(EnableCap.Lighting);
-        Gl.Enable(EnableCap.Normalize); 
+        //Gl.Enable(EnableCap.Normalize); 
         Gl.NormalPointer(NormalPointerType.Double, 0, normals);
         Gl.EnableClientState(EnableCap.NormalArray);
       }
@@ -144,6 +144,7 @@ namespace SolarSystem
         Changed = true;
       }
     }
+
     public Rotation Rotation
     {
       get => Translation.Rotation;
@@ -156,7 +157,6 @@ namespace SolarSystem
 
     public CRenderGeometry RenderGeometry { get; set; } = new CRenderGeometry();
     public bool Changed { get; set; } = false; 
-    public HeightMap HeightMap { get; set; }
 
     public void Render()
     {

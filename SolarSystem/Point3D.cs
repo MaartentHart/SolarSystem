@@ -87,9 +87,9 @@ namespace SolarSystem
       return new Point3D(A.x / B, A.y / B, A.z / B);
     }
 
-    public static double operator *(Point3D A, Point3D B)
+    public static Point3D operator *(Point3D A, Point3D B)
     {
-      return A.x * B.x + A.y * B.y + A.z * B.z;
+      return new Point3D(A.x * B.x, A.y * B.y, A.z * B.z);
     }
 
     public void Normalize()

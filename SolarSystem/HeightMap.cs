@@ -17,9 +17,16 @@ namespace SolarSystem
       Load(fileName, messageNotExist);
     }
 
-    public HeightMap(SolarSystemPlanet planet)
+    public HeightMap(SolarSystemPlanet planet, int generation)
     {
       Load(@"Resource\" + planet.ToString() + ".map", false);
+
+      int verticesCount = CoreDll.GeodesicGridVerticesCount(generation);
+
+      if (Heights.Length == 0)
+        Heights = new double[verticesCount];
+      else if (Heights.Length != verticesCount)
+        MessageBox.Show("Height map length mismathces the geodesic grid generation.");
     }
 
     public void Load(string fileName, bool messageNotExist = true)

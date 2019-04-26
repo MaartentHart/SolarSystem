@@ -11,7 +11,7 @@ namespace SolarSystem
 {
   public static class CoreDll
   {
-    #region TestsAndExamples; 
+    #region TESTSANDEXAMPLES; 
     [DllImport("Core.dll", EntryPoint = "ExampleGetInt", CallingConvention = CallingConvention.Cdecl)]
     static public extern int ExampleGetInt();
 
@@ -33,6 +33,7 @@ namespace SolarSystem
     static public extern int TestIndicesCount();
     #endregion
 
+    #region GEODESICGRID
     [DllImport("Core.dll", EntryPoint = "GeodesicGridVertices", CallingConvention = CallingConvention.Cdecl)]
     //return value is an IntPtr to a type double.
     static public extern IntPtr GeodesicGridVertices(int generation);
@@ -46,6 +47,22 @@ namespace SolarSystem
 
     [DllImport("Core.dll", EntryPoint = "GeodesicGridIndicesCount", CallingConvention = CallingConvention.Cdecl)]
     static public extern int GeodesicGridIndicesCount(int generation);
+    #endregion
+
+    #region PLANETPROPERTIES
+    [DllImport("Core.dll", EntryPoint = "SetActivePlanet", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void SetActivePlanet(string name);
+
+    [DllImport("Core.dll", EntryPoint = "PlanetScaleX", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetScaleX();
+
+    [DllImport("Core.dll", EntryPoint = "PlanetScaleY", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetScaleY();
+
+    [DllImport("Core.dll", EntryPoint = "PlanetScaleZ", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetScaleZ();
+
+    #endregion
 
   }
 }

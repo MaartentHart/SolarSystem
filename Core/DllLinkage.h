@@ -19,4 +19,10 @@ extern "C"
 	DLL const int* __cdecl GeodesicGridIndices(int generation);
 	DLL int __cdecl GeodesicGridIndicesCount(int generation);
 
+	//planet properties
+	DLL void __cdecl SetActivePlanet(const char*name);
+	DLL double __cdecl PlanetScaleX(); 
+	DLL double __cdecl PlanetScaleY();
+	DLL double __cdecl PlanetScaleZ();
+
 }

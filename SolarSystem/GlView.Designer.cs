@@ -83,6 +83,7 @@
       this.GlControlExtended.MultisampleBits = ((uint)(0u));
       this.GlControlExtended.Name = "GlControlExtended";
       scene1.Changed = false;
+      scene1.Exxageration = 0D;
       this.GlControlExtended.Scene = scene1;
       this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
       this.GlControlExtended.StencilBits = ((uint)(0u));

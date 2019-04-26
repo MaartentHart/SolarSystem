@@ -12,7 +12,7 @@ namespace SolarSystem
   class GlControlExtended : GlControl
   {
     private Point mouseLeftDownLocation;
-
+    
     public Camera Camera { get; set; } = new Camera();
     public Scene Scene { get; set; } = new Scene();
 

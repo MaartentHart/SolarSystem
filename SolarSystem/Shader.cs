@@ -1,4 +1,5 @@
-﻿using OpenGL;
+﻿
+using OpenGL;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,7 @@ namespace SolarSystem
   {
 
     public StringBuilder infolog = new StringBuilder(1024);
-    public int infologLength; 
+    public int infologLength;
     static public List<string> notFoundShaderList = new List<string>();
 
     private uint Program { get; set; }
@@ -38,7 +39,7 @@ namespace SolarSystem
       if (uniformNames == null)
         uniformNames = new List<string>();
       if (attributeNames == null)
-        attributeNames = new List<string>(); 
+        attributeNames = new List<string>();
 
       infolog.EnsureCapacity(1024);
       uint vertexShader = Gl.CreateShader(ShaderType.VertexShader);
@@ -75,13 +76,13 @@ namespace SolarSystem
       foreach (string uniformName in uniformNames)
       {
         int location = Gl.GetUniformLocation(Program, uniformName);
-        Uniforms[uniformName] = location; 
+        Uniforms[uniformName] = location;
       }
 
       foreach (string attributeName in attributeNames)
       {
         int location = Gl.GetAttribLocation(Program, attributeName);
-        Attributes[attributeName] = location; 
+        Attributes[attributeName] = location;
       }
     }
 
@@ -92,7 +93,7 @@ namespace SolarSystem
     {
       if (Program != 0)
         Gl.DeleteProgram(Program);
-      Program = 0; 
+      Program = 0;
     }
 
     static public string[] Load(string ShaderName)
@@ -117,8 +118,74 @@ namespace SolarSystem
     /// </summary>
     public void Render()
     {
-      Gl.UseProgram(Program); 
+      Gl.UseProgram(Program);
     }
 
+    public uint Attribute(string name)
+    {
+      return (uint)Attributes[name];
+    }
+
+    public uint Uniform (string name)
+    {
+      return (uint)Uniforms[name];
+    }
   }
+
+  /*//dropping the idea of using shaders for the heightmap. 
+  /// <summary>
+  /// Renders the heightmap of the planet. 
+  /// </summary>
+  public class PlanetHeightMapShader : Shader
+  { 
+    private const string uRadius = "uRadius";
+    private const string uExxageration = "uExxageration";
+    private const string aVertex = "aVertex";
+    private const string aHeight = "aHeight";
+    private const string aColor = "aColor";
+
+    public double Exxageration { get; set; }
+    public Planet Planet { get; }
+
+    public PlanetHeightMapShader(Point3D radius, double exxageration, Planet planet, HeightMap heightMap, IntPtr color)
+    :base ("PlanetHeightMapVertex","TestFrag",UniformNames(), AttributeNames())
+    {
+      Exxageration = exxageration;
+      Planet = planet; 
+    }
+
+    private static List<string> AttributeNames()
+    {
+      return new List<string> { aVertex, aHeight, aColor };
+    }
+
+    private static List<string> UniformNames()
+    {
+      return new List<string> { uRadius, uExxageration };
+    }
+
+    public new void Render()
+    {
+      base.Render();
+
+      using (MemoryLock heights = new MemoryLock(Planet.HeightMap.Heights))
+      {
+        using (MemoryLock colors = new MemoryLock(Planet.Color))
+        {
+          Gl.VertexAttribPointer(Attribute(aVertex), Planet.VerticesCount * 3, VertexAttribType.Double, false, 0, Planet.Vertices);
+          Gl.EnableVertexAttribArray(Attribute(aVertex));
+
+          Gl.VertexAttribPointer(Attribute(aHeight), Planet.VerticesCount, VertexAttribType.Double, false, 0, heights.Address);
+          Gl.EnableVertexAttribArray(Attribute(aHeight));
+
+          Gl.VertexAttribPointer(Attribute(aColor), Planet.Color.Length * 4, VertexAttribType.Float, false, 0, colors.Address);
+          Gl.EnableVertexAttribArray(Attribute(aColor));
+
+          //hier verder.
+          throw new NotImplementedException(); 
+
+        }
+      }
+    }
+  }*/
 }

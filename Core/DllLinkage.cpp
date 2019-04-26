@@ -5,6 +5,8 @@
 #include "SolarSystem.h"
 #include "Geodesic.h"
 
+SolarSystem solarSystem;
+Planet* activePlanet; 
 
 //Tests and Examples. 
 void ExampleSetString(const char*theString)
@@ -79,4 +81,38 @@ int GeodesicGridIndicesCount(int generation)
 {
 	const GeodesicGrid*grid = GetGeodesicGrid((unsigned int)generation);
 	return grid->GetTriangleIndices().size()*3; 
+}
+
+void SetActivePlanet(const char*name)
+{
+	for (Planet*planet : solarSystem.Planets())
+	{
+		if (planet->name == name)
+		{
+			activePlanet = planet;
+			return;
+		}
+	}
+	activePlanet = NULL; 
+}
+
+double PlanetScaleX()
+{
+	if (activePlanet == NULL)
+		return 0; 
+	return activePlanet->radius;
+}
+
+double PlanetScaleY()
+{
+	if (activePlanet == NULL)
+		return 0;
+	return activePlanet->radius;
+}
+
+double PlanetScaleZ()
+{
+	if (activePlanet == NULL)
+		return 0;
+	return activePlanet->secondaryRadius;
 }
