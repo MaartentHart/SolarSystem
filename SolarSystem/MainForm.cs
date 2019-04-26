@@ -24,6 +24,8 @@ namespace SolarSystem
 
     public Planet Earth { get; private set; }
     public Planet Moon { get; private set; }
+    public Planet Mars { get; private set; }
+    public Planet Sun { get; private set; }
 
     public MainForm()
     {
@@ -43,6 +45,17 @@ namespace SolarSystem
     {
       Moon = AddPlanet(SolarSystemPlanet.Moon);
       Moon.SetColorMap(new ColorMap("Moon"));
+    }
+
+    private void InitializeMars(object sender, DoWorkEventArgs e)
+    {
+      Mars = AddPlanet(SolarSystemPlanet.Mars);
+      Mars.SetColorMap(new ColorMap("Step 1000"));
+    }
+
+    private void InitializeSun(object sender, DoWorkEventArgs e)
+    {
+      Sun = AddPlanet(SolarSystemPlanet.Sun);
     }
 
     private void TestButton_Click(object sender, EventArgs e)
@@ -212,6 +225,20 @@ namespace SolarSystem
       BackgroundWorker backgroundWorker = new BackgroundWorker();
       backgroundWorker.DoWork += InitializeMoon;
       backgroundWorker.RunWorkerAsync(); 
+    }
+
+    private void AddMarsTestButton_Click(object sender, EventArgs e)
+    { 
+      BackgroundWorker backgroundWorker = new BackgroundWorker();
+      backgroundWorker.DoWork += InitializeMars;
+      backgroundWorker.RunWorkerAsync();
+    }
+
+    private void AddSunTestButton_Click(object sender, EventArgs e)
+    {
+      BackgroundWorker backgroundWorker = new BackgroundWorker();
+      backgroundWorker.DoWork += InitializeSun;
+      backgroundWorker.RunWorkerAsync();
     }
   }
 }

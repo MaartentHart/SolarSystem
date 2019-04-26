@@ -37,8 +37,10 @@
       this.SceneContentBox = new System.Windows.Forms.CheckedListBox();
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
       this.ColorMapButton = new System.Windows.Forms.ToolStripButton();
-      this.GlView = new SolarSystem.GlView();
       this.AddMoonTestButton = new System.Windows.Forms.ToolStripButton();
+      this.GlView = new SolarSystem.GlView();
+      this.AddMarsTestButton = new System.Windows.Forms.ToolStripButton();
+      this.AddSunTestButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -98,7 +100,9 @@
       // 
       this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ColorMapButton,
-            this.AddMoonTestButton});
+            this.AddMoonTestButton,
+            this.AddMarsTestButton,
+            this.AddSunTestButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(623, 25);
@@ -115,6 +119,16 @@
       this.ColorMapButton.Text = "Color Map";
       this.ColorMapButton.Click += new System.EventHandler(this.ColorMapEditorButton_Click);
       // 
+      // AddMoonTestButton
+      // 
+      this.AddMoonTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.AddMoonTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMoonTestButton.Image")));
+      this.AddMoonTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.AddMoonTestButton.Name = "AddMoonTestButton";
+      this.AddMoonTestButton.Size = new System.Drawing.Size(23, 22);
+      this.AddMoonTestButton.Text = "Add Moon Test";
+      this.AddMoonTestButton.Click += new System.EventHandler(this.AddMoonTestButton_Click);
+      // 
       // GlView
       // 
       this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -125,15 +139,25 @@
       this.GlView.Size = new System.Drawing.Size(451, 340);
       this.GlView.TabIndex = 10;
       // 
-      // AddMoonTestButton
+      // AddMarsTestButton
       // 
-      this.AddMoonTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.AddMoonTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMoonTestButton.Image")));
-      this.AddMoonTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.AddMoonTestButton.Name = "AddMoonTestButton";
-      this.AddMoonTestButton.Size = new System.Drawing.Size(23, 22);
-      this.AddMoonTestButton.Text = "Add Moon Test";
-      this.AddMoonTestButton.Click += new System.EventHandler(this.AddMoonTestButton_Click);
+      this.AddMarsTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.AddMarsTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMarsTestButton.Image")));
+      this.AddMarsTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.AddMarsTestButton.Name = "AddMarsTestButton";
+      this.AddMarsTestButton.Size = new System.Drawing.Size(23, 22);
+      this.AddMarsTestButton.Text = "Add Mars Test";
+      this.AddMarsTestButton.Click += new System.EventHandler(this.AddMarsTestButton_Click);
+      // 
+      // AddSunTestButton
+      // 
+      this.AddSunTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.AddSunTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddSunTestButton.Image")));
+      this.AddSunTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.AddSunTestButton.Name = "AddSunTestButton";
+      this.AddSunTestButton.Size = new System.Drawing.Size(23, 22);
+      this.AddSunTestButton.Text = "Add Sun Test";
+      this.AddSunTestButton.Click += new System.EventHandler(this.AddSunTestButton_Click);
       // 
       // MainForm
       // 
@@ -167,6 +191,8 @@
     private System.Windows.Forms.ToolStrip toolStrip1;
     private System.Windows.Forms.ToolStripButton ColorMapButton;
     private System.Windows.Forms.ToolStripButton AddMoonTestButton;
+    private System.Windows.Forms.ToolStripButton AddMarsTestButton;
+    private System.Windows.Forms.ToolStripButton AddSunTestButton;
   }
 }
 
