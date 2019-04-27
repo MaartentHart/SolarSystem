@@ -19,7 +19,6 @@ namespace SolarSystem
       InitializeComponent();
     }
 
-
     private void BackgroudColorButton_Click(object sender, EventArgs e)
     {
       using (ColorDialog colorDialog = new ColorDialog())
@@ -36,6 +35,40 @@ namespace SolarSystem
     private void CameraLightButton_Click(object sender, EventArgs e)
     {
       Camera.Light.On = !Camera.Light.On;
+    }
+
+    private void LookatDropDownButton_Click(object sender, EventArgs e)
+    {
+      LookatDropDownButton.DropDownItems.Clear(); 
+      foreach (IRenderable renderable in Scene.RenderableObjects)
+      {
+        if (renderable is IPositionObject positionObject)
+        {
+          ToolStripItem toolStripItem = LookatDropDownButton.DropDownItems.Add(renderable.Name);
+          toolStripItem.Click += LookatTargetButton_Click;
+        }
+      }
+    }
+
+    private void LookatTargetButton_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        foreach (IRenderable renderable in Scene.RenderableObjects)
+          if (renderable is IPositionObject positionObject && sender is ToolStripItem toolStripItem)
+            if (toolStripItem.Text == renderable.Name)
+              Lookat(positionObject, renderable.Name);
+      }
+      catch 
+      {
+
+      }
+    }
+
+    internal void Lookat(IPositionObject target, string name)
+    {
+      LookatDropDownButton.Text = name; 
+      Camera.Lookat(target);
     }
   }
 }

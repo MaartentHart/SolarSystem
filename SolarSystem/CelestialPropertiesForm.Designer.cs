@@ -108,7 +108,7 @@
       this.ytrack.Name = "ytrack";
       this.ytrack.Size = new System.Drawing.Size(161, 45);
       this.ytrack.TabIndex = 6;
-      this.ytrack.Scroll += new System.EventHandler(this.ytrack_Scroll);
+      this.ytrack.Scroll += new System.EventHandler(this.YTrack_Scroll);
       // 
       // RotationZBox
       // 
@@ -134,7 +134,7 @@
       this.ztrack.Name = "ztrack";
       this.ztrack.Size = new System.Drawing.Size(161, 45);
       this.ztrack.TabIndex = 10;
-      this.ztrack.Scroll += new System.EventHandler(this.ztrack_Scroll);
+      this.ztrack.Scroll += new System.EventHandler(this.ZTrack_Scroll);
       // 
       // RotationYBox
       // 
@@ -160,7 +160,7 @@
       this.xtrack.Name = "xtrack";
       this.xtrack.Size = new System.Drawing.Size(161, 45);
       this.xtrack.TabIndex = 5;
-      this.xtrack.Scroll += new System.EventHandler(this.xtrack_Scroll);
+      this.xtrack.Scroll += new System.EventHandler(this.XTrack_Scroll);
       // 
       // label2
       // 

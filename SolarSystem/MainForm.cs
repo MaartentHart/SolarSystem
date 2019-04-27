@@ -92,7 +92,7 @@ namespace SolarSystem
       Planet planet = new Planet(planetID);
       planet.RenderableObject.RenderGeometry.SetGeodesicGrid(9);
       Add(planet);
-      Camera.Lookat(planet);
+      GlView.Lookat(planet, planet.Name);
       return planet;
     }
 

@@ -289,12 +289,12 @@ namespace SolarSystem
       }
     }
 
-    public void Lookat(Planet planet)
+    public void Lookat(IPositionObject target)
     {
-      Target = planet.RenderableObject;
-      if (Eye is PositionObject eye)
+      Target = target;
+      if (Eye is PositionObject eye && target is Planet planet)
       {
-        double viewDistance = planet.Scale.x * 3;
+        double viewDistance = planet.Scale.x * 5;
         Point3D direction = eye.Position - Target.Position;
         direction *= (viewDistance / direction.Magnitude);
         eye.Position = Target.Position + direction;

@@ -126,17 +126,17 @@ namespace SolarSystem
       }      
     }
 
-    private void xtrack_Scroll(object sender, EventArgs e)
+    private void XTrack_Scroll(object sender, EventArgs e)
     {
       RotationXBox.Text = xtrack.Value.ToString();
     }
 
-    private void ytrack_Scroll(object sender, EventArgs e)
+    private void YTrack_Scroll(object sender, EventArgs e)
     {
       RotationYBox.Text = ytrack.Value.ToString();
     }
 
-    private void ztrack_Scroll(object sender, EventArgs e)
+    private void ZTrack_Scroll(object sender, EventArgs e)
     {
       RotationZBox.Text = ztrack.Value.ToString();
     }

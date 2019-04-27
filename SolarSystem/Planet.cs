@@ -26,7 +26,7 @@ namespace SolarSystem
   /// <summary>
   /// The renderable class of the planet. 
   /// </summary>
-  public class Planet : IRenderable, IDisposable
+  public class Planet : IRenderable, IDisposable, IPositionObject
   {
     private bool on = true;
     private double previousExxageration = 0; 
@@ -81,7 +81,9 @@ namespace SolarSystem
         return ret;
       }
       set => changed = value;
-    } 
+    }
+
+    public Point3D Position => RenderableObject.Position; 
 
     public Planet(SolarSystemPlanet planet, int generation = 9)
     {

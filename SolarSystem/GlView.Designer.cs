@@ -29,9 +29,13 @@
     private void InitializeComponent()
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlView));
+      SolarSystem.Camera camera2 = new SolarSystem.Camera();
+      SolarSystem.Scene scene2 = new SolarSystem.Scene();
       this.ToolStrip = new System.Windows.Forms.ToolStrip();
       this.BackgroundColorButton = new System.Windows.Forms.ToolStripButton();
       this.CameraLightButton = new System.Windows.Forms.ToolStripButton();
+      this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+      this.LookatDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
       this.GlControlExtended = new SolarSystem.GlControlExtended();
       this.ToolStrip.SuspendLayout();
       this.SuspendLayout();
@@ -40,7 +44,9 @@
       // 
       this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BackgroundColorButton,
-            this.CameraLightButton});
+            this.CameraLightButton,
+            this.toolStripLabel1,
+            this.LookatDropDownButton});
       this.ToolStrip.Location = new System.Drawing.Point(0, 0);
       this.ToolStrip.Name = "ToolStrip";
       this.ToolStrip.Size = new System.Drawing.Size(682, 25);
@@ -67,17 +73,38 @@
       this.CameraLightButton.Text = "Camera Light";
       this.CameraLightButton.Click += new System.EventHandler(this.CameraLightButton_Click);
       // 
+      // toolStripLabel1
+      // 
+      this.toolStripLabel1.Name = "toolStripLabel1";
+      this.toolStripLabel1.Size = new System.Drawing.Size(49, 22);
+      this.toolStripLabel1.Text = "Look at:";
+      // 
+      // LookatDropDownButton
+      // 
+      this.LookatDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+      this.LookatDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("LookatDropDownButton.Image")));
+      this.LookatDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.LookatDropDownButton.Name = "LookatDropDownButton";
+      this.LookatDropDownButton.Size = new System.Drawing.Size(49, 22);
+      this.LookatDropDownButton.Text = "None";
+      this.LookatDropDownButton.DropDownOpening += new System.EventHandler(this.LookatDropDownButton_Click);
+      // 
       // GlControlExtended
       // 
       this.GlControlExtended.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.GlControlExtended.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+      camera2.FieldOfView = 25D;
+      this.GlControlExtended.Camera = camera2;
       this.GlControlExtended.ColorBits = ((uint)(24u));
       this.GlControlExtended.DepthBits = ((uint)(24u));
       this.GlControlExtended.Location = new System.Drawing.Point(0, 28);
       this.GlControlExtended.MultisampleBits = ((uint)(0u));
       this.GlControlExtended.Name = "GlControlExtended";
+      scene2.Changed = false;
+      scene2.Exxageration = 0D;
+      this.GlControlExtended.Scene = scene2;
       this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
       this.GlControlExtended.StencilBits = ((uint)(0u));
       this.GlControlExtended.TabIndex = 1;
@@ -103,5 +130,7 @@
     private GlControlExtended GlControlExtended;
     private System.Windows.Forms.ToolStripButton BackgroundColorButton;
     private System.Windows.Forms.ToolStripButton CameraLightButton;
+    private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+    private System.Windows.Forms.ToolStripDropDownButton LookatDropDownButton;
   }
 }

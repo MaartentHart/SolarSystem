@@ -8,8 +8,7 @@ namespace SolarSystem
 {
   public class HistoricDateTime
   {
-
-    double Days;
+    double days;
 
   }
 }
