@@ -13,7 +13,21 @@ namespace SolarSystem
 {
   public partial class MainForm : Form
   {
-    private ColorMapForm colorMapForm = new ColorMapForm();
+    private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm(); 
+    private ColorMapForm ColorMapForm { get; } = new ColorMapForm();
+    private CelestialPropertiesForm CelestialPropertiesForm
+    {
+      get
+      {
+        if (celestialPropertiesForm.IsDisposed)
+        {
+          celestialPropertiesForm = new CelestialPropertiesForm();
+          SetSelectedObject(); 
+        }
+        return celestialPropertiesForm;
+      }
+    }
+
     private double Exxageration
     {
       get => Scene.Exxageration;
@@ -209,10 +223,10 @@ namespace SolarSystem
     {
       try
       {
-        if (colorMapForm.ShowDialog() != DialogResult.OK)
+        if (ColorMapForm.ShowDialog() != DialogResult.OK)
           return;
         if (SceneContentBox.SelectedIndex >= 0 && SceneContentBox.SelectedIndex < Scene.RenderableObjects.Count)
-          Scene.RenderableObjects[SceneContentBox.SelectedIndex].SetColorMap(colorMapForm.ColorMap);
+          Scene.RenderableObjects[SceneContentBox.SelectedIndex].SetColorMap(ColorMapForm.ColorMap);
       }
       catch
       {
@@ -239,6 +253,46 @@ namespace SolarSystem
       BackgroundWorker backgroundWorker = new BackgroundWorker();
       backgroundWorker.DoWork += InitializeSun;
       backgroundWorker.RunWorkerAsync();
+    }
+
+
+    private void TestImageButton_Click(object sender, EventArgs e)
+    {
+      Mesh texture = new Mesh()
+      {
+        Name = "texture test"
+      };
+      texture.InitializeAsTexture(@"Resource\Images\wall.jpg");
+      Scene.RenderableObjects.Add(texture); 
+    }
+
+    private void PropertiesBoxButton_Click(object sender, EventArgs e)
+    {
+
+      CelestialPropertiesForm.Owner = this; 
+      CelestialPropertiesForm.Show(); 
+    }
+
+    private void SceneContentBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      SetSelectedObject(); 
+    }
+
+    private void SetSelectedObject()
+    {
+      try
+      {
+        if (SceneContentBox.SelectedIndex >= Scene.RenderableObjects.Count || SceneContentBox.SelectedIndex < 0)
+        {
+          CelestialPropertiesForm.ActiveObject = null;
+          return;
+        }
+        CelestialPropertiesForm.ActiveObject = Scene.RenderableObjects[SceneContentBox.SelectedIndex];
+      }
+      catch
+      {
+
+      }
     }
   }
 }

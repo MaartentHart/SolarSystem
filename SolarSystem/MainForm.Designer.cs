@@ -37,10 +37,12 @@
       this.SceneContentBox = new System.Windows.Forms.CheckedListBox();
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
       this.ColorMapButton = new System.Windows.Forms.ToolStripButton();
+      this.PropertiesBoxButton = new System.Windows.Forms.ToolStripButton();
       this.AddMoonTestButton = new System.Windows.Forms.ToolStripButton();
-      this.GlView = new SolarSystem.GlView();
       this.AddMarsTestButton = new System.Windows.Forms.ToolStripButton();
       this.AddSunTestButton = new System.Windows.Forms.ToolStripButton();
+      this.TestImageButton = new System.Windows.Forms.ToolStripButton();
+      this.GlView = new SolarSystem.GlView();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -92,20 +94,23 @@
       this.SceneContentBox.FormattingEnabled = true;
       this.SceneContentBox.Location = new System.Drawing.Point(12, 79);
       this.SceneContentBox.Name = "SceneContentBox";
-      this.SceneContentBox.Size = new System.Drawing.Size(142, 274);
+      this.SceneContentBox.Size = new System.Drawing.Size(142, 349);
       this.SceneContentBox.TabIndex = 16;
       this.SceneContentBox.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.SceneContentBox_ItemCheck);
+      this.SceneContentBox.SelectedIndexChanged += new System.EventHandler(this.SceneContentBox_SelectedIndexChanged);
       // 
       // toolStrip1
       // 
       this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ColorMapButton,
+            this.PropertiesBoxButton,
             this.AddMoonTestButton,
             this.AddMarsTestButton,
-            this.AddSunTestButton});
+            this.AddSunTestButton,
+            this.TestImageButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
-      this.toolStrip1.Size = new System.Drawing.Size(623, 25);
+      this.toolStrip1.Size = new System.Drawing.Size(624, 25);
       this.toolStrip1.TabIndex = 19;
       this.toolStrip1.Text = "toolStrip1";
       // 
@@ -119,6 +124,16 @@
       this.ColorMapButton.Text = "Color Map";
       this.ColorMapButton.Click += new System.EventHandler(this.ColorMapEditorButton_Click);
       // 
+      // PropertiesBoxButton
+      // 
+      this.PropertiesBoxButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.PropertiesBoxButton.Image = ((System.Drawing.Image)(resources.GetObject("PropertiesBoxButton.Image")));
+      this.PropertiesBoxButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.PropertiesBoxButton.Name = "PropertiesBoxButton";
+      this.PropertiesBoxButton.Size = new System.Drawing.Size(23, 22);
+      this.PropertiesBoxButton.Text = "Properties";
+      this.PropertiesBoxButton.Click += new System.EventHandler(this.PropertiesBoxButton_Click);
+      // 
       // AddMoonTestButton
       // 
       this.AddMoonTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -128,16 +143,6 @@
       this.AddMoonTestButton.Size = new System.Drawing.Size(23, 22);
       this.AddMoonTestButton.Text = "Add Moon Test";
       this.AddMoonTestButton.Click += new System.EventHandler(this.AddMoonTestButton_Click);
-      // 
-      // GlView
-      // 
-      this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.GlView.Location = new System.Drawing.Point(160, 28);
-      this.GlView.Name = "GlView";
-      this.GlView.Size = new System.Drawing.Size(451, 340);
-      this.GlView.TabIndex = 10;
       // 
       // AddMarsTestButton
       // 
@@ -159,11 +164,31 @@
       this.AddSunTestButton.Text = "Add Sun Test";
       this.AddSunTestButton.Click += new System.EventHandler(this.AddSunTestButton_Click);
       // 
+      // TestImageButton
+      // 
+      this.TestImageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TestImageButton.Image = ((System.Drawing.Image)(resources.GetObject("TestImageButton.Image")));
+      this.TestImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TestImageButton.Name = "TestImageButton";
+      this.TestImageButton.Size = new System.Drawing.Size(23, 22);
+      this.TestImageButton.Text = "TestImage";
+      this.TestImageButton.Click += new System.EventHandler(this.TestImageButton_Click);
+      // 
+      // GlView
+      // 
+      this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.GlView.Location = new System.Drawing.Point(160, 28);
+      this.GlView.Name = "GlView";
+      this.GlView.Size = new System.Drawing.Size(452, 401);
+      this.GlView.TabIndex = 10;
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(623, 380);
+      this.ClientSize = new System.Drawing.Size(624, 441);
       this.Controls.Add(this.toolStrip1);
       this.Controls.Add(this.SceneContentBox);
       this.Controls.Add(this.ExxagerationGroupBox);
@@ -193,6 +218,8 @@
     private System.Windows.Forms.ToolStripButton AddMoonTestButton;
     private System.Windows.Forms.ToolStripButton AddMarsTestButton;
     private System.Windows.Forms.ToolStripButton AddSunTestButton;
+    private System.Windows.Forms.ToolStripButton TestImageButton;
+    private System.Windows.Forms.ToolStripButton PropertiesBoxButton;
   }
 }
 

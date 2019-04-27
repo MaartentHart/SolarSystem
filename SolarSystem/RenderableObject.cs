@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -93,6 +94,8 @@ namespace SolarSystem
       else
         Gl.DisableClientState(EnableCap.ColorArray);
 
+      Gl.DisableVertexAttribArray(2); 
+
       Gl.DrawElements(PrimitiveType.Triangles, indicesCount, DrawElementsType.UnsignedInt, indices);
     }    
 
@@ -123,6 +126,7 @@ namespace SolarSystem
 
   public class CRenderableObject : IRenderable, IPositionObject
   {
+    private bool changed = false; 
     public string Name { get; set; } = "Default";
     public bool On { get; set; } = true;
     public Translation Translation {get;set;} = new Translation();
@@ -158,19 +162,27 @@ namespace SolarSystem
     }
 
     public CRenderGeometry RenderGeometry { get; set; } = new CRenderGeometry();
-    public bool Changed { get; set; } = false; 
+    public bool Changed {
+      get
+      {
+        bool ret = changed;
+        changed = false;
+        return ret; 
+      }
+      set => changed = value;
+    }  
 
     public void Render()
     {
       using (GlPushPop scale = new GlPushPop(Translation.ScaleActive))
       {
-        GlScale(); 
-        using (GlPushPop rotate = new GlPushPop(Rotation.Active))
+        GlScale();
+        using (GlPushPop translate = new GlPushPop(Translation.Active))
         {
-          GlRotate();
-          using (GlPushPop translate = new GlPushPop(Translation.Active))
+          GlTranslate();
+          using (GlPushPop rotate = new GlPushPop(Rotation.Active))
           {
-            GlTranslate();
+            GlRotate();
             RenderGeometry.Render();
           }
         }
@@ -188,13 +200,12 @@ namespace SolarSystem
     {
       if (!Rotation.Active)
         return;
-      Gl.Rotate(Rotation.axisTilt, 1, 0, 0);
-      Gl.Rotate(Rotation.axisDirection, 0, 0, 1);
+
+
       double sinA = Math.Sin(Rotation.axisTilt);
-      Gl.Rotate(Rotation.aroundAxis,
-        sinA * Math.Sin(Rotation.axisDirection),
-        sinA * Math.Cos(Rotation.axisDirection),
-        Math.Cos(Rotation.axisTilt));
+      Gl.Rotate(Rotation.axisDirection, 0, 0, 1);
+      Gl.Rotate(Rotation.axisTilt, 1, 0, 0);
+      Gl.Rotate(Rotation.aroundAxis, 0, 0, 1);
     }
 
     public void GlTranslate()
@@ -229,12 +240,16 @@ namespace SolarSystem
   public class Mesh : IRenderable
   {
     public int[] indices;
-    public float[] colors; 
+    public float[] colors;
+    public float[] uv; 
     public double[] vertices;
-    public double[] normals; 
+    public double[] normals;
+    public uint textureID;
+
     public bool On { get; set; } = true;
     public string Name { get; set; } = "Mesh";
-    public bool Changed { get; set; } = false; 
+    public bool Changed { get; set; } = false;
+    public Shader Shader { get; set; }
 
     public void Render()
     {
@@ -243,14 +258,16 @@ namespace SolarSystem
 
       Gl.EnableClientState(EnableCap.VertexArray);
       Gl.VertexPointer(3, VertexPointerType.Double, 0, vertices);
-      if (normals!=null && normals.Length == vertices.Length)
+      if (normals != null && normals.Length == vertices.Length)
       {
         Gl.Enable(EnableCap.Lighting);
         Gl.NormalPointer(NormalPointerType.Double, 0, normals);
         Gl.EnableClientState(EnableCap.NormalArray);
       }
       else
+      {
         Gl.DisableClientState(EnableCap.NormalArray);
+      }
 
       if (colors!=null && colors.Length/4 == vertices.Length/3)
       {
@@ -260,10 +277,68 @@ namespace SolarSystem
       }
       else
         Gl.DisableClientState(EnableCap.ColorArray);
-
-      Gl.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, indices);
-
+      MemoryLock uvLock = new MemoryLock(uv);
+      {
+        if (uv != null && uv.Length / 2 == vertices.Length / 3)
+        {
+          Gl.VertexAttribPointer(2, 2, VertexAttribType.Float, false, 0, uvLock.Address);
+          Gl.EnableVertexAttribArray(2);
+          Gl.BindTexture(TextureTarget.Texture2d, textureID);
+          
+        }
+        
+        Gl.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, indices);
+      }
     }
+
+    public void InitializeAsTexture(string fileName)
+    {
+      //https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/4.1.textures/textures.cpp
+      Shader = new Shader("TextureVertex", "TextureFragment");
+      using (Image testImage = Image.FromFile(fileName))
+      {
+        using (Bitmap bitmap = new Bitmap(testImage))
+        {
+          textureID = Gl.GenTexture();
+          Gl.BindTexture(TextureTarget.Texture2d, textureID);
+
+          System.Drawing.Imaging.BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+            System.Drawing.Imaging.ImageLockMode.ReadOnly, bitmap.PixelFormat);
+          IntPtr ptr = data.Scan0;
+          Gl.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba, bitmap.Width, 512, bitmap.Height, PixelFormat.Rgba, PixelType.UnsignedByte, ptr);
+          bitmap.UnlockBits(data);
+          
+          vertices = new double[]
+          {
+              0,0,0,
+              1,0,0,
+              0,1,0,
+              1,1,0
+          };
+          indices = new int[]
+          {
+              0,1,2,
+              3,2,1
+          };
+          colors = new float[]
+          {
+              1,1,1,1,
+              1,1,1,1,
+              1,1,1,1,
+              1,1,1,1
+          };
+          uv = new float[]
+          {
+              0,0,
+              1,0,
+              0,1,
+              1,1
+          };
+
+        }
+      }
+    }
+  
 
     public void SetColorMap(ColorMap colorMap)
     {

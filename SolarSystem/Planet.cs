@@ -76,7 +76,7 @@ namespace SolarSystem
     {
       get
       {
-        bool ret = changed;
+        bool ret = changed | RenderableObject.Changed;
         changed = false;
         return ret;
       }

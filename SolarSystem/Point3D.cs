@@ -138,7 +138,7 @@ namespace SolarSystem
 
     public bool Active => axisTilt != 0 || axisDirection != 0 || aroundAxis != 0;
     /// <summary>
-    /// Rotation in radians. 
+    /// Rotation in degrees. 
     /// </summary>
     /// <param name="axisTilt">The planet inclination</param>
     /// <param name="axisDirection">The planet inclination orientation</param>

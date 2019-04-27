@@ -71,18 +71,25 @@ namespace SolarSystem
 
     internal void Render()
     {
-      if (Lights.Count > 0)
-        Gl.Enable(EnableCap.Lighting); 
+      try
+      {
+        if (Lights.Count > 0)
+          Gl.Enable(EnableCap.Lighting);
 
-      int lightCount = Lights.Count;
-      //light 0 is reserved for the camera light. 
-      if (lightCount > 7)
-        //8 lights is the limit. 
-        lightCount = 7;
-      for (int i = 0; i < lightCount;i++)
-        Lights[i].Render(i+1); 
-      foreach (IRenderable renderableObject in RenderableObjects)
-        renderableObject.Render();
+        int lightCount = Lights.Count;
+        //light 0 is reserved for the camera light. 
+        if (lightCount > 7)
+          //8 lights is the limit. 
+          lightCount = 7;
+        for (int i = 0; i < lightCount; i++)
+          Lights[i].Render(i + 1);
+        foreach (IRenderable renderableObject in RenderableObjects)
+          renderableObject.Render();
+      }
+      catch
+      {
+        Changed = true; 
+      }
     }
   }
 

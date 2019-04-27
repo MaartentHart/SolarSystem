@@ -29,8 +29,6 @@
     private void InitializeComponent()
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlView));
-      SolarSystem.Camera camera1 = new SolarSystem.Camera();
-      SolarSystem.Scene scene1 = new SolarSystem.Scene();
       this.ToolStrip = new System.Windows.Forms.ToolStrip();
       this.BackgroundColorButton = new System.Windows.Forms.ToolStripButton();
       this.CameraLightButton = new System.Windows.Forms.ToolStripButton();
@@ -75,16 +73,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.GlControlExtended.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-      camera1.FieldOfView = 25D;
-      this.GlControlExtended.Camera = camera1;
       this.GlControlExtended.ColorBits = ((uint)(24u));
       this.GlControlExtended.DepthBits = ((uint)(24u));
       this.GlControlExtended.Location = new System.Drawing.Point(0, 28);
       this.GlControlExtended.MultisampleBits = ((uint)(0u));
       this.GlControlExtended.Name = "GlControlExtended";
-      scene1.Changed = false;
-      scene1.Exxageration = 0D;
-      this.GlControlExtended.Scene = scene1;
       this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
       this.GlControlExtended.StencilBits = ((uint)(0u));
       this.GlControlExtended.TabIndex = 1;
