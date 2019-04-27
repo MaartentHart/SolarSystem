@@ -221,43 +221,30 @@ namespace SolarSystem
       fW = fH * aspect;
       Gl.Frustum(-fW, fW, -fH, fH, zNear, zFar);
     }
-
-    public static void GluLookAt(Point3D position, Point3D target, Point3D upVector)
+     
+    void GluLookAt(Point3D eye, Point3D target, Point3D up)
     {
       //https://www.gamedev.net/forums/topic/421529-manual-alternative-to-glulookat-/
       //https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/gluLookAt.xml
-      Point3D dirN;
-      Point3D upN;
-      Point3D rightN;
+      // determine the new n
+      Point3D vN = (eye - target).Normal;
+      // determine the new u by crossing with the up vector
+      Point3D vU = up.Cross(vN).Normal;
+      // determine v by crossing n and u
+      Point3D vV = vN.Cross(vU).Normal;
 
-      dirN = (target - position).Normal;
-      upN = upVector.Normal;
-      rightN = dirN.Cross(upN).Normal;
-      upN = rightN.Cross(dirN).Normal;
+      // create a model view matrix
+      double[] modelView = new double[]
+      {
+        vU.x,        vV.x,        vN.x,        0.0f,
+        vU.y,        vV.y,        vN.y,        0.0f,
+        vU.z,        vV.z,        vN.z,        0.0f,
+        -eye.Dot(vU), -eye.Dot(vV), -eye.Dot(vN), 1.0f
+      };
 
-      double[] mat = new double[16];
-      mat[0] = rightN.x;
-      mat[1] = upN.x;
-      mat[2] = -dirN.x;
-      mat[3] = 0.0;
-
-      mat[4] = rightN.y;
-      mat[5] = upN.y;
-      mat[6] = -dirN.y;
-      mat[7] = 0.0;
-
-      mat[8] = rightN.z;
-      mat[9] = upN.z;
-      mat[10] = -dirN.z;
-      mat[11] = 0.0;
-
-      mat[12] = -(rightN.Dot(position));
-      mat[13] = -(upN.Dot(position));
-      mat[14] = (dirN.Dot(position));
-      mat[15] = 1.0;
-
-      Gl.MultMatrix(mat);
-      Gl.Translate(-position.x, -position.y, -position.z);
+      // load the model view matrix
+      // the model view matrix should already be active
+      Gl.LoadMatrix(modelView);
     }
 
     public void Rotate(int x, int y, bool targetPivot = true, double step = 0.005)
