@@ -43,6 +43,7 @@
       this.AddSunTestButton = new System.Windows.Forms.ToolStripButton();
       this.TestImageButton = new System.Windows.Forms.ToolStripButton();
       this.GlView = new SolarSystem.GlView();
+      this.TestDateButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -107,7 +108,8 @@
             this.AddMoonTestButton,
             this.AddMarsTestButton,
             this.AddSunTestButton,
-            this.TestImageButton});
+            this.TestImageButton,
+            this.TestDateButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(624, 25);
@@ -184,6 +186,16 @@
       this.GlView.Size = new System.Drawing.Size(452, 401);
       this.GlView.TabIndex = 10;
       // 
+      // TestDateButton
+      // 
+      this.TestDateButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TestDateButton.Image = ((System.Drawing.Image)(resources.GetObject("TestDateButton.Image")));
+      this.TestDateButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TestDateButton.Name = "TestDateButton";
+      this.TestDateButton.Size = new System.Drawing.Size(23, 22);
+      this.TestDateButton.Text = "Test Date";
+      this.TestDateButton.Click += new System.EventHandler(this.TestDateButton_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,6 +232,7 @@
     private System.Windows.Forms.ToolStripButton AddSunTestButton;
     private System.Windows.Forms.ToolStripButton TestImageButton;
     private System.Windows.Forms.ToolStripButton PropertiesBoxButton;
+    private System.Windows.Forms.ToolStripButton TestDateButton;
   }
 }
 

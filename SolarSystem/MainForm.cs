@@ -294,5 +294,11 @@ namespace SolarSystem
 
       }
     }
+
+    private void TestDateButton_Click(object sender, EventArgs e)
+    {
+      using (DateTesterForm form = new DateTesterForm())
+        form.ShowDialog(); 
+    }
   }
 }
