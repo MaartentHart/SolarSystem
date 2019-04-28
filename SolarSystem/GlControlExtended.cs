@@ -66,7 +66,15 @@ namespace SolarSystem
       int width = senderControl.ClientSize.Width;
       int height = senderControl.ClientSize.Height;
       Camera.Render(width, height);
-      Scene.Render();
+
+      try
+      {
+        Scene.Render();
+      }
+      catch
+      {
+        Scene.Changed = true; 
+      }
     }
 
     private void InitializeComponent()

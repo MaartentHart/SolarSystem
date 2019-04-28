@@ -335,7 +335,7 @@ namespace SolarSystem
       throw new Exception(text.ToString() + " is not a valid month.");
     }
 
-    private string TwoDigits(string value)
+    public string TwoDigits(string value)
     {
       if (value.Length == 1)
         return "0" + value;

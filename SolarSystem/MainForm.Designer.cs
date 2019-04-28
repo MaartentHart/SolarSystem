@@ -42,8 +42,27 @@
       this.AddMarsTestButton = new System.Windows.Forms.ToolStripButton();
       this.AddSunTestButton = new System.Windows.Forms.ToolStripButton();
       this.TestImageButton = new System.Windows.Forms.ToolStripButton();
+      this.DayBox = new System.Windows.Forms.ToolStripTextBox();
+      this.MonthDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+      this.januaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.februaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.marchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.aprilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.mayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.juneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.julyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.augustToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.septemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.octoberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.novemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.decemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.YearBox = new System.Windows.Forms.ToolStripTextBox();
+      this.ADBCDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+      this.aDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.bCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.TimeBox = new System.Windows.Forms.ToolStripTextBox();
+      this.TimeLockButton = new System.Windows.Forms.ToolStripButton();
       this.GlView = new SolarSystem.GlView();
-      this.TestDateButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -105,11 +124,16 @@
       this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ColorMapButton,
             this.PropertiesBoxButton,
-            this.AddMoonTestButton,
+            this.TimeLockButton,
+            this.DayBox,
+            this.MonthDropDown,
+            this.YearBox,
+            this.ADBCDropDown,
+            this.TimeBox,
             this.AddMarsTestButton,
             this.AddSunTestButton,
-            this.TestImageButton,
-            this.TestDateButton});
+            this.AddMoonTestButton,
+            this.TestImageButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(624, 25);
@@ -176,6 +200,174 @@
       this.TestImageButton.Text = "TestImage";
       this.TestImageButton.Click += new System.EventHandler(this.TestImageButton_Click);
       // 
+      // DayBox
+      // 
+      this.DayBox.Name = "DayBox";
+      this.DayBox.Size = new System.Drawing.Size(20, 25);
+      this.DayBox.Text = "01";
+      this.DayBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
+      this.DayBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
+      // 
+      // MonthDropDown
+      // 
+      this.MonthDropDown.AutoSize = false;
+      this.MonthDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+      this.MonthDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.januaryToolStripMenuItem,
+            this.februaryToolStripMenuItem,
+            this.marchToolStripMenuItem,
+            this.aprilToolStripMenuItem,
+            this.mayToolStripMenuItem,
+            this.juneToolStripMenuItem,
+            this.julyToolStripMenuItem,
+            this.augustToolStripMenuItem,
+            this.septemberToolStripMenuItem,
+            this.octoberToolStripMenuItem,
+            this.novemberToolStripMenuItem,
+            this.decemberToolStripMenuItem});
+      this.MonthDropDown.Image = ((System.Drawing.Image)(resources.GetObject("MonthDropDown.Image")));
+      this.MonthDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.MonthDropDown.Name = "MonthDropDown";
+      this.MonthDropDown.Size = new System.Drawing.Size(80, 22);
+      this.MonthDropDown.Text = "January";
+      // 
+      // januaryToolStripMenuItem
+      // 
+      this.januaryToolStripMenuItem.Name = "januaryToolStripMenuItem";
+      this.januaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.januaryToolStripMenuItem.Text = "January";
+      this.januaryToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // februaryToolStripMenuItem
+      // 
+      this.februaryToolStripMenuItem.Name = "februaryToolStripMenuItem";
+      this.februaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.februaryToolStripMenuItem.Text = "February";
+      this.februaryToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // marchToolStripMenuItem
+      // 
+      this.marchToolStripMenuItem.Name = "marchToolStripMenuItem";
+      this.marchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.marchToolStripMenuItem.Text = "March";
+      this.marchToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // aprilToolStripMenuItem
+      // 
+      this.aprilToolStripMenuItem.Name = "aprilToolStripMenuItem";
+      this.aprilToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.aprilToolStripMenuItem.Text = "April";
+      this.aprilToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // mayToolStripMenuItem
+      // 
+      this.mayToolStripMenuItem.Name = "mayToolStripMenuItem";
+      this.mayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.mayToolStripMenuItem.Text = "May";
+      this.mayToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // juneToolStripMenuItem
+      // 
+      this.juneToolStripMenuItem.Name = "juneToolStripMenuItem";
+      this.juneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.juneToolStripMenuItem.Text = "June";
+      this.juneToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // julyToolStripMenuItem
+      // 
+      this.julyToolStripMenuItem.Name = "julyToolStripMenuItem";
+      this.julyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.julyToolStripMenuItem.Text = "July";
+      this.julyToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // augustToolStripMenuItem
+      // 
+      this.augustToolStripMenuItem.Name = "augustToolStripMenuItem";
+      this.augustToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.augustToolStripMenuItem.Text = "August";
+      this.augustToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // septemberToolStripMenuItem
+      // 
+      this.septemberToolStripMenuItem.Name = "septemberToolStripMenuItem";
+      this.septemberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.septemberToolStripMenuItem.Text = "September";
+      this.septemberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // octoberToolStripMenuItem
+      // 
+      this.octoberToolStripMenuItem.Name = "octoberToolStripMenuItem";
+      this.octoberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.octoberToolStripMenuItem.Text = "October";
+      this.octoberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // novemberToolStripMenuItem
+      // 
+      this.novemberToolStripMenuItem.Name = "novemberToolStripMenuItem";
+      this.novemberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.novemberToolStripMenuItem.Text = "November";
+      this.novemberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // decemberToolStripMenuItem
+      // 
+      this.decemberToolStripMenuItem.Name = "decemberToolStripMenuItem";
+      this.decemberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.decemberToolStripMenuItem.Text = "December";
+      this.decemberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
+      // 
+      // YearBox
+      // 
+      this.YearBox.Name = "YearBox";
+      this.YearBox.Size = new System.Drawing.Size(40, 25);
+      this.YearBox.Text = "2000";
+      this.YearBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
+      this.YearBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
+      // 
+      // ADBCDropDown
+      // 
+      this.ADBCDropDown.AutoSize = false;
+      this.ADBCDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+      this.ADBCDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aDToolStripMenuItem,
+            this.bCToolStripMenuItem});
+      this.ADBCDropDown.Image = ((System.Drawing.Image)(resources.GetObject("ADBCDropDown.Image")));
+      this.ADBCDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.ADBCDropDown.Name = "ADBCDropDown";
+      this.ADBCDropDown.Size = new System.Drawing.Size(36, 22);
+      this.ADBCDropDown.Text = "AD";
+      // 
+      // aDToolStripMenuItem
+      // 
+      this.aDToolStripMenuItem.Name = "aDToolStripMenuItem";
+      this.aDToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
+      this.aDToolStripMenuItem.Text = "AD";
+      this.aDToolStripMenuItem.Click += new System.EventHandler(this.ADBCToolStripMenuItem_Click);
+      // 
+      // bCToolStripMenuItem
+      // 
+      this.bCToolStripMenuItem.Name = "bCToolStripMenuItem";
+      this.bCToolStripMenuItem.Size = new System.Drawing.Size(90, 22);
+      this.bCToolStripMenuItem.Text = "BC";
+      this.bCToolStripMenuItem.Click += new System.EventHandler(this.ADBCToolStripMenuItem_Click);
+      // 
+      // TimeBox
+      // 
+      this.TimeBox.Name = "TimeBox";
+      this.TimeBox.Size = new System.Drawing.Size(70, 25);
+      this.TimeBox.Text = "00:00:00.000";
+      this.TimeBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
+      this.TimeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
+      // 
+      // TimeLockButton
+      // 
+      this.TimeLockButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TimeLockButton.Image = global::SolarSystem.Properties.Resources.TimeIcon;
+      this.TimeLockButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TimeLockButton.Name = "TimeLockButton";
+      this.TimeLockButton.Size = new System.Drawing.Size(23, 22);
+      this.TimeLockButton.Text = "TimeLockButton";
+      this.TimeLockButton.Click += new System.EventHandler(this.TimeLockButton_Click);
+      // 
       // GlView
       // 
       this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -185,16 +377,6 @@
       this.GlView.Name = "GlView";
       this.GlView.Size = new System.Drawing.Size(452, 401);
       this.GlView.TabIndex = 10;
-      // 
-      // TestDateButton
-      // 
-      this.TestDateButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TestDateButton.Image = ((System.Drawing.Image)(resources.GetObject("TestDateButton.Image")));
-      this.TestDateButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TestDateButton.Name = "TestDateButton";
-      this.TestDateButton.Size = new System.Drawing.Size(23, 22);
-      this.TestDateButton.Text = "Test Date";
-      this.TestDateButton.Click += new System.EventHandler(this.TestDateButton_Click);
       // 
       // MainForm
       // 
@@ -232,7 +414,26 @@
     private System.Windows.Forms.ToolStripButton AddSunTestButton;
     private System.Windows.Forms.ToolStripButton TestImageButton;
     private System.Windows.Forms.ToolStripButton PropertiesBoxButton;
-    private System.Windows.Forms.ToolStripButton TestDateButton;
+    private System.Windows.Forms.ToolStripTextBox DayBox;
+    private System.Windows.Forms.ToolStripDropDownButton MonthDropDown;
+    private System.Windows.Forms.ToolStripMenuItem januaryToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem februaryToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem marchToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem aprilToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem mayToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem juneToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem julyToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem augustToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem septemberToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem octoberToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem novemberToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem decemberToolStripMenuItem;
+    private System.Windows.Forms.ToolStripTextBox YearBox;
+    private System.Windows.Forms.ToolStripDropDownButton ADBCDropDown;
+    private System.Windows.Forms.ToolStripMenuItem aDToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem bCToolStripMenuItem;
+    private System.Windows.Forms.ToolStripTextBox TimeBox;
+    private System.Windows.Forms.ToolStripButton TimeLockButton;
   }
 }
 

@@ -13,6 +13,8 @@ namespace SolarSystem
 {
   public partial class MainForm : Form
   {
+    private HistoricDateTime DateTime = new HistoricDateTime(); 
+    private bool TimeUnlocked { get; set; } = true; 
     private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm(); 
     private ColorMapForm ColorMapForm { get; } = new ColorMapForm();
     private CelestialPropertiesForm CelestialPropertiesForm
@@ -299,6 +301,87 @@ namespace SolarSystem
     {
       using (DateTesterForm form = new DateTesterForm())
         form.ShowDialog(); 
+    }
+
+    private void SetMonth(string monthName)
+    {
+      MonthDropDown.Text = monthName;
+      SendDate(); 
+    }
+
+    private void SetADBC(string value)
+    {
+      ADBCDropDown.Text = value;
+      SendDate(); 
+    }
+
+    private void MonthStripMenuItem_Click(object sender, EventArgs e)
+    {
+      SetMonth((sender as ToolStripMenuItem).Text);
+    }
+
+    private void DateTimeBox_Leave(object sender, EventArgs e)
+    {
+      SendDate(); 
+    }
+
+    private void SendDate()
+    {
+      try
+      {
+        HistoricDateTime dateTime = new HistoricDateTime(
+          DayBox.Text + " " + MonthDropDown.Text + " " + YearBox.Text + " " + ADBCDropDown.Text +
+          " " + TimeBox.Text
+          );
+        SetDateTime(dateTime); 
+      }
+      catch
+      {
+        SetDateTime(DateTime);
+      }
+    }
+
+    private void SetDateTime(HistoricDateTime dateTime, bool display = true)
+    {
+      DateTime = dateTime;
+      if (display)
+      {
+        DayBox.Text = DateTime.TwoDigits(DateTime.Day.ToString());
+        MonthDropDown.Text = HistoricDateTime.MonthText(DateTime.Month);
+        long year = DateTime.Year;
+        if (year < 0)
+          ADBCDropDown.Text = "BC";
+        else
+          ADBCDropDown.Text = "AD";
+        YearBox.Text = Math.Abs(year).ToString();
+        TimeBox.Text = DateTime.ToTimeString();
+      }
+    }
+
+    private void DayBox_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+        SendDate(); 
+    }
+
+    private void ADBCToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      SetADBC((sender as ToolStripMenuItem).Text);
+    }
+
+    private void TimeLockButton_Click(object sender, EventArgs e)
+    {
+      SetTimeLock(!TimeUnlocked);
+    }
+
+    private void SetTimeLock(bool value)
+    {
+      TimeUnlocked = value;
+      DayBox.Enabled = MonthDropDown.Enabled = YearBox.Enabled = ADBCDropDown.Enabled = TimeBox.Enabled = TimeUnlocked;
+      if (TimeUnlocked)
+        TimeLockButton.Image = Properties.Resources.TimeIcon;
+      else
+        TimeLockButton.Image = Properties.Resources.TimeLockIcon;
     }
   }
 }
