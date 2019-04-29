@@ -67,8 +67,8 @@ namespace SolarSystem
 
     internal void Lookat(IPositionObject target, string name)
     {
-      LookatDropDownButton.Text = name; 
       Camera.Lookat(target);
+      LookatDropDownButton.Text = name;
     }
   }
 }

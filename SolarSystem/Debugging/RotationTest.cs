@@ -20,28 +20,28 @@ namespace SolarSystem.Debugging
       InitializeComponent();
     }
 
-    private void xBar_Scroll(object sender, EventArgs e)
+    private void XBar_Scroll(object sender, EventArgs e)
     {
-      xLabel.Text = "x: " + xBar.Value.ToString();
+      xLabel.Text = "x: " + XBar.Value.ToString();
       SetRotation(); 
     }
 
-    private void yBar_Scroll(object sender, EventArgs e)
+    private void YBar_Scroll(object sender, EventArgs e)
     {
-      yLabel.Text = "y: " + yBar.Value.ToString();
+      yLabel.Text = "y: " + YBar.Value.ToString();
       SetRotation();
     }
 
-    private void zBar_Scroll(object sender, EventArgs e)
+    private void ZBar_Scroll(object sender, EventArgs e)
     {
-      zLabel.Text = "z: " + zBar.Value.ToString();
+      zLabel.Text = "z: " + ZBar.Value.ToString();
       SetRotation();
     }
 
     private void SetRotation()
     {
       mesh.Changed = true;
-      mesh.Transform.Rotation = new EulerAngles(xBar.Value, yBar.Value, zBar.Value);
+      mesh.Transform.Rotation = new EulerAngles(XBar.Value, YBar.Value, ZBar.Value);
     }
   }
 }

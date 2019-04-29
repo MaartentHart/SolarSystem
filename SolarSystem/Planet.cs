@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenGL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -28,18 +29,22 @@ namespace SolarSystem
   /// </summary>
   public class Planet : IRenderable, IDisposable, IPositionObject
   {
+    public static float pointSize = 3; 
+
+    private int id = -1;
     private bool on = true;
-    private double previousExxageration = 0; 
-    private double exxageration = 0; 
+    private double previousExxageration = 0;
+    private double exxageration = 0;
     private readonly object locker = new object();
     private bool unmanagedVerticesNormals = false;
-    private bool unmanagedColors = false; 
+    private bool unmanagedColors = false;
     private IntPtr normals;
     private IntPtr vertices;
-    private IntPtr colors; 
-    private BackgroundWorker backgroundWorker = new BackgroundWorker(); 
+    private IntPtr colors;
+    private ColorFloat color;
+    private BackgroundWorker backgroundWorker = new BackgroundWorker();
     private bool changed = true;
-    private bool paint = false; 
+    private bool paint = false;
 
     public int Generation { get; }
     public SolarSystemPlanet PlanetID { get; }
@@ -50,7 +55,7 @@ namespace SolarSystem
     public Point3D Scale { get; }
     public double[] ColorableValues { get; set; }
     public ColorMap ColorMap { get; set; }
-    
+
     public List<string> PlanetUniforms { get; } = new List<string>
     {
       "uRadius",
@@ -65,10 +70,10 @@ namespace SolarSystem
     public bool On
     {
       get => on;
-      set 
+      set
       {
         changed = true;
-        on = value;  
+        on = value;
       }
     }
     public string Name { get; set; }
@@ -83,7 +88,7 @@ namespace SolarSystem
       set => changed = value;
     }
 
-    public Point3D Position => RenderableObject.Position; 
+    public Point3D Position => RenderableObject.Position;
 
     public Planet(SolarSystemPlanet planet, int generation = 9)
     {
@@ -91,12 +96,13 @@ namespace SolarSystem
       PlanetID = planet;
       RenderableObject.RenderGeometry.SetGeodesicGrid(generation);
       HeightMap = new HeightMap(planet, generation);
-      ColorableValues = HeightMap.Heights; 
+      ColorableValues = HeightMap.Heights;
       //Shader = new Shader("PlanetHeightMapVertex", "TestFrag", PlanetUniforms, PlanetAttributes); 
       //Color = new ColorFloat[CoreDll.GeodesicGridVerticesCount(9)];
       Name = planet.ToString();
       CoreDll.SetActivePlanet(planet.ToString());
       Scale = new Point3D(CoreDll.PlanetScaleX(), CoreDll.PlanetScaleY(), CoreDll.PlanetScaleZ());
+      CoreDll.PlanetColor(ref color);
       SetExxageration(1.0);
     }
 
@@ -105,7 +111,7 @@ namespace SolarSystem
       if (exxageration == scale)
         return;
       exxageration = scale;
-      StartBackgroundWorker(); 
+      StartBackgroundWorker();
     }
 
     public void StartBackgroundWorker()
@@ -114,12 +120,11 @@ namespace SolarSystem
       {
         return;
       }
-      backgroundWorker.Dispose(); 
-      backgroundWorker = new BackgroundWorker(); 
+      backgroundWorker.Dispose();
+      backgroundWorker = new BackgroundWorker();
       backgroundWorker.DoWork += ApplyChanges;
       backgroundWorker.RunWorkerAsync();
     }
-
 
     public void SetColorMap(ColorMap colorMap, double[] values)
     {
@@ -127,15 +132,15 @@ namespace SolarSystem
       {
         ColorableValues = values;
       }
-      SetColorMap(colorMap); 
+      SetColorMap(colorMap);
     }
 
     public void SetColorMap(ColorMap colorMap)
     {
       ColorMap = colorMap;
 
-      if (ColorableValues!=null)
-      { 
+      if (ColorableValues != null)
+      {
         paint = true;
         StartBackgroundWorker();
       }
@@ -162,7 +167,7 @@ namespace SolarSystem
         while (paint)
         {
           changed = true;
-          Paint(); 
+          Paint();
         }
       }
     }
@@ -236,15 +241,15 @@ namespace SolarSystem
     /// </summary>
     private void Paint()
     {
-      paint = false; 
+      paint = false;
       int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
-      
+
       if (ColorMap == null || ColorableValues == null || ColorableValues.Length != verticesCount)
         return;
 
       double[] colorable = ColorableValues;
-      ColorMap colorMap = ColorMap; 
-      
+      ColorMap colorMap = ColorMap;
+
       IntPtr newColors = Marshal.AllocHGlobal(verticesCount * 16);
       unsafe
       {
@@ -255,15 +260,15 @@ namespace SolarSystem
         }
       }
 
-      DisposeColors(); 
+      DisposeColors();
 
       lock (locker)
       {
         unmanagedColors = true;
         colors = newColors;
-        RenderableObject.RenderGeometry.colors = colors; 
+        RenderableObject.RenderGeometry.colors = colors;
         RenderableObject.RenderGeometry.enableColors = true;
-        changed = true; 
+        changed = true;
       }
     }
 
@@ -283,7 +288,7 @@ namespace SolarSystem
         }
       }
     }
-    
+
     private void DisposeColors()
     {
       lock (locker)
@@ -300,17 +305,35 @@ namespace SolarSystem
     private void DisposeUnmanaged()
     {
       DisposeVerticesNormals();
-      DisposeColors(); 
+      DisposeColors();
     }
 
     public void Render()
     {
       if (!On)
-        return; 
+        return;
+
       lock (locker)
       {
+        RenderPoint();
         RenderableObject.Render();
       }
+    }
+
+    private void RenderPoint()
+    {
+      Point3D[] vertices = new Point3D[] { Position };
+      ColorFloat[] colors = new ColorFloat[] { color };
+      int[] indices = new int[] { 0 };
+
+      Gl.Disable(EnableCap.NormalArray);
+      Gl.EnableClientState(EnableCap.VertexArray);
+      Gl.VertexPointer(3, VertexPointerType.Double, 0, vertices);
+      Gl.Disable(EnableCap.Lighting);
+      Gl.EnableClientState(EnableCap.ColorArray);
+      Gl.ColorPointer(4, ColorPointerType.Float, 0, colors);
+      Gl.PointSize(pointSize);
+      Gl.DrawElements(PrimitiveType.Points, 1, DrawElementsType.UnsignedInt, indices);
     }
 
     #region IDisposable Support
@@ -346,6 +369,23 @@ namespace SolarSystem
       Dispose(true);
       // TODO: uncomment the following line if the finalizer is overridden above.
       // GC.SuppressFinalize(this);
+    }
+
+    public void TimeUpdate()
+    {
+      SetActive();
+      RenderableObject.Transform.Position = new Point3D(
+        CoreDll.PlanetPositionX(), 
+        CoreDll.PlanetPositionY(), 
+        CoreDll.PlanetPositionZ());
+    }
+
+    private void SetActive()
+    {
+      if (id != -1)
+        CoreDll.SetActivePlanetID(id);
+      else
+        id = CoreDll.SetActivePlanet(Name);
     }
 
     #endregion

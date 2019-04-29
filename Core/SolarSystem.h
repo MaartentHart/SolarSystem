@@ -7,19 +7,21 @@
 
 struct SolarSystem
 {
+	double time; 
+
 	SolarSystem(); 
 
-	Planet&Earth();
-	Planet&Venus();
-	Planet&Mercury();
-	Planet&Mars();
-	Planet&Moon();
-	Planet&Jupiter();
-	Planet&Saturn();
-	Planet&Neptune();
-	Planet&Uranus();
-	Planet&Pluto();
-	Planet&Sun();
+	Planet*Earth();
+	Planet*Venus();
+	Planet*Mercury();
+	Planet*Mars();
+	Planet*Moon();
+	Planet*Jupiter();
+	Planet*Saturn();
+	Planet*Neptune();
+	Planet*Uranus();
+	Planet*Pluto();
+	Planet*Sun();
 	std::vector<Planet*> Planets(); 
 	void SetTimeSinceJ2000(double days);
 };

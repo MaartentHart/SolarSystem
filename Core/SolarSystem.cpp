@@ -3,6 +3,7 @@
 #include "SolarSystem.h"
 
 double undefined = 9999999;
+std::vector<Planet*> planets; 
 
 Planet earth(6378.137, 6356.752315, 0.00981, "Earth");
 Planet moon(1737.10, 1735.97, 0.00162, "Moon");
@@ -450,100 +451,108 @@ void CelestialBody::SetSun()
 
 SolarSystem::SolarSystem()
 {
-	earth.SetEarth();
-	moon.SetMoon();
-	mercury.SetMercury();
-	mars.SetMars();
-	venus.SetVenus();
-	jupiter.SetJupiter();
-	saturn.SetSaturn();
-	uranus.SetUranus();
-	neptune.SetNeptune();
-	pluto.SetPluto();
-	sun.SetSun();
-	sun.isSun = true;
-	moon.isMoon = true;
-	for (Planet*planet : Planets())
-	{
-		planet->LoadCelestialBodyOrbit();
-	}
+
 }
 
-Planet & SolarSystem::Earth()
+Planet * SolarSystem::Earth()
 {
-	return earth; 
+	return &earth; 
 }
 
-Planet & SolarSystem::Venus()
+Planet * SolarSystem::Venus()
 {
-	return venus; 
+	return &venus; 
 }
 
-Planet & SolarSystem::Mercury()
+Planet * SolarSystem::Mercury()
 {
-	return mercury; 
+	return &mercury; 
 }
 
-Planet & SolarSystem::Mars()
+Planet * SolarSystem::Mars()
 {
-	return mars;
+	return &mars;
 }
 
-Planet & SolarSystem::Moon()
+Planet * SolarSystem::Moon()
 {
-	return moon; 
+	return &moon; 
 }
 
-Planet & SolarSystem::Jupiter()
+Planet * SolarSystem::Jupiter()
 {
-	return jupiter; 
+	return &jupiter; 
 }
 
-Planet & SolarSystem::Saturn()
+Planet * SolarSystem::Saturn()
 {
-	return saturn; 
+	return &saturn; 
 }
 
-Planet & SolarSystem::Neptune()
+Planet * SolarSystem::Neptune()
 {
-	return neptune; 
+	return &neptune; 
 }
 
-Planet & SolarSystem::Uranus()
+Planet * SolarSystem::Uranus()
 {
-	return uranus; 
+	return &uranus; 
 }
 
-Planet & SolarSystem::Pluto()
+Planet * SolarSystem::Pluto()
 {
-	return pluto;
+	return &pluto;
 }
 
-Planet & SolarSystem::Sun()
+Planet * SolarSystem::Sun()
 {
-	return sun; 
+	return &sun; 
 }
 
 std::vector<Planet*> SolarSystem::Planets() 
 {
-	return std::vector<Planet*>
+	if (planets.size() == 0)
 	{
-		&Earth(),
-		&Venus(),
-		&Mercury(),
-		&Mars(),
-		&Moon(),
-		&Jupiter(),
-		&Saturn(),
-		&Neptune(),
-		&Uranus(),
-		&Pluto(),
-		&Sun()
-	};
+		earth.SetEarth();
+		moon.SetMoon();
+		mercury.SetMercury();
+		mars.SetMars();
+		venus.SetVenus();
+		jupiter.SetJupiter();
+		saturn.SetSaturn();
+		uranus.SetUranus();
+		neptune.SetNeptune();
+		pluto.SetPluto();
+		sun.SetSun();
+		sun.isSun = true;
+		moon.isMoon = true;
+
+		planets = std::vector<Planet*>
+		{
+			Earth(),
+			Venus(),
+			Mercury(),
+			Mars(),
+			Moon(),
+			Jupiter(),
+			Saturn(),
+			Neptune(),
+			Uranus(),
+			Pluto(),
+			Sun()
+		};
+
+		for (Planet*planet:planets)
+		{
+			planet->LoadCelestialBodyOrbit(); 
+		}
+	}
+	return planets; 
 }
 
 void SolarSystem::SetTimeSinceJ2000(double days)
 {
+	time = days; 
 	Point3D moonPos;
 	for (Planet*planet : Planets())
 	{
@@ -555,6 +564,6 @@ void SolarSystem::SetTimeSinceJ2000(double days)
 			planet->position = planet->PositionByTime(days);
 	}
 	//sun is always at 0. 
-	Sun().position = 0;
-	Moon().position = moonPos + Earth().position;
+	Sun()->position = 0;
+	Moon()->position = moonPos + Earth()->position;
 }

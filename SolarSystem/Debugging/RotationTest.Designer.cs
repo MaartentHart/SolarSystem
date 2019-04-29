@@ -28,25 +28,25 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.xBar = new System.Windows.Forms.TrackBar();
+      this.XBar = new System.Windows.Forms.TrackBar();
       this.xLabel = new System.Windows.Forms.Label();
-      this.yBar = new System.Windows.Forms.TrackBar();
-      this.zBar = new System.Windows.Forms.TrackBar();
+      this.YBar = new System.Windows.Forms.TrackBar();
+      this.ZBar = new System.Windows.Forms.TrackBar();
       this.yLabel = new System.Windows.Forms.Label();
       this.zLabel = new System.Windows.Forms.Label();
-      ((System.ComponentModel.ISupportInitialize)(this.xBar)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.yBar)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.zBar)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.XBar)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.YBar)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.ZBar)).BeginInit();
       this.SuspendLayout();
       // 
-      // xBar
+      // XBar
       // 
-      this.xBar.Location = new System.Drawing.Point(58, 12);
-      this.xBar.Maximum = 360;
-      this.xBar.Name = "xBar";
-      this.xBar.Size = new System.Drawing.Size(707, 45);
-      this.xBar.TabIndex = 0;
-      this.xBar.Scroll += new System.EventHandler(this.xBar_Scroll);
+      this.XBar.Location = new System.Drawing.Point(58, 12);
+      this.XBar.Maximum = 360;
+      this.XBar.Name = "XBar";
+      this.XBar.Size = new System.Drawing.Size(707, 45);
+      this.XBar.TabIndex = 0;
+      this.XBar.Scroll += new System.EventHandler(this.XBar_Scroll);
       // 
       // xLabel
       // 
@@ -57,23 +57,23 @@
       this.xLabel.TabIndex = 1;
       this.xLabel.Text = "x: 0";
       // 
-      // yBar
+      // YBar
       // 
-      this.yBar.Location = new System.Drawing.Point(58, 63);
-      this.yBar.Maximum = 360;
-      this.yBar.Name = "yBar";
-      this.yBar.Size = new System.Drawing.Size(707, 45);
-      this.yBar.TabIndex = 2;
-      this.yBar.Scroll += new System.EventHandler(this.yBar_Scroll);
+      this.YBar.Location = new System.Drawing.Point(58, 63);
+      this.YBar.Maximum = 360;
+      this.YBar.Name = "YBar";
+      this.YBar.Size = new System.Drawing.Size(707, 45);
+      this.YBar.TabIndex = 2;
+      this.YBar.Scroll += new System.EventHandler(this.YBar_Scroll);
       // 
-      // zBar
+      // ZBar
       // 
-      this.zBar.Location = new System.Drawing.Point(58, 112);
-      this.zBar.Maximum = 360;
-      this.zBar.Name = "zBar";
-      this.zBar.Size = new System.Drawing.Size(707, 45);
-      this.zBar.TabIndex = 3;
-      this.zBar.Scroll += new System.EventHandler(this.zBar_Scroll);
+      this.ZBar.Location = new System.Drawing.Point(58, 112);
+      this.ZBar.Maximum = 360;
+      this.ZBar.Name = "ZBar";
+      this.ZBar.Size = new System.Drawing.Size(707, 45);
+      this.ZBar.TabIndex = 3;
+      this.ZBar.Scroll += new System.EventHandler(this.ZBar_Scroll);
       // 
       // yLabel
       // 
@@ -100,15 +100,15 @@
       this.ClientSize = new System.Drawing.Size(1006, 169);
       this.Controls.Add(this.zLabel);
       this.Controls.Add(this.yLabel);
-      this.Controls.Add(this.zBar);
-      this.Controls.Add(this.yBar);
+      this.Controls.Add(this.ZBar);
+      this.Controls.Add(this.YBar);
       this.Controls.Add(this.xLabel);
-      this.Controls.Add(this.xBar);
+      this.Controls.Add(this.XBar);
       this.Name = "RotationTest";
       this.Text = "RotationTest";
-      ((System.ComponentModel.ISupportInitialize)(this.xBar)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.yBar)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.zBar)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.XBar)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.YBar)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.ZBar)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -116,10 +116,10 @@
 
     #endregion
 
-    private System.Windows.Forms.TrackBar xBar;
+    private System.Windows.Forms.TrackBar XBar;
     private System.Windows.Forms.Label xLabel;
-    private System.Windows.Forms.TrackBar yBar;
-    private System.Windows.Forms.TrackBar zBar;
+    private System.Windows.Forms.TrackBar YBar;
+    private System.Windows.Forms.TrackBar ZBar;
     private System.Windows.Forms.Label yLabel;
     private System.Windows.Forms.Label zLabel;
   }

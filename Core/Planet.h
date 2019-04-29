@@ -108,7 +108,6 @@ struct Planet : CelestialBody, Orbit
 
 	double radius;//km
 	double secondaryRadius;//km
-	double rotationTime;//hours per turn
 	double surfaceGravity;//km/s2
 
 	bool isSun;

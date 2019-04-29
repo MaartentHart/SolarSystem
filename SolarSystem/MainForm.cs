@@ -325,7 +325,7 @@ namespace SolarSystem
       SendDate(); 
     }
 
-    private void SendDate()
+    private void SendDate(bool display = true)
     {
       try
       {
@@ -333,11 +333,11 @@ namespace SolarSystem
           DayBox.Text + " " + MonthDropDown.Text + " " + YearBox.Text + " " + ADBCDropDown.Text +
           " " + TimeBox.Text
           );
-        SetDateTime(dateTime); 
+        SetDateTime(dateTime, display); 
       }
       catch
       {
-        SetDateTime(DateTime);
+        SetDateTime(DateTime, display);
       }
     }
 
@@ -356,6 +356,14 @@ namespace SolarSystem
         YearBox.Text = Math.Abs(year).ToString();
         TimeBox.Text = DateTime.ToTimeString();
       }
+      CoreDll.SetDaysSinceJ2000(dateTime.TotalDays);
+      RenderablesTimeUpdate(); 
+    }
+
+    private void RenderablesTimeUpdate()
+    {
+      foreach (IRenderable renderable in Scene.RenderableObjects)
+        renderable.TimeUpdate(); 
     }
 
     private void DayBox_KeyDown(object sender, KeyEventArgs e)
@@ -389,8 +397,12 @@ namespace SolarSystem
       Mesh arrow = TriadGeometry.GenerateArrow(); 
       Scene.RenderableObjects.Add(new TriadGeometry().Arrows);
       Scene.RenderableObjects.Add(arrow);
-      Debugging.RotationTest test = new Debugging.RotationTest(arrow);
-      test.Owner = this; 
+
+      Debugging.RotationTest test = new Debugging.RotationTest(arrow)
+      {
+        Owner = this
+      };
+
       test.Show(); 
     }
   }

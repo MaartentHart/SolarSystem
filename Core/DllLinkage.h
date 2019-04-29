@@ -2,6 +2,7 @@
 //This is the native linkage point between the C++ native code and the C# interface code. 
 
 #pragma once
+#include "color.h"
 #define DLL __declspec(dllexport) 
 extern "C"
 {
@@ -21,11 +22,21 @@ extern "C"
 	DLL int __cdecl GeodesicGridIndicesCount(int generation);
 
 	//Planet properties
-	DLL void __cdecl SetActivePlanet(const char*name);
+	DLL int __cdecl SetActivePlanet(const char*name);
+	DLL void __cdecl SetActivePlanetID(int id);
 	DLL double __cdecl PlanetScaleX(); 
 	DLL double __cdecl PlanetScaleY();
 	DLL double __cdecl PlanetScaleZ();
+	DLL void __cdecl PlanetColor(Color&color);
+	DLL double __cdecl PlanetRightAscension(); 
+	DLL double __cdecl PlanetDeclination(); 
+
+	//Planet update
 	DLL void __cdecl SetDaysSinceJ2000(double days); 
+	DLL double __cdecl PlanetPositionX();
+	DLL double __cdecl PlanetPositionY();
+	DLL double __cdecl PlanetPositionZ();
+	DLL double __cdecl PlanetRotation(); 
 
 	//other
 	DLL double __cdecl CopySign(double a, double b);

@@ -15,7 +15,10 @@ namespace SolarSystem
     bool Changed { get; }
 
     void Render();
-    void SetColorMap(ColorMap colorMap); 
+    void SetColorMap(ColorMap colorMap);
+
+    //is called when the time updates. 
+    void TimeUpdate();
   }
 
   public class CRenderGeometry
@@ -67,7 +70,7 @@ namespace SolarSystem
         Gl.DisableClientState(EnableCap.ColorArray); 
       }
       Gl.PointSize(pointSize);
-      Gl.DrawElements(PrimitiveType.Points, verticesCount, DrawElementsType.UnsignedInt, vertices);
+      Gl.DrawElements(PrimitiveType.Points, verticesCount, DrawElementsType.UnsignedInt, indices);
     }
 
     private void RenderTriangles()
@@ -182,6 +185,11 @@ namespace SolarSystem
     public void SetColorMap(ColorMap colorMap)
     {
       throw new NotImplementedException();
+    }
+
+    public void TimeUpdate()
+    {
+ 
     }
   }
 
@@ -367,6 +375,11 @@ namespace SolarSystem
     public void SetColorMap(ColorMap colorMap)
     {
       throw new NotImplementedException();
+    }
+
+    public void TimeUpdate()
+    {
+      
     }
   }
 }

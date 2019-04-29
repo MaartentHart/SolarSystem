@@ -51,7 +51,10 @@ namespace SolarSystem
 
     #region PlanetProperties
     [DllImport("Core.dll", EntryPoint = "SetActivePlanet", CallingConvention = CallingConvention.Cdecl)]
-    static public extern void SetActivePlanet(string name);
+    static public extern int SetActivePlanet(string name);
+
+    [DllImport("Core.dll", EntryPoint = "SetActivePlanetID", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void SetActivePlanetID(int id);
 
     [DllImport("Core.dll", EntryPoint = "PlanetScaleX", CallingConvention = CallingConvention.Cdecl)]
     static public extern double PlanetScaleX();
@@ -62,8 +65,26 @@ namespace SolarSystem
     [DllImport("Core.dll", EntryPoint = "PlanetScaleZ", CallingConvention = CallingConvention.Cdecl)]
     static public extern double PlanetScaleZ();
 
+    [DllImport("Core.dll", EntryPoint = "PlanetColor", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void PlanetColor(ref ColorFloat color);
+    #endregion
+
+    #region PlanetUpdate
     [DllImport("Core.dll", EntryPoint = "SetDaysSinceJ2000", CallingConvention = CallingConvention.Cdecl)]
-    static public extern void SetDaysSinceJ2000(double days); 
+    static public extern void SetDaysSinceJ2000(double days);
+
+    [DllImport("Core.dll", EntryPoint = "PlanetPositionX", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetPositionX();
+
+    [DllImport("Core.dll", EntryPoint = "PlanetPositionY", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetPositionY();
+
+    [DllImport("Core.dll", EntryPoint = "PlanetPositionZ", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetPositionZ();
+
+    [DllImport("Core.dll", EntryPoint = "PlanetRotation", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetRotation();
+
     #endregion
 
     #region Other

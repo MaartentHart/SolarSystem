@@ -83,17 +83,28 @@ int GeodesicGridIndicesCount(int generation)
 	return grid->GetTriangleIndices().size()*3; 
 }
 
-void SetActivePlanet(const char*name)
+int SetActivePlanet(const char*name)
 {
+	int i = 0; 
 	for (Planet*planet : solarSystem.Planets())
 	{
 		if (planet->name == name)
 		{
 			activePlanet = planet;
-			return;
+			return i;
 		}
+		i++;
 	}
 	activePlanet = NULL; 
+	return -1; 
+}
+
+void SetActivePlanetID(int id)
+{
+	if (id < 0 || id >= (int) solarSystem.Planets().size())
+		activePlanet = NULL;
+	else
+		activePlanet = solarSystem.Planets()[id];
 }
 
 double PlanetScaleX()
@@ -117,9 +128,62 @@ double PlanetScaleZ()
 	return activePlanet->secondaryRadius;
 }
 
+void PlanetColor(Color&color)
+{
+	if (activePlanet == NULL)
+		return;
+	color.r = activePlanet->color.r;
+	color.g = activePlanet->color.g;
+	color.b = activePlanet->color.b;
+	color.a = activePlanet->color.a; 
+}
+
+
+double PlanetRightAscension()
+{
+	if (activePlanet == NULL)
+		return 0;
+	return activePlanet->RightAscension; 
+}
+
+double PlanetDeclination()
+{
+	if (activePlanet == NULL)
+		return 0;
+	return activePlanet->Declination; 
+}
+
 void SetDaysSinceJ2000(double days)
 {
 	solarSystem.SetTimeSinceJ2000(days);
+}
+
+double PlanetPositionX()
+{
+	if (activePlanet == NULL)
+		return 0;
+	return activePlanet->position.X;
+}
+
+double PlanetPositionY()
+{
+	if (activePlanet == NULL)
+		return 0;
+	return activePlanet->position.Y;
+}
+
+double PlanetPositionZ()
+{
+	if (activePlanet == NULL)
+		return 0;
+	return activePlanet->position.Z;
+}
+
+double PlanetRotation()
+{
+	if (activePlanet == NULL)
+		return 0;
+	return activePlanet->SiderealRotationPeriod*solarSystem.time;
 }
 
 double CopySign(double a, double b)
