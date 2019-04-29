@@ -2,11 +2,13 @@
 #include "stdafx.h"
 #include "DllLinkage.h"
 #include <string>
-#include "SolarSystem.h"
-#include "Geodesic.h"
 
 SolarSystem solarSystem;
 Planet* activePlanet; 
+
+bool run = false; 
+std::vector<GravityAffectedObject> gravityObjects; 
+double timeStep; 
 
 //Tests and Examples. 
 void ExampleSetString(const char*theString)
@@ -184,6 +186,47 @@ double PlanetRotation()
 	if (activePlanet == NULL)
 		return 0;
 	return activePlanet->SiderealRotationPeriod*solarSystem.time;
+}
+
+void ClearFallingObjects()
+{
+	gravityObjects.clear(); 
+}
+
+void AddFallingObject(Point3D*points, Point3D*velocities, int pointCount)
+{
+	gravityObjects.push_back(GravityAffectedObject(points, velocities, pointCount));
+}
+
+void Run(bool run)
+{
+	::run = run; 
+}
+
+void SetTimeStep(double timeStep)
+{
+	::timeStep = timeStep; 
+}
+
+//run the simulation until run is set false. 
+void Simulate()
+{
+	while (run)
+	{
+		double time = solarSystem.time + timeStep; 
+		solarSystem.SetTimeSinceJ2000(time);
+
+		std::vector<Planet*> planets = solarSystem.Planets();
+
+		for (GravityAffectedObject&gravityObject:gravityObjects )
+			gravityObject.MoveByGravity(planets, timeStep);
+	}
+}
+
+//get information from simulation. 
+double GetTime()
+{
+	return solarSystem.time; 
 }
 
 double CopySign(double a, double b)

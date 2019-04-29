@@ -14,7 +14,7 @@ namespace SolarSystem
     string Name { get; set; }
     bool Changed { get; }
 
-    void Render();
+    void Render(Camera camera);
     void SetColorMap(ColorMap colorMap);
 
     //is called when the time updates. 
@@ -174,7 +174,7 @@ namespace SolarSystem
       set => changed = value;
     }  
 
-    public void Render()
+    public void Render(Camera camera)
     {
       using (ApplyTransform apply = new ApplyTransform(Transform))
       {
@@ -248,7 +248,7 @@ namespace SolarSystem
     public List<IRenderable> Children { get; set; } = new List<IRenderable>();
     public bool Transparent { get; set; } = false; 
 
-    public void Render()
+    public void Render(Camera camera)
     {
       if (!On)
         return;
@@ -303,7 +303,7 @@ namespace SolarSystem
 
         foreach (IRenderable child in Children)
         {
-          child.Render(); 
+          child.Render(camera); 
         }
       }
       if (Transparent)

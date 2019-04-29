@@ -84,7 +84,28 @@ namespace SolarSystem
 
     [DllImport("Core.dll", EntryPoint = "PlanetRotation", CallingConvention = CallingConvention.Cdecl)]
     static public extern double PlanetRotation();
+    #endregion
 
+    #region Simulation    
+    [DllImport("Core.dll", EntryPoint = "ClearFallingObjects", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void ClearFallingObjects();
+
+    [DllImport("Core.dll", EntryPoint = "AddFallingObject", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void AddFallingObject(Point3D[] points, Point3D[] velocities, int pointCount);
+
+    [DllImport("Core.dll", EntryPoint = "Run", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void Run(bool run);
+
+    [DllImport("Core.dll", EntryPoint = "SetTimeStep", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void SetTimeStep(double timeStep);
+
+    //run the simulation until run is set false. 
+    [DllImport("Core.dll", EntryPoint = "Simulate", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void Simulate();
+
+    //get information from simulation. 
+    [DllImport("Core.dll", EntryPoint = "GetTime", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double GetTime();
     #endregion
 
     #region Other

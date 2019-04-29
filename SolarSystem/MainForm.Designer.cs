@@ -58,12 +58,20 @@
       this.aDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.bCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.TimeBox = new System.Windows.Forms.ToolStripTextBox();
-      this.AddMarsTestButton = new System.Windows.Forms.ToolStripButton();
-      this.AddSunTestButton = new System.Windows.Forms.ToolStripButton();
-      this.AddMoonTestButton = new System.Windows.Forms.ToolStripButton();
+      this.PlayPauseButton = new System.Windows.Forms.ToolStripButton();
+      this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+      this.TimeStepBox = new System.Windows.Forms.ToolStripTextBox();
+      this.TimeStepUnitButton = new System.Windows.Forms.ToolStripDropDownButton();
+      this.SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.DaysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+      this.InitializePlanets = new System.Windows.Forms.ToolStripButton();
       this.TestImageButton = new System.Windows.Forms.ToolStripButton();
-      this.GlView = new SolarSystem.GlView();
       this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
+      this.GlView = new SolarSystem.GlView();
+      this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+      this.MaxRenderRatioBox = new System.Windows.Forms.ToolStripTextBox();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -131,14 +139,18 @@
             this.YearBox,
             this.ADBCDropDown,
             this.TimeBox,
-            this.AddMarsTestButton,
-            this.AddSunTestButton,
-            this.AddMoonTestButton,
+            this.PlayPauseButton,
+            this.toolStripLabel1,
+            this.TimeStepBox,
+            this.TimeStepUnitButton,
+            this.InitializePlanets,
             this.TestImageButton,
-            this.TestTriadButton});
+            this.TestTriadButton,
+            this.toolStripLabel2,
+            this.MaxRenderRatioBox});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
-      this.toolStrip1.Size = new System.Drawing.Size(624, 25);
+      this.toolStrip1.Size = new System.Drawing.Size(864, 25);
       this.toolStrip1.TabIndex = 19;
       this.toolStrip1.Text = "toolStrip1";
       // 
@@ -165,7 +177,6 @@
       // TimeLockButton
       // 
       this.TimeLockButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TimeLockButton.Image = global::SolarSystem.Properties.Resources.TimeIcon;
       this.TimeLockButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.TimeLockButton.Name = "TimeLockButton";
       this.TimeLockButton.Size = new System.Drawing.Size(23, 22);
@@ -330,35 +341,82 @@
       this.TimeBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
       this.TimeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
       // 
-      // AddMarsTestButton
+      // PlayPauseButton
       // 
-      this.AddMarsTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.AddMarsTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMarsTestButton.Image")));
-      this.AddMarsTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.AddMarsTestButton.Name = "AddMarsTestButton";
-      this.AddMarsTestButton.Size = new System.Drawing.Size(23, 22);
-      this.AddMarsTestButton.Text = "Add Mars Test";
-      this.AddMarsTestButton.Click += new System.EventHandler(this.AddMarsTestButton_Click);
+      this.PlayPauseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.PlayPauseButton.Image = global::SolarSystem.Properties.Resources.Play;
+      this.PlayPauseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.PlayPauseButton.Name = "PlayPauseButton";
+      this.PlayPauseButton.Size = new System.Drawing.Size(23, 22);
+      this.PlayPauseButton.Text = "Play/Pause";
+      this.PlayPauseButton.Click += new System.EventHandler(this.PlayPauseButton_Click);
       // 
-      // AddSunTestButton
+      // toolStripLabel1
       // 
-      this.AddSunTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.AddSunTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddSunTestButton.Image")));
-      this.AddSunTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.AddSunTestButton.Name = "AddSunTestButton";
-      this.AddSunTestButton.Size = new System.Drawing.Size(23, 22);
-      this.AddSunTestButton.Text = "Add Sun Test";
-      this.AddSunTestButton.Click += new System.EventHandler(this.AddSunTestButton_Click);
+      this.toolStripLabel1.Name = "toolStripLabel1";
+      this.toolStripLabel1.Size = new System.Drawing.Size(62, 22);
+      this.toolStripLabel1.Text = "Time step:";
       // 
-      // AddMoonTestButton
+      // TimeStepBox
       // 
-      this.AddMoonTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.AddMoonTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMoonTestButton.Image")));
-      this.AddMoonTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.AddMoonTestButton.Name = "AddMoonTestButton";
-      this.AddMoonTestButton.Size = new System.Drawing.Size(23, 22);
-      this.AddMoonTestButton.Text = "Add Moon Test";
-      this.AddMoonTestButton.Click += new System.EventHandler(this.AddMoonTestButton_Click);
+      this.TimeStepBox.Name = "TimeStepBox";
+      this.TimeStepBox.Size = new System.Drawing.Size(50, 25);
+      this.TimeStepBox.Text = "1";
+      this.TimeStepBox.Leave += new System.EventHandler(this.TimeStepBox_Leave);
+      this.TimeStepBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TimeStepBox_KeyDown);
+      // 
+      // TimeStepUnitButton
+      // 
+      this.TimeStepUnitButton.AutoSize = false;
+      this.TimeStepUnitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+      this.TimeStepUnitButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SecondsToolStripMenuItem,
+            this.MinutesToolStripMenuItem,
+            this.HoursToolStripMenuItem,
+            this.DaysToolStripMenuItem1});
+      this.TimeStepUnitButton.Image = ((System.Drawing.Image)(resources.GetObject("TimeStepUnitButton.Image")));
+      this.TimeStepUnitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TimeStepUnitButton.Name = "TimeStepUnitButton";
+      this.TimeStepUnitButton.Size = new System.Drawing.Size(64, 22);
+      this.TimeStepUnitButton.Text = "Seconds";
+      // 
+      // SecondsToolStripMenuItem
+      // 
+      this.SecondsToolStripMenuItem.Name = "SecondsToolStripMenuItem";
+      this.SecondsToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+      this.SecondsToolStripMenuItem.Text = "Seconds";
+      this.SecondsToolStripMenuItem.Click += new System.EventHandler(this.SetStepUnit);
+      // 
+      // MinutesToolStripMenuItem
+      // 
+      this.MinutesToolStripMenuItem.Name = "MinutesToolStripMenuItem";
+      this.MinutesToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+      this.MinutesToolStripMenuItem.Text = "Minutes";
+      this.MinutesToolStripMenuItem.Click += new System.EventHandler(this.SetStepUnit);
+      // 
+      // HoursToolStripMenuItem
+      // 
+      this.HoursToolStripMenuItem.Name = "HoursToolStripMenuItem";
+      this.HoursToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+      this.HoursToolStripMenuItem.Text = "Hours";
+      this.HoursToolStripMenuItem.Click += new System.EventHandler(this.SetStepUnit);
+      // 
+      // DaysToolStripMenuItem1
+      // 
+      this.DaysToolStripMenuItem1.Name = "DaysToolStripMenuItem1";
+      this.DaysToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
+      this.DaysToolStripMenuItem1.Text = "Days";
+      this.DaysToolStripMenuItem1.Click += new System.EventHandler(this.SetStepUnit);
+      // 
+      // InitializePlanets
+      // 
+      this.InitializePlanets.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.InitializePlanets.Image = ((System.Drawing.Image)(resources.GetObject("InitializePlanets.Image")));
+      this.InitializePlanets.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.InitializePlanets.Name = "InitializePlanets";
+      this.InitializePlanets.Size = new System.Drawing.Size(23, 22);
+      this.InitializePlanets.Text = "Initialize Planets";
+      this.InitializePlanets.Click += new System.EventHandler(this.InitializePlanets_Click);
       // 
       // TestImageButton
       // 
@@ -370,16 +428,6 @@
       this.TestImageButton.Text = "TestImage";
       this.TestImageButton.Click += new System.EventHandler(this.TestImageButton_Click);
       // 
-      // GlView
-      // 
-      this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.GlView.Location = new System.Drawing.Point(160, 28);
-      this.GlView.Name = "GlView";
-      this.GlView.Size = new System.Drawing.Size(452, 401);
-      this.GlView.TabIndex = 10;
-      // 
       // TestTriadButton
       // 
       this.TestTriadButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -390,11 +438,34 @@
       this.TestTriadButton.Text = "Test Triad";
       this.TestTriadButton.Click += new System.EventHandler(this.TestTriadButton_Click);
       // 
+      // GlView
+      // 
+      this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.GlView.Location = new System.Drawing.Point(160, 28);
+      this.GlView.Name = "GlView";
+      this.GlView.Size = new System.Drawing.Size(692, 401);
+      this.GlView.TabIndex = 10;
+      // 
+      // toolStripLabel2
+      // 
+      this.toolStripLabel2.Name = "toolStripLabel2";
+      this.toolStripLabel2.Size = new System.Drawing.Size(102, 22);
+      this.toolStripLabel2.Text = "Max Render Ratio:";
+      // 
+      // MaxRenderRatioBox
+      // 
+      this.MaxRenderRatioBox.Name = "MaxRenderRatioBox";
+      this.MaxRenderRatioBox.Size = new System.Drawing.Size(40, 25);
+      this.MaxRenderRatioBox.Text = "1000";
+      this.MaxRenderRatioBox.Click += new System.EventHandler(this.MaxRenderRatioBox_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(624, 441);
+      this.ClientSize = new System.Drawing.Size(864, 441);
       this.Controls.Add(this.toolStrip1);
       this.Controls.Add(this.SceneContentBox);
       this.Controls.Add(this.ExxagerationGroupBox);
@@ -421,9 +492,6 @@
     private System.Windows.Forms.CheckedListBox SceneContentBox;
     private System.Windows.Forms.ToolStrip toolStrip1;
     private System.Windows.Forms.ToolStripButton ColorMapButton;
-    private System.Windows.Forms.ToolStripButton AddMoonTestButton;
-    private System.Windows.Forms.ToolStripButton AddMarsTestButton;
-    private System.Windows.Forms.ToolStripButton AddSunTestButton;
     private System.Windows.Forms.ToolStripButton TestImageButton;
     private System.Windows.Forms.ToolStripButton PropertiesBoxButton;
     private System.Windows.Forms.ToolStripTextBox DayBox;
@@ -447,6 +515,17 @@
     private System.Windows.Forms.ToolStripTextBox TimeBox;
     private System.Windows.Forms.ToolStripButton TimeLockButton;
     private System.Windows.Forms.ToolStripButton TestTriadButton;
+    private System.Windows.Forms.ToolStripButton PlayPauseButton;
+    private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+    private System.Windows.Forms.ToolStripTextBox TimeStepBox;
+    private System.Windows.Forms.ToolStripDropDownButton TimeStepUnitButton;
+    private System.Windows.Forms.ToolStripMenuItem SecondsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem MinutesToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem HoursToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem DaysToolStripMenuItem1;
+    private System.Windows.Forms.ToolStripButton InitializePlanets;
+    private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+    private System.Windows.Forms.ToolStripTextBox MaxRenderRatioBox;
   }
 }
 

@@ -69,7 +69,7 @@ namespace SolarSystem
 
       try
       {
-        Scene.Render();
+        Scene.Render(Camera);
       }
       catch
       {

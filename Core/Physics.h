@@ -4,22 +4,21 @@
 
 struct GravityAffectedObject
 {
-private:
 	Point3D* position;
 	Point3D* velocity;
-	double* speed;
-public:
-	GravityAffectedObject(Point3D*position, Point3D*velocity, double*speed);
+	int count; 
 	
-	Point3D& Position();
-	Point3D& Velocity();
-	double& Speed(); 
+	GravityAffectedObject(Point3D*position, Point3D*velocity, int count);
+	
+	Point3D& Position(int index);
+	Point3D& Velocity(int index);
+	double Speed(); 
 	//first calculate the velocity change by each gravity source, then move once. 
-	void MoveByGravity(std::vector<Planet*>&gravitySoruces, double seconds = 1.);
+	void MoveByGravity(std::vector<Planet*>&gravitySources, double seconds = 1.);
 	//affecting the velocity. Does not move anything
 	void PullGravity(Planet*planet, double seconds = 1.);
 	//affecting the velocity. Does not move anything
-	Point3D PullGravity(const Point3D&gravityPosition, double surfaceGravity, double gravityRadius = 1., double seconds = 1.);
+	Point3D PullGravity(const Point3D&gravityPosition, double surfaceGravity, double gravityRadius, double seconds, const Point3D&position);
 	void Move(double seconds);
 };
 

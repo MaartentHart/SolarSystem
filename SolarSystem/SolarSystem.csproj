@@ -43,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -124,6 +125,7 @@
     <Compile Include="GlView.Designer.cs">
       <DependentUpon>GlView.cs</DependentUpon>
     </Compile>
+    <Compile Include="GravityObject.cs" />
     <Compile Include="HeightMap.cs" />
     <Compile Include="HistoricDateTime.cs" />
     <Compile Include="MainForm.cs">
@@ -239,6 +241,8 @@
     </None>
     <None Include="Resources\TimeLockIcon.png" />
     <None Include="Resources\TimeIcon.png" />
+    <None Include="Resources\Play.png" />
+    <None Include="Resources\Pause.png" />
     <Content Include="Resource\Images\wall.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

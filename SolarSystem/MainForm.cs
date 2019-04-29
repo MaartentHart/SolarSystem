@@ -13,10 +13,26 @@ namespace SolarSystem
 {
   public partial class MainForm : Form
   {
-    private HistoricDateTime DateTime = new HistoricDateTime(); 
+    private double timeStep = 0; 
+    private bool SimulationRunning { get; set; } = false;
+    private bool SimulationWorkerReady { get; set; } = true;
+    private HistoricDateTime PreviousDateTime { get; set; } = new HistoricDateTime(); 
+    private HistoricDateTime DateTime { get; set; } = new HistoricDateTime(); 
     private bool TimeUnlocked { get; set; } = true; 
     private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm(); 
     private ColorMapForm ColorMapForm { get; } = new ColorMapForm();
+
+    private BackgroundWorker SimulationWorker { get; set; } = new BackgroundWorker();
+    private double TimeStep
+    {
+      get => timeStep;
+      set
+      {
+        timeStep = value; 
+        CoreDll.SetTimeStep(value);
+      }
+    } 
+
     private CelestialPropertiesForm CelestialPropertiesForm
     {
       get
@@ -38,17 +54,25 @@ namespace SolarSystem
     private Camera Camera => GlView.Camera;
     private Scene Scene => GlView.Scene;
 
+    public Planet Sun { get; private set; }
+    public Planet Mercury { get; private set; }
+    public Planet Venus { get; private set; }
     public Planet Earth { get; private set; }
     public Planet Moon { get; private set; }
     public Planet Mars { get; private set; }
-    public Planet Sun { get; private set; }
+    public Planet Jupiter { get; private set; }
+    public Planet Saturn { get; private set; }
+    public Planet Uranus { get; private set; }
+    public Planet Neptune { get; private set; }
+    public Planet Pluto { get; private set; }
 
     public MainForm()
     {
       InitializeComponent();
       BackgroundWorker backgroundWorker = new BackgroundWorker();
       backgroundWorker.DoWork += IntializeEarth;
-      backgroundWorker.RunWorkerAsync(); 
+      backgroundWorker.RunWorkerAsync();
+      TimeStep = 1.0 / 864000;
     }
 
     private void IntializeEarth(object sender, DoWorkEventArgs e)
@@ -56,24 +80,7 @@ namespace SolarSystem
       Earth = AddPlanet(SolarSystemPlanet.Earth);
       Earth.SetColorMap(new ColorMap("Earth")); 
     }
-
-    private void InitializeMoon(object sender, DoWorkEventArgs e)
-    {
-      Moon = AddPlanet(SolarSystemPlanet.Moon);
-      Moon.SetColorMap(new ColorMap("Moon"));
-    }
-
-    private void InitializeMars(object sender, DoWorkEventArgs e)
-    {
-      Mars = AddPlanet(SolarSystemPlanet.Mars);
-      Mars.SetColorMap(new ColorMap("Step 1000"));
-    }
-
-    private void InitializeSun(object sender, DoWorkEventArgs e)
-    {
-      Sun = AddPlanet(SolarSystemPlanet.Sun);
-    }
-
+       
     private void TestButton_Click(object sender, EventArgs e)
     { 
       Camera.Eye = new PositionObject(-10, 0, 0);
@@ -140,6 +147,14 @@ namespace SolarSystem
 
     private void UpdateTimer_Tick(object sender, EventArgs e)
     {
+      DateTime.TotalDays = CoreDll.GetTime(); 
+      if (PreviousDateTime.TotalDays != DateTime.TotalDays)
+      {
+        DisplayDateTime();
+        PreviousDateTime.TotalDays = DateTime.TotalDays;
+        UpdatePlanetPositions(); 
+      }
+
       if (Scene.Changed || Camera.Changed)
         ForceRender();
 
@@ -149,6 +164,15 @@ namespace SolarSystem
         foreach (IRenderable renderable in Scene.RenderableObjects)
           SceneContentBox.Items.Add(renderable.Name, renderable.On);
       }
+    }
+
+    private void UpdatePlanetPositions()
+    {
+      foreach (IRenderable renderable in Scene.RenderableObjects)
+        if (renderable is Planet planet)
+          planet.TimeUpdate();
+
+      Scene.Changed = true; 
     }
 
     private void ExxagerateTestButton_Click(object sender, EventArgs e)
@@ -236,28 +260,6 @@ namespace SolarSystem
       }
     }
 
-    private void AddMoonTestButton_Click(object sender, EventArgs e)
-    {
-      BackgroundWorker backgroundWorker = new BackgroundWorker();
-      backgroundWorker.DoWork += InitializeMoon;
-      backgroundWorker.RunWorkerAsync(); 
-    }
-
-    private void AddMarsTestButton_Click(object sender, EventArgs e)
-    { 
-      BackgroundWorker backgroundWorker = new BackgroundWorker();
-      backgroundWorker.DoWork += InitializeMars;
-      backgroundWorker.RunWorkerAsync();
-    }
-
-    private void AddSunTestButton_Click(object sender, EventArgs e)
-    {
-      BackgroundWorker backgroundWorker = new BackgroundWorker();
-      backgroundWorker.DoWork += InitializeSun;
-      backgroundWorker.RunWorkerAsync();
-    }
-
-
     private void TestImageButton_Click(object sender, EventArgs e)
     {
       Mesh texture = new Mesh()
@@ -341,20 +343,25 @@ namespace SolarSystem
       }
     }
 
+    private void DisplayDateTime()
+    {
+      DayBox.Text = DateTime.TwoDigits(DateTime.Day.ToString());
+      MonthDropDown.Text = HistoricDateTime.MonthText(DateTime.Month);
+      long year = DateTime.Year;
+      if (year < 0)
+        ADBCDropDown.Text = "BC";
+      else
+        ADBCDropDown.Text = "AD";
+      YearBox.Text = Math.Abs(year).ToString();
+      TimeBox.Text = DateTime.ToTimeString();
+    }
+
     private void SetDateTime(HistoricDateTime dateTime, bool display = true)
     {
       DateTime = dateTime;
       if (display)
       {
-        DayBox.Text = DateTime.TwoDigits(DateTime.Day.ToString());
-        MonthDropDown.Text = HistoricDateTime.MonthText(DateTime.Month);
-        long year = DateTime.Year;
-        if (year < 0)
-          ADBCDropDown.Text = "BC";
-        else
-          ADBCDropDown.Text = "AD";
-        YearBox.Text = Math.Abs(year).ToString();
-        TimeBox.Text = DateTime.ToTimeString();
+        DisplayDateTime(); 
       }
       CoreDll.SetDaysSinceJ2000(dateTime.TotalDays);
       RenderablesTimeUpdate(); 
@@ -404,6 +411,128 @@ namespace SolarSystem
       };
 
       test.Show(); 
+    }
+
+    private void PlayPauseButton_Click(object sender, EventArgs e)
+    {
+      SimulationRunning = !SimulationRunning;
+      if (SimulationRunning)
+      {
+        TimeLockButton.Enabled = false;
+        SetTimeLock(false);
+        SimulationWorker.DoWork -= Simulate;
+        SimulationWorker.DoWork += Simulate;
+        PlayPauseButton.Image = Properties.Resources.Pause;
+        SimulationWorker.RunWorkerAsync();
+      }
+      else
+      {
+        PlayPauseButton.Image = Properties.Resources.Play;
+        TimeLockButton.Enabled = true;
+        CoreDll.Run(false); 
+        while (!SimulationWorkerReady)
+          System.Threading.Thread.Sleep(10); 
+      }
+    }
+
+    private void Simulate(object sender, DoWorkEventArgs e)
+    {
+      
+      SimulationWorkerReady = false;
+      //while (SimulationRunning)
+      //  AddTimeStep(); 
+      CoreDll.Run(true); 
+      CoreDll.Simulate(); 
+      SimulationWorkerReady = true;       
+    }
+
+    private void SetTimeStep()
+    {
+      double timeStep = Convert.ToDouble(TimeStepBox.Text);
+      if (timeStep <= 0)
+        throw new ArgumentOutOfRangeException(); 
+      switch (TimeStepUnitButton.Text)
+      {
+        case "Seconds":
+          timeStep /= 86400;
+          break;
+        case "Minutes":
+          timeStep /= 1440;
+          break;
+        case "Hours":
+          timeStep /= 24;
+          break;
+      }
+      TimeStep = timeStep; 
+    }
+
+    private void SetStepUnit(object sender, EventArgs e)
+    {
+      TimeStepUnitButton.Text = sender.ToString(); 
+      SetTimeStep(); 
+    }
+
+    private void TimeStepBox_Leave(object sender, EventArgs e)
+    {
+      try
+      {
+        SetTimeStep();
+      }
+      catch
+      {
+        TimeStepBox.Text = "1";
+        SetTimeStep(); 
+      }
+    }
+
+    private void TimeStepBox_KeyDown(object sender, KeyEventArgs e)
+    {
+      try
+      {
+        SetTimeStep();
+      }
+      catch
+      {
+        TimeStepBox.Text = "1";
+        SetTimeStep();
+      }
+    }
+
+    private void InitializePlanets_Click(object sender, EventArgs e)
+    {
+      Sun = AddPlanet(SolarSystemPlanet.Sun);
+      Scene.Lights.Add(new SunLight(Sun));
+
+      Mercury = AddPlanet(SolarSystemPlanet.Mercury);
+
+      Venus = AddPlanet(SolarSystemPlanet.Venus);
+
+      Moon = AddPlanet(SolarSystemPlanet.Moon);
+      Moon.SetColorMap(new ColorMap("Moon"));
+    
+      Mars = AddPlanet(SolarSystemPlanet.Mars);
+      Mars.SetColorMap(new ColorMap("Step 1000"));
+
+      Jupiter = AddPlanet(SolarSystemPlanet.Jupiter);
+
+      Saturn = AddPlanet(SolarSystemPlanet.Saturn);
+
+      Neptune = AddPlanet(SolarSystemPlanet.Neptune);
+
+      Pluto = AddPlanet(SolarSystemPlanet.Pluto);
+
+    }
+
+    private void MaxRenderRatioBox_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        Planet.maxRenderRatio = Convert.ToDouble(MaxRenderRatioBox.Text);
+      }
+      catch
+      {
+        MaxRenderRatioBox.Text = Planet.maxRenderRatio.ToString(); 
+      }
     }
   }
 }

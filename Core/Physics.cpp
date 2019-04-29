@@ -2,49 +2,53 @@
 #include "stdafx.h"
 #include "Physics.h"
 
-GravityAffectedObject::GravityAffectedObject(Point3D * position, Point3D * velocity, double * speed)
+GravityAffectedObject::GravityAffectedObject(Point3D * position, Point3D * velocity, int count)
 {
 	this->position = position;
 	this->velocity = velocity;
-	this->speed = speed; 
+	this->count = count; 
 }
 
-Point3D & GravityAffectedObject::Position()
+Point3D & GravityAffectedObject::Position(int index)
 {
-	return *position; 
+	return position[index]; 
 }
 
-Point3D & GravityAffectedObject::Velocity()
+Point3D & GravityAffectedObject::Velocity(int index)
 {
-	return *velocity;
+	return velocity[index];
 }
 
-double & GravityAffectedObject::Speed()
+double GravityAffectedObject::Speed()
 {
-	return *speed; 
+	return velocity->Distance(); 
 }
 
-void GravityAffectedObject::MoveByGravity(std::vector<Planet*>& gravitySoruces, double seconds)
+void GravityAffectedObject::MoveByGravity(std::vector<Planet*>& gravitySources, double seconds)
 {
-	for (std::vector<Planet*>::iterator planet = gravitySoruces.begin(); planet < gravitySoruces.end(); ++planet)
+	for (std::vector<Planet*>::iterator planet = gravitySources.begin(); planet < gravitySources.end(); ++planet)
 		PullGravity(*planet, seconds);
 	Move(seconds);
 }
 
 void GravityAffectedObject::PullGravity(Planet * planet, double seconds)
 {
-	PullGravity(planet->position, planet->SurfaceGravity, planet->radius, seconds);
+	Point3D *position = this->position;
+	Point3D *velocity = this->velocity;
+	for (int i = 0; i<count ; i++, velocity++, position++)
+		*velocity += PullGravity(planet->position, planet->SurfaceGravity, planet->radius, seconds, *position);
 }
 
-Point3D GravityAffectedObject::PullGravity(const Point3D & gravityPosition, double surfaceGravity, double gravityRadius, double seconds)
+Point3D GravityAffectedObject::PullGravity(const Point3D & gravityPosition, double surfaceGravity, double gravityRadius, double seconds, const Point3D&position)
 {
-	Point3D pullDirection = gravityPosition - Position();
+	Point3D pullDirection = gravityPosition - position;
 	return pullDirection.Vector()*GravityAcceleration(pullDirection.DistSquared(), surfaceGravity, gravityRadius, seconds);
 }
 
 void GravityAffectedObject::Move(double seconds)
 {
-	*position += *velocity * seconds;
+	for (int i =0; i<count; i++)
+		position[i] += velocity[i] * seconds;
 }
 
 double LocalGravity(double gravityDistanceSquared, double surfaceGravity, double gravityRadius)

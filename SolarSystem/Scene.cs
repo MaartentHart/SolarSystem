@@ -16,6 +16,7 @@ namespace SolarSystem
 
     public List<ILight> Lights { get; } = new List<ILight>(); 
     public List<IRenderable> RenderableObjects { get; } = new List<IRenderable>();
+    public List<GravityObject> GravityObjects { get; } = new List<GravityObject>(); 
 
     public bool Changed
     {
@@ -69,7 +70,7 @@ namespace SolarSystem
 
     }
 
-    internal void Render()
+    internal void Render(Camera camera)
     {
       try
       {
@@ -84,13 +85,15 @@ namespace SolarSystem
         for (int i = 0; i < lightCount; i++)
           Lights[i].Render(i + 1);
         foreach (IRenderable renderableObject in RenderableObjects)
-          renderableObject.Render();
+          renderableObject.Render(camera);
       }
       catch
       {
         Changed = true; 
       }
     }
+
+   
   }
 
   public interface IPositionObject
@@ -209,8 +212,9 @@ namespace SolarSystem
       Gl.LoadIdentity();
 
       GluLookAt(Eye.Position, Target.Position, UpVector);
-      Light.Render(0); 
+      Light.Render(0);
     }
+
     
     public static void GluPerspective(double fovY, double aspect, double zNear, double zFar)
     {
@@ -309,6 +313,62 @@ namespace SolarSystem
     bool On { get; }
     ColorFloat Color { get; }
     void Render(int number); 
+  }
+
+  public class SunLight :ILight
+  {
+    private bool on = true;
+    private bool changed = true;
+
+    Planet Sun { get; }
+
+    public bool Changed
+    {
+      get
+      {
+        bool ret = changed;
+        changed = false;
+        return ret; 
+      }
+      set => changed = value; 
+    }
+
+    public bool On
+    {
+      get => on;
+      set
+      {
+        changed = true;
+        on = value; 
+      }
+    }
+
+    public ColorFloat Color { get; } = new ColorFloat(1, 1, 1);
+
+    public Point3D Position => Sun.Position; 
+
+    public SunLight(Planet sun)
+    {
+      Sun = sun; 
+    }
+
+    public void Render(int number)
+    {
+      if (!On)
+      {
+        Gl.Disable(Light.LightNr(number));
+        return;
+      }
+
+      Gl.Enable(EnableCap.Lighting);
+      Gl.Enable(Light.LightNr(number));
+      float[] position = new float[4];
+      position[0] = (float)Position.x;
+      position[1] = (float)Position.y;
+      position[2] = (float)Position.z;
+      position[3] = 1; //0 = directional light, 1 = point light.
+      Gl.Light(Light.LightName(number), LightParameter.Position, position);
+    }
   }
 
   public class CameraLight : ILight

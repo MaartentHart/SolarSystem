@@ -29,7 +29,8 @@ namespace SolarSystem
   /// </summary>
   public class Planet : IRenderable, IDisposable, IPositionObject
   {
-    public static float pointSize = 3; 
+    public static float pointSize = 3;
+    public static double maxRenderRatio = 1000; 
 
     private int id = -1;
     private bool on = true;
@@ -45,7 +46,7 @@ namespace SolarSystem
     private BackgroundWorker backgroundWorker = new BackgroundWorker();
     private bool changed = true;
     private bool paint = false;
-
+    
     public int Generation { get; }
     public SolarSystemPlanet PlanetID { get; }
     public CRenderableObject RenderableObject { get; } = new CRenderableObject();
@@ -55,6 +56,8 @@ namespace SolarSystem
     public Point3D Scale { get; }
     public double[] ColorableValues { get; set; }
     public ColorMap ColorMap { get; set; }
+    public double AroundAxisRotation { get; set; }
+    public double MaximumRadius { get; set; }
 
     public List<string> PlanetUniforms { get; } = new List<string>
     {
@@ -102,6 +105,7 @@ namespace SolarSystem
       Name = planet.ToString();
       CoreDll.SetActivePlanet(planet.ToString());
       Scale = new Point3D(CoreDll.PlanetScaleX(), CoreDll.PlanetScaleY(), CoreDll.PlanetScaleZ());
+      MaximumRadius = Scale.x> Scale.y? Scale.x > Scale.z? Scale.x : Scale.z : Scale.y > Scale.z ? Scale.y: Scale.z; 
       CoreDll.PlanetColor(ref color);
       SetExxageration(1.0);
     }
@@ -308,7 +312,7 @@ namespace SolarSystem
       DisposeColors();
     }
 
-    public void Render()
+    public void Render(Camera camera)
     {
       if (!On)
         return;
@@ -316,7 +320,10 @@ namespace SolarSystem
       lock (locker)
       {
         RenderPoint();
-        RenderableObject.Render();
+
+        //don't render if it's too far away. 
+        if ((Position-camera.Eye.Position).Magnitude/MaximumRadius<maxRenderRatio)
+          RenderableObject.Render(camera);
       }
     }
 
@@ -378,6 +385,7 @@ namespace SolarSystem
         CoreDll.PlanetPositionX(), 
         CoreDll.PlanetPositionY(), 
         CoreDll.PlanetPositionZ());
+      AroundAxisRotation = CoreDll.PlanetRotation(); 
     }
 
     private void SetActive()

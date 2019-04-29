@@ -3,6 +3,10 @@
 
 #pragma once
 #include "color.h"
+#include "SolarSystem.h"
+#include "Geodesic.h"
+#include "Physics.h"
+
 #define DLL __declspec(dllexport) 
 extern "C"
 {
@@ -37,6 +41,17 @@ extern "C"
 	DLL double __cdecl PlanetPositionY();
 	DLL double __cdecl PlanetPositionZ();
 	DLL double __cdecl PlanetRotation(); 
+
+	//Simulation
+	//initialize simulation
+	DLL void __cdecl ClearFallingObjects(); 
+	DLL void __cdecl AddFallingObject(Point3D*points, Point3D*velocities, int pointCount);
+	DLL void __cdecl Run(bool run);
+	DLL void __cdecl SetTimeStep(double timeStep);
+	//run the simulation until run is set false. 
+	DLL void __cdecl Simulate(); 
+	//get information from simulation. 
+	DLL double __cdecl GetTime(); 
 
 	//other
 	DLL double __cdecl CopySign(double a, double b);
