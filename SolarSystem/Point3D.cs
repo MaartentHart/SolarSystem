@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenGL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -129,34 +130,5 @@ namespace SolarSystem
       return hashCode;
     }
   }
-
-  public struct Rotation
-  {
-    public double axisTilt;
-    public double axisDirection;
-    public double aroundAxis;
-
-    public bool Active => axisTilt != 0 || axisDirection != 0 || aroundAxis != 0;
-    /// <summary>
-    /// Rotation in degrees. 
-    /// </summary>
-    /// <param name="axisTilt">The planet inclination</param>
-    /// <param name="axisDirection">The planet inclination orientation</param>
-    /// <param name="aroundAxis">The rotation of the planet around its axis.</param>
-    public Rotation(double axisTilt = 0, double axisDirection = 0, double aroundAxis = 0)
-    {
-      this.axisTilt = axisTilt;
-      this.axisDirection = axisDirection;
-      this.aroundAxis = aroundAxis;
-    }
-  }
-
-  public class Translation
-  {
-    public Point3D Position { get; set; } = new Point3D();
-    public Point3D Scale { get; set; } = new Point3D(1,1,1);
-    public Rotation Rotation { get; set; } = new Rotation();
-    public bool Active => Position.x != 0 || Position.y != 0 || Position.z != 0;
-    public bool ScaleActive => Scale.x != 1 || Scale.y != 1 || Scale.z != 1;
-  }
+  
 }

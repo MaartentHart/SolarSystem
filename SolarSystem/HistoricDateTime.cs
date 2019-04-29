@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SolarSystem
 {
   /// <summary>
-  /// Date time with 0 = J2000 (UMT 0:00 1-1-2000) and a much larger range than standard DateTime. 
+  /// Date time with 0 = J2000 (UCT 12:00 1-1-2000) and a much larger range than standard DateTime. 
   /// Dates should be formatted day-month-year. 
   /// No timezones. 
   /// 
@@ -38,23 +38,29 @@ namespace SolarSystem
     /// </summary>
     public const int CycleCutDay = 60;// 1-3-2000 (1 march 2000).  
 
+    public const double J2000TwelveHourShift = 0.5;
+
+    public double TotalDays { get; set; }
+
     /// <summary>
     /// TotalDays is the main variable that is stored. 
     /// The amount of days since 01-01-2000 00:00:00
     /// </summary>
-    public double TotalDays { get; set; }
+    public double TotalDays0000 {
+      get => TotalDays + J2000TwelveHourShift;
+      set => TotalDays = value - J2000TwelveHourShift; }
 
     /// <summary>
     /// The amount of seconds since 01-01-2000 00:00:00
     /// </summary>
     public double TotalSeconds
     {
-      get => TotalDays * 86400;
-      set => TotalDays = value / 86400;
+      get => TotalDays0000 * 86400;
+      set => TotalDays0000 = value / 86400;
     }
 
-    public long TotalDaysInt => Convert.ToInt64(Math.Floor(TotalDays));
-    public double TimePart => TotalDays - TotalDaysInt;
+    public long TotalDaysInt => Convert.ToInt64(Math.Floor(TotalDays0000));
+    public double TimePart => TotalDays0000 - TotalDaysInt;
     public double DecimalHours => Math.Round((TimePart * 24),9);
     public double DecimalMinutes => Math.Round((DecimalHours - Hours) * 60,6);
     public double DecimalSeconds => (DecimalMinutes - Minutes) * 60;
@@ -192,7 +198,7 @@ namespace SolarSystem
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="daysSinceJ2000">days since 1-1-2000</param>
+    /// <param name="daysSinceJ2000">days since 1-1-2000 12:00</param>
     public HistoricDateTime(double daysSinceJ2000)
     {
       TotalDays = daysSinceJ2000;
@@ -277,7 +283,7 @@ namespace SolarSystem
 
       double time = hours / 24.0 + minutes / 1440.0 + seconds / 86400.0 + milliseconds / 86400000;
 
-      TotalDays = daysTotal + time; 
+      TotalDays0000 = daysTotal + time; 
     }
 
     public HistoricDateTime(DateTime dateTime)

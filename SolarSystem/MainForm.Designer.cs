@@ -38,10 +38,7 @@
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
       this.ColorMapButton = new System.Windows.Forms.ToolStripButton();
       this.PropertiesBoxButton = new System.Windows.Forms.ToolStripButton();
-      this.AddMoonTestButton = new System.Windows.Forms.ToolStripButton();
-      this.AddMarsTestButton = new System.Windows.Forms.ToolStripButton();
-      this.AddSunTestButton = new System.Windows.Forms.ToolStripButton();
-      this.TestImageButton = new System.Windows.Forms.ToolStripButton();
+      this.TimeLockButton = new System.Windows.Forms.ToolStripButton();
       this.DayBox = new System.Windows.Forms.ToolStripTextBox();
       this.MonthDropDown = new System.Windows.Forms.ToolStripDropDownButton();
       this.januaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,8 +58,12 @@
       this.aDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.bCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.TimeBox = new System.Windows.Forms.ToolStripTextBox();
-      this.TimeLockButton = new System.Windows.Forms.ToolStripButton();
+      this.AddMarsTestButton = new System.Windows.Forms.ToolStripButton();
+      this.AddSunTestButton = new System.Windows.Forms.ToolStripButton();
+      this.AddMoonTestButton = new System.Windows.Forms.ToolStripButton();
+      this.TestImageButton = new System.Windows.Forms.ToolStripButton();
       this.GlView = new SolarSystem.GlView();
+      this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -133,7 +134,8 @@
             this.AddMarsTestButton,
             this.AddSunTestButton,
             this.AddMoonTestButton,
-            this.TestImageButton});
+            this.TestImageButton,
+            this.TestTriadButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(624, 25);
@@ -160,45 +162,15 @@
       this.PropertiesBoxButton.Text = "Properties";
       this.PropertiesBoxButton.Click += new System.EventHandler(this.PropertiesBoxButton_Click);
       // 
-      // AddMoonTestButton
+      // TimeLockButton
       // 
-      this.AddMoonTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.AddMoonTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMoonTestButton.Image")));
-      this.AddMoonTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.AddMoonTestButton.Name = "AddMoonTestButton";
-      this.AddMoonTestButton.Size = new System.Drawing.Size(23, 22);
-      this.AddMoonTestButton.Text = "Add Moon Test";
-      this.AddMoonTestButton.Click += new System.EventHandler(this.AddMoonTestButton_Click);
-      // 
-      // AddMarsTestButton
-      // 
-      this.AddMarsTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.AddMarsTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMarsTestButton.Image")));
-      this.AddMarsTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.AddMarsTestButton.Name = "AddMarsTestButton";
-      this.AddMarsTestButton.Size = new System.Drawing.Size(23, 22);
-      this.AddMarsTestButton.Text = "Add Mars Test";
-      this.AddMarsTestButton.Click += new System.EventHandler(this.AddMarsTestButton_Click);
-      // 
-      // AddSunTestButton
-      // 
-      this.AddSunTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.AddSunTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddSunTestButton.Image")));
-      this.AddSunTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.AddSunTestButton.Name = "AddSunTestButton";
-      this.AddSunTestButton.Size = new System.Drawing.Size(23, 22);
-      this.AddSunTestButton.Text = "Add Sun Test";
-      this.AddSunTestButton.Click += new System.EventHandler(this.AddSunTestButton_Click);
-      // 
-      // TestImageButton
-      // 
-      this.TestImageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TestImageButton.Image = ((System.Drawing.Image)(resources.GetObject("TestImageButton.Image")));
-      this.TestImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TestImageButton.Name = "TestImageButton";
-      this.TestImageButton.Size = new System.Drawing.Size(23, 22);
-      this.TestImageButton.Text = "TestImage";
-      this.TestImageButton.Click += new System.EventHandler(this.TestImageButton_Click);
+      this.TimeLockButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TimeLockButton.Image = global::SolarSystem.Properties.Resources.TimeIcon;
+      this.TimeLockButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TimeLockButton.Name = "TimeLockButton";
+      this.TimeLockButton.Size = new System.Drawing.Size(23, 22);
+      this.TimeLockButton.Text = "TimeLockButton";
+      this.TimeLockButton.Click += new System.EventHandler(this.TimeLockButton_Click);
       // 
       // DayBox
       // 
@@ -234,84 +206,84 @@
       // januaryToolStripMenuItem
       // 
       this.januaryToolStripMenuItem.Name = "januaryToolStripMenuItem";
-      this.januaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.januaryToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.januaryToolStripMenuItem.Text = "January";
       this.januaryToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // februaryToolStripMenuItem
       // 
       this.februaryToolStripMenuItem.Name = "februaryToolStripMenuItem";
-      this.februaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.februaryToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.februaryToolStripMenuItem.Text = "February";
       this.februaryToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // marchToolStripMenuItem
       // 
       this.marchToolStripMenuItem.Name = "marchToolStripMenuItem";
-      this.marchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.marchToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.marchToolStripMenuItem.Text = "March";
       this.marchToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // aprilToolStripMenuItem
       // 
       this.aprilToolStripMenuItem.Name = "aprilToolStripMenuItem";
-      this.aprilToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.aprilToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.aprilToolStripMenuItem.Text = "April";
       this.aprilToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // mayToolStripMenuItem
       // 
       this.mayToolStripMenuItem.Name = "mayToolStripMenuItem";
-      this.mayToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.mayToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.mayToolStripMenuItem.Text = "May";
       this.mayToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // juneToolStripMenuItem
       // 
       this.juneToolStripMenuItem.Name = "juneToolStripMenuItem";
-      this.juneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.juneToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.juneToolStripMenuItem.Text = "June";
       this.juneToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // julyToolStripMenuItem
       // 
       this.julyToolStripMenuItem.Name = "julyToolStripMenuItem";
-      this.julyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.julyToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.julyToolStripMenuItem.Text = "July";
       this.julyToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // augustToolStripMenuItem
       // 
       this.augustToolStripMenuItem.Name = "augustToolStripMenuItem";
-      this.augustToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.augustToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.augustToolStripMenuItem.Text = "August";
       this.augustToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // septemberToolStripMenuItem
       // 
       this.septemberToolStripMenuItem.Name = "septemberToolStripMenuItem";
-      this.septemberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.septemberToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.septemberToolStripMenuItem.Text = "September";
       this.septemberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // octoberToolStripMenuItem
       // 
       this.octoberToolStripMenuItem.Name = "octoberToolStripMenuItem";
-      this.octoberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.octoberToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.octoberToolStripMenuItem.Text = "October";
       this.octoberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // novemberToolStripMenuItem
       // 
       this.novemberToolStripMenuItem.Name = "novemberToolStripMenuItem";
-      this.novemberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.novemberToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.novemberToolStripMenuItem.Text = "November";
       this.novemberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
       // decemberToolStripMenuItem
       // 
       this.decemberToolStripMenuItem.Name = "decemberToolStripMenuItem";
-      this.decemberToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.decemberToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.decemberToolStripMenuItem.Text = "December";
       this.decemberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
@@ -354,19 +326,49 @@
       // 
       this.TimeBox.Name = "TimeBox";
       this.TimeBox.Size = new System.Drawing.Size(70, 25);
-      this.TimeBox.Text = "00:00:00.000";
+      this.TimeBox.Text = "12:00:00.000";
       this.TimeBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
       this.TimeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
       // 
-      // TimeLockButton
+      // AddMarsTestButton
       // 
-      this.TimeLockButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TimeLockButton.Image = global::SolarSystem.Properties.Resources.TimeIcon;
-      this.TimeLockButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TimeLockButton.Name = "TimeLockButton";
-      this.TimeLockButton.Size = new System.Drawing.Size(23, 22);
-      this.TimeLockButton.Text = "TimeLockButton";
-      this.TimeLockButton.Click += new System.EventHandler(this.TimeLockButton_Click);
+      this.AddMarsTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.AddMarsTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMarsTestButton.Image")));
+      this.AddMarsTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.AddMarsTestButton.Name = "AddMarsTestButton";
+      this.AddMarsTestButton.Size = new System.Drawing.Size(23, 22);
+      this.AddMarsTestButton.Text = "Add Mars Test";
+      this.AddMarsTestButton.Click += new System.EventHandler(this.AddMarsTestButton_Click);
+      // 
+      // AddSunTestButton
+      // 
+      this.AddSunTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.AddSunTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddSunTestButton.Image")));
+      this.AddSunTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.AddSunTestButton.Name = "AddSunTestButton";
+      this.AddSunTestButton.Size = new System.Drawing.Size(23, 22);
+      this.AddSunTestButton.Text = "Add Sun Test";
+      this.AddSunTestButton.Click += new System.EventHandler(this.AddSunTestButton_Click);
+      // 
+      // AddMoonTestButton
+      // 
+      this.AddMoonTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.AddMoonTestButton.Image = ((System.Drawing.Image)(resources.GetObject("AddMoonTestButton.Image")));
+      this.AddMoonTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.AddMoonTestButton.Name = "AddMoonTestButton";
+      this.AddMoonTestButton.Size = new System.Drawing.Size(23, 22);
+      this.AddMoonTestButton.Text = "Add Moon Test";
+      this.AddMoonTestButton.Click += new System.EventHandler(this.AddMoonTestButton_Click);
+      // 
+      // TestImageButton
+      // 
+      this.TestImageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TestImageButton.Image = ((System.Drawing.Image)(resources.GetObject("TestImageButton.Image")));
+      this.TestImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TestImageButton.Name = "TestImageButton";
+      this.TestImageButton.Size = new System.Drawing.Size(23, 22);
+      this.TestImageButton.Text = "TestImage";
+      this.TestImageButton.Click += new System.EventHandler(this.TestImageButton_Click);
       // 
       // GlView
       // 
@@ -377,6 +379,16 @@
       this.GlView.Name = "GlView";
       this.GlView.Size = new System.Drawing.Size(452, 401);
       this.GlView.TabIndex = 10;
+      // 
+      // TestTriadButton
+      // 
+      this.TestTriadButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TestTriadButton.Image = ((System.Drawing.Image)(resources.GetObject("TestTriadButton.Image")));
+      this.TestTriadButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TestTriadButton.Name = "TestTriadButton";
+      this.TestTriadButton.Size = new System.Drawing.Size(23, 22);
+      this.TestTriadButton.Text = "Test Triad";
+      this.TestTriadButton.Click += new System.EventHandler(this.TestTriadButton_Click);
       // 
       // MainForm
       // 
@@ -434,6 +446,7 @@
     private System.Windows.Forms.ToolStripMenuItem bCToolStripMenuItem;
     private System.Windows.Forms.ToolStripTextBox TimeBox;
     private System.Windows.Forms.ToolStripButton TimeLockButton;
+    private System.Windows.Forms.ToolStripButton TestTriadButton;
   }
 }
 

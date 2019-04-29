@@ -116,3 +116,13 @@ double PlanetScaleZ()
 		return 0;
 	return activePlanet->secondaryRadius;
 }
+
+void SetDaysSinceJ2000(double days)
+{
+	solarSystem.SetTimeSinceJ2000(days);
+}
+
+double CopySign(double a, double b)
+{
+	return copysign(a, b); 
+}

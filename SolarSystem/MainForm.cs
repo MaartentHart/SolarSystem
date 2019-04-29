@@ -383,5 +383,15 @@ namespace SolarSystem
       else
         TimeLockButton.Image = Properties.Resources.TimeLockIcon;
     }
+
+    private void TestTriadButton_Click(object sender, EventArgs e)
+    {
+      Mesh arrow = TriadGeometry.GenerateArrow(); 
+      Scene.RenderableObjects.Add(new TriadGeometry().Arrows);
+      Scene.RenderableObjects.Add(arrow);
+      Debugging.RotationTest test = new Debugging.RotationTest(arrow);
+      test.Owner = this; 
+      test.Show(); 
+    }
   }
 }

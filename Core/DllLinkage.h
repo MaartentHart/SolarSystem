@@ -14,15 +14,21 @@ extern "C"
 	DLL int __cdecl TestIndicesCount(int generation);
 	//End of Tests and Examples. 
 
+	//Geodesic grid
 	DLL const double* __cdecl GeodesicGridVertices(int generation);
 	DLL int __cdecl GeodesicGridVerticesCount(int generation); 
 	DLL const int* __cdecl GeodesicGridIndices(int generation);
 	DLL int __cdecl GeodesicGridIndicesCount(int generation);
 
-	//planet properties
+	//Planet properties
 	DLL void __cdecl SetActivePlanet(const char*name);
 	DLL double __cdecl PlanetScaleX(); 
 	DLL double __cdecl PlanetScaleY();
 	DLL double __cdecl PlanetScaleZ();
+	DLL void __cdecl SetDaysSinceJ2000(double days); 
+
+	//other
+	DLL double __cdecl CopySign(double a, double b);
+
 
 }

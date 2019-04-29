@@ -75,16 +75,6 @@ namespace SolarSystem
       updating = false; 
     }
 
-    private double Rad2Deg(double value)
-    {
-      return value / Math.PI * 180; 
-    }
-
-    private double Deg2Rad(double value)
-    {
-      return value / 180 * Math.PI;
-    }
-
     private void SetRotationTest_Click(object sender, EventArgs e)
     {
       SetRotation(); 
@@ -105,7 +95,7 @@ namespace SolarSystem
     {
       if (Editable && ActiveObject is Planet planet)
       {
-        planet.RenderableObject.Rotation = new Rotation(
+        planet.RenderableObject.Rotation = new CelestialRotation(
           TryDouble(RotationXBox.Text),
           TryDouble(RotationYBox.Text),
           TryDouble(RotationZBox.Text));

@@ -59,13 +59,13 @@ namespace SolarSystem
 
     private void Display(HistoricDateTime dateTime)
     {
-      ValueBox.Text = dateTime.TotalDays.ToString();
+      ValueBox.Text = dateTime.TotalDays0000.ToString();
       DateStringBox.Text = dateTime.ToDateString(); 
       ToStringBox.Text = dateTime.ToString();
       try
       {
         HistoricDateTime viaString = new HistoricDateTime(dateTime.ToString());
-        ViaStringTestBox.Text = viaString.TotalDays.ToString();
+        ViaStringTestBox.Text = viaString.TotalDays0000.ToString();
       }
       catch (Exception ex)
       {
