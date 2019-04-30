@@ -226,6 +226,20 @@ namespace SolarSystem
       z = sy * cp * cr - cy * sp * sr;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="vector"></param>
+    /// <param name="rotation">rotation in degrees</param>
+    public Quaternion(Point3D vector, double rotation)
+    {
+      w = Math.Cos(Angle.ToRadians(rotation) / 2);
+      vector = vector.Normal;
+      x = vector.x;
+      y = vector.y;
+      z = vector.z; 
+    }
+
     public Quaternion(EulerAngles rotation)
       :this (Angle.ToRadians(rotation.yaw), Angle.ToRadians(rotation.pitch), Angle.ToRadians(rotation.roll))
     { }

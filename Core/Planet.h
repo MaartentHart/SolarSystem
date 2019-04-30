@@ -111,8 +111,9 @@ struct Planet : CelestialBody, Orbit
 	double surfaceGravity;//km/s2
 
 	bool isSun;
-	bool isMoon;
+	Planet* isMoonOf;
 	Point3D position;
+	Point3D moonLocalPosition; 
 
 	Planet(double radius, double secondaryRadius, double surfaceGravity, std::string name = "");
 	void LoadCelestialBodyOrbit();//puts the nasa data in the orbit struct. 

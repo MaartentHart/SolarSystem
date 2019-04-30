@@ -525,7 +525,7 @@ std::vector<Planet*> SolarSystem::Planets()
 		pluto.SetPluto();
 		sun.SetSun();
 		sun.isSun = true;
-		moon.isMoon = true;
+		moon.isMoonOf = &earth;
 
 		planets = std::vector<Planet*>
 		{
@@ -556,14 +556,19 @@ void SolarSystem::SetTimeSinceJ2000(double days)
 	Point3D moonPos;
 	for (Planet*planet : Planets())
 	{
-		if (planet->isMoon)
-			moonPos = planet->PositionByTime(days);
+		if (planet->isMoonOf != NULL)
+			planet->moonLocalPosition = planet->PositionByTime(days); 
 		else if (planet->isSun)
 			planet->position = Point3D(0, 0, 0);
 		else
 			planet->position = planet->PositionByTime(days);
 	}
+
+	for (Planet*planet : Planets())
+	{
+		if (planet->isMoonOf != NULL)
+			planet->position = planet->moonLocalPosition + planet->isMoonOf->position;
+	}
 	//sun is always at 0. 
 	Sun()->position = 0;
-	Moon()->position = moonPos + Earth()->position;
 }

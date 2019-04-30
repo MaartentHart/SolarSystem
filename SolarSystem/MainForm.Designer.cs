@@ -69,9 +69,10 @@
       this.InitializePlanets = new System.Windows.Forms.ToolStripButton();
       this.TestImageButton = new System.Windows.Forms.ToolStripButton();
       this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
-      this.GlView = new SolarSystem.GlView();
       this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
       this.MaxRenderRatioBox = new System.Windows.Forms.ToolStripTextBox();
+      this.TestEquatorialCoordinateSystem = new System.Windows.Forms.ToolStripButton();
+      this.GlView = new SolarSystem.GlView();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -147,7 +148,8 @@
             this.TestImageButton,
             this.TestTriadButton,
             this.toolStripLabel2,
-            this.MaxRenderRatioBox});
+            this.MaxRenderRatioBox,
+            this.TestEquatorialCoordinateSystem});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(864, 25);
@@ -438,16 +440,6 @@
       this.TestTriadButton.Text = "Test Triad";
       this.TestTriadButton.Click += new System.EventHandler(this.TestTriadButton_Click);
       // 
-      // GlView
-      // 
-      this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.GlView.Location = new System.Drawing.Point(160, 28);
-      this.GlView.Name = "GlView";
-      this.GlView.Size = new System.Drawing.Size(692, 401);
-      this.GlView.TabIndex = 10;
-      // 
       // toolStripLabel2
       // 
       this.toolStripLabel2.Name = "toolStripLabel2";
@@ -460,6 +452,26 @@
       this.MaxRenderRatioBox.Size = new System.Drawing.Size(40, 25);
       this.MaxRenderRatioBox.Text = "1000";
       this.MaxRenderRatioBox.Click += new System.EventHandler(this.MaxRenderRatioBox_Click);
+      // 
+      // TestEquatorialCoordinateSystem
+      // 
+      this.TestEquatorialCoordinateSystem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TestEquatorialCoordinateSystem.Image = ((System.Drawing.Image)(resources.GetObject("TestEquatorialCoordinateSystem.Image")));
+      this.TestEquatorialCoordinateSystem.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TestEquatorialCoordinateSystem.Name = "TestEquatorialCoordinateSystem";
+      this.TestEquatorialCoordinateSystem.Size = new System.Drawing.Size(23, 22);
+      this.TestEquatorialCoordinateSystem.Text = "TestEquatorialCoordinateSystem";
+      this.TestEquatorialCoordinateSystem.Click += new System.EventHandler(this.TestEquatorialCoordinateSystem_Click);
+      // 
+      // GlView
+      // 
+      this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.GlView.Location = new System.Drawing.Point(160, 28);
+      this.GlView.Name = "GlView";
+      this.GlView.Size = new System.Drawing.Size(692, 401);
+      this.GlView.TabIndex = 10;
       // 
       // MainForm
       // 
@@ -526,6 +538,7 @@
     private System.Windows.Forms.ToolStripButton InitializePlanets;
     private System.Windows.Forms.ToolStripLabel toolStripLabel2;
     private System.Windows.Forms.ToolStripTextBox MaxRenderRatioBox;
+    private System.Windows.Forms.ToolStripButton TestEquatorialCoordinateSystem;
   }
 }
 

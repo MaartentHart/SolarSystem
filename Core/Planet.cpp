@@ -113,7 +113,7 @@ Planet::Planet(double radius, double secondaryRadius, double surfaceGravity, std
 {
 	this->name = name;
 	isSun = false;
-	isMoon = false;
+	isMoonOf = NULL;
 	this->radius = radius;
 	this->secondaryRadius = secondaryRadius;
 	this->surfaceGravity = surfaceGravity;

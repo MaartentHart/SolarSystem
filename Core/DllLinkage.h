@@ -32,6 +32,7 @@ extern "C"
 	DLL double __cdecl PlanetScaleY();
 	DLL double __cdecl PlanetScaleZ();
 	DLL void __cdecl PlanetColor(Color&color);
+	DLL double __cdecl EarthAxisTilt();
 	DLL double __cdecl PlanetRightAscension(); 
 	DLL double __cdecl PlanetDeclination(); 
 
@@ -41,6 +42,9 @@ extern "C"
 	DLL double __cdecl PlanetPositionY();
 	DLL double __cdecl PlanetPositionZ();
 	DLL double __cdecl PlanetRotation(); 
+
+	//EquatorialCoordinateSystem
+	DLL void __cdecl EarthPositionAt(double daysSinceJ2000, Point3D& position);
 
 	//Simulation
 	//initialize simulation

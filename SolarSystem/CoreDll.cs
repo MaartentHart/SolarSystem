@@ -67,6 +67,15 @@ namespace SolarSystem
 
     [DllImport("Core.dll", EntryPoint = "PlanetColor", CallingConvention = CallingConvention.Cdecl)]
     static public extern void PlanetColor(ref ColorFloat color);
+
+    [DllImport("Core.dll", EntryPoint = "EarthAxisTilt", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double EarthAxisTilt();
+
+    [DllImport("Core.dll", EntryPoint = "PlanetRightAscension", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetRightAscension();
+
+    [DllImport("Core.dll", EntryPoint = "PlanetDeclination", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PlanetDeclination();
     #endregion
 
     #region PlanetUpdate
@@ -106,6 +115,11 @@ namespace SolarSystem
     //get information from simulation. 
     [DllImport("Core.dll", EntryPoint = "GetTime", CallingConvention = CallingConvention.Cdecl)]
     static public extern double GetTime();
+    #endregion
+
+    #region EquatorialCoordinateSystemInformation
+    [DllImport("Core.dll", EntryPoint = "EarthPositionAt", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void EarthPositionAt(double daysSinceJ2000, ref Point3D position);
     #endregion
 
     #region Other

@@ -58,6 +58,8 @@ namespace SolarSystem
     public ColorMap ColorMap { get; set; }
     public double AroundAxisRotation { get; set; }
     public double MaximumRadius { get; set; }
+    public int ID => id; 
+
     public bool ExxagerationChanged
     {
       get
@@ -67,6 +69,7 @@ namespace SolarSystem
         return ret;
       }
     }
+
     public bool PaintChanged
     {
       get
@@ -82,12 +85,14 @@ namespace SolarSystem
       "uRadius",
       "uExxageration"
     };
+
     public List<string> PlanetAttributes { get; } = new List<string>
     {
       "aVertex",
       "aHeight",
       "aColor"
     };
+
     public bool On
     {
       get => on;
@@ -97,7 +102,9 @@ namespace SolarSystem
         on = value;
       }
     }
+
     public string Name { get; set; }
+
     public bool Changed
     {
       get
@@ -109,7 +116,13 @@ namespace SolarSystem
       set => changed = value;
     }
 
-    public Point3D Position => RenderableObject.Position;
+    public Point3D Position
+    {
+      get => RenderableObject.Position;
+      set => RenderableObject.Position = value; 
+    }
+    
+    public Quaternion RotationAxis { get; set; }
 
     public Planet(SolarSystemPlanet planet, int generation = 9)
     {
@@ -314,8 +327,14 @@ namespace SolarSystem
         RenderPoint();
 
         //don't render if it's too far away. 
-        if ((Position-camera.Eye.Position).Magnitude/MaximumRadius<maxRenderRatio)
-          RenderableObject.Render(camera);
+        if ((Position - camera.Eye.Position).Magnitude / MaximumRadius < maxRenderRatio)
+        {
+          using (GlPushPop rotationPushPop = new GlPushPop())
+          {
+            RotationAxis.Rotate();
+            RenderableObject.Render(camera);
+          }
+        }
       }
     }
 

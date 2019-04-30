@@ -494,29 +494,36 @@ namespace SolarSystem
 
     private void InitializePlanets_Click(object sender, EventArgs e)
     {
+      if (Earth == null)
+      {
+        MessageBox.Show("Wait for earth to initialize first.");
+        return; 
+      }
+      
       Sun = AddPlanet(SolarSystemPlanet.Sun);
       Scene.Lights.Add(new SunLight(Sun));
-
       Mercury = AddPlanet(SolarSystemPlanet.Mercury);
-
       Venus = AddPlanet(SolarSystemPlanet.Venus);
-
       Moon = AddPlanet(SolarSystemPlanet.Moon);
-      Moon.SetColorMap(new ColorMap("Moon"));
-    
+      Moon.SetColorMap(new ColorMap("Moon"));    
       Mars = AddPlanet(SolarSystemPlanet.Mars);
       Mars.SetColorMap(new ColorMap("Step 1000"));
-
       Jupiter = AddPlanet(SolarSystemPlanet.Jupiter);
-
       Saturn = AddPlanet(SolarSystemPlanet.Saturn);
-
       Uranus = AddPlanet(SolarSystemPlanet.Uranus);
-
       Neptune = AddPlanet(SolarSystemPlanet.Neptune);
-
       Pluto = AddPlanet(SolarSystemPlanet.Pluto);
-
+            
+      Mercury.Position = new Point3D(Sun.MaximumRadius + 2 * Mercury.MaximumRadius);
+      Venus.Position = new Point3D(Mercury.Position.x + Venus.MaximumRadius * 2);
+      Earth.Position = new Point3D(Venus.Position.x + Earth.MaximumRadius * 2);
+      Moon.Position = new Point3D(Earth.Position.x + Moon.MaximumRadius * 2);
+      Mars.Position = new Point3D(Moon.Position.x + Mars.MaximumRadius * 2);
+      Jupiter.Position = new Point3D(Mars.Position.x + Jupiter.MaximumRadius * 2);
+      Saturn.Position = new Point3D(Jupiter.Position.x + Jupiter.MaximumRadius * 2);
+      Uranus.Position = new Point3D(Saturn.Position.x + Saturn.MaximumRadius * 2);
+      Neptune.Position = new Point3D(Uranus.Position.x + Uranus.MaximumRadius * 2);
+      Pluto.Position = new Point3D(Neptune.Position.x + Neptune.MaximumRadius * 2);
     }
 
     private void MaxRenderRatioBox_Click(object sender, EventArgs e)
@@ -529,6 +536,19 @@ namespace SolarSystem
       {
         MaxRenderRatioBox.Text = Planet.maxRenderRatio.ToString(); 
       }
+    }
+
+    private void TestEquatorialCoordinateSystem_Click(object sender, EventArgs e)
+    {
+      if (Earth == null)
+      {
+        MessageBox.Show("Wait for earth to be initialized.");
+        return; 
+      }
+      AddPlanet(SolarSystemPlanet.Sun);
+      EquatorialCoordinateSystem equatorialCoordinateSystem = new EquatorialCoordinateSystem(Earth);
+      Earth.Position = EquatorialCoordinateSystem.EarthPositionAtVernalEquinox;
+      Earth.RotationAxis = EquatorialCoordinateSystem.Quaternion; 
     }
   }
 }

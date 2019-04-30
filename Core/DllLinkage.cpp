@@ -140,6 +140,13 @@ void PlanetColor(Color&color)
 	color.a = activePlanet->color.a; 
 }
 
+double EarthAxisTilt()
+{
+	Planet*earth = solarSystem.Earth(); 
+	if (earth == NULL)
+		return 0;
+	return earth->ObliquityToOrbit;
+}
 
 double PlanetRightAscension()
 {
@@ -181,11 +188,16 @@ double PlanetPositionZ()
 	return activePlanet->position.Z;
 }
 
-double PlanetRotation()
+double PlanetRotation(int planetID)
 {
 	if (activePlanet == NULL)
 		return 0;
 	return activePlanet->SiderealRotationPeriod*solarSystem.time;
+}
+
+void EarthPositionAt(double daysSinceJ2000, Point3D&value)
+{
+	value = solarSystem.Earth()->PositionByTime(daysSinceJ2000);
 }
 
 void ClearFallingObjects()
