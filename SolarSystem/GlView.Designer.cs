@@ -29,12 +29,15 @@
     private void InitializeComponent()
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlView));
+      SolarSystem.Camera camera1 = new SolarSystem.Camera();
+      SolarSystem.Scene scene1 = new SolarSystem.Scene();
       this.ToolStrip = new System.Windows.Forms.ToolStrip();
       this.BackgroundColorButton = new System.Windows.Forms.ToolStripButton();
       this.CameraLightButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
       this.LookatDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
       this.GlControlExtended = new SolarSystem.GlControlExtended();
+      this.CameraLockDistanceToggleButton = new System.Windows.Forms.ToolStripButton();
       this.ToolStrip.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -44,7 +47,8 @@
             this.BackgroundColorButton,
             this.CameraLightButton,
             this.toolStripLabel1,
-            this.LookatDropDownButton});
+            this.LookatDropDownButton,
+            this.CameraLockDistanceToggleButton});
       this.ToolStrip.Location = new System.Drawing.Point(0, 0);
       this.ToolStrip.Name = "ToolStrip";
       this.ToolStrip.Size = new System.Drawing.Size(682, 25);
@@ -93,14 +97,29 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.GlControlExtended.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+      camera1.FieldOfView = 25D;
+      this.GlControlExtended.Camera = camera1;
       this.GlControlExtended.ColorBits = ((uint)(24u));
       this.GlControlExtended.DepthBits = ((uint)(24u));
       this.GlControlExtended.Location = new System.Drawing.Point(0, 28);
       this.GlControlExtended.MultisampleBits = ((uint)(0u));
       this.GlControlExtended.Name = "GlControlExtended";
+      scene1.Changed = false;
+      scene1.Exxageration = 0D;
+      this.GlControlExtended.Scene = scene1;
       this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
       this.GlControlExtended.StencilBits = ((uint)(0u));
       this.GlControlExtended.TabIndex = 1;
+      // 
+      // CameraLockDistanceToggleButton
+      // 
+      this.CameraLockDistanceToggleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.CameraLockDistanceToggleButton.Image = ((System.Drawing.Image)(resources.GetObject("CameraLockDistanceToggleButton.Image")));
+      this.CameraLockDistanceToggleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.CameraLockDistanceToggleButton.Name = "CameraLockDistanceToggleButton";
+      this.CameraLockDistanceToggleButton.Size = new System.Drawing.Size(23, 22);
+      this.CameraLockDistanceToggleButton.Text = "Lock Camera View Distance";
+      this.CameraLockDistanceToggleButton.Click += new System.EventHandler(this.CameraLockDistanceToggleButton_Click);
       // 
       // GlView
       // 
@@ -125,5 +144,6 @@
     private System.Windows.Forms.ToolStripButton CameraLightButton;
     private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     private System.Windows.Forms.ToolStripDropDownButton LookatDropDownButton;
+    private System.Windows.Forms.ToolStripButton CameraLockDistanceToggleButton;
   }
 }

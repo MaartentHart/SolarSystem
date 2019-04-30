@@ -446,7 +446,7 @@ void CelestialBody::SetSun()
 	RightAscension = 0;
 	Declination = 0;
 	TimeOfPeriapsis = DaysSinceJ2000(2000, 1, 1, 0, 0, 0); //not very precise. 
-	color = Color(255.f / 255, 255.f / 255, 155.f / 255, 1.0f);
+	color = Color(255.f / 255, 255.f / 255, 255.f / 255, 1.0f);
 }
 
 SolarSystem::SolarSystem()

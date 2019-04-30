@@ -105,6 +105,12 @@ namespace SolarSystem
 
     }
 
+    public ColorMap(ColorFloat color)
+    {
+      StartColor = color;
+      EndColor = color; 
+    }
+
     public ColorMap(string name, bool isFullFileName = false)
     {
       try

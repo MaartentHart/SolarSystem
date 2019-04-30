@@ -511,6 +511,8 @@ namespace SolarSystem
 
       Saturn = AddPlanet(SolarSystemPlanet.Saturn);
 
+      Uranus = AddPlanet(SolarSystemPlanet.Uranus);
+
       Neptune = AddPlanet(SolarSystemPlanet.Neptune);
 
       Pluto = AddPlanet(SolarSystemPlanet.Pluto);

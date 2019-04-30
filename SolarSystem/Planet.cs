@@ -117,15 +117,20 @@ namespace SolarSystem
       PlanetID = planet;
       RenderableObject.RenderGeometry.SetGeodesicGrid(generation);
       HeightMap = new HeightMap(planet, generation);
-      if (HeightMap.Valid)
-        ColorableValues = HeightMap.Heights;
       //Shader = new Shader("PlanetHeightMapVertex", "TestFrag", PlanetUniforms, PlanetAttributes); 
       //Color = new ColorFloat[CoreDll.GeodesicGridVerticesCount(9)];
       Name = planet.ToString();
       CoreDll.SetActivePlanet(planet.ToString());
+      
       Scale = new Point3D(CoreDll.PlanetScaleX(), CoreDll.PlanetScaleY(), CoreDll.PlanetScaleZ());
       MaximumRadius = Scale.x> Scale.y? Scale.x > Scale.z? Scale.x : Scale.z : Scale.y > Scale.z ? Scale.y: Scale.z; 
       CoreDll.PlanetColor(ref color);
+
+      if (HeightMap.Valid)
+        ColorableValues = HeightMap.Heights;
+      else
+        SetColorMap(new ColorMap(color));
+
       SetExxageration(1.0);
     }
 
@@ -150,11 +155,8 @@ namespace SolarSystem
     {
       ColorMap = colorMap;
 
-      if (ColorableValues != null)
-      {
-        //tell the scene backgroundworker to repaint. 
-        paintChanged = true;
-      }
+      //tell the scene backgroundworker to repaint. 
+      paintChanged = true;
     }
 
     //should be called by the backgroundworker. 
@@ -231,8 +233,12 @@ namespace SolarSystem
     {
       int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
 
-      if (ColorMap == null || ColorableValues == null || ColorableValues.Length != verticesCount)
+      if (ColorMap == null)
         return;
+
+      bool singleColor = false;
+      if (ColorableValues == null || ColorableValues.Length != verticesCount)
+        singleColor = true;
 
       double[] colorable = ColorableValues;
       ColorMap colorMap = ColorMap;
@@ -243,7 +249,10 @@ namespace SolarSystem
         ColorFloat* color = (ColorFloat*)newColors.ToPointer();
         for (int i = 0; i < verticesCount; i++, color++)
         {
-          *color = colorMap.GetColor(colorable[i]);
+          if (singleColor)
+            *color = colorMap.StartColor;
+          else
+            *color = colorMap.GetColor(colorable[i]);
         }
       }
 

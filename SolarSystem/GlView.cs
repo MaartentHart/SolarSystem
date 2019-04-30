@@ -70,5 +70,10 @@ namespace SolarSystem
       Camera.Lookat(target);
       LookatDropDownButton.Text = name;
     }
+
+    private void CameraLockDistanceToggleButton_Click(object sender, EventArgs e)
+    {
+      Camera.LockDistance = !Camera.LockDistance;
+    }
   }
 }

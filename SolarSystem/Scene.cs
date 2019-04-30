@@ -197,6 +197,11 @@ namespace SolarSystem
     private double previousFieldOfView;
     private ColorFloat previousBackgroundColor = new ColorFloat();
 
+    /// <summary>
+    /// ViewDistance is used by lockdistance. 
+    /// </summary>
+    public double ViewDistance { get; set; } = 10; 
+    public bool LockDistance { get; set; } = false;
     public ColorFloat BackgroundColor { get; set; } = new ColorFloat();
     public CameraLight Light { get; }
 
@@ -207,6 +212,7 @@ namespace SolarSystem
     {
       set
       {
+        ViewDistance = value;
         near = 0.001 * value;
         far = 1000.0 * value;
       }
@@ -267,6 +273,10 @@ namespace SolarSystem
 
     public void Render(int width, int height)
     {
+      if (LockDistance)
+        if (Eye is PositionObject eye)
+          eye.Position = Target.Position + (eye.Position - Target.Position).Normal * ViewDistance;
+        
       Gl.ClearColor(BackgroundColor.R, BackgroundColor.G, BackgroundColor.B, BackgroundColor.A);
       Gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
       Gl.Viewport(0, 0, width, height);
@@ -352,9 +362,11 @@ namespace SolarSystem
       if (Eye is PositionObject eye)
       {
         eye.Position = (eye.Position - Target.Position) * zoomFactor + Target.Position;
-        
+
         //force an update.
-        Eye = Eye; 
+        Eye = Eye;
+
+
       }
     }
 
