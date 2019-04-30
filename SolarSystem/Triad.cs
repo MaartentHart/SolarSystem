@@ -68,7 +68,7 @@ namespace SolarSystem
       return arrow;
     }
 
-    Mesh XTriangle = new Mesh()
+    readonly Mesh XTriangle = new Mesh()
     {
       Name = "x",
       vertices = new double[]
@@ -89,8 +89,7 @@ namespace SolarSystem
       },
       Transparent = true
     };
-
-    Mesh YTriangle = new Mesh()
+    readonly Mesh YTriangle = new Mesh()
     {
       Name = "y",
       vertices = new double[]
@@ -111,8 +110,7 @@ namespace SolarSystem
       },
       Transparent = true
     };
-
-    Mesh ZTriangle = new Mesh()
+    readonly Mesh ZTriangle = new Mesh()
     {
       Name = "z",
       vertices = new double[]

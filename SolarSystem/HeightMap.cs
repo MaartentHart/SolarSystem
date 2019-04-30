@@ -10,6 +10,7 @@ namespace SolarSystem
 {
   public class HeightMap
   {
+    public bool Valid { get; private set; } = false;
     public double[] Heights { get; set; }
 
     public HeightMap(string fileName, bool messageNotExist = true)
@@ -24,31 +25,40 @@ namespace SolarSystem
       int verticesCount = CoreDll.GeodesicGridVerticesCount(generation);
 
       if (Heights.Length == 0)
-        Heights = new double[verticesCount];
+        Valid = false;
       else if (Heights.Length != verticesCount)
-        MessageBox.Show("Height map length mismathces the geodesic grid generation.");
+        Valid = false;
     }
 
     public void Load(string fileName, bool messageNotExist = true)
     {
-      if (!File.Exists(fileName))
+      try
       {
-        Heights = new double[0];
-        if (messageNotExist)
-          MessageBox.Show(fileName + " does not exist.", "Error.");
-        return;
-      }
-
-      FileInfo fileInfo = new FileInfo(fileName);
-      long arrayLength = fileInfo.Length / 8;
-      Heights = new double[arrayLength];
-
-      using (BinaryReader reader = new BinaryReader(File.OpenRead(fileName)))
-      {
-        for (int i = 0; i < arrayLength; i++)
+        if (!File.Exists(fileName))
         {
-          Heights[i] = reader.ReadDouble();
+          Heights = new double[0];
+          if (messageNotExist)
+            MessageBox.Show(fileName + " does not exist.", "Error.");
+          return;
         }
+
+        FileInfo fileInfo = new FileInfo(fileName);
+        long arrayLength = fileInfo.Length / 8;
+        Heights = new double[arrayLength];
+
+        using (BinaryReader reader = new BinaryReader(File.OpenRead(fileName)))
+        {
+          for (int i = 0; i < arrayLength; i++)
+          {
+            Heights[i] = reader.ReadDouble();
+          }
+        }
+        Valid = true; 
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Error loading heightmap " + fileName+ "\n" + ex.Message);
+        Valid = false; 
       }
     }
   }

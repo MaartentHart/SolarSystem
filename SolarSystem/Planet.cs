@@ -43,10 +43,10 @@ namespace SolarSystem
     private IntPtr vertices;
     private IntPtr colors;
     private ColorFloat color;
-    private BackgroundWorker backgroundWorker = new BackgroundWorker();
-    private bool changed = true;
-    private bool paint = false;
-    
+    private bool exxagerationChanged = true;
+    private bool paintChanged = true;
+    private bool changed = true; 
+
     public int Generation { get; }
     public SolarSystemPlanet PlanetID { get; }
     public CRenderableObject RenderableObject { get; } = new CRenderableObject();
@@ -58,6 +58,24 @@ namespace SolarSystem
     public ColorMap ColorMap { get; set; }
     public double AroundAxisRotation { get; set; }
     public double MaximumRadius { get; set; }
+    public bool ExxagerationChanged
+    {
+      get
+      {
+        bool ret = exxagerationChanged; 
+        exxagerationChanged = false;
+        return ret;
+      }
+    }
+    public bool PaintChanged
+    {
+      get
+      {
+        bool ret = paintChanged;
+        paintChanged = false;
+        return ret; 
+      }
+    }
 
     public List<string> PlanetUniforms { get; } = new List<string>
     {
@@ -75,7 +93,7 @@ namespace SolarSystem
       get => on;
       set
       {
-        changed = true;
+        exxagerationChanged = true;
         on = value;
       }
     }
@@ -99,7 +117,8 @@ namespace SolarSystem
       PlanetID = planet;
       RenderableObject.RenderGeometry.SetGeodesicGrid(generation);
       HeightMap = new HeightMap(planet, generation);
-      ColorableValues = HeightMap.Heights;
+      if (HeightMap.Valid)
+        ColorableValues = HeightMap.Heights;
       //Shader = new Shader("PlanetHeightMapVertex", "TestFrag", PlanetUniforms, PlanetAttributes); 
       //Color = new ColorFloat[CoreDll.GeodesicGridVerticesCount(9)];
       Name = planet.ToString();
@@ -115,19 +134,7 @@ namespace SolarSystem
       if (exxageration == scale)
         return;
       exxageration = scale;
-      StartBackgroundWorker();
-    }
-
-    public void StartBackgroundWorker()
-    {
-      if (backgroundWorker.IsBusy)
-      {
-        return;
-      }
-      backgroundWorker.Dispose();
-      backgroundWorker = new BackgroundWorker();
-      backgroundWorker.DoWork += ApplyChanges;
-      backgroundWorker.RunWorkerAsync();
+      exxagerationChanged = true;
     }
 
     public void SetColorMap(ColorMap colorMap, double[] values)
@@ -145,38 +152,13 @@ namespace SolarSystem
 
       if (ColorableValues != null)
       {
-        paint = true;
-        StartBackgroundWorker();
+        //tell the scene backgroundworker to repaint. 
+        paintChanged = true;
       }
     }
 
-    /// <summary>
-    /// Modifying the vertical scale exxageration using a backgroundworker
-    /// Memory management is c-style based. 
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void ApplyChanges(object sender, DoWorkEventArgs e)
-    {
-      bool changed = true;
-      while (changed)
-      {
-        changed = false;
-        //applying vertices and normals. 
-        while (exxageration != previousExxageration)
-        {
-          changed = true;
-          ApplyExxageration();
-        }
-        while (paint)
-        {
-          changed = true;
-          Paint();
-        }
-      }
-    }
-
-    private void ApplyExxageration()
+    //should be called by the backgroundworker. 
+    internal void ApplyExxageration()
     {
       previousExxageration = exxageration;
       IntPtr geodesicGridVerticesPointer = CoreDll.GeodesicGridVertices(Generation);
@@ -195,7 +177,9 @@ namespace SolarSystem
         {
           Point3D vertex = vertices[i] * Scale;
           double magnitude = vertex.Magnitude;
-          double newMagnitude = magnitude + HeightMap.Heights[i] * 0.001 * exxageration;
+          double newMagnitude = magnitude;
+          if (HeightMap.Valid)
+            newMagnitude += HeightMap.Heights[i] * 0.001 * exxageration;
 
           newVertices[i] = vertex * (newMagnitude / magnitude);
         }
@@ -243,9 +227,8 @@ namespace SolarSystem
     /// <summary>
     /// Paint should be called by the background worker. 
     /// </summary>
-    private void Paint()
+    internal void Paint()
     {
-      paint = false;
       int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
 
       if (ColorMap == null || ColorableValues == null || ColorableValues.Length != verticesCount)

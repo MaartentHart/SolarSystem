@@ -73,6 +73,7 @@ namespace SolarSystem
       backgroundWorker.DoWork += IntializeEarth;
       backgroundWorker.RunWorkerAsync();
       TimeStep = 1.0 / 864000;
+      Scene.SetAsMainScene(); 
     }
 
     private void IntializeEarth(object sender, DoWorkEventArgs e)
@@ -236,13 +237,6 @@ namespace SolarSystem
       if (e.Index >= Scene.RenderableObjects.Count)
         return;
       Scene.RenderableObjects[e.Index].On = on;      
-    }
-
-    private void TestColorButton_Click(object sender, EventArgs e)
-    {
-      if (Earth == null || Earth.HeightMap == null || Earth.HeightMap.Heights == null)
-        return;
-      Earth.SetColorMap(new ColorMap("step 1000"), Earth.HeightMap.Heights); 
     }
 
     private void ColorMapEditorButton_Click(object sender, EventArgs e)

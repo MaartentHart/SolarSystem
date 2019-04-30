@@ -1,6 +1,7 @@
 ﻿using OpenGL;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,15 @@ namespace SolarSystem
 {
   public class Scene
   {
+    private static Scene mainScene; 
+    private BackgroundWorker decorationBackgroundWorker;
     private double exxageration = 0; 
     private bool changed = false;
     private List<IRenderable> PreviousRenderableObjects { get; } = new List<IRenderable>();
-    private List<ILight> PreviousLights { get; } = new List<ILight>(); 
+    private List<ILight> PreviousLights { get; } = new List<ILight>();
 
+    public Scene MainScene => mainScene;
+    public bool IsMainScene => mainScene == this;  
     public List<ILight> Lights { get; } = new List<ILight>(); 
     public List<IRenderable> RenderableObjects { get; } = new List<IRenderable>();
     public List<GravityObject> GravityObjects { get; } = new List<GravityObject>(); 
@@ -67,7 +72,6 @@ namespace SolarSystem
           if (renderable is Planet planet)
             planet.SetExxageration(exxageration);
       }
-
     }
 
     internal void Render(Camera camera)
@@ -92,8 +96,69 @@ namespace SolarSystem
         Changed = true; 
       }
     }
+       
+    public void SetAsMainScene()
+    {
+      if (mainScene != null)
+        throw new Exception("There should only be 1 main scene!");
+      mainScene = this; 
+      StartBackgroundWorker();
+    }
 
-   
+    private void StartBackgroundWorker()
+    {
+      if (decorationBackgroundWorker == null)
+        decorationBackgroundWorker = new BackgroundWorker();
+      if (!decorationBackgroundWorker.IsBusy)
+      {
+        decorationBackgroundWorker.DoWork += ApplyChanges;
+        decorationBackgroundWorker.RunWorkerAsync();
+      }
+    }
+
+    /// <summary>
+    /// Modifying the vertical scale exxageration using a backgroundworker
+    /// Memory management is c-style based. 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ApplyChanges(object sender, DoWorkEventArgs e)
+    {
+      int errorCount = 0; 
+      while (Program.Running())
+      {
+        bool changed = false;
+        try
+        {
+          for (int i = 0; i < RenderableObjects.Count; i++)
+          {
+            IRenderable renderable = RenderableObjects[i];
+            if (renderable is Planet planet)
+            {
+              if (planet.ExxagerationChanged)
+              {
+                changed = true;
+                planet.ApplyExxageration();
+              }
+              if (planet.PaintChanged)
+              {
+                changed = true;
+                planet.Paint();
+              }
+            }
+          }
+        }
+        catch (Exception ex)
+        {
+          changed = true; 
+          errorCount++;
+          if (errorCount<100)
+            ErrorLog.LogException(ex, "Decoration painter error.");
+        }
+        if (!changed)
+          System.Threading.Thread.Sleep(1); 
+      }
+    }
   }
 
   public interface IPositionObject

@@ -8,6 +8,12 @@ namespace SolarSystem
 {
   static class Program
   {
+    private static bool running = true; 
+    public static bool Running()
+    {
+      return running;
+    }
+
     /// <summary>
     /// The main entry point for the application.
     /// </summary>
@@ -17,6 +23,7 @@ namespace SolarSystem
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
       Application.Run(new MainForm());
+      running = false; 
     }
   }
 }

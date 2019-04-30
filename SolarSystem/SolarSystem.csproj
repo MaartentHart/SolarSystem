@@ -116,6 +116,7 @@
     <Compile Include="Debugging\RotationTest.Designer.cs">
       <DependentUpon>RotationTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="ErrorLog.cs" />
     <Compile Include="GlControlExtended.cs">
       <SubType>UserControl</SubType>
     </Compile>
