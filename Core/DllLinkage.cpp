@@ -188,7 +188,7 @@ double PlanetPositionZ()
 	return activePlanet->position.Z;
 }
 
-double PlanetRotation(int planetID)
+double PlanetRotation()
 {
 	if (activePlanet == NULL)
 		return 0;

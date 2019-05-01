@@ -507,7 +507,6 @@ namespace SolarSystem
       }
       
       Sun = AddPlanet(SolarSystemPlanet.Sun);
-      Scene.Lights.Add(new SunLight(Sun));
       Mercury = AddPlanet(SolarSystemPlanet.Mercury);
       Venus = AddPlanet(SolarSystemPlanet.Venus);
       Moon = AddPlanet(SolarSystemPlanet.Moon);
@@ -530,6 +529,13 @@ namespace SolarSystem
       Uranus.Position = new Point3D(Saturn.Position.x + Saturn.MaximumRadius * 2);
       Neptune.Position = new Point3D(Uranus.Position.x + Uranus.MaximumRadius * 2);
       Pluto.Position = new Point3D(Neptune.Position.x + Neptune.MaximumRadius * 2);
+
+      Sun.RenderableObject.UseLight = false;
+      Scene.SunLight = new SunLight(Sun);
+      Scene.Lights.Add(Scene.SunLight); 
+      if (Camera.Eye is PositionObject eye)
+        eye.Position = new Point3D(Pluto.Position.x, Pluto.MaximumRadius * 5);
+      Camera.Light.On = false; 
     }
 
     private void MaxRenderRatioBox_Click(object sender, EventArgs e)

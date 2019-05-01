@@ -21,7 +21,9 @@ namespace SolarSystem
     public bool IsMainScene => mainScene == this;  
     public List<ILight> Lights { get; } = new List<ILight>(); 
     public List<IRenderable> RenderableObjects { get; } = new List<IRenderable>();
-    public List<GravityObject> GravityObjects { get; } = new List<GravityObject>(); 
+    public List<GravityObject> GravityObjects { get; } = new List<GravityObject>();
+
+    public SunLight SunLight { get; set; }
 
     public bool Changed
     {
@@ -89,7 +91,13 @@ namespace SolarSystem
         for (int i = 0; i < lightCount; i++)
           Lights[i].Render(i + 1);
         foreach (IRenderable renderableObject in RenderableObjects)
+        {
+          if (renderableObject is Planet planet)
+            if (SunLight!=null)
+              SunLight.SetDirection(planet.RenderableObject.Transform.Position); 
+           
           renderableObject.Render(camera);
+        }
       }
       catch
       {
@@ -181,197 +189,6 @@ namespace SolarSystem
     }
   }
   
-  public interface ILight : IPositionObject
-  {
-    bool Changed { get; }
-    bool On { get; }
-    ColorFloat Color { get; }
-    void Render(int number); 
-  }
-
-  public class SunLight :ILight
-  {
-    private bool on = true;
-    private bool changed = true;
-
-    Planet Sun { get; }
-
-    public bool Changed
-    {
-      get
-      {
-        bool ret = changed;
-        changed = false;
-        return ret; 
-      }
-      set => changed = value; 
-    }
-
-    public bool On
-    {
-      get => on;
-      set
-      {
-        changed = true;
-        on = value; 
-      }
-    }
-
-    public ColorFloat Color { get; } = new ColorFloat(1, 1, 1);
-
-    public Point3D Position => Sun.Position; 
-
-    public SunLight(Planet sun)
-    {
-      Sun = sun; 
-    }
-
-    public void Render(int number)
-    {
-      if (!On)
-      {
-        Gl.Disable(Light.LightNr(number));
-        return;
-      }
-
-      Gl.Enable(EnableCap.Lighting);
-      Gl.Enable(Light.LightNr(number));
-      float[] position = new float[4];
-      position[0] = (float)Position.x;
-      position[1] = (float)Position.y;
-      position[2] = (float)Position.z;
-      position[3] = 1; //0 = directional light, 1 = point light.
-      Gl.Light(Light.LightName(number), LightParameter.Position, position);
-    }
-  }
-
-  public class CameraLight : ILight
-  {
-    private Camera camera;
-
-    //track changes. 
-    private bool wasOn;
-    private ColorFloat previousColor = new ColorFloat(1,1,1,1);
-    private Point3D previousDirection = new Point3D(); 
-
-    public Point3D RelativeDirection { get; set; } = new Point3D(-1, 1, 1);
-    
-    public bool Changed
-    {
-      get
-      {
-        bool changed = false;
-        if (On != wasOn)
-          changed = true;
-        if (previousColor != Color)
-          changed = true;
-        if (previousDirection != Position)
-          changed = true;
-        wasOn = On;
-        previousColor = Color; 
-        previousDirection = Position;
-        return changed; 
-      }
-    }
-
-    public bool On { get; set; } = true;
-
-    public ColorFloat Color { get; set; } = new ColorFloat();
-
-    public Point3D Position => 
-      camera.ForwardNormal * RelativeDirection.x
-      + camera.RightNormal * RelativeDirection.y
-      + camera.UpNormal * RelativeDirection.z; 
-      
-    public CameraLight(Camera camera)
-    {
-      this.camera = camera; 
-    }
-
-    public void Render(int number)
-    {
-      if (!On)
-      {
-        Gl.Disable(EnableCap.Lighting);
-        Gl.Disable(Light.LightNr(number));
-        return; 
-      }
-
-      Gl.Enable(EnableCap.Lighting); 
-      Gl.Enable(Light.LightNr(number));
-      float[] position = new float[4];
-      position[0] = (float)Position.x;
-      position[1] = (float)Position.y;
-      position[2] = (float)Position.z;
-      position[3] = 0; //0 = directional light, 1 = point light.
-      Gl.Light(Light.LightName(number), LightParameter.Position, position);
-    }
-  }
-
-  public class Light : ILight
-  {
-    public bool Changed => throw new NotImplementedException();
-
-    public bool On => throw new NotImplementedException();
-
-    public ColorFloat Color => throw new NotImplementedException();
-
-    public Point3D Position => throw new NotImplementedException();
-
-    public void Render(int number)
-    {
-      throw new NotImplementedException();
-    }
-
-    public static EnableCap LightNr(int number)
-    {
-      switch(number)
-      {
-        case 0:
-          return EnableCap.Light0;
-        case 1:
-          return EnableCap.Light1;
-        case 2:
-          return EnableCap.Light2;
-        case 3:
-          return EnableCap.Light3;
-        case 4:
-          return EnableCap.Light4;
-        case 5:
-          return EnableCap.Light5;
-        case 6:
-          return EnableCap.Light6;
-        case 7:
-          return EnableCap.Light7;
-      }
-
-      throw new Exception("OpenGL supports Light0 to Light7. Number is " + number.ToString());
-    }
-
-    public static LightName LightName(int number)
-    {
-      switch (number)
-      {
-        case 0:
-          return OpenGL.LightName.Light0;
-        case 1:
-          return OpenGL.LightName.Light1;
-        case 2:
-          return OpenGL.LightName.Light2;
-        case 3:
-          return OpenGL.LightName.Light3;
-        case 4:
-          return OpenGL.LightName.Light4;
-        case 5:
-          return OpenGL.LightName.Light5;
-        case 6:
-          return OpenGL.LightName.Light6;
-        case 7:
-          return OpenGL.LightName.Light7;
-      }
-
-      throw new Exception("OpenGL supports Light0 to Light7. Number is " + number.ToString());
-    }
-  }
+  
 
 }

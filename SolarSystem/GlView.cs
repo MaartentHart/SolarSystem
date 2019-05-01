@@ -122,5 +122,11 @@ namespace SolarSystem
     {
       ViewAngleTextBoxApply(); 
     }
+
+    private void ToggleSunLightButton_Click(object sender, EventArgs e)
+    {
+      if (Scene.SunLight != null)
+        Scene.SunLight.On = !Scene.SunLight.On; 
+    }
   }
 }

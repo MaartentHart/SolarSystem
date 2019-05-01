@@ -41,12 +41,12 @@ namespace SolarSystem
     public RenderMode renderMode;
     public float pointSize = 1;
 
-    public void Render()
+    public void Render(bool useLight)
     {
       switch (renderMode)
       {
         case RenderMode.triangles:
-          RenderTriangles();
+          RenderTriangles(useLight);
           break;
         case RenderMode.points:
           RenderPoints();
@@ -73,11 +73,11 @@ namespace SolarSystem
       Gl.DrawElements(PrimitiveType.Points, verticesCount, DrawElementsType.UnsignedInt, indices);
     }
 
-    private void RenderTriangles()
+    private void RenderTriangles(bool useLight)
     {
       Gl.EnableClientState(EnableCap.VertexArray);
       Gl.VertexPointer(3, VertexPointerType.Double, 0, vertices);
-      if (enableNormals)
+      if (enableNormals && useLight)
       {
         Gl.Enable(EnableCap.Lighting);
         //Gl.Enable(EnableCap.Normalize); 
@@ -85,7 +85,10 @@ namespace SolarSystem
         Gl.EnableClientState(EnableCap.NormalArray);
       }
       else
+      {
+        Gl.Disable(EnableCap.Lighting);
         Gl.DisableClientState(EnableCap.NormalArray);
+      }
 
       if (enableColors)
       {
@@ -132,6 +135,7 @@ namespace SolarSystem
     public string Name { get; set; } = "Default";
     public bool On { get; set; } = true;
     public Transform Transform {get;set;} = new Transform();
+    public bool UseLight { get; set; } = true; 
 
     public Point3D Position
     {
@@ -179,7 +183,7 @@ namespace SolarSystem
     {
       using (ApplyTransform apply = new ApplyTransform(Transform))
       {
-        RenderGeometry.Render();
+        RenderGeometry.Render(UseLight);
       }   
     }
 

@@ -29,8 +29,8 @@
     private void InitializeComponent()
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlView));
-      SolarSystem.Camera camera2 = new SolarSystem.Camera();
-      SolarSystem.Scene scene2 = new SolarSystem.Scene();
+      SolarSystem.Camera camera1 = new SolarSystem.Camera();
+      SolarSystem.Scene scene1 = new SolarSystem.Scene();
       this.ToolStrip = new System.Windows.Forms.ToolStrip();
       this.ToggleXYZTriadButton = new System.Windows.Forms.ToolStripButton();
       this.BackgroundColorButton = new System.Windows.Forms.ToolStripButton();
@@ -40,8 +40,9 @@
       this.LookatDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
       this.ViewAngleTrackBar = new System.Windows.Forms.TrackBar();
       this.ViewAngleBox = new System.Windows.Forms.TextBox();
-      this.GlControlExtended = new SolarSystem.GlControlExtended();
       this.FieldOfViewLabel = new System.Windows.Forms.Label();
+      this.GlControlExtended = new SolarSystem.GlControlExtended();
+      this.ToggleSunLightButton = new System.Windows.Forms.ToolStripButton();
       this.ToolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.ViewAngleTrackBar)).BeginInit();
       this.SuspendLayout();
@@ -52,6 +53,7 @@
             this.ToggleXYZTriadButton,
             this.BackgroundColorButton,
             this.CameraLightButton,
+            this.ToggleSunLightButton,
             this.CameraLockDistanceToggleButton,
             this.toolStripLabel1,
             this.LookatDropDownButton});
@@ -140,30 +142,6 @@
       this.ViewAngleBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ViewAngleBox_KeyDown);
       this.ViewAngleBox.Leave += new System.EventHandler(this.ViewAngleBox_Leave);
       // 
-      // GlControlExtended
-      // 
-      this.GlControlExtended.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.GlControlExtended.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-      camera2.Changed = false;
-      camera2.FieldOfView = 25D;
-      camera2.LockDistance = false;
-      camera2.ViewDistance = 10D;
-      camera2.ViewRadius = 10D;
-      this.GlControlExtended.Camera = camera2;
-      this.GlControlExtended.ColorBits = ((uint)(24u));
-      this.GlControlExtended.DepthBits = ((uint)(24u));
-      this.GlControlExtended.Location = new System.Drawing.Point(0, 28);
-      this.GlControlExtended.MultisampleBits = ((uint)(0u));
-      this.GlControlExtended.Name = "GlControlExtended";
-      scene2.Changed = false;
-      scene2.Exxageration = 0D;
-      this.GlControlExtended.Scene = scene2;
-      this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
-      this.GlControlExtended.StencilBits = ((uint)(0u));
-      this.GlControlExtended.TabIndex = 1;
-      // 
       // FieldOfViewLabel
       // 
       this.FieldOfViewLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -173,6 +151,40 @@
       this.FieldOfViewLabel.Size = new System.Drawing.Size(69, 13);
       this.FieldOfViewLabel.TabIndex = 4;
       this.FieldOfViewLabel.Text = "Field of view:";
+      // 
+      // GlControlExtended
+      // 
+      this.GlControlExtended.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.GlControlExtended.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+      camera1.Changed = true;
+      camera1.FieldOfView = 25D;
+      camera1.LockDistance = false;
+      camera1.ViewDistance = 10D;
+      camera1.ViewRadius = 10D;
+      this.GlControlExtended.Camera = camera1;
+      this.GlControlExtended.ColorBits = ((uint)(24u));
+      this.GlControlExtended.DepthBits = ((uint)(24u));
+      this.GlControlExtended.Location = new System.Drawing.Point(0, 28);
+      this.GlControlExtended.MultisampleBits = ((uint)(0u));
+      this.GlControlExtended.Name = "GlControlExtended";
+      scene1.Changed = false;
+      scene1.Exxageration = 0D;
+      this.GlControlExtended.Scene = scene1;
+      this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
+      this.GlControlExtended.StencilBits = ((uint)(0u));
+      this.GlControlExtended.TabIndex = 1;
+      // 
+      // ToggleSunLightButton
+      // 
+      this.ToggleSunLightButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.ToggleSunLightButton.Image = ((System.Drawing.Image)(resources.GetObject("ToggleSunLightButton.Image")));
+      this.ToggleSunLightButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.ToggleSunLightButton.Name = "ToggleSunLightButton";
+      this.ToggleSunLightButton.Size = new System.Drawing.Size(23, 22);
+      this.ToggleSunLightButton.Text = "Toggle Sun Light";
+      this.ToggleSunLightButton.Click += new System.EventHandler(this.ToggleSunLightButton_Click);
       // 
       // GlView
       // 
@@ -206,5 +218,6 @@
     private System.Windows.Forms.TrackBar ViewAngleTrackBar;
     private System.Windows.Forms.TextBox ViewAngleBox;
     private System.Windows.Forms.Label FieldOfViewLabel;
+    private System.Windows.Forms.ToolStripButton ToggleSunLightButton;
   }
 }

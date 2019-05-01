@@ -138,6 +138,7 @@
     <Compile Include="GravityObject.cs" />
     <Compile Include="HeightMap.cs" />
     <Compile Include="HistoricDateTime.cs" />
+    <Compile Include="Light.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

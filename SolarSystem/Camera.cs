@@ -121,6 +121,8 @@ namespace SolarSystem
       Gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
       Gl.Viewport(0, 0, width, height);
 
+      Light.Render(0);
+
       if (Triad.On)
       {
         Gl.MatrixMode(MatrixMode.Projection);
@@ -141,7 +143,6 @@ namespace SolarSystem
 
       GluLookAt(Eye.Position, Target.Position, UpVector);
 
-      Light.Render(0);
     }
 
     /// <summary>

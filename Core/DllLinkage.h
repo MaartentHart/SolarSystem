@@ -41,7 +41,7 @@ extern "C"
 	DLL double __cdecl PlanetPositionX();
 	DLL double __cdecl PlanetPositionY();
 	DLL double __cdecl PlanetPositionZ();
-	DLL double __cdecl PlanetRotation(); 
+	DLL double __cdecl PlanetRotation();
 
 	//EquatorialCoordinateSystem
 	DLL void __cdecl EarthPositionAt(double daysSinceJ2000, Point3D& position);
