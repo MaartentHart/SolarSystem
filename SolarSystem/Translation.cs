@@ -26,7 +26,7 @@ namespace SolarSystem
     public void GlRotate()
     {
       if (Rotation!=null)
-        Rotation.Rotate();
+        Rotation.GlRotate();
     }
 
     public void GlTranslate()

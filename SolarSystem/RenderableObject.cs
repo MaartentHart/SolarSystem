@@ -310,8 +310,10 @@ namespace SolarSystem
         Gl.Disable(EnableCap.Blend);
     }
 
+    public Point3D[] GetVertices() => Point3D.ToPointArray(vertices); 
+
     public void InitializeAsTexture(string fileName)
-    {
+    { 
       //https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/4.1.textures/textures.cpp
       Shader = new Shader("TextureVertex", "TextureFragment");
       using (Image testImage = Image.FromFile(fileName))

@@ -395,11 +395,14 @@ namespace SolarSystem
 
     private void TestTriadButton_Click(object sender, EventArgs e)
     {
-      Mesh arrow = TriadGeometry.GenerateArrow(); 
+      Mesh arrow = TriadGeometry.GenerateArrow();
+      Mesh xTriangle = TriadGeometry.XTriangle;
+      
       Scene.RenderableObjects.Add(new TriadGeometry().Arrows);
       Scene.RenderableObjects.Add(arrow);
+      Scene.RenderableObjects.Add(xTriangle); 
 
-      Debugging.RotationTest test = new Debugging.RotationTest(arrow)
+      Debugging.RotationTest test = new Debugging.RotationTest(arrow, xTriangle)
       {
         Owner = this
       };

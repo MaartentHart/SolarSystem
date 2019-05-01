@@ -89,6 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoundingBox.cs" />
     <Compile Include="CelestialPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -11,7 +11,7 @@ namespace SolarSystem
   public interface IRotation
   {
     bool Active { get; }
-    void Rotate(); 
+    void GlRotate(); 
   }
   
 
@@ -82,10 +82,10 @@ namespace SolarSystem
       yaw = Angle.ToDegrees(yaw); 
     }
 
-    public void Rotate()
+    public void GlRotate()
     {
       Test(); 
-      Quaternion.Rotate(); 
+      Quaternion.GlRotate(); 
     }
 
     private void Test()
@@ -174,7 +174,7 @@ namespace SolarSystem
       this.aroundAxis = aroundAxis;
     }
 
-    public void Rotate()
+    public void GlRotate()
     {
       double sinA = Math.Sin(axisTilt);
       Gl.Rotate(axisDirection, 0, 0, 1);
@@ -202,6 +202,7 @@ namespace SolarSystem
       get => z;
       set => z = value;
     }
+    public Point3D Vector => new Point3D(x, y, z); 
 
     //w = cos(theta / 2)
     //https://answers.unity.com/questions/147712/what-is-affected-by-the-w-in-quaternionxyzw.html
@@ -244,9 +245,26 @@ namespace SolarSystem
       :this (Angle.ToRadians(rotation.yaw), Angle.ToRadians(rotation.pitch), Angle.ToRadians(rotation.roll))
     { }
 
-    public void Rotate()
-    {
+    public void GlRotate()
+    { 
       Gl.Rotate(Angle.ToDegrees(Rotation), x, y, z); 
+    }
+
+    public Point3D Rotate(Point3D point)
+    {
+      //https://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
+      return Vector * 2.0 * Vector.Dot(point) + point * (w * w - Vector.Dot(Vector)) + Vector.Cross(point) * 2.0 * w;
+    }
+
+    public Point3D[] Rotate(Point3D[] points)
+    {
+      int size = points.Length; 
+      Point3D[] result = new Point3D[size];
+
+      for (int i = 0; i < size; i++)
+        result[i] = Rotate(points[i]);
+
+      return result; 
     }
   }
 }

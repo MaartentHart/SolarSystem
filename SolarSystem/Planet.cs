@@ -331,7 +331,8 @@ namespace SolarSystem
         {
           using (GlPushPop rotationPushPop = new GlPushPop())
           {
-            RotationAxis.Rotate();
+            if (RotationAxis!=null)
+              RotationAxis.GlRotate();
             RenderableObject.Render(camera);
           }
         }

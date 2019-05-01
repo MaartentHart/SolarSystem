@@ -129,6 +129,56 @@ namespace SolarSystem
       hashCode = hashCode * -1521134295 + z.GetHashCode();
       return hashCode;
     }
+
+    public static double[] ToVerticesArray(IEnumerable<Point3D> points)
+    {
+      double[] result = new double[points.Count() * 3];
+
+      int target = 0;
+
+      foreach (Point3D point in points)
+      {
+        result[target++] = point.x;
+        result[target++] = point.y;
+        result[target++] = point.z;
+      }
+
+      return result;
+    }
+
+    public static Point3D[] ToPointArray(IEnumerable<double> vertices)
+    {
+      int size = vertices.Count();
+
+      if (size % 3 != 0)
+        throw new Exception("Vertices array length must be a multiple of 3.");
+
+      size /= 3;
+
+      Point3D[] result = new Point3D[size];
+      int i = 0;
+      int j = 0;
+
+      Point3D current = new Point3D(); 
+
+      foreach (double vertex in vertices)
+      {
+        j++;
+        if (j == 1)
+          current.x = vertex;
+        else if (j == 2)
+          current.y = vertex; 
+        if (j == 3)
+        {
+          current.z = vertex;
+          result[i++] = current;
+          j = 0; 
+          current = new Point3D(); 
+        }
+      }
+
+      return result; 
+    }
   }
   
 }

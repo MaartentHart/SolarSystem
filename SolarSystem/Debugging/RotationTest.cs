@@ -12,11 +12,17 @@ namespace SolarSystem.Debugging
 {
   public partial class RotationTest : Form
   {
-    private Mesh mesh;
+    //the mesh that will be rotated by opengl.
+    private Mesh glRotateMesh;
+    //the mesh that we will rotate ourselves by testing a quaternion. 
+    private Mesh customRotateMesh;
+    private double[] customRotationMeshOriginalVertices;
 
-    public RotationTest(Mesh mesh)
+    public RotationTest(Mesh glRotateMesh, Mesh customRotateMesh)
     {
-      this.mesh = mesh; 
+      this.glRotateMesh = glRotateMesh;
+      this.customRotateMesh = customRotateMesh;
+      customRotationMeshOriginalVertices = customRotateMesh.vertices; 
       InitializeComponent();
     }
 
@@ -40,8 +46,13 @@ namespace SolarSystem.Debugging
 
     private void SetRotation()
     {
-      mesh.Changed = true;
-      mesh.Transform.Rotation = new EulerAngles(XBar.Value, YBar.Value, ZBar.Value);
+      //opengl rotation
+      glRotateMesh.Changed = true;
+      Quaternion quaternion = new EulerAngles(XBar.Value, YBar.Value, ZBar.Value).Quaternion;
+      glRotateMesh.Transform.Rotation = quaternion;
+
+      //custom rotation: physically modify the object. 
+      customRotateMesh.vertices = Point3D.ToVerticesArray(quaternion.Rotate(Point3D.ToPointArray(customRotationMeshOriginalVertices))); 
     }
   }
 }
