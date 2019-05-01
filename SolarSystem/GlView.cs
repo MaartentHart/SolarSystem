@@ -75,5 +75,51 @@ namespace SolarSystem
     {
       Camera.LockDistance = !Camera.LockDistance;
     }
+
+    private void ToggleXYZTriadButton_Click(object sender, EventArgs e)
+    {
+      Camera.Triad.On = !Camera.Triad.On;
+      Camera.Changed = true; 
+    }
+
+    private void ViewAngleTrackBar_Scroll(object sender, EventArgs e)
+    {
+      double viewAngle = ViewAngleTrackBar.Value * 0.1;
+      ViewAngleBox.Text = viewAngle.ToString();
+      ApplyViewAngle(viewAngle);
+    }
+
+    private void ApplyViewAngle(double ViewAngle)
+    {
+      Camera.FieldOfView = ViewAngle;
+      Camera.Changed = true; 
+    }
+
+    private void ViewAngleTextBoxApply()
+    {
+      try
+      {
+        double viewAngle = Convert.ToDouble(ViewAngleBox.Text);
+        int trackBarValue = Convert.ToInt32(viewAngle * 10);
+        if (trackBarValue < ViewAngleTrackBar.Minimum || trackBarValue > ViewAngleTrackBar.Maximum)
+          throw new ArgumentOutOfRangeException();
+        ViewAngleTrackBar.Value = trackBarValue;
+      }
+      catch
+      {
+        ViewAngleBox.Text = Camera.FieldOfView.ToString();
+      }
+    }
+
+    private void ViewAngleBox_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+        ViewAngleTextBoxApply(); 
+    }
+
+    private void ViewAngleBox_Leave(object sender, EventArgs e)
+    {
+      ViewAngleTextBoxApply(); 
+    }
   }
 }

@@ -40,6 +40,8 @@ namespace SolarSystem
 
   public class TriadGeometry
   {
+    public bool On { get; set; } = true; 
+
     public static Mesh GenerateArrow()
     {
       Mesh arrow = new Mesh()
@@ -140,12 +142,7 @@ namespace SolarSystem
     };
 
     public TriadGeometry()
-    {
-      //Arrows.Children.Add(XTriangle);
-      //Arrows.Children.Add(YTriangle);
-      //Arrows.Children.Add(ZTriangle);
-
-      
+    {      
       Mesh[] arrow = new Mesh[6];
       for (int i = 0; i < 6; i++)
         arrow[i] = GenerateArrow(); 
@@ -163,8 +160,7 @@ namespace SolarSystem
       arrow[4].Transform.Rotation = new EulerAngles(270, 270, 0);
       arrow[5].Transform.Rotation = new EulerAngles(180, 270, 0); 
 
-      Arrows.Children.AddRange(arrow); 
-          
+      Arrows.Children.AddRange(arrow);           
     }
   }
 }

@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoundingBox.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="CelestialPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
