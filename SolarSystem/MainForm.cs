@@ -106,6 +106,19 @@ namespace SolarSystem
       return planet;
     }
 
+    private Planet AddSun()
+    {
+      if (Sun != null)
+        return Sun; 
+
+      Sun = AddPlanet(SolarSystemPlanet.Sun);
+      Sun.RenderableObject.UseLight = false;
+      Scene.SunLight = new SunLight(Sun);
+      Scene.Lights.Add(Scene.SunLight);
+      Camera.Light.On = false;
+      return Sun; 
+    }
+
     private void ForceRender()
     {
       GlView.Refresh(); 
@@ -506,7 +519,7 @@ namespace SolarSystem
         return; 
       }
       
-      Sun = AddPlanet(SolarSystemPlanet.Sun);
+      Sun = AddSun();
       Mercury = AddPlanet(SolarSystemPlanet.Mercury);
       Venus = AddPlanet(SolarSystemPlanet.Venus);
       Moon = AddPlanet(SolarSystemPlanet.Moon);
@@ -530,12 +543,8 @@ namespace SolarSystem
       Neptune.Position = new Point3D(Uranus.Position.x + Uranus.MaximumRadius * 2);
       Pluto.Position = new Point3D(Neptune.Position.x + Neptune.MaximumRadius * 2);
 
-      Sun.RenderableObject.UseLight = false;
-      Scene.SunLight = new SunLight(Sun);
-      Scene.Lights.Add(Scene.SunLight); 
       if (Camera.Eye is PositionObject eye)
         eye.Position = new Point3D(Pluto.Position.x, Pluto.MaximumRadius * 5);
-      Camera.Light.On = false; 
     }
 
     private void MaxRenderRatioBox_Click(object sender, EventArgs e)
@@ -557,7 +566,7 @@ namespace SolarSystem
         MessageBox.Show("Wait for earth to be initialized.");
         return; 
       }
-      AddPlanet(SolarSystemPlanet.Sun);
+      Sun = AddSun();
       EquatorialCoordinateSystem equatorialCoordinateSystem = new EquatorialCoordinateSystem(Earth);
       Earth.Position = equatorialCoordinateSystem.EarthPositionAtVernalEquinox;
       Earth.RotationAxis = equatorialCoordinateSystem.SystemRotation; 
