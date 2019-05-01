@@ -72,7 +72,7 @@ namespace SolarSystem
       BackgroundWorker backgroundWorker = new BackgroundWorker();
       backgroundWorker.DoWork += IntializeEarth;
       backgroundWorker.RunWorkerAsync();
-      TimeStep = 1.0 / 864000;
+      TimeStep = 1.0 / 86400;
       Scene.SetAsMainScene(); 
     }
 

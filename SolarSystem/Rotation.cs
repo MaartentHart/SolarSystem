@@ -254,9 +254,10 @@ namespace SolarSystem
 
     public Quaternion()
     {
-      x = 1;
+      x = y = w = 0; 
+      z = 1;
     }
-
+    
     /// <summary>
     /// 
     /// </summary>
@@ -264,11 +265,14 @@ namespace SolarSystem
     /// <param name="rotation">rotation in degrees</param>
     public Quaternion(Point3D vector, double rotation)
     {
+      rotation = Angle.Normalize360(rotation);
+      if (rotation < 0)
+        rotation += 360; 
       w = Math.Cos(Angle.ToRadians(rotation) / 2);
       vector = vector.Normal;
       x = vector.x;
       y = vector.y;
-      z = vector.z; 
+      z = vector.z;
     }
 
     public Quaternion(EulerAngles rotation)

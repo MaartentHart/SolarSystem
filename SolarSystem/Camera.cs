@@ -10,6 +10,7 @@ namespace SolarSystem
 
   public class Camera
   {
+    private bool lockDistance = false; 
     private int width;
     private int height; 
     private bool changed = false;
@@ -30,7 +31,17 @@ namespace SolarSystem
     /// ViewDistance is used by lockdistance. 
     /// </summary>
     public double ViewDistance { get; set; } = 10;
-    public bool LockDistance { get; set; } = false;
+    public bool LockDistance
+    {
+      get => lockDistance;
+      set
+      {
+        lockDistance = value;
+        UpdateLockDirection(); 
+      }
+    }
+
+    public Point3D LockDirection { get; set; } = new Point3D(10, 0, 0); 
     public ColorFloat BackgroundColor { get; set; } = new ColorFloat();
     public CameraLight Light { get; }
 
@@ -115,7 +126,7 @@ namespace SolarSystem
       this.height = height; 
       if (LockDistance)
         if (Eye is PositionObject eye)
-          eye.Position = Target.Position + (eye.Position - Target.Position).Normal * ViewDistance;
+          eye.Position = Target.Position + LockDirection;
 
       Gl.ClearColor(BackgroundColor.R, BackgroundColor.G, BackgroundColor.B, BackgroundColor.A);
       Gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -143,6 +154,11 @@ namespace SolarSystem
 
       GluLookAt(Eye.Position, Target.Position, UpVector);
 
+    }
+
+    private void UpdateLockDirection()
+    {
+      LockDirection = Eye.Position - Target.Position;
     }
 
     /// <summary>
@@ -213,8 +229,7 @@ namespace SolarSystem
 
       Point3D newDirection = new Point3D(Math.Cos(tilt) * Math.Cos(orientation), Math.Cos(tilt) * Math.Sin(orientation), Math.Sin(tilt));
       Point3D shift = newDirection * distance;
-
-
+      
       if (targetPivot)
       {
         if (Eye is PositionObject eye)
@@ -225,6 +240,8 @@ namespace SolarSystem
         if (Target is PositionObject target)
           target.Position = Eye.Position + shift;
       }
+
+      UpdateLockDirection(); 
     }
 
     public void Zoom(double zoomFactor)
@@ -236,6 +253,7 @@ namespace SolarSystem
         //force an update.
         Eye = Eye;
       }
+      LockDirection = Eye.Position - Target.Position;
     }
 
     public void Lookat(IPositionObject target)

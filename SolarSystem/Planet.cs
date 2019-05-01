@@ -51,12 +51,16 @@ namespace SolarSystem
     public SolarSystemPlanet PlanetID { get; }
     public CRenderableObject RenderableObject { get; } = new CRenderableObject();
     public HeightMap HeightMap { get; set; }
-    //public Shader Shader { get; }
-    //public ColorFloat[] Color { get; set; }
     public Point3D Scale { get; }
     public double[] ColorableValues { get; set; }
     public ColorMap ColorMap { get; set; }
+
+    //rotation
     public double AroundAxisRotation { get; set; }
+    public Quaternion RotationAxis { get; set; }
+    public Quaternion LocalRotation { get; set; } = new Quaternion(); 
+    public DoubleRotation Rotation => new DoubleRotation(RotationAxis, LocalRotation); 
+
     public double MaximumRadius { get; set; }
     public BoundingBox BoundingBox => new BoundingBox(Position, MaximumRadius);
 
@@ -125,8 +129,6 @@ namespace SolarSystem
       set => RenderableObject.Position = value; 
     }
     
-    public Quaternion RotationAxis { get; set; }
-
     public Planet(SolarSystemPlanet planet, int generation = 9)
     {
       Generation = generation;
@@ -335,7 +337,7 @@ namespace SolarSystem
           using (GlPushPop rotationPushPop = new GlPushPop())
           {
             if (RotationAxis != null)
-              RenderableObject.Transform.Rotation = RotationAxis; 
+              RenderableObject.Transform.Rotation = Rotation; 
             RenderableObject.Render(camera);
           }
         }
@@ -400,7 +402,9 @@ namespace SolarSystem
         CoreDll.PlanetPositionX(), 
         CoreDll.PlanetPositionY(), 
         CoreDll.PlanetPositionZ());
-      AroundAxisRotation = CoreDll.PlanetRotation(); 
+      AroundAxisRotation = CoreDll.PlanetRotation();
+      LocalRotation = new Quaternion(new Point3D(0, 0, 1), AroundAxisRotation); 
+
     }
 
     private void SetActive()
