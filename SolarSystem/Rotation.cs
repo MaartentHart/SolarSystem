@@ -11,9 +11,14 @@ namespace SolarSystem
   public interface IRotation
   {
     bool Active { get; }
-    void GlRotate(); 
-  }
-  
+    void GlRotate();
+    Point3D Rotate(Point3D point);
+    Point3D[] Rotate(Point3D[] points);
+    Point3D RotateReverse(Point3D point); 
+    Point3D[] RotateReverse(Point3D[] points);
+
+    Quaternion ToQuaternion(); 
+  }  
 
   /// <summary>
   /// Euler angles
@@ -94,6 +99,18 @@ namespace SolarSystem
       EulerAngles test = new EulerAngles(quaternion); 
     }
 
+    public Point3D Rotate(Point3D point) => Quaternion.Rotate(point);
+
+    public Point3D[] Rotate(Point3D[] points) => Quaternion.Rotate(points);
+
+    public Point3D RotateReverse(Point3D point) => Quaternion.RotateReverse(point);
+
+    public Point3D[] RotateReverse(Point3D[] points) => Quaternion.RotateReverse(points); 
+
+    public Quaternion ToQuaternion()
+    {
+      return Quaternion;
+    }
     /*
     ///////////////////////////////////////////////////////////////////////////////
     // convert Euler angles(x,y,z) to axes(left, up, forward)
@@ -150,10 +167,8 @@ namespace SolarSystem
 
       return new Triad(forward, left, up); 
     }*/
-
-
   }
-
+  /*
   public struct CelestialRotation : IRotation
   {
     public double axisTilt;
@@ -181,7 +196,7 @@ namespace SolarSystem
       Gl.Rotate(axisTilt, 1, 0, 0);
       Gl.Rotate(aroundAxis, 0, 0, 1);
     }
-  }
+  }*/
 
   public class Quaternion : IRotation
   {
@@ -210,6 +225,8 @@ namespace SolarSystem
 
     public bool Active => true;
 
+    public Quaternion Reverse => new Quaternion(-x, -y, -z, w); 
+
     //https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
     public Quaternion( double yaw, double pitch, double roll) // yaw (Z), pitch (Y), roll (X)
     {
@@ -225,6 +242,19 @@ namespace SolarSystem
       x = cy * cp * sr - sy * sp * cr;
       y = sy * cp * sr + cy * sp * cr;
       z = sy * cp * cr - cy * sp * sr;
+    }
+
+    public Quaternion(double x, double y, double z, double w)
+    {
+      this.x = x;
+      this.y = y;
+      this.z = z;
+      this.w = w; 
+    }
+
+    public Quaternion()
+    {
+      x = 1;
     }
 
     /// <summary>
@@ -245,17 +275,32 @@ namespace SolarSystem
       :this (Angle.ToRadians(rotation.yaw), Angle.ToRadians(rotation.pitch), Angle.ToRadians(rotation.roll))
     { }
 
+    /// <summary>
+    /// Apply OpenGL rotation.
+    /// </summary>
     public void GlRotate()
-    { 
+    {
+      if (!Active)
+        return; 
       Gl.Rotate(Angle.ToDegrees(Rotation), x, y, z); 
     }
 
+    /// <summary>
+    /// Rotate a vertex by the qurrent quaternion. 
+    /// </summary>
+    /// <param name="point">The point tot rotate</param>
+    /// <returns>The rotated point</returns>
     public Point3D Rotate(Point3D point)
     {
       //https://gamedev.stackexchange.com/questions/28395/rotating-vector3-by-a-quaternion
       return Vector * 2.0 * Vector.Dot(point) + point * (w * w - Vector.Dot(Vector)) + Vector.Cross(point) * 2.0 * w;
     }
 
+    /// <summary>
+    /// Rotate a vertex by the qurrent quaternion. 
+    /// </summary>
+    /// <param name="point">The points tot rotate</param>
+    /// <returns>The rotated points</returns>
     public Point3D[] Rotate(Point3D[] points)
     {
       int size = points.Length; 
@@ -266,5 +311,92 @@ namespace SolarSystem
 
       return result; 
     }
+
+    public Point3D RotateReverse(Point3D point)
+    {
+      return Reverse.Rotate(point);
+    }
+
+    public Point3D[] RotateReverse(Point3D[] points)
+    {
+      return Reverse.Rotate(points); 
+    }
+
+    public Quaternion Rotate(Quaternion quaternion)
+    {
+      Point3D rotated = Rotate(quaternion.Vector);
+      return new Quaternion(rotated.x, rotated.y, rotated.z, quaternion.w);
+    }
+
+    public Quaternion ToQuaternion()
+    {
+      return this; 
+    }
   }
+
+  public class DoubleRotation : IRotation
+  {
+    public IRotation SystemRotation { get; set; }
+    public IRotation LocalRotation { get; set; }
+
+    public Quaternion SystemRotationQ => SystemRotation.ToQuaternion();
+    public Quaternion LocalRotationQ => LocalRotation.ToQuaternion(); 
+
+    public bool Active { get; set; } = true; 
+
+    public void GlRotate()
+    {
+      if (!Active)
+        return;
+
+      Gl.Rotate(Angle.ToDegrees(SystemRotationQ.Rotation), SystemRotationQ.x, SystemRotationQ.y, SystemRotationQ.z);
+      Gl.Rotate(Angle.ToDegrees(LocalRotationQ.Rotation), LocalRotationQ.x, LocalRotationQ.y, LocalRotationQ.z);
+    }
+
+    public DoubleRotation(Quaternion systemRotation = null, Quaternion localRotation = null)
+    {
+      if (systemRotation == null)
+        systemRotation = new Quaternion();
+      if (localRotation == null)
+        localRotation = new Quaternion();
+
+      SystemRotation = systemRotation;
+      LocalRotation = localRotation; 
+    }
+
+    public Point3D Rotate(Point3D point)
+    {
+      return SystemRotation.Rotate(LocalRotation.Rotate(point));
+    }
+
+    public Point3D[] Rotate(Point3D[] points)
+    {
+      return SystemRotation.Rotate(LocalRotation.Rotate(points)); 
+    }
+
+    public Point3D RotateReverse(Point3D point)
+    {
+      return SystemRotation.RotateReverse(LocalRotation.RotateReverse(point));
+    }
+
+    public Point3D[] RotateReverse(Point3D[] points)
+    {
+      return LocalRotation.RotateReverse(SystemRotation.RotateReverse(points));
+    }
+    
+    public Quaternion ToQuaternion()
+    {
+      //http://www.ncsa.illinois.edu/People/kindr/emtc/quaternions/quaternion.c++
+      Quaternion a = SystemRotationQ;
+      Quaternion q = LocalRotationQ; 
+
+      return new Quaternion(       
+       a.w * q.x + a.x * q.w + a.y * q.z - a.z * q.y,
+       a.w * q.y + a.y * q.w + a.z * q.x - a.x * q.z,
+       a.w * q.z + a.z * q.w + a.x * q.y - a.y * q.x,
+       a.w * q.w - a.x * q.x - a.y * q.y - a.z * q.z
+       );
+    }
+  }
+
 }

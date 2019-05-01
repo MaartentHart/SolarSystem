@@ -153,6 +153,7 @@ namespace SolarSystem
       }
     }
 
+    /*
     public CelestialRotation Rotation
     {
       get =>  (CelestialRotation) Transform.Rotation;
@@ -161,7 +162,7 @@ namespace SolarSystem
         Transform.Rotation = value;
         Changed = true;
       }
-    }
+    }*/
 
     public CRenderGeometry RenderGeometry { get; set; } = new CRenderGeometry();
     public bool Changed {

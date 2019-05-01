@@ -145,10 +145,10 @@
             this.TimeStepBox,
             this.TimeStepUnitButton,
             this.InitializePlanets,
-            this.TestImageButton,
-            this.TestTriadButton,
             this.toolStripLabel2,
             this.MaxRenderRatioBox,
+            this.TestImageButton,
+            this.TestTriadButton,
             this.TestEquatorialCoordinateSystem});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";

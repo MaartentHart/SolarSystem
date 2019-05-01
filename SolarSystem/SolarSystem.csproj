@@ -111,6 +111,12 @@
       <DependentUpon>DateTesterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Debug.cs" />
+    <Compile Include="Debugging\EquatorialCoordinateRotationTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugging\EquatorialCoordinateRotationTest.Designer.cs">
+      <DependentUpon>EquatorialCoordinateRotationTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Debugging\RotationTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Debugging\DateTesterForm.resx">
       <DependentUpon>DateTesterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugging\EquatorialCoordinateRotationTest.resx">
+      <DependentUpon>EquatorialCoordinateRotationTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Debugging\RotationTest.resx">
       <DependentUpon>RotationTest.cs</DependentUpon>

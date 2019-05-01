@@ -44,15 +44,50 @@ namespace SolarSystem.Debugging
       SetRotation();
     }
 
+    private void XLocalBar_Scroll(object sender, EventArgs e)
+    {
+      xLocalLabel.Text = "x: " + XBar.Value.ToString();
+      SetRotation();
+    }
+
+    private void YLocalBar_Scroll(object sender, EventArgs e)
+    {
+      yLocalLabel.Text = "y: " + YBar.Value.ToString();
+      SetRotation();
+    }
+
+    private void ZLocalBar_Scroll(object sender, EventArgs e)
+    {
+      zLocalLabel.Text = "z: " + ZBar.Value.ToString();
+      SetRotation();
+    }
+
     private void SetRotation()
     {
+      Quaternion systemRotation = new EulerAngles(XBar.Value, YBar.Value, ZBar.Value).Quaternion;
+      Quaternion localRotation = new EulerAngles(XLocalBar.Value, YLocalBar.Value, ZLocalBar.Value).Quaternion;
+
       //opengl rotation
       glRotateMesh.Changed = true;
-      Quaternion quaternion = new EulerAngles(XBar.Value, YBar.Value, ZBar.Value).Quaternion;
-      glRotateMesh.Transform.Rotation = quaternion;
+      glRotateMesh.Transform.Rotation = systemRotation;
+
+      foreach (IRenderable child in glRotateMesh.Children)
+      {
+        if (child is Mesh childMesh)
+          childMesh.Transform.Rotation = localRotation; 
+      }
 
       //custom rotation: physically modify the object. 
-      customRotateMesh.vertices = Point3D.ToVerticesArray(quaternion.Rotate(Point3D.ToPointArray(customRotationMeshOriginalVertices))); 
+      //Quaternion testRotation = systemRotation;
+      DoubleRotation doubleRotation = new DoubleRotation(systemRotation, localRotation);
+
+      Quaternion testRotation = doubleRotation.ToQuaternion(); 
+
+      customRotateMesh.vertices = Point3D.ToVerticesArray(testRotation.Rotate(Point3D.ToPointArray(customRotationMeshOriginalVertices)));
+      double[] testVertices = Point3D.ToVerticesArray(testRotation.RotateReverse(Point3D.ToPointArray(customRotateMesh.vertices)));
+      
     }
+
+
   }
 }

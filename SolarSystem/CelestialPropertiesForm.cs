@@ -54,9 +54,9 @@ namespace SolarSystem
       
       if (ActiveObject is Planet planet)
       {
-        RotationXBox.Text = planet.RenderableObject.Rotation.axisTilt.ToString();
-        RotationYBox.Text = planet.RenderableObject.Rotation.axisDirection.ToString();
-        RotationZBox.Text = planet.RenderableObject.Rotation.aroundAxis.ToString();
+        //RotationXBox.Text = planet.RenderableObject.Rotation.axisTilt.ToString();
+        //RotationYBox.Text = planet.RenderableObject.Rotation.axisDirection.ToString();
+        //RotationZBox.Text = planet.RenderableObject.Rotation.aroundAxis.ToString();
         PositionXBox.Text = planet.RenderableObject.Position.x.ToString();
         PositionYBox.Text = planet.RenderableObject.Position.y.ToString();
         PositionZBox.Text = planet.RenderableObject.Position.z.ToString();
@@ -95,10 +95,12 @@ namespace SolarSystem
     {
       if (Editable && ActiveObject is Planet planet)
       {
+        /*
         planet.RenderableObject.Rotation = new CelestialRotation(
           TryDouble(RotationXBox.Text),
           TryDouble(RotationYBox.Text),
           TryDouble(RotationZBox.Text));
+          */
       }
     }
 

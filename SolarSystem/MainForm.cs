@@ -396,6 +396,9 @@ namespace SolarSystem
     private void TestTriadButton_Click(object sender, EventArgs e)
     {
       Mesh arrow = TriadGeometry.GenerateArrow();
+      Mesh childArrow = TriadGeometry.GenerateArrow();
+      childArrow.SetColor(new ColorFloat(1, 1, 0));
+      arrow.Children.Add(childArrow); 
       Mesh xTriangle = TriadGeometry.XTriangle;
       
       Scene.RenderableObjects.Add(new TriadGeometry().Arrows);
@@ -550,8 +553,8 @@ namespace SolarSystem
       }
       AddPlanet(SolarSystemPlanet.Sun);
       EquatorialCoordinateSystem equatorialCoordinateSystem = new EquatorialCoordinateSystem(Earth);
-      Earth.Position = EquatorialCoordinateSystem.EarthPositionAtVernalEquinox;
-      Earth.RotationAxis = EquatorialCoordinateSystem.Quaternion; 
+      Earth.Position = equatorialCoordinateSystem.EarthPositionAtVernalEquinox;
+      Earth.RotationAxis = equatorialCoordinateSystem.SystemRotation; 
     }
   }
 }

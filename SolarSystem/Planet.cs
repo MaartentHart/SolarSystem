@@ -30,7 +30,7 @@ namespace SolarSystem
   public class Planet : IRenderable, IDisposable, IPositionObject
   {
     public static float pointSize = 3;
-    public static double maxRenderRatio = 1000; 
+    public static double maxRenderRatio = 1000;
 
     private int id = -1;
     private bool on = true;
@@ -58,6 +58,8 @@ namespace SolarSystem
     public ColorMap ColorMap { get; set; }
     public double AroundAxisRotation { get; set; }
     public double MaximumRadius { get; set; }
+    public BoundingBox BoundingBox => new BoundingBox(Position, MaximumRadius);
+
     public int ID => id; 
 
     public bool ExxagerationChanged
