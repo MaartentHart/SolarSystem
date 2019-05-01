@@ -523,9 +523,9 @@ namespace SolarSystem
       Mercury.Position = new Point3D(Sun.MaximumRadius + 2 * Mercury.MaximumRadius);
       Venus.Position = new Point3D(Mercury.Position.x + Venus.MaximumRadius * 2);
       Earth.Position = new Point3D(Venus.Position.x + Earth.MaximumRadius * 2);
-      Moon.Position = new Point3D(Earth.Position.x + Moon.MaximumRadius * 2);
+      Moon.Position = new Point3D(Earth.Position.x + Earth.MaximumRadius * 2);
       Mars.Position = new Point3D(Moon.Position.x + Mars.MaximumRadius * 2);
-      Jupiter.Position = new Point3D(Mars.Position.x + Jupiter.MaximumRadius * 2);
+      Jupiter.Position = new Point3D(Mars.Position.x + Jupiter.MaximumRadius * 1.2);
       Saturn.Position = new Point3D(Jupiter.Position.x + Jupiter.MaximumRadius * 2);
       Uranus.Position = new Point3D(Saturn.Position.x + Saturn.MaximumRadius * 2);
       Neptune.Position = new Point3D(Uranus.Position.x + Uranus.MaximumRadius * 2);

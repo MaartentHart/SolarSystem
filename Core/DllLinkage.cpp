@@ -195,11 +195,6 @@ double PlanetRotation(int planetID)
 	return activePlanet->SiderealRotationPeriod*solarSystem.time;
 }
 
-void EarthPositionAt(double daysSinceJ2000, Point3D&value)
-{
-	value = solarSystem.Earth()->PositionByTime(daysSinceJ2000);
-}
-
 void ClearFallingObjects()
 {
 	gravityObjects.clear(); 
@@ -241,7 +236,7 @@ double GetTime()
 	return solarSystem.time; 
 }
 
-double CopySign(double a, double b)
+void EarthPositionAt(double daysSinceJ2000, Point3D&value)
 {
-	return copysign(a, b); 
+	value = solarSystem.Earth()->PositionByTime(daysSinceJ2000);
 }

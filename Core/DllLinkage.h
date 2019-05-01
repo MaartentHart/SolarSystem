@@ -57,8 +57,4 @@ extern "C"
 	//get information from simulation. 
 	DLL double __cdecl GetTime(); 
 
-	//other
-	DLL double __cdecl CopySign(double a, double b);
-
-
 }

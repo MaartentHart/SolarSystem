@@ -34,7 +34,9 @@ namespace SolarSystem
     public ColorFloat BackgroundColor { get; set; } = new ColorFloat();
     public CameraLight Light { get; }
 
-    public TriadGeometry Triad { get; } = new TriadGeometry(); 
+    public TriadGeometry Triad { get; } = new TriadGeometry();
+
+    public double FieldOfViewRatio => Math.Sin(Angle.ToRadians(FieldOfView / 2));
 
     /// <summary>
     /// automatically set the near and far clipping plane. 
@@ -150,11 +152,11 @@ namespace SolarSystem
       if (!Triad.On)
         return;
 
-      double FieldOfViewCorrection = FieldOfView / 50; 
+      double FieldOfViewCorrection = FieldOfViewRatio * 2.5; 
       Triad.Arrows.Transform.Position = ForwardNormal * 3 + RightNormal * -FieldOfViewCorrection * AspectRatio + UpNormal * -FieldOfViewCorrection;
-      Point3D scale = new Point3D(0.2,0.2,0.2);
+      Point3D scale = new Point3D(0.2,0.2,0.2)*FieldOfViewCorrection;
       foreach (Mesh arrow in Triad.Arrows.Children)
-        arrow.Transform.Scale = new Point3D(0.1, 0.1, 0.1);
+        arrow.Transform.Scale = scale;
       Triad.Arrows.Render(this); 
     }
 

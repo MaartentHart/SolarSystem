@@ -104,6 +104,7 @@ namespace SolarSystem
         if (trackBarValue < ViewAngleTrackBar.Minimum || trackBarValue > ViewAngleTrackBar.Maximum)
           throw new ArgumentOutOfRangeException();
         ViewAngleTrackBar.Value = trackBarValue;
+        ApplyViewAngle(viewAngle); 
       }
       catch
       {

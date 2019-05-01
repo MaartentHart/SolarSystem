@@ -121,12 +121,5 @@ namespace SolarSystem
     [DllImport("Core.dll", EntryPoint = "EarthPositionAt", CallingConvention = CallingConvention.Cdecl)]
     static public extern void EarthPositionAt(double daysSinceJ2000, ref Point3D position);
     #endregion
-
-    #region Other
-    [DllImport("Core.dll", EntryPoint = "CopySign", CallingConvention = CallingConvention.Cdecl)]
-    static public extern double CopySign(double a, double b);
-    #endregion
-
-
   }
 }

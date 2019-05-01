@@ -73,7 +73,7 @@ namespace SolarSystem
       // pitch (y-axis rotation)
       double sinp = +2.0 * (q.w * q.y - q.z * q.x);
       if (Math.Abs(sinp) >= 1)
-        pitch = CoreDll.CopySign(Math.PI / 2, sinp); // use 90 degrees if out of range
+        pitch = sinp > 0 ? Math.PI / 2: -Math.PI /2; // use 90 degrees if out of range
       else
         pitch = Math.Asin(sinp);
 

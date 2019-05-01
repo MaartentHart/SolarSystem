@@ -102,6 +102,7 @@ namespace SolarSystem
       {
         exxagerationChanged = true;
         on = value;
+        changed = true; 
       }
     }
 
@@ -329,7 +330,7 @@ namespace SolarSystem
         RenderPoint();
 
         //don't render if it's too far away. 
-        if ((Position - camera.Eye.Position).Magnitude / MaximumRadius < maxRenderRatio)
+        if ((Position - camera.Eye.Position).Magnitude / MaximumRadius * camera.FieldOfViewRatio < maxRenderRatio)
         {
           using (GlPushPop rotationPushPop = new GlPushPop())
           {
