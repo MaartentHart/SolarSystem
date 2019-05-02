@@ -695,6 +695,7 @@ GridCell GridCell::Neighbor(char index) const
 	int Bound = (1 << generation) - 1;
 
 	//see document geodesic grid 20nov2013 figure 10. 
+	//document is updated in april 2015
 	//giving the neighbors of a geodesic point. 
 
 	if (squaregrid == 10)

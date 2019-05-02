@@ -46,7 +46,8 @@ namespace SolarSystem
     private ColorFloat color;
     private bool exxagerationChanged = true;
     private bool paintChanged = true;
-    private bool changed = true; 
+    private bool changed = true;
+    private double rotationCalibration; 
 
     public float PointSize { get => pointSize; set => pointSize = value; }
     public int Generation { get; }
@@ -151,6 +152,7 @@ namespace SolarSystem
       else
         SetColorMap(new ColorMap(color));
 
+      rotationCalibration = RotationCalibration(planet);
       SetExxageration(1.0);
     }
 
@@ -362,6 +364,36 @@ namespace SolarSystem
       Gl.DrawElements(PrimitiveType.Points, 1, DrawElementsType.UnsignedInt, indices);
     }
 
+    public void TimeUpdate()
+    {
+      SetActive();
+      RenderableObject.Transform.Position = new Point3D(
+        CoreDll.PlanetPositionX(),
+        CoreDll.PlanetPositionY(),
+        CoreDll.PlanetPositionZ());
+      AroundAxisRotation = CoreDll.PlanetRotation();
+      LocalRotation = new Quaternion(new Point3D(0, 0, 1), AroundAxisRotation);
+    }
+
+    private void SetActive()
+    {
+      if (id != -1)
+        CoreDll.SetActivePlanetID(id);
+      else
+        id = CoreDll.SetActivePlanet(Name);
+    }
+
+    private double RotationCalibration(SolarSystemPlanet planet)
+    {
+      switch(planet)
+      {
+        case SolarSystemPlanet.Earth:
+          return 1;
+        default:
+          return 0; 
+      }
+    }
+
     #region IDisposable Support
     private bool disposedValue = false; // To detect redundant calls
 
@@ -396,27 +428,6 @@ namespace SolarSystem
       // TODO: uncomment the following line if the finalizer is overridden above.
       // GC.SuppressFinalize(this);
     }
-
-    public void TimeUpdate()
-    {
-      SetActive();
-      RenderableObject.Transform.Position = new Point3D(
-        CoreDll.PlanetPositionX(), 
-        CoreDll.PlanetPositionY(), 
-        CoreDll.PlanetPositionZ());
-      AroundAxisRotation = CoreDll.PlanetRotation();
-      LocalRotation = new Quaternion(new Point3D(0, 0, 1), AroundAxisRotation); 
-
-    }
-
-    private void SetActive()
-    {
-      if (id != -1)
-        CoreDll.SetActivePlanetID(id);
-      else
-        id = CoreDll.SetActivePlanet(Name);
-    }
-
     #endregion
   }
 }
