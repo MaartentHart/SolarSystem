@@ -11,6 +11,7 @@ namespace SolarSystem
 {
   public interface IRenderable
   {
+    float PointSize { set; }
     bool On { get; set; }
     string Name { get; set; }
     bool Changed { get; }
@@ -178,7 +179,9 @@ namespace SolarSystem
         return ret; 
       }
       set => changed = value;
-    }  
+    }
+
+    public float PointSize { get; set; }
 
     public void Render(Camera camera)
     {
@@ -252,7 +255,8 @@ namespace SolarSystem
     public Transform Transform { get; set; } = new Transform();
 
     public List<IRenderable> Children { get; set; } = new List<IRenderable>();
-    public bool Transparent { get; set; } = false; 
+    public bool Transparent { get; set; } = false;
+    public float PointSize { get; set; }
 
     public void Render(Camera camera)
     {

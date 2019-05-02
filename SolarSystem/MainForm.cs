@@ -70,14 +70,15 @@ namespace SolarSystem
     public MainForm()
     {
       InitializeComponent();
-      BackgroundWorker backgroundWorker = new BackgroundWorker();
-      backgroundWorker.DoWork += IntializeEarth;
-      backgroundWorker.RunWorkerAsync();
+      //BackgroundWorker backgroundWorker = new BackgroundWorker();
+      //backgroundWorker.DoWork += InitializeEarth;
+      //backgroundWorker.RunWorkerAsync();
+      InitializeEarth(null, null); 
       TimeStep = 1.0 / 86400;
       Scene.SetAsMainScene(); 
     }
 
-    private void IntializeEarth(object sender, DoWorkEventArgs e)
+    private void InitializeEarth(object sender, DoWorkEventArgs e)
     {
       Earth = AddPlanet(SolarSystemPlanet.Earth);
       Earth.SetColorMap(new ColorMap("Earth")); 

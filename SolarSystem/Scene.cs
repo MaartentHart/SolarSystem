@@ -11,6 +11,7 @@ namespace SolarSystem
 {
   public class Scene
   {
+    private float pointSize = 3; 
     private static Scene mainScene; 
     private BackgroundWorker decorationBackgroundWorker;
     private double exxageration = 0; 
@@ -23,6 +24,22 @@ namespace SolarSystem
     public List<ILight> Lights { get; } = new List<ILight>(); 
     public List<IRenderable> RenderableObjects { get; } = new List<IRenderable>();
     public List<GravityObject> GravityObjects { get; } = new List<GravityObject>();
+    public float PointSize
+    {
+      get => pointSize;
+      set
+      {
+        pointSize = value;
+        changed = true; 
+        foreach (IRenderable renderable in RenderableObjects)
+        {
+          try
+          { renderable.PointSize = value; }
+          catch
+          { }
+        }
+      }
+    }
 
     public SunLight SunLight { get; set; }
 

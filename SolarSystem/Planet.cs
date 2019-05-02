@@ -48,6 +48,7 @@ namespace SolarSystem
     private bool paintChanged = true;
     private bool changed = true; 
 
+    public float PointSize { get => pointSize; set => pointSize = value; }
     public int Generation { get; }
     public SolarSystemPlanet PlanetID { get; }
     public CRenderableObject RenderableObject { get; } = new CRenderableObject();

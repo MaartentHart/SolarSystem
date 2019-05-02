@@ -192,7 +192,7 @@ double PlanetRotation()
 {
 	if (activePlanet == NULL)
 		return 0;
-	return activePlanet->SiderealRotationPeriod*solarSystem.time;
+	return solarSystem.time / (activePlanet->SiderealRotationPeriod / 24)*360;
 }
 
 void ClearFallingObjects()

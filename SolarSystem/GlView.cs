@@ -129,5 +129,34 @@ namespace SolarSystem
       if (Scene.SunLight != null)
         Scene.SunLight.On = !Scene.SunLight.On; 
     }
+
+    private void PointSizeBox_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+        SetPointSize(); 
+    }
+
+    private void PointSizeBox_Leave(object sender, EventArgs e)
+    {
+      SetPointSize(); 
+    }
+
+    private void SetPointSize()
+    {
+      try
+      {
+        float pointSize = Convert.ToSingle(PointSizeBox.Text);
+        if (pointSize<0)
+        {
+          PointSizeBox.Text = Scene.PointSize.ToString();
+          return;
+        }
+        Scene.PointSize = pointSize; 
+      }
+      catch
+      {
+        PointSizeBox.Text = Scene.PointSize.ToString();
+      }
+    }
   }
 }

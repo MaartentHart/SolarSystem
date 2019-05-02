@@ -29,12 +29,13 @@
     private void InitializeComponent()
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlView));
-      SolarSystem.Camera camera1 = new SolarSystem.Camera();
-      SolarSystem.Scene scene1 = new SolarSystem.Scene();
+      SolarSystem.Camera camera2 = new SolarSystem.Camera();
+      SolarSystem.Scene scene2 = new SolarSystem.Scene();
       this.ToolStrip = new System.Windows.Forms.ToolStrip();
       this.ToggleXYZTriadButton = new System.Windows.Forms.ToolStripButton();
       this.BackgroundColorButton = new System.Windows.Forms.ToolStripButton();
       this.CameraLightButton = new System.Windows.Forms.ToolStripButton();
+      this.ToggleSunLightButton = new System.Windows.Forms.ToolStripButton();
       this.CameraLockDistanceToggleButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
       this.LookatDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
@@ -42,7 +43,8 @@
       this.ViewAngleBox = new System.Windows.Forms.TextBox();
       this.FieldOfViewLabel = new System.Windows.Forms.Label();
       this.GlControlExtended = new SolarSystem.GlControlExtended();
-      this.ToggleSunLightButton = new System.Windows.Forms.ToolStripButton();
+      this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+      this.PointSizeBox = new System.Windows.Forms.ToolStripTextBox();
       this.ToolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.ViewAngleTrackBar)).BeginInit();
       this.SuspendLayout();
@@ -56,7 +58,9 @@
             this.ToggleSunLightButton,
             this.CameraLockDistanceToggleButton,
             this.toolStripLabel1,
-            this.LookatDropDownButton});
+            this.LookatDropDownButton,
+            this.toolStripLabel2,
+            this.PointSizeBox});
       this.ToolStrip.Location = new System.Drawing.Point(0, 0);
       this.ToolStrip.Name = "ToolStrip";
       this.ToolStrip.Size = new System.Drawing.Size(682, 25);
@@ -92,6 +96,16 @@
       this.CameraLightButton.Size = new System.Drawing.Size(23, 22);
       this.CameraLightButton.Text = "Camera Light";
       this.CameraLightButton.Click += new System.EventHandler(this.CameraLightButton_Click);
+      // 
+      // ToggleSunLightButton
+      // 
+      this.ToggleSunLightButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.ToggleSunLightButton.Image = ((System.Drawing.Image)(resources.GetObject("ToggleSunLightButton.Image")));
+      this.ToggleSunLightButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.ToggleSunLightButton.Name = "ToggleSunLightButton";
+      this.ToggleSunLightButton.Size = new System.Drawing.Size(23, 22);
+      this.ToggleSunLightButton.Text = "Toggle Sun Light";
+      this.ToggleSunLightButton.Click += new System.EventHandler(this.ToggleSunLightButton_Click);
       // 
       // CameraLockDistanceToggleButton
       // 
@@ -158,33 +172,38 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.GlControlExtended.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-      camera1.Changed = true;
-      camera1.FieldOfView = 25D;
-      camera1.LockDistance = false;
-      camera1.ViewDistance = 10D;
-      camera1.ViewRadius = 10D;
-      this.GlControlExtended.Camera = camera1;
+      camera2.Changed = false;
+      camera2.FieldOfView = 25D;
+      camera2.LockDistance = false;
+      camera2.ViewDistance = 10D;
+      camera2.ViewRadius = 10D;
+      this.GlControlExtended.Camera = camera2;
       this.GlControlExtended.ColorBits = ((uint)(24u));
       this.GlControlExtended.DepthBits = ((uint)(24u));
       this.GlControlExtended.Location = new System.Drawing.Point(0, 28);
       this.GlControlExtended.MultisampleBits = ((uint)(0u));
       this.GlControlExtended.Name = "GlControlExtended";
-      scene1.Changed = false;
-      scene1.Exxageration = 0D;
-      this.GlControlExtended.Scene = scene1;
+      scene2.Changed = false;
+      scene2.Exxageration = 0D;
+      scene2.SunLight = null;
+      this.GlControlExtended.Scene = scene2;
       this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
       this.GlControlExtended.StencilBits = ((uint)(0u));
       this.GlControlExtended.TabIndex = 1;
       // 
-      // ToggleSunLightButton
+      // toolStripLabel2
       // 
-      this.ToggleSunLightButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.ToggleSunLightButton.Image = ((System.Drawing.Image)(resources.GetObject("ToggleSunLightButton.Image")));
-      this.ToggleSunLightButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.ToggleSunLightButton.Name = "ToggleSunLightButton";
-      this.ToggleSunLightButton.Size = new System.Drawing.Size(23, 22);
-      this.ToggleSunLightButton.Text = "Toggle Sun Light";
-      this.ToggleSunLightButton.Click += new System.EventHandler(this.ToggleSunLightButton_Click);
+      this.toolStripLabel2.Name = "toolStripLabel2";
+      this.toolStripLabel2.Size = new System.Drawing.Size(61, 22);
+      this.toolStripLabel2.Text = "Point Size:";
+      // 
+      // PointSizeBox
+      // 
+      this.PointSizeBox.Name = "PointSizeBox";
+      this.PointSizeBox.Size = new System.Drawing.Size(20, 25);
+      this.PointSizeBox.Text = "3";
+      this.PointSizeBox.Leave += new System.EventHandler(this.PointSizeBox_Leave);
+      this.PointSizeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PointSizeBox_KeyDown);
       // 
       // GlView
       // 
@@ -219,5 +238,7 @@
     private System.Windows.Forms.TextBox ViewAngleBox;
     private System.Windows.Forms.Label FieldOfViewLabel;
     private System.Windows.Forms.ToolStripButton ToggleSunLightButton;
+    private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+    private System.Windows.Forms.ToolStripTextBox PointSizeBox;
   }
 }
