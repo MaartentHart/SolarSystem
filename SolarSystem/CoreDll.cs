@@ -108,6 +108,9 @@ namespace SolarSystem
     [DllImport("Core.dll", EntryPoint = "SetTimeStep", CallingConvention = CallingConvention.Cdecl)]
     static public extern void SetTimeStep(double timeStep);
 
+    [DllImport("Core.dll", EntryPoint = "AddTimeStep", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void AddTimeStep(double timeStep);
+
     //run the simulation until run is set false. 
     [DllImport("Core.dll", EntryPoint = "Simulate", CallingConvention = CallingConvention.Cdecl)]
     static public extern void Simulate();

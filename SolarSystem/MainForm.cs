@@ -1,4 +1,5 @@
-﻿using OpenGL;
+﻿//Copyright Maarten 't Hart 2019
+using OpenGL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -570,6 +571,13 @@ namespace SolarSystem
       EquatorialCoordinateSystem equatorialCoordinateSystem = new EquatorialCoordinateSystem(Earth);
       Earth.Position = equatorialCoordinateSystem.EarthPositionAtVernalEquinox;
       Earth.RotationAxis = equatorialCoordinateSystem.SystemRotation; 
+    }
+
+    private void TimeStepButton_Click(object sender, EventArgs e)
+    {
+      if (SimulationRunning)
+        return;
+      CoreDll.AddTimeStep(TimeStep); 
     }
   }
 }

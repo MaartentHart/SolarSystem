@@ -67,12 +67,13 @@
       this.HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.DaysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
       this.InitializePlanets = new System.Windows.Forms.ToolStripButton();
-      this.TestImageButton = new System.Windows.Forms.ToolStripButton();
-      this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
       this.MaxRenderRatioBox = new System.Windows.Forms.ToolStripTextBox();
+      this.TestImageButton = new System.Windows.Forms.ToolStripButton();
+      this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
       this.TestEquatorialCoordinateSystem = new System.Windows.Forms.ToolStripButton();
       this.GlView = new SolarSystem.GlView();
+      this.TimeStepButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -141,6 +142,7 @@
             this.ADBCDropDown,
             this.TimeBox,
             this.PlayPauseButton,
+            this.TimeStepButton,
             this.toolStripLabel1,
             this.TimeStepBox,
             this.TimeStepUnitButton,
@@ -420,6 +422,19 @@
       this.InitializePlanets.Text = "Initialize Planets";
       this.InitializePlanets.Click += new System.EventHandler(this.InitializePlanets_Click);
       // 
+      // toolStripLabel2
+      // 
+      this.toolStripLabel2.Name = "toolStripLabel2";
+      this.toolStripLabel2.Size = new System.Drawing.Size(102, 22);
+      this.toolStripLabel2.Text = "Max Render Ratio:";
+      // 
+      // MaxRenderRatioBox
+      // 
+      this.MaxRenderRatioBox.Name = "MaxRenderRatioBox";
+      this.MaxRenderRatioBox.Size = new System.Drawing.Size(40, 25);
+      this.MaxRenderRatioBox.Text = "1000";
+      this.MaxRenderRatioBox.Click += new System.EventHandler(this.MaxRenderRatioBox_Click);
+      // 
       // TestImageButton
       // 
       this.TestImageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -440,19 +455,6 @@
       this.TestTriadButton.Text = "Test Triad";
       this.TestTriadButton.Click += new System.EventHandler(this.TestTriadButton_Click);
       // 
-      // toolStripLabel2
-      // 
-      this.toolStripLabel2.Name = "toolStripLabel2";
-      this.toolStripLabel2.Size = new System.Drawing.Size(102, 22);
-      this.toolStripLabel2.Text = "Max Render Ratio:";
-      // 
-      // MaxRenderRatioBox
-      // 
-      this.MaxRenderRatioBox.Name = "MaxRenderRatioBox";
-      this.MaxRenderRatioBox.Size = new System.Drawing.Size(40, 25);
-      this.MaxRenderRatioBox.Text = "1000";
-      this.MaxRenderRatioBox.Click += new System.EventHandler(this.MaxRenderRatioBox_Click);
-      // 
       // TestEquatorialCoordinateSystem
       // 
       this.TestEquatorialCoordinateSystem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -472,6 +474,16 @@
       this.GlView.Name = "GlView";
       this.GlView.Size = new System.Drawing.Size(692, 401);
       this.GlView.TabIndex = 10;
+      // 
+      // TimeStepButton
+      // 
+      this.TimeStepButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TimeStepButton.Image = ((System.Drawing.Image)(resources.GetObject("TimeStepButton.Image")));
+      this.TimeStepButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TimeStepButton.Name = "TimeStepButton";
+      this.TimeStepButton.Size = new System.Drawing.Size(23, 22);
+      this.TimeStepButton.Text = "Add Single Time Step";
+      this.TimeStepButton.Click += new System.EventHandler(this.TimeStepButton_Click);
       // 
       // MainForm
       // 
@@ -539,6 +551,7 @@
     private System.Windows.Forms.ToolStripLabel toolStripLabel2;
     private System.Windows.Forms.ToolStripTextBox MaxRenderRatioBox;
     private System.Windows.Forms.ToolStripButton TestEquatorialCoordinateSystem;
+    private System.Windows.Forms.ToolStripButton TimeStepButton;
   }
 }
 

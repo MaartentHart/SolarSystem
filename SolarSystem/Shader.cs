@@ -1,4 +1,4 @@
-﻿
+﻿//Copyright Maarten 't Hart 2019
 using OpenGL;
 using System;
 using System.Collections.Generic;
