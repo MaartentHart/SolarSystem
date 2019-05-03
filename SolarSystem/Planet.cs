@@ -45,7 +45,7 @@ namespace SolarSystem
     private bool exxagerationChanged = true;
     private bool paintChanged = true;
     private bool changed = true;
-    private double rotationCalibration;
+    public double rotationCalibration;
 
     public static double MaxRenderRatio { get; set; } = 1000;
     public static int MaximumDisplayGeneration { get; set; } = 9;
@@ -431,7 +431,11 @@ namespace SolarSystem
       switch(planet)
       {
         case SolarSystemPlanet.Earth:
-          return 0;
+          return 131;
+        case SolarSystemPlanet.Moon:
+          return 74;
+        case SolarSystemPlanet.Mars:
+          return 210;
         default:
           return 0; 
       }

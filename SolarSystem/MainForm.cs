@@ -569,10 +569,7 @@ namespace SolarSystem
       }
     }
 
-    private void TestEquatorialCoordinateSystem_Click(object sender, EventArgs e)
-    {
-     
-    }
+
 
     private void InitializeEquatorialCoordinateSystem()
     {
@@ -616,5 +613,34 @@ namespace SolarSystem
         SetQuality(); 
     }
 
+    private void CalibrationBox_TextChanged(object sender, EventArgs e)
+    {
+      try
+      {
+        double calibration = Convert.ToDouble(CalibrationBox.Text);
+        if (ActiveObject is Planet planet)
+        {
+          planet.rotationCalibration = calibration;
+          Scene.Changed = true;
+
+          SetDateTime(DateTime);
+        }
+      }
+      catch
+      {
+
+      }
+    }
+
+    private void InitializeMeteorShowerButton_Click(object sender, EventArgs e)
+    {
+      using (MeteoriteInitializationForm form = new MeteoriteInitializationForm())
+      {
+        if (form.ShowDialog() != DialogResult.OK)
+          return; 
+        
+
+      }
+    }
   }
 }

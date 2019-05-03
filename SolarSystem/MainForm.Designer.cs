@@ -75,9 +75,12 @@
       this.MaxRenderRatioBox = new System.Windows.Forms.ToolStripTextBox();
       this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
       this.QualityBox = new System.Windows.Forms.ToolStripTextBox();
-      this.TestEquatorialCoordinateSystem = new System.Windows.Forms.ToolStripButton();
+      this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+      this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
       this.TestImageButton = new System.Windows.Forms.ToolStripButton();
       this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
+      this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+      this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
       this.GlView = new SolarSystem.GlView();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
@@ -159,12 +162,15 @@
             this.MaxRenderRatioBox,
             this.toolStripLabel3,
             this.QualityBox,
-            this.TestEquatorialCoordinateSystem,
+            this.toolStripSeparator3,
+            this.toolStripLabel5,
             this.TestImageButton,
-            this.TestTriadButton});
+            this.TestTriadButton,
+            this.toolStripLabel4,
+            this.CalibrationBox});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
-      this.toolStrip1.Size = new System.Drawing.Size(920, 25);
+      this.toolStrip1.Size = new System.Drawing.Size(1108, 25);
       this.toolStrip1.TabIndex = 19;
       this.toolStrip1.Text = "toolStrip1";
       // 
@@ -206,6 +212,7 @@
       this.InitializeMeteorShowerButton.Name = "InitializeMeteorShowerButton";
       this.InitializeMeteorShowerButton.Size = new System.Drawing.Size(23, 22);
       this.InitializeMeteorShowerButton.Text = "Initialize Meteor Shower";
+      this.InitializeMeteorShowerButton.Click += new System.EventHandler(this.InitializeMeteorShowerButton_Click);
       // 
       // toolStripSeparator1
       // 
@@ -490,15 +497,16 @@
       this.QualityBox.Leave += new System.EventHandler(this.QualityBox_Leave);
       this.QualityBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QualityBox_KeyDown);
       // 
-      // TestEquatorialCoordinateSystem
+      // toolStripSeparator3
       // 
-      this.TestEquatorialCoordinateSystem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TestEquatorialCoordinateSystem.Image = ((System.Drawing.Image)(resources.GetObject("TestEquatorialCoordinateSystem.Image")));
-      this.TestEquatorialCoordinateSystem.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TestEquatorialCoordinateSystem.Name = "TestEquatorialCoordinateSystem";
-      this.TestEquatorialCoordinateSystem.Size = new System.Drawing.Size(23, 22);
-      this.TestEquatorialCoordinateSystem.Text = "TestEquatorialCoordinateSystem";
-      this.TestEquatorialCoordinateSystem.Click += new System.EventHandler(this.TestEquatorialCoordinateSystem_Click);
+      this.toolStripSeparator3.Name = "toolStripSeparator3";
+      this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+      // 
+      // toolStripLabel5
+      // 
+      this.toolStripLabel5.Name = "toolStripLabel5";
+      this.toolStripLabel5.Size = new System.Drawing.Size(69, 22);
+      this.toolStripLabel5.Text = "Debugging:";
       // 
       // TestImageButton
       // 
@@ -520,6 +528,18 @@
       this.TestTriadButton.Text = "Test Triad";
       this.TestTriadButton.Click += new System.EventHandler(this.TestTriadButton_Click);
       // 
+      // toolStripLabel4
+      // 
+      this.toolStripLabel4.Name = "toolStripLabel4";
+      this.toolStripLabel4.Size = new System.Drawing.Size(68, 22);
+      this.toolStripLabel4.Text = "Calibration:";
+      // 
+      // CalibrationBox
+      // 
+      this.CalibrationBox.Name = "CalibrationBox";
+      this.CalibrationBox.Size = new System.Drawing.Size(100, 23);
+      this.CalibrationBox.TextChanged += new System.EventHandler(this.CalibrationBox_TextChanged);
+      // 
       // GlView
       // 
       this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -527,14 +547,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.GlView.Location = new System.Drawing.Point(160, 28);
       this.GlView.Name = "GlView";
-      this.GlView.Size = new System.Drawing.Size(748, 401);
+      this.GlView.Size = new System.Drawing.Size(936, 401);
       this.GlView.TabIndex = 10;
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(920, 441);
+      this.ClientSize = new System.Drawing.Size(1108, 441);
       this.Controls.Add(this.toolStrip1);
       this.Controls.Add(this.SceneContentBox);
       this.Controls.Add(this.ExxagerationGroupBox);
@@ -595,13 +615,16 @@
     private System.Windows.Forms.ToolStripButton InitializePlanets;
     private System.Windows.Forms.ToolStripLabel toolStripLabel2;
     private System.Windows.Forms.ToolStripTextBox MaxRenderRatioBox;
-    private System.Windows.Forms.ToolStripButton TestEquatorialCoordinateSystem;
     private System.Windows.Forms.ToolStripButton TimeStepButton;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     private System.Windows.Forms.ToolStripLabel toolStripLabel3;
     private System.Windows.Forms.ToolStripTextBox QualityBox;
     private System.Windows.Forms.ToolStripButton InitializeMeteorShowerButton;
+    private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+    private System.Windows.Forms.ToolStripTextBox CalibrationBox;
+    private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+    private System.Windows.Forms.ToolStripLabel toolStripLabel5;
   }
 }
 
