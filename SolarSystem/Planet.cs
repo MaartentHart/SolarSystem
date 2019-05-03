@@ -50,6 +50,7 @@ namespace SolarSystem
     private double rotationCalibration; 
 
     public float PointSize { get => pointSize; set => pointSize = value; }
+    public int DisplayGeneration { get; set; } = 9; 
     public int Generation { get; }
     public SolarSystemPlanet PlanetID { get; }
     public CRenderableObject RenderableObject { get; } = new CRenderableObject();
@@ -185,6 +186,7 @@ namespace SolarSystem
     internal void ApplyExxageration()
     {
       previousExxageration = exxageration;
+
       IntPtr geodesicGridVerticesPointer = CoreDll.GeodesicGridVertices(Generation);
       IntPtr geodesicGridIndicesPointer = CoreDll.GeodesicGridIndices(Generation);
       int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
@@ -328,8 +330,10 @@ namespace SolarSystem
 
     public void Render(Camera camera)
     {
+
       if (!On)
         return;
+      SetDetailLevel(camera);
 
       lock (locker)
       {
@@ -346,6 +350,24 @@ namespace SolarSystem
           }
         }
       }
+    }
+
+    private void SetDetailLevel(Camera camera)
+    {
+      int indicesCount;
+      IntPtr indices;
+      if (DisplayGeneration >= Generation || DisplayGeneration < 0)
+      {
+        indicesCount = CoreDll.GeodesicGridIndicesCount(Generation);
+        indices = CoreDll.GeodesicGridIndices(Generation);
+      }
+      else
+      {
+        indicesCount = CoreDll.GeodesicGridIndicesCount(DisplayGeneration);
+        indices = CoreDll.GeodesicGridMipMapIndices(Generation, DisplayGeneration);
+      }
+      RenderableObject.RenderGeometry.indices = indices;
+      RenderableObject.RenderGeometry.indicesCount = indicesCount; 
     }
 
     private void RenderPoint()

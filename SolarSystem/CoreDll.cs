@@ -47,6 +47,10 @@ namespace SolarSystem
 
     [DllImport("Core.dll", EntryPoint = "GeodesicGridIndicesCount", CallingConvention = CallingConvention.Cdecl)]
     static public extern int GeodesicGridIndicesCount(int generation);
+
+    [DllImport("Core.dll", EntryPoint = "GeodesicGridMipMapIndices", CallingConvention = CallingConvention.Cdecl)]
+    //return value is an IntPtr to a type ulong.
+    static public extern IntPtr GeodesicGridMipMapIndices(int generation, int mipmapGeneration);
     #endregion
 
     #region PlanetProperties

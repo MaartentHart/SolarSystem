@@ -105,33 +105,37 @@ namespace SolarSystem
 
     }
 
+    private ColorMap ColorMapFromGridView()
+    {
+      ColorMap colorMap = new ColorMap
+      {
+        StartColor = new ColorFloat(GridView.Rows[0].Cells[1].Style.BackColor),
+        EndColor = new ColorFloat(GridView.Rows[GridView.RowCount - 2].Cells[0].Style.BackColor),
+        EndValue = Convert.ToDouble(GridView.Rows[GridView.RowCount - 2].Cells[0].Value)
+      };
+
+      for (int i = 1; i < GridView.RowCount - 2; i++)
+      {
+        colorMap.Bands.Add(new ColorMapBand(
+          new ColorFloat(GridView.Rows[i].Cells[0].Style.BackColor),
+          new ColorFloat(GridView.Rows[i].Cells[1].Style.BackColor),
+          Convert.ToDouble(GridView.Rows[i].Cells[0].Value)
+          ));
+      }
+      return ColorMap = colorMap;
+    }
+
     private void SaveButton_Click(object sender, EventArgs e)
     {
       try
       {
-        ColorMap colorMap = new ColorMap
-        {
-          StartColor = new ColorFloat(GridView.Rows[0].Cells[1].Style.BackColor),
-          EndColor = new ColorFloat(GridView.Rows[GridView.RowCount - 2].Cells[0].Style.BackColor),
-          EndValue = Convert.ToDouble(GridView.Rows[GridView.RowCount - 2].Cells[0].Value)
-        };
-
-        for (int i = 1; i < GridView.RowCount - 2; i++)
-        {
-          colorMap.Bands.Add(new ColorMapBand(
-            new ColorFloat(GridView.Rows[i].Cells[0].Style.BackColor),
-            new ColorFloat(GridView.Rows[i].Cells[1].Style.BackColor),
-            Convert.ToDouble(GridView.Rows[i].Cells[0].Value)
-            ));
-        }
-
         using (SaveFileDialog sfd = new SaveFileDialog())
         {
           sfd.InitialDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\Resource";
           sfd.Filter = "*.cmap|*.cmap";
           if (sfd.ShowDialog() != DialogResult.OK)
             return;
-          colorMap.Save(sfd.FileName); 
+          ColorMapFromGridView().Save(sfd.FileName); 
         }
       }
       catch
@@ -169,5 +173,16 @@ namespace SolarSystem
       }
     }
 
+    private void ColorMapForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      try
+      {
+        ColorMapFromGridView();
+      }
+      catch
+      {
+
+      }
+    }
   }
 }

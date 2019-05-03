@@ -24,6 +24,7 @@ extern "C"
 	DLL int __cdecl GeodesicGridVerticesCount(int generation); 
 	DLL const int* __cdecl GeodesicGridIndices(int generation);
 	DLL int __cdecl GeodesicGridIndicesCount(int generation);
+	DLL const int* __cdecl GeodesicGridMipMapIndices(int generation, int mipmapGeneration);
 
 	//Planet properties
 	DLL int __cdecl SetActivePlanet(const char*name);

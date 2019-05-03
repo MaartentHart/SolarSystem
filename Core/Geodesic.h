@@ -133,15 +133,23 @@ struct SquareGrid{
 	void Generate(GeodesicGrid*parent, char index /*0 to 9*/, unsigned short generation);
 };
 
+struct MipMapIndices
+{
+	std::vector<TriangleIndices> indices; 
+	void UpScale(unsigned short parentGeneration, unsigned int childGeneration);
+};
+
 struct GeodesicGrid
 {
 	std::vector<Point3D> points;
 private:
+	std::vector<MipMapIndices> mipMapIndices; 
 	std::vector<TriangleIndices> indices;
 	std::vector<SquareGrid> grids;
 	int PointsPerSquare;
 	int PointsPerRow;
 	unsigned short MaxGeneration;
+	const MipMapIndices InitializeMipMapIndices(unsigned short mipMapGeneration, const std::vector<TriangleIndices>&indicesOfParent) const;
 
 public:
 
@@ -155,11 +163,14 @@ public:
 	GridCell Touch(Point3D there)const;
 	int Dummy1() const;
 	int Dummy2() const;
+	int ToChildGeneration(int index, unsigned short parentGeneration, unsigned short childGeneration) const;
 	int PointIndex(Point3D position) const;
 	const std::vector<SquareGrid>& Grids() const;
 	const std::vector<TriangleIndices>& GetTriangleIndices() const;
 	unsigned short Generation()const;
 	GridCell GridCell(int index) const;
+
+	const MipMapIndices& GetMipMapIndices(unsigned short mipMapGeneration) const; 
 
 	friend struct SquareGrid;
 	friend struct SectionRowOrColumn;
@@ -193,6 +204,7 @@ struct GridCell
 	GridCell(const GeodesicGrid&grid, const Point3D&position);
 	GridCell(const GeodesicGrid&grid, char squareGrid, int Row, int Column);
 	GridCell(char squareGrid, int Row, int Column, unsigned short Generation);
+	GridCell(unsigned short generation, int index);
 	
 	inline bool operator==(const GridCell&that) const
 	{
@@ -200,18 +212,27 @@ struct GridCell
 			(row == that.row) && (column == that.column) && (pointindex == that.pointindex);
 	}
 
-	int PointIndex();
-	int PointIndex(const GeodesicGrid&grid);//recalculates the pointindex. If it is already correct this is a waste of time, use pointindex in stead. 
-	GridCell Neighbor(char index) const; //0 up, 1 right, 2 down, 3 left, 4 upleft, 5 downright. 
+	int PointsPerSquare(unsigned short generation) const;
+	int PointsPerSquare()const;
+	int PointsPerRow(unsigned short generation) const;
+	int PointsPerRow()const; 
+
+	int InitializePointIndex();
+	//int PointIndex(); 
+	//0 up, 1 right, 2 down, 3 left, 4 upleft, 5 downright. 
+	GridCell Neighbor(char index) const; 
 	GridCell Child(char index) const; //generation up, row and column * 2. 0 is top left, 1 is top right, 2 is bottom left, 3 is bottom right. 
 	GridCell Parent() const; //generation down, row and column shift 1 bit, or devided by 2. 
 	Point3D Point3D()const;
+
+	bool IsFirstChild() const; 
+	bool IsDummy() const; 
 };
 
 GridCell DummyCell1(unsigned short generation);
 GridCell DummyCell2(unsigned short generation);
 
-class GridCellIterator//this struct is used by GRIDCELLENMURATOR. Do not use, use GRIDCELLENUMERATOR.
+class GridCellIterator//this struct is used by GridCellEnumerator. Do not use, use GridCellEnumerator.
 {
 	GridCellIterator*Parent;
 	GridCellEnumerator*base;

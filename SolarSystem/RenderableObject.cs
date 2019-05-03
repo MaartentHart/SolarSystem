@@ -101,10 +101,11 @@ namespace SolarSystem
       else
         Gl.DisableClientState(EnableCap.ColorArray);
 
-      Gl.DisableVertexAttribArray(2); 
+      Gl.DisableVertexAttribArray(2);
 
       Gl.DrawElements(PrimitiveType.Triangles, indicesCount, DrawElementsType.UnsignedInt, indices);
-    }    
+    }
+
 
     public void SetGeodesicGrid(int generation)
     {

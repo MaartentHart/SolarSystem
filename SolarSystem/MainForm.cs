@@ -23,6 +23,8 @@ namespace SolarSystem
     private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm(); 
     private ColorMapForm ColorMapForm { get; } = new ColorMapForm();
 
+    private IRenderable ActiveObject { get; set; }
+
     private BackgroundWorker SimulationWorker { get; set; } = new BackgroundWorker();
     private double TimeStep
     {
@@ -297,10 +299,10 @@ namespace SolarSystem
       {
         if (SceneContentBox.SelectedIndex >= Scene.RenderableObjects.Count || SceneContentBox.SelectedIndex < 0)
         {
-          CelestialPropertiesForm.ActiveObject = null;
+          CelestialPropertiesForm.ActiveObject = ActiveObject = null; 
           return;
         }
-        CelestialPropertiesForm.ActiveObject = Scene.RenderableObjects[SceneContentBox.SelectedIndex];
+        CelestialPropertiesForm.ActiveObject = ActiveObject = Scene.RenderableObjects[SceneContentBox.SelectedIndex];
       }
       catch
       {
@@ -579,6 +581,18 @@ namespace SolarSystem
       if (SimulationRunning)
         return;
       CoreDll.AddTimeStep(TimeStep); 
+    }
+
+    private void MipMapTestButton_Click(object sender, EventArgs e)
+    {
+      if (ActiveObject is Planet planet)
+      {
+        int verticesCount = CoreDll.GeodesicGridVerticesCount(planet.Generation);
+        double[] values = new double[verticesCount];
+        for (int i = 0; i < verticesCount; i++)
+          values[i] = i; 
+        planet.SetColorMap(planet.ColorMap, values);
+      }
     }
   }
 }

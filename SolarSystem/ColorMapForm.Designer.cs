@@ -171,6 +171,7 @@
       this.Controls.Add(this.GridView);
       this.Name = "ColorMapForm";
       this.Text = "ColorMapForm";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ColorMapForm_FormClosing);
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ColorMapForm_FormClosed);
       ((System.ComponentModel.ISupportInitialize)(this.GridView)).EndInit();
       this.toolStrip1.ResumeLayout(false);

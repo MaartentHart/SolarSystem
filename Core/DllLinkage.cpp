@@ -81,8 +81,19 @@ const int* GeodesicGridIndices(int generation)
 
 int GeodesicGridIndicesCount(int generation)
 {
+  return (1 << (generation * 2)) * 60;
+}
+
+const int* GeodesicGridMipMapIndices(int generation, int mipmapGeneration)
+{
 	const GeodesicGrid*grid = GetGeodesicGrid((unsigned int)generation);
-	return grid->GetTriangleIndices().size()*3; 
+	return grid->GetMipMapIndices(mipmapGeneration).indices[0].i; 
+}
+
+int GeodesicGridMipMapIndicesCount(int generation, int mipmapGeneration)
+{
+	const GeodesicGrid*grid = GetGeodesicGrid((unsigned int)generation);
+	return grid->GetMipMapIndices(mipmapGeneration).indices.size()*3;
 }
 
 int SetActivePlanet(const char*name)

@@ -59,6 +59,7 @@
       this.bCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.TimeBox = new System.Windows.Forms.ToolStripTextBox();
       this.PlayPauseButton = new System.Windows.Forms.ToolStripButton();
+      this.TimeStepButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
       this.TimeStepBox = new System.Windows.Forms.ToolStripTextBox();
       this.TimeStepUnitButton = new System.Windows.Forms.ToolStripDropDownButton();
@@ -73,7 +74,7 @@
       this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
       this.TestEquatorialCoordinateSystem = new System.Windows.Forms.ToolStripButton();
       this.GlView = new SolarSystem.GlView();
-      this.TimeStepButton = new System.Windows.Forms.ToolStripButton();
+      this.MipMapTestButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -151,7 +152,8 @@
             this.MaxRenderRatioBox,
             this.TestImageButton,
             this.TestTriadButton,
-            this.TestEquatorialCoordinateSystem});
+            this.TestEquatorialCoordinateSystem,
+            this.MipMapTestButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(864, 25);
@@ -355,6 +357,16 @@
       this.PlayPauseButton.Text = "Play/Pause";
       this.PlayPauseButton.Click += new System.EventHandler(this.PlayPauseButton_Click);
       // 
+      // TimeStepButton
+      // 
+      this.TimeStepButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TimeStepButton.Image = ((System.Drawing.Image)(resources.GetObject("TimeStepButton.Image")));
+      this.TimeStepButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TimeStepButton.Name = "TimeStepButton";
+      this.TimeStepButton.Size = new System.Drawing.Size(23, 22);
+      this.TimeStepButton.Text = "Add Single Time Step";
+      this.TimeStepButton.Click += new System.EventHandler(this.TimeStepButton_Click);
+      // 
       // toolStripLabel1
       // 
       this.toolStripLabel1.Name = "toolStripLabel1";
@@ -475,15 +487,15 @@
       this.GlView.Size = new System.Drawing.Size(692, 401);
       this.GlView.TabIndex = 10;
       // 
-      // TimeStepButton
+      // MipMapTestButton
       // 
-      this.TimeStepButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TimeStepButton.Image = ((System.Drawing.Image)(resources.GetObject("TimeStepButton.Image")));
-      this.TimeStepButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TimeStepButton.Name = "TimeStepButton";
-      this.TimeStepButton.Size = new System.Drawing.Size(23, 22);
-      this.TimeStepButton.Text = "Add Single Time Step";
-      this.TimeStepButton.Click += new System.EventHandler(this.TimeStepButton_Click);
+      this.MipMapTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.MipMapTestButton.Image = ((System.Drawing.Image)(resources.GetObject("MipMapTestButton.Image")));
+      this.MipMapTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.MipMapTestButton.Name = "MipMapTestButton";
+      this.MipMapTestButton.Size = new System.Drawing.Size(23, 22);
+      this.MipMapTestButton.Text = "MipMapTest";
+      this.MipMapTestButton.Click += new System.EventHandler(this.MipMapTestButton_Click);
       // 
       // MainForm
       // 
@@ -552,6 +564,7 @@
     private System.Windows.Forms.ToolStripTextBox MaxRenderRatioBox;
     private System.Windows.Forms.ToolStripButton TestEquatorialCoordinateSystem;
     private System.Windows.Forms.ToolStripButton TimeStepButton;
+    private System.Windows.Forms.ToolStripButton MipMapTestButton;
   }
 }
 

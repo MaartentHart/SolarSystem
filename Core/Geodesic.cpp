@@ -18,7 +18,8 @@ struct GeodesicGridContainer
 				delete grid; 
 		}
 	}
-	GeodesicGrid*GetGrid(int generation)
+
+	GeodesicGrid*GetGrid(unsigned int generation)
 	{
 		if (grids.size() > generation)
 		{
@@ -382,7 +383,6 @@ SquareGrid:: ~SquareGrid()
 	Parent = NULL;
 }
 
-
 void SquareGrid::Generate(GeodesicGrid*parent, char index /*0 to 9*/, unsigned short generation)
 {
 	Parent = parent;
@@ -408,6 +408,20 @@ void SquareGrid::Generate(GeodesicGrid*parent, char index /*0 to 9*/, unsigned s
 				Parent->points[Parent->PointIndex(index, row, column)] = BRow.slicingplanes[Parent->PointsPerRow - row]
 					.Intersection(BCol.slicingplanes[column]).ReachDistance(1).CleanUp();
 			}
+		}
+	}
+}
+
+void MipMapIndices::UpScale(unsigned short parentGeneration, unsigned int childGeneration)
+{
+	for (int generation = parentGeneration; generation < childGeneration; generation++)
+	{
+		for (TriangleIndices&index : indices)
+		{
+			int a = GridCell(generation, index.a).Child(0).pointindex;
+			int b = GridCell(generation, index.b).Child(0).pointindex;
+			int c = GridCell(generation, index.c).Child(0).pointindex;
+			index.Set(a, b, c); 
 		}
 	}
 }
@@ -457,6 +471,23 @@ GeodesicGrid::GeodesicGrid(unsigned short maxgeneration)
 				indices[triangle].Set(a, b, c);
 				indices[triangle + 1].Set(a, c, d);
 			}
+
+
+	//mipmapping
+	mipMapIndices.resize(maxgeneration);
+	MipMapIndices previous;
+	previous.indices = indices; 
+	for (int i = maxgeneration - 1; i >= 0; i--)
+	{
+		previous = InitializeMipMapIndices(i, previous.indices);
+		mipMapIndices[i] = previous;
+	}
+
+	for (int i = 0; i < maxgeneration; i++)
+	{
+		mipMapIndices[i].UpScale(i, maxgeneration); 
+	}
+
 }
 
 GeodesicGrid::~GeodesicGrid()
@@ -559,6 +590,27 @@ int GeodesicGrid::Dummy2() const
 	return (int) (points.size() - 1);
 }
 
+int GeodesicGrid::ToChildGeneration(int index, unsigned short parentGeneration, unsigned short childGeneration)const
+{
+	const GeodesicGrid*parentGrid = GetGeodesicGrid(parentGeneration);
+	if (index == parentGrid->Dummy1())
+		return GetGeodesicGrid(childGeneration)->Dummy1(); 
+	if (index == parentGrid->Dummy2())
+		return GetGeodesicGrid(childGeneration)->Dummy2();
+	::GridCell gridCell = parentGrid->GridCell(index); 
+	int row = gridCell.row;
+	int column = gridCell.column;
+
+	for (int generation = childGeneration; generation < parentGeneration; generation++)
+	{
+		row *= 2;
+		column *= 2; 
+	}
+
+	return ::GridCell(gridCell.squaregrid, row, column, parentGeneration).pointindex; 
+}
+
+
 int GeodesicGrid::PointIndex(Point3D position) const
 {
 	return Touch(position).pointindex;
@@ -581,13 +633,66 @@ unsigned short GeodesicGrid::Generation() const
 
 GridCell GeodesicGrid::GridCell(int index) const
 {
-	::GridCell gridcell(Generation());
+	return ::GridCell (Generation(),index);
+	/*
 	gridcell.squaregrid = (char)(index / PointsPerSquare);
 	unsigned long rem = index % PointsPerSquare;
 	gridcell.row = rem / PointsPerRow;
 	gridcell.column = rem % PointsPerRow;
-	gridcell.PointIndex();
-	return gridcell;
+	gridcell.InitializePointIndex();
+	return gridcell;*/
+}
+
+const MipMapIndices & GeodesicGrid::GetMipMapIndices(unsigned short mipMapGeneration) const
+{
+	return mipMapIndices[mipMapGeneration];
+}
+
+const MipMapIndices GeodesicGrid::InitializeMipMapIndices(unsigned short mipMapGeneration, const std::vector<TriangleIndices>&parentIndices) const
+{
+	std::vector<TriangleIndices> indices;
+	int sourceGeneration = mipMapGeneration + 1; 
+	for (const TriangleIndices&index : parentIndices)
+	{
+		::GridCell a(sourceGeneration, index.a);
+		//if the first has an even row and an even column, upscale the triangle.
+		if (a.IsFirstChild())
+		{
+			::GridCell b(sourceGeneration, index.b);
+			::GridCell c(sourceGeneration, index.c);
+			TriangleIndices index;
+
+			::GridCell parentA = a.Parent(); 
+
+			//a: 0 0
+			//b: 0 1
+			//c: 1 1
+			//d: 1 0 
+
+			if (b.row == a.row)
+			{
+				//we are having triangle a, b, c
+				::GridCell parentB = parentA.Neighbor(1);
+				::GridCell parentC = parentA.Neighbor(5);
+				index.Set(parentA.pointindex, parentB.pointindex, parentC.pointindex);
+			}
+			else
+			{
+				//we are having triangle a, c, d
+
+				::GridCell parentC = parentA.Neighbor(5);
+				::GridCell parentD = parentA.Neighbor(2);
+				index.Set(parentA.pointindex, parentC.pointindex, parentD.pointindex);
+			}
+
+			indices.push_back(index); 
+		}
+	}
+	 
+	MipMapIndices mipMap;
+	mipMap.indices = indices; 
+
+	return mipMap; 
 }
 
 TanArray::TanArray(int generation) :Generation(generation)
@@ -597,7 +702,7 @@ TanArray::TanArray(int generation) :Generation(generation)
 	Tangent[1] = Segment().TanOf(Segment().ArcTopFront);
 	unsigned int curgenbit(1);
 	double CurPriTan, CurSecTan;
-	for (int t(1); t < ((int)1) << generation; t++)
+	for (unsigned int t(1); t < ((unsigned int)1) << generation; t++)
 	{
 		if (t >= curgenbit)
 			curgenbit <<= 1;
@@ -659,36 +764,102 @@ GridCell::GridCell(const GeodesicGrid&grid, char squareGrid, int Row, int Column
 	: squaregrid(squareGrid), row(Row), column(Column), CornerDuplicateWarning(false)
 {
 	generation = grid.Generation();
-	PointIndex(generation);
+	InitializePointIndex();
 }
 
 GridCell::GridCell(char squareGrid, int Row, int Column, unsigned short Generation)
 	: squaregrid(squareGrid), row(Row), column(Column), generation(Generation), CornerDuplicateWarning(false)
 {
-	PointIndex(*GetGeodesicGrid(Generation));
+	InitializePointIndex();
 }
 
-int GridCell::PointIndex()
+GridCell::GridCell(unsigned short Generation, int index)
 {
-	return PointIndex(*GetGeodesicGrid(generation));
+	generation = Generation; 
+
+	squaregrid = (char)(index / PointsPerSquare());
+	unsigned long rem = index % PointsPerSquare();
+	row = rem / PointsPerRow();
+	column = rem % PointsPerRow();
+	InitializePointIndex(); 
 }
 
-int GridCell::PointIndex(const GeodesicGrid&grid)
+int GridCell::PointsPerSquare(unsigned short generation) const
 {
-	if (grid.Generation() == generation)
-		return pointindex = grid.PointIndex(squaregrid, row, column);
-	else if (grid.Generation() > generation)
-	{
-		unsigned short gendif = grid.Generation() - generation;
-		return pointindex = grid.PointIndex(squaregrid, row << gendif, column << gendif);//needs testing
-	}
-	else
-	{
-		unsigned short gendif = generation - grid.Generation();
-		return pointindex = grid.PointIndex(squaregrid, row >> gendif, column >> gendif);//needs testing
-	}
+	return (1 << (generation * 2));
 }
 
+int GridCell::PointsPerSquare() const
+{
+	return PointsPerSquare(generation); 
+}
+
+int GridCell::PointsPerRow(unsigned short generation) const
+{
+	return 1 << generation;
+}
+
+int GridCell::PointsPerRow() const
+{
+	return PointsPerRow(generation);
+}
+
+int GridCell::InitializePointIndex()
+{
+	int pointsPerSquare = PointsPerSquare();
+	int pointsPerRow = PointsPerRow();
+
+	if (squaregrid & 1)	//odd
+	{
+		if (row == pointsPerRow)
+		{
+			if (column == 0)
+				return 10 * pointsPerSquare + 2; //dummy2
+
+			squaregrid += 2;
+			if (squaregrid == 11)
+				squaregrid = 1;
+			row = pointsPerRow - column;
+			column = 0;
+		}
+		else if (column == pointsPerRow)
+		{
+			squaregrid += 1;
+			if (squaregrid == 10)
+				squaregrid = 0;
+			column = 0;
+		}
+	}
+	else //even
+	{
+		if (column == pointsPerRow)
+		{
+			if (row == 0)
+				return 10 * pointsPerSquare + 1; //dummy1
+
+			squaregrid += 2;
+			if (squaregrid == 10)
+				squaregrid = 0;
+			column = pointsPerRow - row;
+			row = 0;
+		}
+		else if (column == pointsPerRow)
+		{
+			squaregrid += 1;
+			row = 0;
+		}
+	}
+
+	if (row > pointsPerRow || column > pointsPerRow)
+	{
+		throw new CException("Row or column index out of range");
+	}
+
+	return pointindex = pointsPerSquare * squaregrid + row * pointsPerRow + column;
+
+}
+
+//0 up, 1 right, 2 down, 3 left, 4 upleft, 5 downright. 
 GridCell GridCell::Neighbor(char index) const
 {
 	GridCell neighbor = *this;
@@ -731,7 +902,8 @@ GridCell GridCell::Neighbor(char index) const
 				throw std::domain_error("GRIDCELL::Neighbor value must be between 0 and 5");
 			}
 		}
-		neighbor.PointIndex(*GetGeodesicGrid(generation));
+		neighbor.generation = generation; 
+		neighbor.InitializePointIndex(); 
 		return neighbor;
 	}
 
@@ -913,8 +1085,8 @@ GridCell GridCell::Neighbor(char index) const
 	default:
 		throw std::domain_error("GRIDCELL::Neighbor value must be between 0 and 5");
 	}
-
-	neighbor.PointIndex(*GetGeodesicGrid(generation));
+	neighbor.generation = generation; 
+	neighbor.InitializePointIndex();
 	return neighbor;
 }
 
@@ -928,8 +1100,8 @@ GridCell GridCell::Child(char index) const
 		child.column++;
 	if (index & 2)
 		child.row++;
-	child.PointIndex();
-	return child;//not tested.
+	child.InitializePointIndex();
+	return child;
 }
 
 GridCell GridCell::Parent() const
@@ -937,10 +1109,17 @@ GridCell GridCell::Parent() const
 	if (generation == 0)
 		throw std::domain_error("generation cannot be negative. 0 is the root parent: an icosahedron cell");
 	GridCell parent = *this;
+	if (IsDummy())
+	{
+		if (column == 1)
+			return DummyCell2(generation - 1);
+		return DummyCell1(generation - 1);
+	}
 	parent.generation--;
 	parent.row >>= 1;
 	parent.column >>= 1;
-	return parent;//not tested. 
+	parent.InitializePointIndex(); 
+	return parent;
 }
 
 Point3D GridCell::Point3D() const
@@ -948,11 +1127,23 @@ Point3D GridCell::Point3D() const
 	return GetGeodesicGrid(generation)->Point(pointindex); 
 }
 
+bool GridCell::IsDummy() const
+{
+	return squaregrid == 10; 
+}
+
+bool GridCell::IsFirstChild() const
+{
+	if (IsDummy())
+		return true; 
+	return (column & 1) == 0 && (row & 1) == 0;
+}
+
 GridCell DummyCell1(unsigned short generation)
 {
 	GridCell Dummy(generation);
 	Dummy.squaregrid = 10;
-	Dummy.PointIndex();
+	Dummy.InitializePointIndex();
 	return Dummy;
 }
 
@@ -961,7 +1152,7 @@ GridCell DummyCell2(unsigned short generation)
 	GridCell Dummy(generation);
 	Dummy.squaregrid = 10;
 	Dummy.column = 1;
-	Dummy.PointIndex();
+	Dummy.InitializePointIndex();
 	return Dummy;
 }
 
