@@ -71,13 +71,17 @@ namespace SolarSystem
 
     public MainForm()
     {
+      SplashScreen splashScreen = new SplashScreen();
+      splashScreen.Show(); 
       InitializeComponent();
       //BackgroundWorker backgroundWorker = new BackgroundWorker();
       //backgroundWorker.DoWork += InitializeEarth;
       //backgroundWorker.RunWorkerAsync();
       InitializeEarth(null, null); 
       TimeStep = 1.0 / 86400;
-      Scene.SetAsMainScene(); 
+      Scene.SetAsMainScene();
+      splashScreen.Close();
+      splashScreen.Dispose(); 
     }
 
     private void InitializeEarth(object sender, DoWorkEventArgs e)
