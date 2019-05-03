@@ -56,6 +56,12 @@ namespace SolarSystem
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="x">roll</param>
+    /// <param name="y">pitch</param>
+    /// <param name="z">yaw</param>
     public EulerAngles(double x = 0, double y = 0, double z =0)
     {
       roll = x;
@@ -262,18 +268,21 @@ namespace SolarSystem
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="vector"></param>
+    /// <param name="vector">the axis to rotate about.</param>
     /// <param name="rotation">rotation in degrees</param>
     public Quaternion(Point3D vector, double rotation)
     {
+      //https://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
+      vector.Normalize(); 
       rotation = Angle.Normalize360(rotation);
       if (rotation < 0)
-        rotation += 360; 
-      w = Math.Cos(Angle.ToRadians(rotation) / 2);
-      vector = vector.Normal;
-      x = vector.x;
-      y = vector.y;
-      z = vector.z;
+        rotation += 360;
+      double angle = Angle.ToRadians(rotation);
+      double s = Math.Sin(angle / 2);
+      x = vector.x * s;
+      y = vector.y * s;
+      z = vector.z * s;
+      w = Math.Cos(angle / 2);
     }
 
     public Quaternion(EulerAngles rotation)

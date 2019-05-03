@@ -138,6 +138,12 @@
     <Compile Include="GravityObject.cs" />
     <Compile Include="HeightMap.cs" />
     <Compile Include="HistoricDateTime.cs" />
+    <Compile Include="MeteoriteInitializationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MeteoriteInitializationForm.Designer.cs">
+      <DependentUpon>MeteoriteInitializationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Light.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

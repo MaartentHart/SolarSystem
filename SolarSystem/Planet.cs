@@ -68,7 +68,9 @@ namespace SolarSystem
     public double MaximumRadius { get; set; }
     public BoundingBox BoundingBox => new BoundingBox(Position, MaximumRadius);
 
-    public int ID => id; 
+    public int ID => id;
+    public double Declination { get; private set; }
+    public double RightAscension { get; private set; }
 
     public bool ExxagerationChanged
     {
@@ -145,6 +147,8 @@ namespace SolarSystem
       CoreDll.SetActivePlanet(planet.ToString());
       
       Scale = new Point3D(CoreDll.PlanetScaleX(), CoreDll.PlanetScaleY(), CoreDll.PlanetScaleZ());
+      Declination = CoreDll.PlanetDeclination();
+      RightAscension = CoreDll.PlanetRightAscension(); 
       MaximumRadius = Scale.x> Scale.y? Scale.x > Scale.z? Scale.x : Scale.z : Scale.y > Scale.z ? Scale.y: Scale.z; 
       CoreDll.PlanetColor(ref color);
 
@@ -330,7 +334,6 @@ namespace SolarSystem
 
     public void Render(Camera camera)
     {
-
       if (!On)
         return;
 
@@ -412,7 +415,7 @@ namespace SolarSystem
         CoreDll.PlanetPositionY(),
         CoreDll.PlanetPositionZ());
       AroundAxisRotation = CoreDll.PlanetRotation();
-      LocalRotation = new Quaternion(new Point3D(0, 0, 1), AroundAxisRotation);
+      LocalRotation = new Quaternion(new Point3D(0, 0, 1), AroundAxisRotation + rotationCalibration);
     }
 
     private void SetActive()
@@ -428,7 +431,7 @@ namespace SolarSystem
       switch(planet)
       {
         case SolarSystemPlanet.Earth:
-          return 1;
+          return 0;
         default:
           return 0; 
       }

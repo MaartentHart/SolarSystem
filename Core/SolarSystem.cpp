@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "SolarSystem.h"
 
-double undefined = 9999999;
+//double undefined = std::numeric_limits<double>::quiet_NaN();
 std::vector<Planet*> planets; 
 
 Planet earth(6378.137, 6356.752315, 0.00981, "Earth");
@@ -161,15 +161,15 @@ void CelestialBody::SetMoon()
 	OrbitalInclination = 5.145;//deg
 	OrbitalEccentricity = 0.0549;
 	SiderealRotationPeriod = 655.728;//hrs
-	LenghtOfDay = undefined;//hrs
+	LenghtOfDay = 0;// undefined;//hrs
 	ObliquityToOrbit = 6.68;//deg
 
-	LongitudeOfAscendingNode = undefined;//deg
-	LongitudeOfPeriapsis = undefined;//deg
-	MeanLongitude = undefined;//deg
+	LongitudeOfAscendingNode = 0;// undefined;//deg
+	LongitudeOfPeriapsis = 0;// undefined;//deg
+	MeanLongitude = 0;// undefined;//deg
 
-	RightAscension = undefined;
-	Declination = undefined;
+	RightAscension = 0;// undefined;
+	Declination = 90;// undefined;
 	TimeOfPeriapsis = DaysSinceJ2000(2015, 8, 2, 10, 4, 0);
 	color = Color(189.f / 255, 182.f / 255, 180.f / 255, 1.0f);
 }

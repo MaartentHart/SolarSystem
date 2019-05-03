@@ -31,9 +31,14 @@ namespace SolarSystem
       CoreDll.EarthPositionAt(VernalEquinox2000.TotalDays, ref earthPositionAtVernalEquinox);
       double earthAxisTilt = CoreDll.EarthAxisTilt();
       if (earthAxisTilt == 0)
-        //just set it here. 
         earthAxisTilt = 23.44;
-      SystemRotation = new Quaternion(earthPositionAtVernalEquinox, earthAxisTilt);
+
+      Point3D triadXAxis = earthPositionAtVernalEquinox.Normal;
+      double yaw = OpenGL.Angle.ToDegrees(Math.Atan2(triadXAxis.y, triadXAxis.x));
+      double pitch = OpenGL.Angle.ToDegrees(-Math.Sin(triadXAxis.z));
+      double roll = earthAxisTilt;
+      
+      SystemRotation = new EulerAngles(roll,pitch,yaw).Quaternion;
       Origin = earthPositionAtVernalEquinox.Normal; 
     }
 
@@ -47,9 +52,21 @@ namespace SolarSystem
     {
       double direction = OpenGL.Angle.ToRadians(rightAscention);
       double rotationUp = OpenGL.Angle.ToRadians(declination);
-      double xy = Math.Sin(rotationUp);
-      Point3D baseDirection = new Point3D(Math.Cos(direction) * xy, Math.Sin(direction) * xy, Math.Cos(rotationUp));
-      return SystemRotation.Rotate(baseDirection); 
+      double xy = Math.Cos(rotationUp);
+      Point3D baseDirection = new Point3D(Math.Cos(direction) * xy, Math.Sin(direction) * xy, Math.Sin(rotationUp));
+      Point3D rotated = SystemRotation.Rotate(baseDirection);
+      return rotated; 
     }
+
+    public Quaternion PlanetQuaternion(double rightAscention, double declination)
+    {
+      Point3D up = new Point3D(0, 0, 1); 
+      Point3D axis = EquatorialCoordinate(rightAscention, declination);
+      if (double.IsNaN(rightAscention) || double.IsNaN(declination))
+        axis = new Point3D(0, 0, 1); 
+      return new Quaternion((up+axis)/2,180); 
+
+    }
+
   }
 }

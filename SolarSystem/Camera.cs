@@ -11,7 +11,7 @@ namespace SolarSystem
 
   public class Camera
   {
-    private bool lockDistance = false; 
+    private bool lockDistance = true; 
     private int width;
     private int height; 
     private bool changed = false;

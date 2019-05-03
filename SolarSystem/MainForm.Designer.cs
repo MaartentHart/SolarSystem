@@ -39,6 +39,8 @@
       this.ColorMapButton = new System.Windows.Forms.ToolStripButton();
       this.PropertiesBoxButton = new System.Windows.Forms.ToolStripButton();
       this.InitializePlanets = new System.Windows.Forms.ToolStripButton();
+      this.InitializeMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
+      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.TimeLockButton = new System.Windows.Forms.ToolStripButton();
       this.DayBox = new System.Windows.Forms.ToolStripTextBox();
       this.MonthDropDown = new System.Windows.Forms.ToolStripDropDownButton();
@@ -68,16 +70,15 @@
       this.MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.DaysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
       this.MaxRenderRatioBox = new System.Windows.Forms.ToolStripTextBox();
-      this.TestImageButton = new System.Windows.Forms.ToolStripButton();
-      this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
-      this.TestEquatorialCoordinateSystem = new System.Windows.Forms.ToolStripButton();
-      this.GlView = new SolarSystem.GlView();
-      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-      this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
       this.QualityBox = new System.Windows.Forms.ToolStripTextBox();
+      this.TestEquatorialCoordinateSystem = new System.Windows.Forms.ToolStripButton();
+      this.TestImageButton = new System.Windows.Forms.ToolStripButton();
+      this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
+      this.GlView = new SolarSystem.GlView();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -140,6 +141,7 @@
             this.ColorMapButton,
             this.PropertiesBoxButton,
             this.InitializePlanets,
+            this.InitializeMeteorShowerButton,
             this.toolStripSeparator1,
             this.TimeLockButton,
             this.DayBox,
@@ -195,6 +197,20 @@
       this.InitializePlanets.Size = new System.Drawing.Size(23, 22);
       this.InitializePlanets.Text = "Initialize Planets";
       this.InitializePlanets.Click += new System.EventHandler(this.InitializePlanets_Click);
+      // 
+      // InitializeMeteorShowerButton
+      // 
+      this.InitializeMeteorShowerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.InitializeMeteorShowerButton.Image = ((System.Drawing.Image)(resources.GetObject("InitializeMeteorShowerButton.Image")));
+      this.InitializeMeteorShowerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.InitializeMeteorShowerButton.Name = "InitializeMeteorShowerButton";
+      this.InitializeMeteorShowerButton.Size = new System.Drawing.Size(23, 22);
+      this.InitializeMeteorShowerButton.Text = "Initialize Meteor Shower";
+      // 
+      // toolStripSeparator1
+      // 
+      this.toolStripSeparator1.Name = "toolStripSeparator1";
+      this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
       // 
       // TimeLockButton
       // 
@@ -441,6 +457,11 @@
       this.DaysToolStripMenuItem1.Text = "Days";
       this.DaysToolStripMenuItem1.Click += new System.EventHandler(this.SetStepUnit);
       // 
+      // toolStripSeparator2
+      // 
+      this.toolStripSeparator2.Name = "toolStripSeparator2";
+      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+      // 
       // toolStripLabel2
       // 
       this.toolStripLabel2.Name = "toolStripLabel2";
@@ -453,6 +474,31 @@
       this.MaxRenderRatioBox.Size = new System.Drawing.Size(40, 25);
       this.MaxRenderRatioBox.Text = "1000";
       this.MaxRenderRatioBox.Click += new System.EventHandler(this.MaxRenderRatioBox_Click);
+      // 
+      // toolStripLabel3
+      // 
+      this.toolStripLabel3.Name = "toolStripLabel3";
+      this.toolStripLabel3.Size = new System.Drawing.Size(48, 22);
+      this.toolStripLabel3.Text = "Quality:";
+      // 
+      // QualityBox
+      // 
+      this.QualityBox.Name = "QualityBox";
+      this.QualityBox.Size = new System.Drawing.Size(15, 25);
+      this.QualityBox.Text = "9";
+      this.QualityBox.ToolTipText = "Quality";
+      this.QualityBox.Leave += new System.EventHandler(this.QualityBox_Leave);
+      this.QualityBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QualityBox_KeyDown);
+      // 
+      // TestEquatorialCoordinateSystem
+      // 
+      this.TestEquatorialCoordinateSystem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.TestEquatorialCoordinateSystem.Image = ((System.Drawing.Image)(resources.GetObject("TestEquatorialCoordinateSystem.Image")));
+      this.TestEquatorialCoordinateSystem.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.TestEquatorialCoordinateSystem.Name = "TestEquatorialCoordinateSystem";
+      this.TestEquatorialCoordinateSystem.Size = new System.Drawing.Size(23, 22);
+      this.TestEquatorialCoordinateSystem.Text = "TestEquatorialCoordinateSystem";
+      this.TestEquatorialCoordinateSystem.Click += new System.EventHandler(this.TestEquatorialCoordinateSystem_Click);
       // 
       // TestImageButton
       // 
@@ -474,16 +520,6 @@
       this.TestTriadButton.Text = "Test Triad";
       this.TestTriadButton.Click += new System.EventHandler(this.TestTriadButton_Click);
       // 
-      // TestEquatorialCoordinateSystem
-      // 
-      this.TestEquatorialCoordinateSystem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TestEquatorialCoordinateSystem.Image = ((System.Drawing.Image)(resources.GetObject("TestEquatorialCoordinateSystem.Image")));
-      this.TestEquatorialCoordinateSystem.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TestEquatorialCoordinateSystem.Name = "TestEquatorialCoordinateSystem";
-      this.TestEquatorialCoordinateSystem.Size = new System.Drawing.Size(23, 22);
-      this.TestEquatorialCoordinateSystem.Text = "TestEquatorialCoordinateSystem";
-      this.TestEquatorialCoordinateSystem.Click += new System.EventHandler(this.TestEquatorialCoordinateSystem_Click);
-      // 
       // GlView
       // 
       this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -493,31 +529,6 @@
       this.GlView.Name = "GlView";
       this.GlView.Size = new System.Drawing.Size(748, 401);
       this.GlView.TabIndex = 10;
-      // 
-      // toolStripSeparator1
-      // 
-      this.toolStripSeparator1.Name = "toolStripSeparator1";
-      this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-      // 
-      // toolStripSeparator2
-      // 
-      this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-      // 
-      // toolStripLabel3
-      // 
-      this.toolStripLabel3.Name = "toolStripLabel3";
-      this.toolStripLabel3.Size = new System.Drawing.Size(48, 22);
-      this.toolStripLabel3.Text = "Quality:";
-      // 
-      // QualityBox
-      // 
-      this.QualityBox.Name = "QualityBox";
-      this.QualityBox.Size = new System.Drawing.Size(15, 25);
-      this.QualityBox.Text = "9";
-      this.QualityBox.ToolTipText = "Quality";
-      this.QualityBox.Leave += new System.EventHandler(this.QualityBox_Leave);
-      this.QualityBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QualityBox_KeyDown);
       // 
       // MainForm
       // 
@@ -590,6 +601,7 @@
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     private System.Windows.Forms.ToolStripLabel toolStripLabel3;
     private System.Windows.Forms.ToolStripTextBox QualityBox;
+    private System.Windows.Forms.ToolStripButton InitializeMeteorShowerButton;
   }
 }
 

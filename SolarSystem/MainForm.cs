@@ -553,6 +553,8 @@ namespace SolarSystem
 
       if (Camera.Eye is PositionObject eye)
         eye.Position = new Point3D(Pluto.Position.x, Pluto.MaximumRadius * 5);
+
+      InitializeEquatorialCoordinateSystem(); 
     }
 
     private void MaxRenderRatioBox_Click(object sender, EventArgs e)
@@ -569,15 +571,16 @@ namespace SolarSystem
 
     private void TestEquatorialCoordinateSystem_Click(object sender, EventArgs e)
     {
-      if (Earth == null)
-      {
-        MessageBox.Show("Wait for earth to be initialized.");
-        return; 
-      }
-      Sun = AddSun();
+     
+    }
+
+    private void InitializeEquatorialCoordinateSystem()
+    {
       EquatorialCoordinateSystem equatorialCoordinateSystem = new EquatorialCoordinateSystem(Earth);
-      Earth.Position = equatorialCoordinateSystem.EarthPositionAtVernalEquinox;
-      Earth.RotationAxis = equatorialCoordinateSystem.SystemRotation; 
+      
+      foreach (IRenderable renderable in Scene.RenderableObjects)
+        if (renderable is Planet planet)
+          planet.RotationAxis = equatorialCoordinateSystem.PlanetQuaternion(planet.RightAscension, planet.Declination);      
     }
 
     private void TimeStepButton_Click(object sender, EventArgs e)
@@ -612,5 +615,6 @@ namespace SolarSystem
       if (e.KeyCode == Keys.Enter)
         SetQuality(); 
     }
+
   }
 }
