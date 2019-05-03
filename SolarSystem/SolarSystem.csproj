@@ -231,6 +231,9 @@
     <None Include="Resource\impact speed.cmap">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resource\mars.cmap">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resource\Mars.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

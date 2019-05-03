@@ -531,9 +531,9 @@ namespace SolarSystem
       Mercury = AddPlanet(SolarSystemPlanet.Mercury);
       Venus = AddPlanet(SolarSystemPlanet.Venus);
       Moon = AddPlanet(SolarSystemPlanet.Moon);
-      Moon.SetColorMap(new ColorMap("Moon"));    
+      Moon.SetColorMap(new ColorMap("Grayscale"));    
       Mars = AddPlanet(SolarSystemPlanet.Mars);
-      Mars.SetColorMap(new ColorMap("Step 1000"));
+      Mars.SetColorMap(new ColorMap("Mars"));
       Jupiter = AddPlanet(SolarSystemPlanet.Jupiter);
       Saturn = AddPlanet(SolarSystemPlanet.Saturn);
       Uranus = AddPlanet(SolarSystemPlanet.Uranus);
