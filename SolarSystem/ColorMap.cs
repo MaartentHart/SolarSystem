@@ -138,7 +138,6 @@ namespace SolarSystem
       }
     }
 
-
     public ColorFloat GetColor (double value)
     {
       if (Bands.Count == 0)

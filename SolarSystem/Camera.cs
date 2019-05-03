@@ -269,5 +269,10 @@ namespace SolarSystem
         Eye = Eye;
       }
     }
+
+    public double ViewRatio(Point3D position, double radius)
+    {
+      return (position - Eye.Position).Magnitude / radius * FieldOfViewRatio / height * 1000;
+    }
   }
 }

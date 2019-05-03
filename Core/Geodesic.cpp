@@ -412,18 +412,33 @@ void SquareGrid::Generate(GeodesicGrid*parent, char index /*0 to 9*/, unsigned s
 	}
 }
 
-void MipMapIndices::UpScale(unsigned short parentGeneration, unsigned int childGeneration)
+void MipMapIndices::UpScale(unsigned short parentGeneration, unsigned short childGeneration)
 {
 	for (int generation = parentGeneration; generation < childGeneration; generation++)
 	{
 		for (TriangleIndices&index : indices)
 		{
-			int a = GridCell(generation, index.a).Child(0).pointindex;
-			int b = GridCell(generation, index.b).Child(0).pointindex;
-			int c = GridCell(generation, index.c).Child(0).pointindex;
+			int a = UpScale(generation, index.a);
+			int b = UpScale(generation, index.b);
+			int c = UpScale(generation, index.c); 
 			index.Set(a, b, c); 
 		}
 	}
+}
+
+int MipMapIndices::UpScale(unsigned short parentGeneration, int pointIndex)
+{
+	int dummyIndex = GenerationFactor(parentGeneration) * 10;
+	if (pointIndex >= dummyIndex)
+	{
+		if (pointIndex == dummyIndex)
+			return GenerationFactor(parentGeneration + 1)*10;
+		else if (pointIndex == dummyIndex + 1)
+			return GenerationFactor(parentGeneration + 1)*10 + 1;
+		else
+			throw CException("Out of bounds");
+	}
+	return GridCell(parentGeneration, pointIndex).Child(0).pointindex;
 }
 
 GeodesicGrid::GeodesicGrid()
@@ -781,7 +796,7 @@ GridCell::GridCell(unsigned short Generation, int index)
 	unsigned long rem = index % PointsPerSquare();
 	row = rem / PointsPerRow();
 	column = rem % PointsPerRow();
-	InitializePointIndex(); 
+	pointindex = index; 
 }
 
 int GridCell::PointsPerSquare(unsigned short generation) const
@@ -1143,8 +1158,9 @@ GridCell DummyCell1(unsigned short generation)
 {
 	GridCell Dummy(generation);
 	Dummy.squaregrid = 10;
-	Dummy.InitializePointIndex();
-	return Dummy;
+	Dummy.pointindex = 10 * GenerationFactor(generation);
+
+	return Dummy; 
 }
 
 GridCell DummyCell2(unsigned short generation)
@@ -1152,7 +1168,7 @@ GridCell DummyCell2(unsigned short generation)
 	GridCell Dummy(generation);
 	Dummy.squaregrid = 10;
 	Dummy.column = 1;
-	Dummy.InitializePointIndex();
+	Dummy.pointindex = 10 * GenerationFactor(generation) + 1;
 	return Dummy;
 }
 

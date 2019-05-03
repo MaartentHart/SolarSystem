@@ -30,9 +30,7 @@ namespace SolarSystem
   /// </summary>
   public class Planet : IRenderable, IDisposable, IPositionObject
   {
-    public static float pointSize = 3;
-    public static double maxRenderRatio = 1000;
-
+    private static float pointSize = 3;
     private int id = -1;
     private bool on = true;
     private double previousExxageration = 0;
@@ -47,10 +45,12 @@ namespace SolarSystem
     private bool exxagerationChanged = true;
     private bool paintChanged = true;
     private bool changed = true;
-    private double rotationCalibration; 
+    private double rotationCalibration;
+
+    public static double MaxRenderRatio { get; set; } = 1000;
+    public static int MaximumDisplayGeneration { get; set; } = 9;
 
     public float PointSize { get => pointSize; set => pointSize = value; }
-    public int DisplayGeneration { get; set; } = 9; 
     public int Generation { get; }
     public SolarSystemPlanet PlanetID { get; }
     public CRenderableObject RenderableObject { get; } = new CRenderableObject();
@@ -333,14 +333,15 @@ namespace SolarSystem
 
       if (!On)
         return;
-      SetDetailLevel(camera);
 
       lock (locker)
       {
+        SetDetailLevel(camera);
         RenderPoint();
 
         //don't render if it's too far away. 
-        if ((Position - camera.Eye.Position).Magnitude / MaximumRadius * camera.FieldOfViewRatio < maxRenderRatio)
+        double ratio = camera.ViewRatio(Position, MaximumRadius);
+        if (ratio < MaxRenderRatio)
         {
           using (GlPushPop rotationPushPop = new GlPushPop())
           {
@@ -356,16 +357,33 @@ namespace SolarSystem
     {
       int indicesCount;
       IntPtr indices;
-      if (DisplayGeneration >= Generation || DisplayGeneration < 0)
+
+      int displayGeneration = Generation;
+
+      double ratio = camera.ViewRatio(Position, MaximumRadius);
+      double logRatio = Math.Log(ratio, 2);
+      int desiredQuality = 10 - Convert.ToInt32(Math.Floor(logRatio));
+
+      if (desiredQuality < displayGeneration)
+        displayGeneration = desiredQuality;
+
+      if (MaximumDisplayGeneration < displayGeneration)
+        displayGeneration = MaximumDisplayGeneration;
+
+      if (displayGeneration < 0)
+        displayGeneration = 0;
+
+      if (displayGeneration >= Generation)
       {
         indicesCount = CoreDll.GeodesicGridIndicesCount(Generation);
         indices = CoreDll.GeodesicGridIndices(Generation);
       }
       else
       {
-        indicesCount = CoreDll.GeodesicGridIndicesCount(DisplayGeneration);
-        indices = CoreDll.GeodesicGridMipMapIndices(Generation, DisplayGeneration);
+        indicesCount = CoreDll.GeodesicGridIndicesCount(displayGeneration);
+        indices = CoreDll.GeodesicGridMipMapIndices(Generation, displayGeneration);
       }
+
       RenderableObject.RenderGeometry.indices = indices;
       RenderableObject.RenderGeometry.indicesCount = indicesCount; 
     }

@@ -555,11 +555,11 @@ namespace SolarSystem
     {
       try
       {
-        Planet.maxRenderRatio = Convert.ToDouble(MaxRenderRatioBox.Text);
+        Planet.MaxRenderRatio = Convert.ToDouble(MaxRenderRatioBox.Text);
       }
       catch
       {
-        MaxRenderRatioBox.Text = Planet.maxRenderRatio.ToString(); 
+        MaxRenderRatioBox.Text = Planet.MaxRenderRatio.ToString(); 
       }
     }
 
@@ -583,16 +583,30 @@ namespace SolarSystem
       CoreDll.AddTimeStep(TimeStep); 
     }
 
-    private void MipMapTestButton_Click(object sender, EventArgs e)
+    private void QualityBox_Leave(object sender, EventArgs e)
     {
-      if (ActiveObject is Planet planet)
+      SetQuality();
+    }
+
+    private void SetQuality()
+    {
+      try
       {
-        int verticesCount = CoreDll.GeodesicGridVerticesCount(planet.Generation);
-        double[] values = new double[verticesCount];
-        for (int i = 0; i < verticesCount; i++)
-          values[i] = i; 
-        planet.SetColorMap(planet.ColorMap, values);
+        int quality = Convert.ToInt32(QualityBox.Text);
+        if (quality < 0 || quality > 9)
+          throw new Exception();
+        Scene.MaximumDisplayGeneration = quality; 
       }
+      catch
+      {
+        MessageBox.Show("Value must be between 0 and 9.");
+      }
+    }
+
+    private void QualityBox_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+        SetQuality(); 
     }
   }
 }

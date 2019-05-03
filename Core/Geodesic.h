@@ -136,7 +136,8 @@ struct SquareGrid{
 struct MipMapIndices
 {
 	std::vector<TriangleIndices> indices; 
-	void UpScale(unsigned short parentGeneration, unsigned int childGeneration);
+	void UpScale(unsigned short parentGeneration, unsigned short childGeneration);
+	int UpScale(unsigned short parentGeneration, int pointIndex); 
 };
 
 struct GeodesicGrid

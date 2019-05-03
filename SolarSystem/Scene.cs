@@ -11,14 +11,29 @@ namespace SolarSystem
 {
   public class Scene
   {
-    private float pointSize = 3; 
-    private static Scene mainScene; 
+    private int maximumDisplayGeneration = 9;
+    private float pointSize = 3;
+    private static Scene mainScene;
     private BackgroundWorker decorationBackgroundWorker;
-    private double exxageration = 0; 
+    private double exxageration = 0;
     private bool changed = false;
     private List<IRenderable> PreviousRenderableObjects { get; } = new List<IRenderable>();
     private List<ILight> PreviousLights { get; } = new List<ILight>();
 
+    public int MaximumDisplayGeneration
+    {
+      get => maximumDisplayGeneration; 
+      set
+      {
+        if (value == maximumDisplayGeneration)
+          return;
+        changed = true;
+
+        Planet.MaximumDisplayGeneration = value;
+        maximumDisplayGeneration = value;         
+      }
+    }
+     
     public Scene MainScene => mainScene;
     public bool IsMainScene => mainScene == this;  
     public List<ILight> Lights { get; } = new List<ILight>(); 
@@ -185,6 +200,7 @@ namespace SolarSystem
           System.Threading.Thread.Sleep(1); 
       }
     }
+
   }
 
   public interface IPositionObject
