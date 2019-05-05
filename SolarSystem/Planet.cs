@@ -236,9 +236,7 @@ namespace SolarSystem
         Point3D* normal = newNormals;
         //normalizing all the normals.
         for (int i = 0; i < verticesCount; i++, normal++)
-        {
           (*normal).Normalize();
-        }
       }
 
       DisposeVerticesNormals();

@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 
 namespace SolarSystem
 {
-  public class MeteorShower: IRenderable
+  public class MeteorShower: IRenderable, IDisposable
   {
-    public bool changed = false; 
+    public bool changed = false;
+    
+    public CPoint3DArray positions;
+    public CPoint3DArray velocities;
 
-    public Point3D[] positions;
-    public Point3D[] velocities;
-
+    public int MeteorCount { get; }
+    public int ID { get; }
     public float PointSize { get; set; }
     public bool On { get ; set; }
     public string Name { get; set; } = "Meteor Shower";
+    public CRenderGeometry RenderObject { get; }
 
     public bool Changed
     {
@@ -29,14 +32,40 @@ namespace SolarSystem
       set => changed = value;
     }
 
-    public MeteorShower (Point3D position, Point3D velocity, int generation, double minimumSpeed, double speedStep, int steps)
+    public MeteorShower (Point3D position, Point3D velocity, int generation, double minimumSpeed, double speedStep, int steps, double initialRadius = 1)
     {
       int verticesCount = CoreDll.GeodesicGridVerticesCount(generation);
-      int totalVerticesCount = verticesCount * steps + 1;
-      IntPtr geodesicGridVertices = CoreDll.GeodesicGridIndices(generation);
-      byte[] geodesicGridBytes = new byte[verticesCount*24];
-      Marshal.Copy(geodesicGridBytes, 0, geodesicGridVertices, verticesCount * 24);
+      IntPtr geodesicGridVertices = CoreDll.GeodesicGridVertices(generation);
+
+      using (CPoint3DArray source = new CPoint3DArray(verticesCount, geodesicGridVertices, false))
+      {
+        MeteorCount = verticesCount * steps + 1;
+
+        positions = new CPoint3DArray(MeteorCount);
+        velocities = new CPoint3DArray(MeteorCount);
+        for (int step = 0; step < steps; step++)
+        {
+          positions.CopyRange(source, 0, step * verticesCount, verticesCount);
+          using (CPoint3DArray scaledVertices = new CPoint3DArray(verticesCount, source.Ptr, true))
+          {
+            double speed = minimumSpeed + speedStep * step;
+            scaledVertices.Scale(speed);
+            scaledVertices.Move(velocity);
+            velocities.CopyRange(scaledVertices, 0, step * verticesCount, verticesCount);
+          }
+        }
+        positions.Scale(initialRadius);
+        positions.Move(position); 
+      }
+      CoreDll.AddFallingObject(positions.Ptr, velocities.Ptr, MeteorCount);
+
+      RenderObject = new CRenderGeometry
+      {
+        vertices = positions.Ptr
+      };
+
       throw new NotImplementedException(); 
+
     }
 
     public void Render(Camera camera)
@@ -51,7 +80,14 @@ namespace SolarSystem
 
     public void TimeUpdate()
     {
-      throw new NotImplementedException();
+      
+    }
+
+    public void Dispose()
+    {
+      CoreDll.RemoveFallingObject(ID); 
+      positions?.Dispose();
+      velocities?.Dispose(); 
     }
   }
 }

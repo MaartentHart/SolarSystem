@@ -637,9 +637,10 @@ namespace SolarSystem
       using (MeteoriteInitializationForm form = new MeteoriteInitializationForm())
       {
         if (form.ShowDialog() != DialogResult.OK)
-          return; 
-        
+          return;
 
+        MeteorShower meteorShower = new MeteorShower(form.position, form.velocity, form.generation, form.minimumSpeed, form.speedStep, form.steps, form.initialRadius);
+        Scene.RenderableObjects.Add(meteorShower); 
       }
     }
   }

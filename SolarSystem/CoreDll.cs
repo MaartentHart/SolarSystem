@@ -103,9 +103,19 @@ namespace SolarSystem
     [DllImport("Core.dll", EntryPoint = "ClearFallingObjects", CallingConvention = CallingConvention.Cdecl)]
     static public extern void ClearFallingObjects();
 
+    /// <summary>
+    /// Adds an array of points that will be affected by gravity. 
+    /// </summary>
+    /// <param name="points">A c++ pointer to a Point3D array</param>
+    /// <param name="velocities">A c++ pointer to a Point3D vector</param>
+    /// <param name="pointCount">The amount of points.</param>
+    /// <returns>The ID of the object, which can be used to remove the falling object later.</returns>
     [DllImport("Core.dll", EntryPoint = "AddFallingObject", CallingConvention = CallingConvention.Cdecl)]
-    static public extern void AddFallingObject(Point3D[] points, Point3D[] velocities, int pointCount);
+    static public extern int AddFallingObject(IntPtr positions, IntPtr velocities, int pointCount);
 
+    [DllImport("Core.dll", EntryPoint = "RemoveFallingObject", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void RemoveFallingObject(int id);
+    
     [DllImport("Core.dll", EntryPoint = "Run", CallingConvention = CallingConvention.Cdecl)]
     static public extern void Run(bool run);
 

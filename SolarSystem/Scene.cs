@@ -38,7 +38,7 @@ namespace SolarSystem
     public bool IsMainScene => mainScene == this;  
     public List<ILight> Lights { get; } = new List<ILight>(); 
     public List<IRenderable> RenderableObjects { get; } = new List<IRenderable>();
-    public List<GravityObject> GravityObjects { get; } = new List<GravityObject>();
+
     public float PointSize
     {
       get => pointSize;

@@ -17,7 +17,8 @@ namespace SolarSystem
     public int generation = 5;
     public double minimumSpeed = 1;
     public double speedStep = 1;
-    public int steps = 10; 
+    public int steps = 10;
+    public double initialRadius = 1.0; 
 
     public MeteoriteInitializationForm()
     {
@@ -34,10 +35,11 @@ namespace SolarSystem
         velocity = new Point3D(Convert.ToDouble(VelocityXBox.Text),
           Convert.ToDouble(VelocityYBox.Text),
           Convert.ToDouble(VelocityZBox.Text));
-        generation = Convert.ToInt32(DetailLevelBox.Text);
+        generation = Convert.ToInt32(DetailLevelTrackBar.Value);
         minimumSpeed = Convert.ToDouble(MinimumSpeedBox.Text);
         speedStep = Convert.ToDouble(SpeedStepBox.Text);
-        steps = Convert.ToInt32(StepsBox.Text); 
+        steps = Convert.ToInt32(StepsBox.Text);
+        initialRadius = Convert.ToDouble(InitialRadiusBox.Text); 
       }
       catch
       {

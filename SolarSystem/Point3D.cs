@@ -40,7 +40,7 @@ namespace SolarSystem
       }
     }
 
-    public Point3D(double x=0, double y=0, double z=0)
+    public Point3D(double x = 0, double y = 0, double z = 0)
     {
       this.x = x;
       this.y = y;
@@ -51,7 +51,7 @@ namespace SolarSystem
     {
       x = other.x;
       y = other.y;
-      z = other.z; 
+      z = other.z;
     }
 
     public static Point3D operator -(Point3D A)
@@ -96,7 +96,7 @@ namespace SolarSystem
 
     public void Normalize()
     {
-      this /= Magnitude; 
+      this /= Magnitude;
     }
 
     public Point3D Cross(Point3D other)
@@ -106,7 +106,7 @@ namespace SolarSystem
 
     public double Dot(Point3D other)
     {
-      return x * other.x + y * other.y + z * other.z; 
+      return x * other.x + y * other.y + z * other.z;
     }
 
     public override bool Equals(object obj)
@@ -160,7 +160,7 @@ namespace SolarSystem
       int i = 0;
       int j = 0;
 
-      Point3D current = new Point3D(); 
+      Point3D current = new Point3D();
 
       foreach (double vertex in vertices)
       {
@@ -168,18 +168,17 @@ namespace SolarSystem
         if (j == 1)
           current.x = vertex;
         else if (j == 2)
-          current.y = vertex; 
+          current.y = vertex;
         if (j == 3)
         {
           current.z = vertex;
           result[i++] = current;
-          j = 0; 
-          current = new Point3D(); 
+          j = 0;
+          current = new Point3D();
         }
       }
 
-      return result; 
+      return result;
     }
-  }
-  
+  } 
 }

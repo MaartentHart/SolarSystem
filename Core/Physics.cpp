@@ -7,6 +7,7 @@ GravityAffectedObject::GravityAffectedObject(Point3D * position, Point3D * veloc
 	this->position = position;
 	this->velocity = velocity;
 	this->count = count; 
+	disposed = false; 
 }
 
 Point3D & GravityAffectedObject::Position(int index)
@@ -26,6 +27,8 @@ double GravityAffectedObject::Speed()
 
 void GravityAffectedObject::MoveByGravity(std::vector<Planet*>& gravitySources, double seconds)
 {
+	if (disposed)
+		return; 
 	for (std::vector<Planet*>::iterator planet = gravitySources.begin(); planet < gravitySources.end(); ++planet)
 		PullGravity(*planet, seconds);
 	Move(seconds);
@@ -33,6 +36,8 @@ void GravityAffectedObject::MoveByGravity(std::vector<Planet*>& gravitySources, 
 
 void GravityAffectedObject::PullGravity(Planet * planet, double seconds)
 {
+	if (disposed)
+		return;
 	Point3D *position = this->position;
 	Point3D *velocity = this->velocity;
 	for (int i = 0; i<count ; i++, velocity++, position++)
@@ -47,6 +52,8 @@ Point3D GravityAffectedObject::PullGravity(const Point3D & gravityPosition, doub
 
 void GravityAffectedObject::Move(double seconds)
 {
+	if (disposed)
+		return; 
 	for (int i =0; i<count; i++)
 		position[i] += velocity[i] * seconds;
 }

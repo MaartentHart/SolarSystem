@@ -50,7 +50,8 @@ extern "C"
 	//Simulation
 	//initialize simulation
 	DLL void __cdecl ClearFallingObjects(); 
-	DLL void __cdecl AddFallingObject(Point3D*points, Point3D*velocities, int pointCount);
+	DLL int __cdecl AddFallingObject(Point3D*positions, Point3D*velocities, int pointCount);
+	DLL void __cdecl RemoveFallingObject(int id);
 	DLL void __cdecl Run(bool run);
 	DLL void __cdecl SetTimeStep(double timeStep);
 	//add a single time step. 

@@ -211,9 +211,16 @@ void ClearFallingObjects()
 	gravityObjects.clear(); 
 }
 
-void AddFallingObject(Point3D*points, Point3D*velocities, int pointCount)
+int AddFallingObject(Point3D*positions, Point3D*velocities, int pointCount)
 {
-	gravityObjects.push_back(GravityAffectedObject(points, velocities, pointCount));
+	int id = gravityObjects.size(); 
+	gravityObjects.push_back(GravityAffectedObject(positions, velocities, pointCount));
+	return id; 
+}
+
+void RemoveFallingObject(int id)
+{
+	gravityObjects[id].disposed = true; 
 }
 
 void Run(bool run)

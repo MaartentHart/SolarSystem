@@ -4,6 +4,7 @@
 
 struct GravityAffectedObject
 {
+	bool disposed; 
 	Point3D* position;
 	Point3D* velocity;
 	int count; 

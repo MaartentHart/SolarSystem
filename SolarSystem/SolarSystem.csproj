@@ -91,20 +91,21 @@
   <ItemGroup>
     <Compile Include="BoundingBox.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="CelestialPropertiesForm.cs">
+    <Compile Include="Controls\CelestialPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CelestialPropertiesForm.Designer.cs">
+    <Compile Include="Controls\CelestialPropertiesForm.Designer.cs">
       <DependentUpon>CelestialPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ColorMap.cs" />
-    <Compile Include="ColorMapForm.cs">
+    <Compile Include="Controls\ColorMapForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ColorMapForm.Designer.cs">
+    <Compile Include="Controls\ColorMapForm.Designer.cs">
       <DependentUpon>ColorMapForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CoreDll.cs" />
+    <Compile Include="CPoint3DArray.cs" />
     <Compile Include="Debugging\DateTesterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,29 +127,28 @@
     </Compile>
     <Compile Include="EquatorialCoordinateSystem.cs" />
     <Compile Include="ErrorLog.cs" />
-    <Compile Include="GlControlExtended.cs">
+    <Compile Include="Controls\GlControlExtended.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GlView.cs">
+    <Compile Include="Controls\GlView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GlView.Designer.cs">
+    <Compile Include="Controls\GlView.Designer.cs">
       <DependentUpon>GlView.cs</DependentUpon>
     </Compile>
-    <Compile Include="GravityObject.cs" />
     <Compile Include="HeightMap.cs" />
     <Compile Include="HistoricDateTime.cs" />
-    <Compile Include="MeteoriteInitializationForm.cs">
+    <Compile Include="Controls\MeteoriteInitializationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MeteoriteInitializationForm.Designer.cs">
+    <Compile Include="Controls\MeteoriteInitializationForm.Designer.cs">
       <DependentUpon>MeteoriteInitializationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Light.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Controls\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Controls\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MeteorShower.cs" />
@@ -166,19 +166,25 @@
     <Compile Include="Rotation.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Shader.cs" />
-    <Compile Include="SplashScreen.cs">
+    <Compile Include="Controls\SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SplashScreen.Designer.cs">
+    <Compile Include="Controls\SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="StringValueAttribute.cs" />
+    <Compile Include="Controls\TextBoxTrackBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxTrackBar.Designer.cs">
+      <DependentUpon>TextBoxTrackBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Translation.cs" />
     <Compile Include="Triad.cs" />
-    <EmbeddedResource Include="CelestialPropertiesForm.resx">
+    <EmbeddedResource Include="Controls\CelestialPropertiesForm.resx">
       <DependentUpon>CelestialPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ColorMapForm.resx">
+    <EmbeddedResource Include="Controls\ColorMapForm.resx">
       <DependentUpon>ColorMapForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Debugging\DateTesterForm.resx">
@@ -190,16 +196,16 @@
     <EmbeddedResource Include="Debugging\RotationTest.resx">
       <DependentUpon>RotationTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlControlExtended.resx">
+    <EmbeddedResource Include="Controls\GlControlExtended.resx">
       <DependentUpon>GlControlExtended.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlView.resx">
+    <EmbeddedResource Include="Controls\GlView.resx">
       <DependentUpon>GlView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Controls\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MeteoriteInitializationForm.resx">
+    <EmbeddedResource Include="Controls\MeteoriteInitializationForm.resx">
       <DependentUpon>MeteoriteInitializationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -212,8 +218,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SplashScreen.resx">
+    <EmbeddedResource Include="Controls\SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TextBoxTrackBar.resx">
+      <DependentUpon>TextBoxTrackBar.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Documentation\Geodesic grid 18apr2015.docx" />
     <None Include="packages.config" />

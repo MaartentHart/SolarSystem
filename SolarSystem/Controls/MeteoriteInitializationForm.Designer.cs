@@ -32,9 +32,9 @@
       this.label2 = new System.Windows.Forms.Label();
       this.label3 = new System.Windows.Forms.Label();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.PositionXBox = new System.Windows.Forms.TextBox();
-      this.PositionYBox = new System.Windows.Forms.TextBox();
       this.PositionZBox = new System.Windows.Forms.TextBox();
+      this.PositionYBox = new System.Windows.Forms.TextBox();
+      this.PositionXBox = new System.Windows.Forms.TextBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.VelocityZBox = new System.Windows.Forms.TextBox();
       this.VelocityYBox = new System.Windows.Forms.TextBox();
@@ -43,16 +43,17 @@
       this.label5 = new System.Windows.Forms.Label();
       this.label6 = new System.Windows.Forms.Label();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.DetailLevelTrackBar = new SolarSystem.TextBoxTrackBar();
+      this.label10 = new System.Windows.Forms.Label();
+      this.StepsBox = new System.Windows.Forms.TextBox();
       this.SpeedStepBox = new System.Windows.Forms.TextBox();
       this.MinimumSpeedBox = new System.Windows.Forms.TextBox();
-      this.DetailLevelBox = new System.Windows.Forms.TextBox();
-      this.label7 = new System.Windows.Forms.Label();
       this.label8 = new System.Windows.Forms.Label();
       this.label9 = new System.Windows.Forms.Label();
-      this.StepsBox = new System.Windows.Forms.TextBox();
-      this.label10 = new System.Windows.Forms.Label();
       this.OKButton = new System.Windows.Forms.Button();
       this.Cancel_Button = new System.Windows.Forms.Button();
+      this.label7 = new System.Windows.Forms.Label();
+      this.InitialRadiusBox = new System.Windows.Forms.TextBox();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.groupBox3.SuspendLayout();
@@ -100,13 +101,13 @@
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Position";
       // 
-      // PositionXBox
+      // PositionZBox
       // 
-      this.PositionXBox.Location = new System.Drawing.Point(26, 13);
-      this.PositionXBox.Name = "PositionXBox";
-      this.PositionXBox.Size = new System.Drawing.Size(100, 20);
-      this.PositionXBox.TabIndex = 3;
-      this.PositionXBox.Text = "149600000";
+      this.PositionZBox.Location = new System.Drawing.Point(26, 72);
+      this.PositionZBox.Name = "PositionZBox";
+      this.PositionZBox.Size = new System.Drawing.Size(100, 20);
+      this.PositionZBox.TabIndex = 5;
+      this.PositionZBox.Text = "0";
       // 
       // PositionYBox
       // 
@@ -116,13 +117,13 @@
       this.PositionYBox.TabIndex = 4;
       this.PositionYBox.Text = "0";
       // 
-      // PositionZBox
+      // PositionXBox
       // 
-      this.PositionZBox.Location = new System.Drawing.Point(26, 72);
-      this.PositionZBox.Name = "PositionZBox";
-      this.PositionZBox.Size = new System.Drawing.Size(100, 20);
-      this.PositionZBox.TabIndex = 5;
-      this.PositionZBox.Text = "0";
+      this.PositionXBox.Location = new System.Drawing.Point(26, 13);
+      this.PositionXBox.Name = "PositionXBox";
+      this.PositionXBox.Size = new System.Drawing.Size(100, 20);
+      this.PositionXBox.TabIndex = 3;
+      this.PositionXBox.Text = "149600000";
       // 
       // groupBox2
       // 
@@ -145,7 +146,7 @@
       this.VelocityZBox.Name = "VelocityZBox";
       this.VelocityZBox.Size = new System.Drawing.Size(100, 20);
       this.VelocityZBox.TabIndex = 5;
-      this.VelocityZBox.Text = "0";
+      this.VelocityZBox.Text = "0.0";
       // 
       // VelocityYBox
       // 
@@ -153,7 +154,7 @@
       this.VelocityYBox.Name = "VelocityYBox";
       this.VelocityYBox.Size = new System.Drawing.Size(100, 20);
       this.VelocityYBox.TabIndex = 4;
-      this.VelocityYBox.Text = "30";
+      this.VelocityYBox.Text = "30.0";
       // 
       // VelocityXBox
       // 
@@ -161,7 +162,7 @@
       this.VelocityXBox.Name = "VelocityXBox";
       this.VelocityXBox.Size = new System.Drawing.Size(100, 20);
       this.VelocityXBox.TabIndex = 3;
-      this.VelocityXBox.Text = "0";
+      this.VelocityXBox.Text = "0.0";
       // 
       // label4
       // 
@@ -192,58 +193,74 @@
       // 
       // groupBox3
       // 
+      this.groupBox3.Controls.Add(this.label7);
+      this.groupBox3.Controls.Add(this.InitialRadiusBox);
+      this.groupBox3.Controls.Add(this.DetailLevelTrackBar);
       this.groupBox3.Controls.Add(this.label10);
       this.groupBox3.Controls.Add(this.StepsBox);
       this.groupBox3.Controls.Add(this.SpeedStepBox);
       this.groupBox3.Controls.Add(this.MinimumSpeedBox);
-      this.groupBox3.Controls.Add(this.DetailLevelBox);
-      this.groupBox3.Controls.Add(this.label7);
       this.groupBox3.Controls.Add(this.label8);
       this.groupBox3.Controls.Add(this.label9);
-      this.groupBox3.Location = new System.Drawing.Point(12, 253);
+      this.groupBox3.Location = new System.Drawing.Point(12, 251);
       this.groupBox3.Name = "groupBox3";
-      this.groupBox3.Size = new System.Drawing.Size(205, 129);
+      this.groupBox3.Size = new System.Drawing.Size(414, 179);
       this.groupBox3.TabIndex = 8;
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Explosion properties";
       // 
+      // DetailLevelTrackBar
+      // 
+      this.DetailLevelTrackBar.AllowOutOfBounds = true;
+      this.DetailLevelTrackBar.ForceInteger = true;
+      this.DetailLevelTrackBar.Location = new System.Drawing.Point(6, 19);
+      this.DetailLevelTrackBar.Maximum = 9D;
+      this.DetailLevelTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.DetailLevelTrackBar.Minimum = 0D;
+      this.DetailLevelTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.DetailLevelTrackBar.Name = "DetailLevelTrackBar";
+      this.DetailLevelTrackBar.Size = new System.Drawing.Size(402, 25);
+      this.DetailLevelTrackBar.TabIndex = 8;
+      this.DetailLevelTrackBar.Title = "Detail Level";
+      this.DetailLevelTrackBar.Value = 5D;
+      // 
+      // label10
+      // 
+      this.label10.AutoSize = true;
+      this.label10.Location = new System.Drawing.Point(7, 115);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(34, 13);
+      this.label10.TabIndex = 7;
+      this.label10.Text = "Steps";
+      // 
+      // StepsBox
+      // 
+      this.StepsBox.Location = new System.Drawing.Point(93, 112);
+      this.StepsBox.Name = "StepsBox";
+      this.StepsBox.Size = new System.Drawing.Size(100, 20);
+      this.StepsBox.TabIndex = 6;
+      this.StepsBox.Text = "10";
+      // 
       // SpeedStepBox
       // 
-      this.SpeedStepBox.Location = new System.Drawing.Point(92, 65);
+      this.SpeedStepBox.Location = new System.Drawing.Point(93, 84);
       this.SpeedStepBox.Name = "SpeedStepBox";
       this.SpeedStepBox.Size = new System.Drawing.Size(100, 20);
       this.SpeedStepBox.TabIndex = 5;
-      this.SpeedStepBox.Text = "1";
+      this.SpeedStepBox.Text = "1.0";
       // 
       // MinimumSpeedBox
       // 
-      this.MinimumSpeedBox.Location = new System.Drawing.Point(92, 39);
+      this.MinimumSpeedBox.Location = new System.Drawing.Point(93, 58);
       this.MinimumSpeedBox.Name = "MinimumSpeedBox";
       this.MinimumSpeedBox.Size = new System.Drawing.Size(100, 20);
       this.MinimumSpeedBox.TabIndex = 4;
-      this.MinimumSpeedBox.Text = "1";
-      // 
-      // DetailLevelBox
-      // 
-      this.DetailLevelBox.Location = new System.Drawing.Point(92, 13);
-      this.DetailLevelBox.Name = "DetailLevelBox";
-      this.DetailLevelBox.Size = new System.Drawing.Size(100, 20);
-      this.DetailLevelBox.TabIndex = 3;
-      this.DetailLevelBox.Text = "5";
-      // 
-      // label7
-      // 
-      this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(6, 16);
-      this.label7.Name = "label7";
-      this.label7.Size = new System.Drawing.Size(59, 13);
-      this.label7.TabIndex = 0;
-      this.label7.Text = "Detail level";
+      this.MinimumSpeedBox.Text = "1.0";
       // 
       // label8
       // 
       this.label8.AutoSize = true;
-      this.label8.Location = new System.Drawing.Point(6, 42);
+      this.label8.Location = new System.Drawing.Point(7, 61);
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(80, 13);
       this.label8.TabIndex = 1;
@@ -252,33 +269,16 @@
       // label9
       // 
       this.label9.AutoSize = true;
-      this.label9.Location = new System.Drawing.Point(6, 68);
+      this.label9.Location = new System.Drawing.Point(7, 87);
       this.label9.Name = "label9";
       this.label9.Size = new System.Drawing.Size(61, 13);
       this.label9.TabIndex = 2;
       this.label9.Text = "Speed step";
       // 
-      // StepsBox
-      // 
-      this.StepsBox.Location = new System.Drawing.Point(92, 93);
-      this.StepsBox.Name = "StepsBox";
-      this.StepsBox.Size = new System.Drawing.Size(100, 20);
-      this.StepsBox.TabIndex = 6;
-      this.StepsBox.Text = "10";
-      // 
-      // label10
-      // 
-      this.label10.AutoSize = true;
-      this.label10.Location = new System.Drawing.Point(6, 96);
-      this.label10.Name = "label10";
-      this.label10.Size = new System.Drawing.Size(34, 13);
-      this.label10.TabIndex = 7;
-      this.label10.Text = "Steps";
-      // 
       // OKButton
       // 
       this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.OKButton.Location = new System.Drawing.Point(61, 390);
+      this.OKButton.Location = new System.Drawing.Point(264, 436);
       this.OKButton.Name = "OKButton";
       this.OKButton.Size = new System.Drawing.Size(75, 23);
       this.OKButton.TabIndex = 9;
@@ -289,18 +289,35 @@
       // Cancel_Button
       // 
       this.Cancel_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.Cancel_Button.Location = new System.Drawing.Point(142, 390);
+      this.Cancel_Button.Location = new System.Drawing.Point(345, 436);
       this.Cancel_Button.Name = "Cancel_Button";
       this.Cancel_Button.Size = new System.Drawing.Size(75, 23);
       this.Cancel_Button.TabIndex = 10;
       this.Cancel_Button.Text = "Cancel";
       this.Cancel_Button.UseVisualStyleBackColor = true;
       // 
+      // label7
+      // 
+      this.label7.AutoSize = true;
+      this.label7.Location = new System.Drawing.Point(7, 141);
+      this.label7.Name = "label7";
+      this.label7.Size = new System.Drawing.Size(67, 13);
+      this.label7.TabIndex = 10;
+      this.label7.Text = "Initial Radius";
+      // 
+      // InitialRadiusBox
+      // 
+      this.InitialRadiusBox.Location = new System.Drawing.Point(93, 138);
+      this.InitialRadiusBox.Name = "InitialRadiusBox";
+      this.InitialRadiusBox.Size = new System.Drawing.Size(100, 20);
+      this.InitialRadiusBox.TabIndex = 9;
+      this.InitialRadiusBox.Text = "1.0";
+      // 
       // MeteoriteInitializationForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(228, 425);
+      this.ClientSize = new System.Drawing.Size(442, 461);
       this.Controls.Add(this.Cancel_Button);
       this.Controls.Add(this.OKButton);
       this.Controls.Add(this.groupBox3);
@@ -339,11 +356,12 @@
     private System.Windows.Forms.TextBox StepsBox;
     private System.Windows.Forms.TextBox SpeedStepBox;
     private System.Windows.Forms.TextBox MinimumSpeedBox;
-    private System.Windows.Forms.TextBox DetailLevelBox;
-    private System.Windows.Forms.Label label7;
     private System.Windows.Forms.Label label8;
     private System.Windows.Forms.Label label9;
     private System.Windows.Forms.Button OKButton;
     private System.Windows.Forms.Button Cancel_Button;
+    private TextBoxTrackBar DetailLevelTrackBar;
+    private System.Windows.Forms.Label label7;
+    private System.Windows.Forms.TextBox InitialRadiusBox;
   }
 }
