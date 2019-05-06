@@ -174,7 +174,6 @@
       this.GlControlExtended.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
       camera2.Changed = false;
       camera2.FieldOfView = 25D;
-      camera2.LockDistance = false;
       camera2.ViewDistance = 10D;
       camera2.ViewRadius = 10D;
       this.GlControlExtended.Camera = camera2;

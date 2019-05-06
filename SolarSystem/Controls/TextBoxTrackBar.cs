@@ -12,10 +12,33 @@ namespace SolarSystem
 {
   public partial class TextBoxTrackBar : UserControl
   {
+    private bool quadratic = false;
+    private bool fourthPower = false; 
     private double minimum = 0;
     private double maximum = 10;
     private double value = 0;
 
+    public bool Quadratic {
+      get => quadratic;
+      set
+      {
+        quadratic = value;
+        if (quadratic)
+          fourthPower = false; 
+        SetTrackBar(); 
+      }
+    }
+    public bool FourthPower
+    {
+      get => fourthPower;
+      set
+      {
+        fourthPower = value;
+        if (fourthPower)
+          quadratic = false;
+        SetTrackBar(); 
+      }
+    }
     public bool ForceInteger { get; set; } = false; 
     public bool AllowOutOfBounds { get; set; } = true; 
     public string Title { get => TitleLabel.Text; set =>TitleLabel.Text = value; }
@@ -59,7 +82,19 @@ namespace SolarSystem
 
     private void SetTrackBar()
     {
-      double position = (value - minimum) / (maximum - minimum) * 1000;
+      double position = (value - minimum) / (maximum - minimum);
+
+      if (Quadratic)
+        position = Math.Sqrt(position);
+
+      if (FourthPower)
+      {
+        position = Math.Sqrt(position);
+        position = Math.Sqrt(position); 
+      }
+
+      position *= 1000; 
+
       if (position < 0)
         position = 0;
       if (position > 1000)
@@ -102,6 +137,13 @@ namespace SolarSystem
     private void TrackBar_Scroll(object sender, EventArgs e)
     {
       double Position = TrackBar.Value / 1000.0;
+      if (quadratic)
+        Position *= Position; 
+      if (fourthPower)
+      {
+        Position *= Position;
+        Position *= Position;
+      }
       Value = Minimum + (Maximum - Minimum) * Position; 
     }
   }

@@ -75,9 +75,12 @@ namespace SolarSystem
       splashScreen.Show(); 
       InitializeComponent();
 
-      InitializeEarth(null, null); 
+      //InitializeEarth(null, null); 
+      InitializePlanets(); 
       TimeStep = 1.0 / 86400;
       Scene.SetAsMainScene();
+      SetDateTime(new HistoricDateTime(0));
+      GlView.Lookat(Earth, Earth.Name);
       splashScreen.Close();
       splashScreen.Dispose(); 
     }
@@ -213,13 +216,6 @@ namespace SolarSystem
       ExxagerationTextBox.Text = exxageration.ToString();
 
       Exxageration = exxageration;  
-    }
-
-    private void ExxagerationBar_MouseUp(object sender, MouseEventArgs e)
-    {
-      if (e.Button != MouseButtons.Left)
-        return;
-
     }
 
     private void ExxagerationTextBox_Apply(object sender, EventArgs e)
@@ -438,6 +434,7 @@ namespace SolarSystem
       if (SimulationRunning)
       {
         TimeLockButton.Enabled = false;
+        InitializeMeteorShowerButton.Enabled = false; 
         DeleteMeteorShowerButton.Enabled = false; 
         SetTimeLock(false);
         SimulationWorker.DoWork -= Simulate;
@@ -449,6 +446,7 @@ namespace SolarSystem
       {
         PlayPauseButton.Image = Properties.Resources.Play;
         TimeLockButton.Enabled = true;
+        InitializeMeteorShowerButton.Enabled = false; 
         DeleteMeteorShowerButton.Enabled = true; 
         CoreDll.Run(false); 
         while (!SimulationWorkerReady)
@@ -521,12 +519,17 @@ namespace SolarSystem
 
     private void InitializePlanets_Click(object sender, EventArgs e)
     {
-      if (Earth == null)
-      {
-        MessageBox.Show("Wait for earth to initialize first.");
-        return; 
-      }
-      
+      InitializePlanets(); 
+    }
+
+    private void InitializePlanets()
+    { 
+      //if (Earth == null)
+      //{
+      //  MessageBox.Show("Wait for earth to initialize first.");
+      //  return; 
+      //}
+      InitializeEarth(null,null); 
       Sun = AddSun();
       Mercury = AddPlanet(SolarSystemPlanet.Mercury);
       Venus = AddPlanet(SolarSystemPlanet.Venus);
@@ -634,12 +637,31 @@ namespace SolarSystem
 
     private void InitializeMeteorShowerButton_Click(object sender, EventArgs e)
     {
-      using (MeteoriteInitializationForm form = new MeteoriteInitializationForm())
+      using (MeteoriteInitializationForm form = new MeteoriteInitializationForm(Scene))
       {
         if (form.ShowDialog() != DialogResult.OK)
           return;
 
         MeteorShower meteorShower = new MeteorShower(form.position, form.velocity, form.generation, form.minimumSpeed, form.speedStep, form.steps, form.initialRadius);
+
+        //give meteor shower a unique name. 
+        int i = 0;
+        bool ok = false;
+        while (!ok)
+        {
+          ok = true; 
+          foreach (IRenderable renderable in Scene.RenderableObjects)
+          {
+            if (renderable.Name == meteorShower.Name)
+            {
+              i++;
+              meteorShower.Name = "Meteor Shower " + i.ToString();
+              ok = false;
+              break; 
+            }
+          }
+        }
+
         Scene.RenderableObjects.Add(meteorShower); 
       }
     }

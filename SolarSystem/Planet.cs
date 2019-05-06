@@ -239,10 +239,9 @@ namespace SolarSystem
           (*normal).Normalize();
       }
 
-      DisposeVerticesNormals();
-
       lock (locker)
       {
+        DisposeVerticesNormals();
         unmanagedVerticesNormals = true;
         vertices = newVerticesPointer;
         normals = newNormalsPointer;

@@ -16,7 +16,7 @@ namespace SolarSystem
     private int height; 
     private bool changed = false;
     private double near = 0.001;
-    private double far = 1000.0;
+    private double far = 100000.0;
     private IPositionObject target = new PositionObject(0, 0, 0);
     private IPositionObject eye = new PositionObject(10, 0, 0);
 
@@ -59,7 +59,7 @@ namespace SolarSystem
       {
         ViewDistance = value;
         near = 0.001 * value;
-        far = 1000.0 * value;
+        far = 100000.0 * value;
       }
       get => ViewDistance; 
     }
@@ -254,7 +254,7 @@ namespace SolarSystem
         //force an update.
         Eye = Eye;
       }
-      LockDirection = Eye.Position - Target.Position;
+      UpdateLockDirection(); 
     }
 
     public void Lookat(IPositionObject target)
@@ -267,6 +267,7 @@ namespace SolarSystem
         direction *= (viewDistance / direction.Magnitude);
         eye.Position = Target.Position + direction;
         Eye = Eye;
+        UpdateLockDirection(); 
       }
     }
 

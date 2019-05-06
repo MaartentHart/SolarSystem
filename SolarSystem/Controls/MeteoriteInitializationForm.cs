@@ -12,17 +12,27 @@ namespace SolarSystem
 {
   public partial class MeteoriteInitializationForm : Form
   {
+    private Scene scene; 
     public Point3D position = new Point3D();
     public Point3D velocity = new Point3D();
     public int generation = 5;
     public double minimumSpeed = 1;
     public double speedStep = 1;
     public int steps = 10;
-    public double initialRadius = 1.0; 
+    public double initialRadius = 1.0;
 
-    public MeteoriteInitializationForm()
+    public MeteoriteInitializationForm(Scene scene)
     {
       InitializeComponent();
+
+      DistanceToBox.Items.Clear();
+      foreach (IRenderable renderable in scene.RenderableObjects)
+        if (renderable is Planet planet)
+          DistanceToBox.Items.Add(renderable.Name);
+
+      if (DistanceToBox.Items.Count>0)
+        DistanceToBox.Text = DistanceToBox.Items[0].ToString();
+      
     }
 
     private void OKButton_Click(object sender, EventArgs e)

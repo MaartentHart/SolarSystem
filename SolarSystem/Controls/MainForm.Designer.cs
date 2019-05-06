@@ -36,10 +36,11 @@
       this.ExxagerationGroupBox = new System.Windows.Forms.GroupBox();
       this.SceneContentBox = new System.Windows.Forms.CheckedListBox();
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+      this.InitializeMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
+      this.DeleteMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
       this.ColorMapButton = new System.Windows.Forms.ToolStripButton();
       this.PropertiesBoxButton = new System.Windows.Forms.ToolStripButton();
-      this.InitializePlanets = new System.Windows.Forms.ToolStripButton();
-      this.InitializeMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
+      this.InitializePlanetsButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.TimeLockButton = new System.Windows.Forms.ToolStripButton();
       this.DayBox = new System.Windows.Forms.ToolStripTextBox();
@@ -82,7 +83,6 @@
       this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
       this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
       this.GlView = new SolarSystem.GlView();
-      this.DeleteMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -104,7 +104,6 @@
       this.ExxagerationBar.TickFrequency = 1000;
       this.ExxagerationBar.Value = 1000;
       this.ExxagerationBar.Scroll += new System.EventHandler(this.ExxagerationBar_Scroll);
-      this.ExxagerationBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ExxagerationBar_MouseUp);
       // 
       // ExxagerationTextBox
       // 
@@ -142,11 +141,11 @@
       // toolStrip1
       // 
       this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ColorMapButton,
-            this.PropertiesBoxButton,
-            this.InitializePlanets,
             this.InitializeMeteorShowerButton,
             this.DeleteMeteorShowerButton,
+            this.ColorMapButton,
+            this.PropertiesBoxButton,
+            this.InitializePlanetsButton,
             this.toolStripSeparator1,
             this.TimeLockButton,
             this.DayBox,
@@ -176,6 +175,26 @@
       this.toolStrip1.TabIndex = 19;
       this.toolStrip1.Text = "toolStrip1";
       // 
+      // InitializeMeteorShowerButton
+      // 
+      this.InitializeMeteorShowerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.InitializeMeteorShowerButton.Image = ((System.Drawing.Image)(resources.GetObject("InitializeMeteorShowerButton.Image")));
+      this.InitializeMeteorShowerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.InitializeMeteorShowerButton.Name = "InitializeMeteorShowerButton";
+      this.InitializeMeteorShowerButton.Size = new System.Drawing.Size(23, 22);
+      this.InitializeMeteorShowerButton.Text = "Initialize Meteor Shower";
+      this.InitializeMeteorShowerButton.Click += new System.EventHandler(this.InitializeMeteorShowerButton_Click);
+      // 
+      // DeleteMeteorShowerButton
+      // 
+      this.DeleteMeteorShowerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.DeleteMeteorShowerButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteMeteorShowerButton.Image")));
+      this.DeleteMeteorShowerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.DeleteMeteorShowerButton.Name = "DeleteMeteorShowerButton";
+      this.DeleteMeteorShowerButton.Size = new System.Drawing.Size(23, 22);
+      this.DeleteMeteorShowerButton.Text = "Delete Meteor Showers";
+      this.DeleteMeteorShowerButton.Click += new System.EventHandler(this.DeleteMeteorShowerButton_Click);
+      // 
       // ColorMapButton
       // 
       this.ColorMapButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -196,25 +215,16 @@
       this.PropertiesBoxButton.Text = "Properties";
       this.PropertiesBoxButton.Click += new System.EventHandler(this.PropertiesBoxButton_Click);
       // 
-      // InitializePlanets
+      // InitializePlanetsButton
       // 
-      this.InitializePlanets.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.InitializePlanets.Image = ((System.Drawing.Image)(resources.GetObject("InitializePlanets.Image")));
-      this.InitializePlanets.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.InitializePlanets.Name = "InitializePlanets";
-      this.InitializePlanets.Size = new System.Drawing.Size(23, 22);
-      this.InitializePlanets.Text = "Initialize Planets";
-      this.InitializePlanets.Click += new System.EventHandler(this.InitializePlanets_Click);
-      // 
-      // InitializeMeteorShowerButton
-      // 
-      this.InitializeMeteorShowerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.InitializeMeteorShowerButton.Image = ((System.Drawing.Image)(resources.GetObject("InitializeMeteorShowerButton.Image")));
-      this.InitializeMeteorShowerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.InitializeMeteorShowerButton.Name = "InitializeMeteorShowerButton";
-      this.InitializeMeteorShowerButton.Size = new System.Drawing.Size(23, 22);
-      this.InitializeMeteorShowerButton.Text = "Initialize Meteor Shower";
-      this.InitializeMeteorShowerButton.Click += new System.EventHandler(this.InitializeMeteorShowerButton_Click);
+      this.InitializePlanetsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.InitializePlanetsButton.Image = ((System.Drawing.Image)(resources.GetObject("InitializePlanetsButton.Image")));
+      this.InitializePlanetsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.InitializePlanetsButton.Name = "InitializePlanetsButton";
+      this.InitializePlanetsButton.Size = new System.Drawing.Size(23, 22);
+      this.InitializePlanetsButton.Text = "Initialize Planets";
+      this.InitializePlanetsButton.Visible = false;
+      this.InitializePlanetsButton.Click += new System.EventHandler(this.InitializePlanets_Click);
       // 
       // toolStripSeparator1
       // 
@@ -552,16 +562,6 @@
       this.GlView.Size = new System.Drawing.Size(936, 401);
       this.GlView.TabIndex = 10;
       // 
-      // DeleteMeteorShowerButton
-      // 
-      this.DeleteMeteorShowerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.DeleteMeteorShowerButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteMeteorShowerButton.Image")));
-      this.DeleteMeteorShowerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.DeleteMeteorShowerButton.Name = "DeleteMeteorShowerButton";
-      this.DeleteMeteorShowerButton.Size = new System.Drawing.Size(23, 22);
-      this.DeleteMeteorShowerButton.Text = "Delete Meteor Showers";
-      this.DeleteMeteorShowerButton.Click += new System.EventHandler(this.DeleteMeteorShowerButton_Click);
-      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -624,7 +624,7 @@
     private System.Windows.Forms.ToolStripMenuItem MinutesToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem HoursToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem DaysToolStripMenuItem1;
-    private System.Windows.Forms.ToolStripButton InitializePlanets;
+    private System.Windows.Forms.ToolStripButton InitializePlanetsButton;
     private System.Windows.Forms.ToolStripLabel toolStripLabel2;
     private System.Windows.Forms.ToolStripTextBox MaxRenderRatioBox;
     private System.Windows.Forms.ToolStripButton TimeStepButton;
