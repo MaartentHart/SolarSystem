@@ -196,8 +196,8 @@ namespace SolarSystem
       int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
       int indicesCount = CoreDll.GeodesicGridIndicesCount(Generation);
 
-      IntPtr newVerticesPointer = Marshal.AllocHGlobal(verticesCount * 24);
-      IntPtr newNormalsPointer = Marshal.AllocHGlobal(verticesCount * 24);
+      IntPtr newVerticesPointer = CMemoryBlock.Allocate(verticesCount * 24);
+      IntPtr newNormalsPointer = CMemoryBlock.Allocate(verticesCount * 24);
       unsafe
       {
         Point3D* vertices = (Point3D*)geodesicGridVerticesPointer.ToPointer();
@@ -269,7 +269,7 @@ namespace SolarSystem
       double[] colorable = ColorableValues;
       ColorMap colorMap = ColorMap;
 
-      IntPtr newColors = Marshal.AllocHGlobal(verticesCount * 16);
+      IntPtr newColors = CMemoryBlock.Allocate(verticesCount * 16);
       unsafe
       {
         ColorFloat* color = (ColorFloat*)newColors.ToPointer();
@@ -304,8 +304,8 @@ namespace SolarSystem
           //if the exxageraion is not initialized, 
           //the normal and vertices pointers are pointing to the original geodesic grid. 
           //deleting the old vertices explicitly. 
-          Marshal.FreeHGlobal(vertices);
-          Marshal.FreeHGlobal(normals);
+          CMemoryBlock.Free(vertices);
+          CMemoryBlock.Free(normals);
           unmanagedVerticesNormals = false;
         }
       }
@@ -318,7 +318,7 @@ namespace SolarSystem
         if (unmanagedColors)
         {
           RenderableObject.RenderGeometry.enableColors = false;
-          Marshal.FreeHGlobal(colors);
+          CMemoryBlock.Free(colors);
           unmanagedColors = false;
         }
       }

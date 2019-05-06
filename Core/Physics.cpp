@@ -41,7 +41,7 @@ void GravityAffectedObject::PullGravity(Planet * planet, double seconds)
 	Point3D *position = this->position;
 	Point3D *velocity = this->velocity;
 	for (int i = 0; i<count ; i++, velocity++, position++)
-		*velocity += PullGravity(planet->position, planet->SurfaceGravity, planet->radius, seconds, *position);
+		*velocity += PullGravity(planet->position, planet->SurfaceGravity/1000, planet->radius, seconds, *position);
 }
 
 Point3D GravityAffectedObject::PullGravity(const Point3D & gravityPosition, double surfaceGravity, double gravityRadius, double seconds, const Point3D&position)
@@ -65,6 +65,6 @@ double LocalGravity(double gravityDistanceSquared, double surfaceGravity, double
 
 double GravityAcceleration(double gravityDistanceSquared, double gravityAtSurface, double gravityRadius, double seconds)
 {
-	return LocalGravity(gravityDistanceSquared, gravityAtSurface, gravityRadius)*Squared(seconds);
+	return LocalGravity(gravityDistanceSquared, gravityAtSurface, gravityRadius)*seconds;
 }
 

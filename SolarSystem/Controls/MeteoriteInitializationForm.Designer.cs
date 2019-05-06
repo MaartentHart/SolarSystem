@@ -43,7 +43,8 @@
       this.label5 = new System.Windows.Forms.Label();
       this.label6 = new System.Windows.Forms.Label();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.DetailLevelTrackBar = new SolarSystem.TextBoxTrackBar();
+      this.label7 = new System.Windows.Forms.Label();
+      this.InitialRadiusBox = new System.Windows.Forms.TextBox();
       this.label10 = new System.Windows.Forms.Label();
       this.StepsBox = new System.Windows.Forms.TextBox();
       this.SpeedStepBox = new System.Windows.Forms.TextBox();
@@ -52,8 +53,7 @@
       this.label9 = new System.Windows.Forms.Label();
       this.OKButton = new System.Windows.Forms.Button();
       this.Cancel_Button = new System.Windows.Forms.Button();
-      this.label7 = new System.Windows.Forms.Label();
-      this.InitialRadiusBox = new System.Windows.Forms.TextBox();
+      this.DetailLevelTrackBar = new SolarSystem.TextBoxTrackBar();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.groupBox3.SuspendLayout();
@@ -209,20 +209,22 @@
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Explosion properties";
       // 
-      // DetailLevelTrackBar
+      // label7
       // 
-      this.DetailLevelTrackBar.AllowOutOfBounds = true;
-      this.DetailLevelTrackBar.ForceInteger = true;
-      this.DetailLevelTrackBar.Location = new System.Drawing.Point(6, 19);
-      this.DetailLevelTrackBar.Maximum = 9D;
-      this.DetailLevelTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
-      this.DetailLevelTrackBar.Minimum = 0D;
-      this.DetailLevelTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
-      this.DetailLevelTrackBar.Name = "DetailLevelTrackBar";
-      this.DetailLevelTrackBar.Size = new System.Drawing.Size(402, 25);
-      this.DetailLevelTrackBar.TabIndex = 8;
-      this.DetailLevelTrackBar.Title = "Detail Level";
-      this.DetailLevelTrackBar.Value = 5D;
+      this.label7.AutoSize = true;
+      this.label7.Location = new System.Drawing.Point(7, 141);
+      this.label7.Name = "label7";
+      this.label7.Size = new System.Drawing.Size(67, 13);
+      this.label7.TabIndex = 10;
+      this.label7.Text = "Initial Radius";
+      // 
+      // InitialRadiusBox
+      // 
+      this.InitialRadiusBox.Location = new System.Drawing.Point(93, 138);
+      this.InitialRadiusBox.Name = "InitialRadiusBox";
+      this.InitialRadiusBox.Size = new System.Drawing.Size(100, 20);
+      this.InitialRadiusBox.TabIndex = 9;
+      this.InitialRadiusBox.Text = "1.0";
       // 
       // label10
       // 
@@ -239,7 +241,7 @@
       this.StepsBox.Name = "StepsBox";
       this.StepsBox.Size = new System.Drawing.Size(100, 20);
       this.StepsBox.TabIndex = 6;
-      this.StepsBox.Text = "10";
+      this.StepsBox.Text = "4";
       // 
       // SpeedStepBox
       // 
@@ -296,22 +298,20 @@
       this.Cancel_Button.Text = "Cancel";
       this.Cancel_Button.UseVisualStyleBackColor = true;
       // 
-      // label7
+      // DetailLevelTrackBar
       // 
-      this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(7, 141);
-      this.label7.Name = "label7";
-      this.label7.Size = new System.Drawing.Size(67, 13);
-      this.label7.TabIndex = 10;
-      this.label7.Text = "Initial Radius";
-      // 
-      // InitialRadiusBox
-      // 
-      this.InitialRadiusBox.Location = new System.Drawing.Point(93, 138);
-      this.InitialRadiusBox.Name = "InitialRadiusBox";
-      this.InitialRadiusBox.Size = new System.Drawing.Size(100, 20);
-      this.InitialRadiusBox.TabIndex = 9;
-      this.InitialRadiusBox.Text = "1.0";
+      this.DetailLevelTrackBar.AllowOutOfBounds = true;
+      this.DetailLevelTrackBar.ForceInteger = true;
+      this.DetailLevelTrackBar.Location = new System.Drawing.Point(6, 19);
+      this.DetailLevelTrackBar.Maximum = 9D;
+      this.DetailLevelTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.DetailLevelTrackBar.Minimum = 0D;
+      this.DetailLevelTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.DetailLevelTrackBar.Name = "DetailLevelTrackBar";
+      this.DetailLevelTrackBar.Size = new System.Drawing.Size(402, 25);
+      this.DetailLevelTrackBar.TabIndex = 8;
+      this.DetailLevelTrackBar.Title = "Detail Level";
+      this.DetailLevelTrackBar.Value = 2D;
       // 
       // MeteoriteInitializationForm
       // 

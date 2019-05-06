@@ -233,15 +233,15 @@ void SetTimeStep(double timeStep)
 	::timeStep = timeStep; 
 }
 
-void AddTimeStep(double timeStep)
+void AddTimeStep(double days)
 {
-	double time = solarSystem.time + timeStep;
+	double time = solarSystem.time + days;
 	solarSystem.SetTimeSinceJ2000(time);
 
 	std::vector<Planet*> planets = solarSystem.Planets();
-
+	double seconds = days * 86400; 
 	for (GravityAffectedObject&gravityObject : gravityObjects)
-		gravityObject.MoveByGravity(planets, timeStep);
+		gravityObject.MoveByGravity(planets, seconds);
 }
 
 //run the simulation until run is set false. 

@@ -74,9 +74,7 @@ namespace SolarSystem
       SplashScreen splashScreen = new SplashScreen();
       splashScreen.Show(); 
       InitializeComponent();
-      //BackgroundWorker backgroundWorker = new BackgroundWorker();
-      //backgroundWorker.DoWork += InitializeEarth;
-      //backgroundWorker.RunWorkerAsync();
+
       InitializeEarth(null, null); 
       TimeStep = 1.0 / 86400;
       Scene.SetAsMainScene();
@@ -440,6 +438,7 @@ namespace SolarSystem
       if (SimulationRunning)
       {
         TimeLockButton.Enabled = false;
+        DeleteMeteorShowerButton.Enabled = false; 
         SetTimeLock(false);
         SimulationWorker.DoWork -= Simulate;
         SimulationWorker.DoWork += Simulate;
@@ -450,6 +449,7 @@ namespace SolarSystem
       {
         PlayPauseButton.Image = Properties.Resources.Play;
         TimeLockButton.Enabled = true;
+        DeleteMeteorShowerButton.Enabled = true; 
         CoreDll.Run(false); 
         while (!SimulationWorkerReady)
           System.Threading.Thread.Sleep(10); 
@@ -641,6 +641,21 @@ namespace SolarSystem
 
         MeteorShower meteorShower = new MeteorShower(form.position, form.velocity, form.generation, form.minimumSpeed, form.speedStep, form.steps, form.initialRadius);
         Scene.RenderableObjects.Add(meteorShower); 
+      }
+    }
+
+    private void DeleteMeteorShowerButton_Click(object sender, EventArgs e)
+    {
+
+      for (int i = 0; i < Scene.RenderableObjects.Count; i++)
+      {
+        IRenderable renderable = Scene.RenderableObjects[i];
+        if (renderable is MeteorShower meteorShower)
+        {
+          Scene.RenderableObjects.RemoveAt(i); 
+          meteorShower.Dispose();
+          i--; 
+        }
       }
     }
   }

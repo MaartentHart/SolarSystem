@@ -82,6 +82,7 @@
       this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
       this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
       this.GlView = new SolarSystem.GlView();
+      this.DeleteMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -145,6 +146,7 @@
             this.PropertiesBoxButton,
             this.InitializePlanets,
             this.InitializeMeteorShowerButton,
+            this.DeleteMeteorShowerButton,
             this.toolStripSeparator1,
             this.TimeLockButton,
             this.DayBox,
@@ -550,6 +552,16 @@
       this.GlView.Size = new System.Drawing.Size(936, 401);
       this.GlView.TabIndex = 10;
       // 
+      // DeleteMeteorShowerButton
+      // 
+      this.DeleteMeteorShowerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.DeleteMeteorShowerButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteMeteorShowerButton.Image")));
+      this.DeleteMeteorShowerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.DeleteMeteorShowerButton.Name = "DeleteMeteorShowerButton";
+      this.DeleteMeteorShowerButton.Size = new System.Drawing.Size(23, 22);
+      this.DeleteMeteorShowerButton.Text = "Delete Meteor Showers";
+      this.DeleteMeteorShowerButton.Click += new System.EventHandler(this.DeleteMeteorShowerButton_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -625,6 +637,7 @@
     private System.Windows.Forms.ToolStripTextBox CalibrationBox;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     private System.Windows.Forms.ToolStripLabel toolStripLabel5;
+    private System.Windows.Forms.ToolStripButton DeleteMeteorShowerButton;
   }
 }
 

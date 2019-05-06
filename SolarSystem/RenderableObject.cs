@@ -41,7 +41,7 @@ namespace SolarSystem
     public int verticesCount;
     public int indicesCount;
     public RenderMode renderMode;
-    public float pointSize = 1;
+    public float pointSize = 2;
 
     public void Render(bool useLight)
     {
@@ -58,9 +58,9 @@ namespace SolarSystem
 
     private void RenderPoints()
     {
-      Gl.EnableClientState(EnableCap.VertexArray);
       Gl.Disable(EnableCap.NormalArray);
-      Gl.VertexPointer(verticesCount, VertexPointerType.Double, 0, vertices);
+      Gl.EnableClientState(EnableCap.VertexArray);
+      Gl.VertexPointer(3, VertexPointerType.Double, 0, vertices);
       Gl.Disable(EnableCap.Lighting);
       if (enableColors)
       {
