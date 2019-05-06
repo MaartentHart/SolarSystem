@@ -446,7 +446,7 @@ namespace SolarSystem
       {
         PlayPauseButton.Image = Properties.Resources.Play;
         TimeLockButton.Enabled = true;
-        InitializeMeteorShowerButton.Enabled = false; 
+        InitializeMeteorShowerButton.Enabled = true; 
         DeleteMeteorShowerButton.Enabled = true; 
         CoreDll.Run(false); 
         while (!SimulationWorkerReady)
@@ -668,7 +668,6 @@ namespace SolarSystem
 
     private void DeleteMeteorShowerButton_Click(object sender, EventArgs e)
     {
-
       for (int i = 0; i < Scene.RenderableObjects.Count; i++)
       {
         IRenderable renderable = Scene.RenderableObjects[i];
