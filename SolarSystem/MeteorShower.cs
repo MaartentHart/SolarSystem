@@ -16,8 +16,8 @@ namespace SolarSystem
 
     public int MeteorCount { get; }
     public int ID { get; }
-    public float PointSize { get; set; }
-    public bool On { get ; set; }
+    public float PointSize { get; set; } = 3;
+    public bool On { get; set; } = true;
     public string Name { get; set; } = "Meteor Shower";
     public CRenderGeometry RenderObject { get; }
 
@@ -59,18 +59,23 @@ namespace SolarSystem
       }
       CoreDll.AddFallingObject(positions.Ptr, velocities.Ptr, MeteorCount);
 
+      CIntArrray indices = new CIntArrray(verticesCount);
+      indices.SetDefaultIndex();
+
       RenderObject = new CRenderGeometry
       {
-        vertices = positions.Ptr
+        vertices = positions.Ptr,
+        indices = indices.Ptr
       };
 
-      throw new NotImplementedException(); 
+
+      RenderObject.renderMode = CRenderGeometry.RenderMode.points; 
 
     }
 
     public void Render(Camera camera)
     {
-      throw new NotImplementedException();
+      RenderObject.Render(false);
     }
 
     public void SetColorMap(ColorMap colorMap)
