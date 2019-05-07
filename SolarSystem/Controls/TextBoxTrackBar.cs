@@ -18,6 +18,8 @@ namespace SolarSystem
     private double maximum = 10;
     private double value = 0;
 
+    public event EventHandler ValueChanged; 
+
     public bool Quadratic {
       get => quadratic;
       set
@@ -63,7 +65,7 @@ namespace SolarSystem
 
     public double Value
     {
-      get => value;
+      get => double.IsNaN(value)? value = 0: value;
       set
       {
         if (ForceInteger)
@@ -71,18 +73,24 @@ namespace SolarSystem
 
         this.value = value;
         SetTrackBar();
-        TextBox.Text = this.value.ToString(); 
+        TextBox.Text = this.value.ToString();
+        ValueChanged(this, new EventArgs()); 
       }
     }
 
     public TextBoxTrackBar()
     {
+      ValueChanged += DoNothing;
       InitializeComponent();
+    }
+
+    private void DoNothing(object sender, EventArgs e)
+    {
     }
 
     private void SetTrackBar()
     {
-      double position = (value - minimum) / (maximum - minimum);
+      double position = (Value - minimum) / (maximum - minimum);
 
       if (Quadratic)
         position = Math.Sqrt(position);

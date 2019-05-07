@@ -23,6 +23,8 @@ namespace SolarSystem
     public Quaternion SystemRotation { get; }
     public Point3D Origin { get; }
 
+    public static EquatorialCoordinateSystem Main { get; private set; }
+
     public EquatorialCoordinateSystem(Planet earth, HistoricDateTime vernalEquinox = null)
     {
       if (vernalEquinox == null)
@@ -39,18 +41,21 @@ namespace SolarSystem
       double roll = earthAxisTilt;
       
       SystemRotation = new EulerAngles(roll,pitch,yaw).Quaternion;
-      Origin = earthPositionAtVernalEquinox.Normal; 
+      Origin = earthPositionAtVernalEquinox.Normal;
+
+      if (Main == null)
+        Main = this; 
     }
 
     /// <summary>
     /// https://en.wikipedia.org/wiki/Declination
     /// </summary>
-    /// <param name="rightAscention"></param>
+    /// <param name="rightAscension"></param>
     /// <param name="declination"></param>
     /// <returns>The normal vector of the pointing direction.</returns>
-    public Point3D EquatorialCoordinate(double rightAscention, double declination)
+    public Point3D EquatorialCoordinate(double rightAscension, double declination)
     {
-      double direction = OpenGL.Angle.ToRadians(rightAscention);
+      double direction = OpenGL.Angle.ToRadians(rightAscension);
       double rotationUp = OpenGL.Angle.ToRadians(declination);
       double xy = Math.Cos(rotationUp);
       Point3D baseDirection = new Point3D(Math.Cos(direction) * xy, Math.Sin(direction) * xy, Math.Sin(rotationUp));
@@ -58,14 +63,33 @@ namespace SolarSystem
       return rotated; 
     }
 
-    public Quaternion PlanetQuaternion(double rightAscention, double declination)
+    public Quaternion PlanetQuaternion(double rightAscension, double declination)
     {
       Point3D up = new Point3D(0, 0, 1); 
-      Point3D axis = EquatorialCoordinate(rightAscention, declination);
-      if (double.IsNaN(rightAscention) || double.IsNaN(declination))
+      Point3D axis = EquatorialCoordinate(rightAscension, declination);
+      if (double.IsNaN(rightAscension) || double.IsNaN(declination))
         axis = new Point3D(0, 0, 1); 
       return new Quaternion((up+axis)/2,180); 
+    }
 
+    public double DirectionRightAscension(Point3D point)
+    {
+      point = point.Normal;
+      Point3D unRotated = SystemRotation.RotateReverse(point);
+      double xy = Math.Sqrt(1 - unRotated.z * unRotated.z);
+      double directionRad = Math.Acos(unRotated.x / xy);
+      double direction =OpenGL.Angle.ToDegrees(directionRad);
+      if (direction < 0)
+        direction += 360;
+      return direction; 
+    }
+
+    public double DirectionDeclination(Point3D point)
+    {
+      point = point.Normal;
+      Point3D unRotated = SystemRotation.RotateReverse(point);
+      double declinationRad = Math.Asin(unRotated.z);
+      return OpenGL.Angle.ToDegrees(declinationRad);     
     }
 
   }

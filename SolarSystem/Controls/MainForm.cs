@@ -649,7 +649,7 @@ namespace SolarSystem
         bool ok = false;
         while (!ok)
         {
-          ok = true; 
+          ok = true;
           foreach (IRenderable renderable in Scene.RenderableObjects)
           {
             if (renderable.Name == meteorShower.Name)
@@ -657,12 +657,12 @@ namespace SolarSystem
               i++;
               meteorShower.Name = "Meteor Shower " + i.ToString();
               ok = false;
-              break; 
+              break;
             }
           }
         }
 
-        Scene.RenderableObjects.Add(meteorShower); 
+        Scene.RenderableObjects.Add(meteorShower);
       }
     }
 
