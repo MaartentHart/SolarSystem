@@ -428,7 +428,7 @@ namespace SolarSystem
       switch(planet)
       {
         case SolarSystemPlanet.Earth:
-          return 131;
+          return 180;
         case SolarSystemPlanet.Moon:
           return 74;
         case SolarSystemPlanet.Mars:

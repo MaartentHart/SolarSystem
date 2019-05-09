@@ -47,6 +47,9 @@ namespace SolarSystem
       VelocityRightAscensionTrackBar.ValueChanged += ChangeVelocity;
       VelocityDeclinationTrackBar.ValueChanged += ChangeVelocity;
 
+      ChangePosition(null,null);
+      ChangeVelocity(null, null); 
+
       ShowTriad(); 
     }
 
@@ -82,7 +85,15 @@ namespace SolarSystem
       double roll = 0; 
 
       Arrow.Transform.Rotation = new Quaternion(yaw,pitch,roll);
-      
+
+      double scale = velocity.Magnitude * 100;
+      Point3D scale3D = new Point3D(scale, scale, scale);
+
+      foreach (Mesh c in Triad.Children)
+        foreach (Mesh child in c.Children)
+          child.Transform.Scale = scale3D;
+      Arrow.Transform.Scale = scale3D; 
+
       Scene.Changed = true; 
     }
 

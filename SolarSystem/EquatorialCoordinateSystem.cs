@@ -65,11 +65,15 @@ namespace SolarSystem
 
     public Quaternion PlanetQuaternion(double rightAscension, double declination)
     {
-      Point3D up = new Point3D(0, 0, 1); 
       Point3D axis = EquatorialCoordinate(rightAscension, declination);
       if (double.IsNaN(rightAscension) || double.IsNaN(declination))
-        axis = new Point3D(0, 0, 1); 
-      return new Quaternion((up+axis)/2,180); 
+        axis = new Point3D(0, 0, 1);
+
+      double yaw = (axis.x == 0 && axis.y == 0) ? 0 : Math.Atan2(axis.y, axis.x);
+      double pitch = Math.Acos(axis.z);
+      double roll = 0; 
+
+      return new Quaternion(yaw,pitch,roll); 
     }
 
     public double DirectionRightAscension(Point3D point)
