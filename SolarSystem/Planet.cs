@@ -432,7 +432,7 @@ namespace SolarSystem
         case SolarSystemPlanet.Moon:
           return 74;
         case SolarSystemPlanet.Mars:
-          return 330;
+          return 250;
         default:
           return 0; 
       }

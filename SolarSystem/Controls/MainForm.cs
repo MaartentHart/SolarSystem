@@ -80,7 +80,7 @@ namespace SolarSystem
       InitializePlanets(); 
       TimeStep = 1.0 / 86400;
       Scene.SetAsMainScene();
-      SetDateTime(new HistoricDateTime(0));
+      SetDateTime(new HistoricDateTime(0.0));
       GlView.Lookat(Earth, Earth.Name);
       splashScreen.Close();
       splashScreen.Dispose(); 
