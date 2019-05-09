@@ -235,7 +235,13 @@ namespace SolarSystem
     public Quaternion Reverse => new Quaternion(-x, -y, -z, w); 
 
     //https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
-    public Quaternion( double yaw, double pitch, double roll) // yaw (Z), pitch (Y), roll (X)
+    /// <summary>
+    /// Quaternion by yaw pitch roll (in radians
+    /// </summary>
+    /// <param name="yaw">Rotation around z</param>
+    /// <param name="pitch">Rotation around y</param>
+    /// <param name="roll">Rotation around x</param>
+    public Quaternion( double yaw, double pitch, double roll)
     {
       // Abbreviations for the various angular functions
       double cy = Math.Cos(yaw * 0.5);

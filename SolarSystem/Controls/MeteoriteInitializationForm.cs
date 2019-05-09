@@ -22,10 +22,12 @@ namespace SolarSystem
 
     public Point3D ObjectPosition { get; set; } = new Point3D();
     private Scene Scene { get; }
+    private Mesh Triad { get; set; }
+    private Mesh Arrow { get; set; }
 
     public MeteoriteInitializationForm(Scene scene)
     {
-      this.Scene = scene;
+      Scene = scene;
 
       InitializeComponent();
 
@@ -45,6 +47,43 @@ namespace SolarSystem
       VelocityRightAscensionTrackBar.ValueChanged += ChangeVelocity;
       VelocityDeclinationTrackBar.ValueChanged += ChangeVelocity;
 
+      ShowTriad(); 
+    }
+
+    private void ShowTriad()
+    {
+      Triad = new Mesh();
+      Triad.Name = "Meteorite Shower Position";
+      TriadGeometry triad = new TriadGeometry();
+      triad.Arrows.Transform.Rotation = EquatorialCoordinateSystem.Main.SystemRotation; 
+      Triad.Children.Add(triad.Arrows);
+      Arrow = TriadGeometry.GenerateArrow();
+      Triad.Children.Add(Arrow);
+      Scene.RenderableObjects.Add(Triad);
+    }
+
+    private void RemoveTriad()
+    {
+      Scene.RenderableObjects.Remove(Triad); 
+    }
+
+
+    private void RepositionTriad()
+    {
+      if (Triad == null)
+        return;
+
+      Triad.Transform.Position = position;
+
+      Point3D arrowDirection = velocity.Normal;
+
+      double pitch = -Math.Asin(arrowDirection.z);
+      double yaw = Math.Atan2(arrowDirection.y, arrowDirection.x);
+      double roll = 0; 
+
+      Arrow.Transform.Rotation = new Quaternion(yaw,pitch,roll);
+      
+      Scene.Changed = true; 
     }
 
     /// <summary>
@@ -58,11 +97,13 @@ namespace SolarSystem
       double declination = VelocityDeclinationTrackBar.Value;
 
       Point3D direction = EquatorialCoordinateSystem.Main.EquatorialCoordinate(rightAscension, declination);
-      Point3D velocity = direction * SpeedTrackBar.Value;
+      velocity = direction * SpeedTrackBar.Value;
 
       VelocityXBox.Text = velocity.x.ToString();
       VelocityYBox.Text = velocity.y.ToString();
       VelocityZBox.Text = velocity.z.ToString();
+
+      RepositionTriad(); 
     }
 
     /// <summary>
@@ -76,13 +117,15 @@ namespace SolarSystem
       double declination = PositionDeclinationTrackBar.Value;
 
       Point3D direction = EquatorialCoordinateSystem.Main.EquatorialCoordinate(rightAscension, declination);
-      Point3D position = direction * DistanceTrackBar.Value;
+      position = direction * DistanceTrackBar.Value;
 
       position += ObjectPosition; 
 
       PositionXBox.Text = position.x.ToString();
       PositionYBox.Text = position.y.ToString();
       PositionZBox.Text = position.z.ToString();
+
+      RepositionTriad(); 
     }
 
     /// <summary>
@@ -90,7 +133,7 @@ namespace SolarSystem
     /// </summary>
     private void ReadPosition()
     {
-      Point3D position = new Point3D(
+      position = new Point3D(
         Convert.ToDouble(PositionXBox.Text),
         Convert.ToDouble(PositionYBox.Text),
         Convert.ToDouble(PositionZBox.Text));
@@ -102,7 +145,9 @@ namespace SolarSystem
 
       DistanceTrackBar.Value = distance;
       PositionRightAscensionTrackBar.Value = rightAscension;
-      PositionDeclinationTrackBar.Value = declination; 
+      PositionDeclinationTrackBar.Value = declination;
+
+      RepositionTriad(); 
     }
 
     /// <summary>
@@ -110,7 +155,7 @@ namespace SolarSystem
     /// </summary>
     private void ReadVelocity()
     {
-      Point3D velocity = new Point3D(
+      velocity = new Point3D(
         Convert.ToDouble(VelocityXBox.Text),
         Convert.ToDouble(VelocityYBox.Text),
         Convert.ToDouble(VelocityZBox.Text));
@@ -122,10 +167,12 @@ namespace SolarSystem
       SpeedTrackBar.Value = speed;
       VelocityRightAscensionTrackBar.Value = rightAscension;
       VelocityDeclinationTrackBar.Value = declination;
+
+      RepositionTriad(); 
     }
 
 
-    private void OKButton_Click(object sender, EventArgs e)
+    private void AddButton_Click(object sender, EventArgs e)
     {
       try
       {
@@ -139,12 +186,40 @@ namespace SolarSystem
         minimumSpeed = Convert.ToDouble(MinimumSpeedBox.Text);
         speedStep = Convert.ToDouble(SpeedStepBox.Text);
         steps = Convert.ToInt32(StepsBox.Text);
-        initialRadius = Convert.ToDouble(InitialRadiusBox.Text); 
+        initialRadius = Convert.ToDouble(InitialRadiusBox.Text);
+
+        AddMeteorShower();
+        Close(); 
       }
       catch
       {
         MessageBox.Show("Invalid input.");
       }
+    }
+
+    private void AddMeteorShower()
+    {
+      MeteorShower meteorShower = new MeteorShower(position, velocity, generation, minimumSpeed, speedStep, steps, initialRadius);
+
+      //give meteor shower a unique name. 
+      int i = 0;
+      bool ok = false;
+      while (!ok)
+      {
+        ok = true;
+        foreach (IRenderable renderable in Scene.RenderableObjects)
+        {
+          if (renderable.Name == meteorShower.Name)
+          {
+            i++;
+            meteorShower.Name = "Meteor Shower " + i.ToString();
+            ok = false;
+            break;
+          }
+        }
+      }
+
+      Scene.RenderableObjects.Add(meteorShower);
     }
 
     private void DistanceToBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -178,6 +253,11 @@ namespace SolarSystem
     {
       if (e.KeyCode == Keys.Enter)
         ReadVelocity(); 
+    }
+
+    private void MeteoriteInitializationForm_FormClosed(object sender, FormClosedEventArgs e)
+    {
+      RemoveTriad(); 
     }
   }
 }

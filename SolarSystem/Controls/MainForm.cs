@@ -20,7 +20,8 @@ namespace SolarSystem
     private HistoricDateTime PreviousDateTime { get; set; } = new HistoricDateTime(); 
     private HistoricDateTime DateTime { get; set; } = new HistoricDateTime(); 
     private bool TimeUnlocked { get; set; } = true; 
-    private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm(); 
+    private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm();
+    private MeteoriteInitializationForm meteoriteInitializationForm;
     private ColorMapForm ColorMapForm { get; } = new ColorMapForm();
 
     private IRenderable ActiveObject { get; set; }
@@ -637,33 +638,11 @@ namespace SolarSystem
 
     private void InitializeMeteorShowerButton_Click(object sender, EventArgs e)
     {
-      using (MeteoriteInitializationForm form = new MeteoriteInitializationForm(Scene))
-      {
-        if (form.ShowDialog() != DialogResult.OK)
-          return;
+      if (meteoriteInitializationForm == null || meteoriteInitializationForm.IsDisposed)
+        meteoriteInitializationForm = new MeteoriteInitializationForm(Scene);
 
-        MeteorShower meteorShower = new MeteorShower(form.position, form.velocity, form.generation, form.minimumSpeed, form.speedStep, form.steps, form.initialRadius);
-
-        //give meteor shower a unique name. 
-        int i = 0;
-        bool ok = false;
-        while (!ok)
-        {
-          ok = true;
-          foreach (IRenderable renderable in Scene.RenderableObjects)
-          {
-            if (renderable.Name == meteorShower.Name)
-            {
-              i++;
-              meteorShower.Name = "Meteor Shower " + i.ToString();
-              ok = false;
-              break;
-            }
-          }
-        }
-
-        Scene.RenderableObjects.Add(meteorShower);
-      }
+      meteoriteInitializationForm.Owner = this; 
+      meteoriteInitializationForm.Show(); 
     }
 
     private void DeleteMeteorShowerButton_Click(object sender, EventArgs e)
