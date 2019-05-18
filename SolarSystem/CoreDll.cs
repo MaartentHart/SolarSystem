@@ -97,6 +97,12 @@ namespace SolarSystem
 
     [DllImport("Core.dll", EntryPoint = "PlanetRotation", CallingConvention = CallingConvention.Cdecl)]
     static public extern double PlanetRotation();
+
+    [DllImport("Core.dll", EntryPoint = "SetPlanetBaseRotation", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void SetPlanetBaseRotation(int planetId, double x, double y, double z, double w);
+
+    [DllImport("Core.dll", EntryPoint = "SetPlanetRotationCalibration", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void SetPlanetRotationCalibration(int planetId, double calibration);
     #endregion
 
     #region Simulation    
@@ -120,7 +126,7 @@ namespace SolarSystem
     static public extern void Run(bool run);
 
     [DllImport("Core.dll", EntryPoint = "SetTimeStep", CallingConvention = CallingConvention.Cdecl)]
-    static public extern void SetTimeStep(double timeStep);
+    static public extern double SetTimeStep(double timeStep);
 
     [DllImport("Core.dll", EntryPoint = "AddTimeStep", CallingConvention = CallingConvention.Cdecl)]
     static public extern void AddTimeStep(double timeStep);

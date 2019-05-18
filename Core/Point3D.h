@@ -60,6 +60,10 @@ struct Point3D
 	inline Point3D operator-() { return Point3D(-X, -Y, -Z); }
 	inline bool operator==(const Point3D&that) const { return (X == that.X && Y == that.Y && Z == that.Z); }
 
+	inline double Dot(const Point3D& p)const { return X * p.X + Y * p.Y + Z * p.Z; }
+	inline Point3D Cross(const Point3D&p) const { 
+		return  Point3D(Y * p.Z - Z * p.Y, Z * p.X - X * p.Z, X * p.Y - Y * p.X);
+	}
 	Point3D RotateX(double angle) const;//angle in radian
 	Point3D RotateY(double angle) const;//angle in radian
 	Point3D RotateZ(double angle) const;//angle in radian
@@ -87,7 +91,7 @@ inline const Point3D NoPoint()
 }
 
 double Pi();
-Point3D CrossMultiply(const Point3D&A, const Point3D&B);
+Point3D CrossMultiply(const Point3D& A, const Point3D& B);
 Point3D NormalVector(const Point3D&A, const Point3D&B);
 double Determinant(const Point3D&A, const Point3D&B, const Point3D&C);
 double VerySmall(); 
@@ -114,4 +118,14 @@ struct Rotation
 	void TiltDegree(double tilt);
 	void DirectionDegree(double dir);
 	void AroundAxisDegree(double ar);
+};
+
+struct BoundingBox
+{
+	Point3D minimum;
+	Point3D maximum;
+	BoundingBox();
+	BoundingBox(const Point3D&a, const Point3D&b);
+	void Grow(double value);
+	bool Overlaps(const BoundingBox& other) const; 
 };

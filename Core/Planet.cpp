@@ -136,6 +136,31 @@ void Planet::LoadCelestialBodyOrbit()
 	SetCalculationValues(); 
 }
 
+double Planet::RotationAngleAt(double days) const
+{
+	return days / (SiderealRotationPeriod / 24) * 360;
+}
 
+Quaternion Planet::RotationAt(double days) const
+{
+	double aroundAxisRotation = RotationAngleAt(days);
+	Quaternion localRotation = Quaternion(Point3D(0, 0, 1), aroundAxisRotation + rotationCalibration);
+	return Quaternion(rotationAxis, localRotation); 
+}
 
+Point3D Planet::RotatedScaledPosition(const Point3D& relativePosition) const
+{
+	Point3D unrotated = rotationAxis.RotateReverse(relativePosition);
+	return UnScale(unrotated);
+}
 
+Point3D Planet::RotatedScaledPosition(const Point3D& relativePosition, double days) const
+{
+	Point3D unrotated = RotationAt(days).RotateReverse(relativePosition);
+	return UnScale(unrotated);
+}
+
+Point3D Planet::UnScale(const Point3D& point) const
+{
+	return Point3D(point.X / radius, point.Y / radius, point.Z / secondaryRadius);
+}

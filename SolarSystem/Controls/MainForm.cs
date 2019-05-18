@@ -578,10 +578,14 @@ namespace SolarSystem
     private void InitializeEquatorialCoordinateSystem()
     {
       EquatorialCoordinateSystem equatorialCoordinateSystem = new EquatorialCoordinateSystem(Earth);
-      
+
       foreach (IRenderable renderable in Scene.RenderableObjects)
         if (renderable is Planet planet)
-          planet.RotationAxis = equatorialCoordinateSystem.PlanetQuaternion(planet.RightAscension, planet.Declination);      
+        {
+          Quaternion rotation = equatorialCoordinateSystem.PlanetQuaternion(planet.RightAscension, planet.Declination);
+
+          planet.RotationAxis = rotation;
+        }
     }
 
     private void TimeStepButton_Click(object sender, EventArgs e)
@@ -624,7 +628,7 @@ namespace SolarSystem
         double calibration = Convert.ToDouble(CalibrationBox.Text);
         if (ActiveObject is Planet planet)
         {
-          planet.rotationCalibration = calibration;
+          planet.RotationCalibration = calibration;
           Scene.Changed = true;
 
           SetDateTime(DateTime);

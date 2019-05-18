@@ -5,7 +5,8 @@
 #include "color.h"
 #include "SolarSystem.h"
 #include "Geodesic.h"
-#include "Physics.h"
+#include "Simulation.h"
+#include <string>
 
 #define DLL __declspec(dllexport) 
 extern "C"
@@ -43,6 +44,8 @@ extern "C"
 	DLL double __cdecl PlanetPositionY();
 	DLL double __cdecl PlanetPositionZ();
 	DLL double __cdecl PlanetRotation();
+	DLL void __cdecl SetPlanetBaseRotation(int planetId, double x, double y, double z, double w); 
+	DLL void __cdecl SetPlanetRotationCalibration(int planetId, double calibration);
 
 	//EquatorialCoordinateSystem
 	DLL void __cdecl EarthPositionAt(double daysSinceJ2000, Point3D& position);
@@ -53,7 +56,7 @@ extern "C"
 	DLL int __cdecl AddFallingObject(Point3D*positions, Point3D*velocities, int pointCount);
 	DLL void __cdecl RemoveFallingObject(int id);
 	DLL void __cdecl Run(bool run);
-	DLL void __cdecl SetTimeStep(double timeStep);
+	DLL double __cdecl SetTimeStep(double timeStep);
 	//add a single time step. 
 	DLL void __cdecl AddTimeStep(double timeStep);
 	//run the simulation until run is set false. 

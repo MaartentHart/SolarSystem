@@ -1,6 +1,7 @@
 #pragma once
 #include "Point3D.h"
 #include "Color.h"
+#include "Rotation.h"
 //Copyright Maarten 't Hart 2019
 #include <vector>
 #include <ctime>
@@ -114,8 +115,17 @@ struct Planet : CelestialBody, Orbit
 	Planet* isMoonOf;
 	Point3D position;
 	Point3D moonLocalPosition; 
+	Quaternion rotationAxis;
+	double rotationCalibration; 
 
 	Planet(double radius, double secondaryRadius, double surfaceGravity, std::string name = "");
 	void LoadCelestialBodyOrbit();//puts the nasa data in the orbit struct. 
+	double RotationAngleAt(double days) const;
+	Quaternion RotationAt(double days) const;
+	
+	Point3D RotatedScaledPosition(const Point3D&relativePosition) const; 
+	Point3D RotatedScaledPosition(const Point3D&relativePosition, double days) const; 
+
+	Point3D UnScale(const Point3D& point) const; 
 };
 

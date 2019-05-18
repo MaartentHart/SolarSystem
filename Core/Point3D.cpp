@@ -151,3 +151,42 @@ void Rotation::AroundAxisDegree(double ar)
 {
 	rotationAroundAxis = ar * deg2rad;
 }
+
+BoundingBox::BoundingBox()
+{
+	double positiveInfinity = std::numeric_limits<double>::infinity();
+	double negativeInfinity = -positiveInfinity; 
+	minimum = Point3D(positiveInfinity, positiveInfinity, positiveInfinity);
+	maximum = Point3D(negativeInfinity, negativeInfinity, negativeInfinity);
+}
+
+BoundingBox::BoundingBox(const Point3D& a, const Point3D& b)
+{
+	minimum = Point3D(
+		a.X < b.X ? a.X : b.X,
+		a.Y < b.Y ? a.Y : b.Y,
+		a.Z < b.Z ? a.Z : b.Z
+	);
+	maximum = Point3D(
+		a.X > b.X ? a.X : b.X,
+		a.Y > b.Y ? a.Y : b.Y,
+		a.Z > b.Z ? a.Z : b.Z
+	);
+}
+
+void BoundingBox::Grow(double value)
+{
+	minimum -= value; 
+	maximum += value; 
+}
+
+bool BoundingBox::Overlaps(const BoundingBox& other)const
+{
+	if (other.maximum.X < minimum.X || other.maximum.Y < minimum.Y || other.maximum.Z < minimum.Z)
+		return false;
+
+	if (maximum.X < other.minimum.X || maximum.Y < other.minimum.Y || maximum.Z < other.minimum.Z)
+		return false;
+
+	return true; 
+}

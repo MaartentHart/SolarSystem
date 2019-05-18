@@ -1,14 +1,9 @@
 //Copyright Maarten 't Hart 2019
 #include "stdafx.h"
 #include "DllLinkage.h"
-#include <string>
 
-SolarSystem solarSystem;
 Planet* activePlanet; 
-
 bool run = false; 
-std::vector<GravityAffectedObject> gravityObjects; 
-double timeStep; 
 
 //Tests and Examples. 
 void ExampleSetString(const char*theString)
@@ -99,7 +94,7 @@ int GeodesicGridMipMapIndicesCount(int generation, int mipmapGeneration)
 int SetActivePlanet(const char*name)
 {
 	int i = 0; 
-	for (Planet*planet : solarSystem.Planets())
+	for (Planet*planet : GetSolarSystem().Planets())
 	{
 		if (planet->name == name)
 		{
@@ -114,10 +109,10 @@ int SetActivePlanet(const char*name)
 
 void SetActivePlanetID(int id)
 {
-	if (id < 0 || id >= (int) solarSystem.Planets().size())
+	if (id < 0 || id >= (int) GetSolarSystem().Planets().size())
 		activePlanet = NULL;
 	else
-		activePlanet = solarSystem.Planets()[id];
+		activePlanet = GetSolarSystem().Planets()[id];
 }
 
 double PlanetScaleX()
@@ -153,7 +148,7 @@ void PlanetColor(Color&color)
 
 double EarthAxisTilt()
 {
-	Planet*earth = solarSystem.Earth(); 
+	Planet*earth = GetSolarSystem().Earth();
 	if (earth == NULL)
 		return 0;
 	return earth->ObliquityToOrbit;
@@ -175,7 +170,7 @@ double PlanetDeclination()
 
 void SetDaysSinceJ2000(double days)
 {
-	solarSystem.SetTimeSinceJ2000(days);
+	GetSolarSystem().SetTimeSinceJ2000(days);
 }
 
 double PlanetPositionX()
@@ -203,24 +198,34 @@ double PlanetRotation()
 {
 	if (activePlanet == NULL)
 		return 0;
-	return solarSystem.time / (activePlanet->SiderealRotationPeriod / 24)*360;
+	return activePlanet->RotationAngleAt(GetSolarSystem().time);
+}
+
+void SetPlanetBaseRotation(int planetId, double x, double y, double z, double w)
+{
+	GetSolarSystem().Planets()[planetId]->rotationAxis = Quaternion(x, y, z, w); 
+}
+
+void SetPlanetRotationCalibration(int planetId, double calibration)
+{
+	GetSolarSystem().Planets()[planetId]->rotationCalibration = calibration; 
 }
 
 void ClearFallingObjects()
 {
-	gravityObjects.clear(); 
+	GetGravityObjects().clear(); 
 }
 
 int AddFallingObject(Point3D*positions, Point3D*velocities, int pointCount)
 {
-	int id = gravityObjects.size(); 
-	gravityObjects.push_back(GravityAffectedObject(positions, velocities, pointCount));
+	int id = GetGravityObjects().size();
+	GetGravityObjects().push_back(GravityAffectedObject(positions, velocities, pointCount));
 	return id; 
 }
 
 void RemoveFallingObject(int id)
 {
-	gravityObjects[id].disposed = true; 
+	GetGravityObjects()[id].disposed = true;
 }
 
 void Run(bool run)
@@ -228,38 +233,22 @@ void Run(bool run)
 	::run = run; 
 }
 
-void SetTimeStep(double timeStep)
-{
-	::timeStep = timeStep; 
-}
-
-void AddTimeStep(double days)
-{
-	double time = solarSystem.time + days;
-	solarSystem.SetTimeSinceJ2000(time);
-
-	std::vector<Planet*> planets = solarSystem.Planets();
-	double seconds = days * 86400; 
-	for (GravityAffectedObject&gravityObject : gravityObjects)
-		gravityObject.MoveByGravity(planets, seconds);
-}
-
 //run the simulation until run is set false. 
 void Simulate()
 {
 	while (run)
 	{
-		AddTimeStep(timeStep); 
+		AddTimeStep(GetTimeStep()); 
 	}
 }
 
 //get information from simulation. 
 double GetTime()
 {
-	return solarSystem.time; 
+	return GetSolarSystem().time;
 }
 
 void EarthPositionAt(double daysSinceJ2000, Point3D&value)
 {
-	value = solarSystem.Earth()->PositionByTime(daysSinceJ2000);
+	value = GetSolarSystem().Earth()->PositionByTime(daysSinceJ2000);
 }

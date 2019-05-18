@@ -30,6 +30,8 @@ namespace SolarSystem
   /// </summary>
   public class Planet : IRenderable, IDisposable, IPositionObject
   {
+    private double rotationCalibration; 
+    private Quaternion rotationAxis = new Quaternion(); 
     private static float pointSize = 3;
     private int id = -1;
     private bool on = true;
@@ -45,7 +47,6 @@ namespace SolarSystem
     private bool exxagerationChanged = true;
     private bool paintChanged = true;
     private bool changed = true;
-    public double rotationCalibration;
 
     public static double MaxRenderRatio { get; set; } = 1000;
     public static int MaximumDisplayGeneration { get; set; } = 9;
@@ -61,14 +62,43 @@ namespace SolarSystem
 
     //rotation
     public double AroundAxisRotation { get; set; }
-    public Quaternion RotationAxis { get; set; }
+    public Quaternion RotationAxis
+    {
+      get => rotationAxis;
+      set
+      {
+        rotationAxis = value; 
+        if (ID!=-1)
+          CoreDll.SetPlanetBaseRotation(ID, rotationAxis.x, rotationAxis.y, rotationAxis.z, rotationAxis.w);
+      }
+    }
+
+    public double RotationCalibration
+    {
+      get => rotationCalibration;
+      set
+      {
+        rotationCalibration = value;
+        if (ID!= -1)
+          CoreDll.SetPlanetRotationCalibration(ID, rotationCalibration);
+      }
+    }
     public Quaternion LocalRotation { get; set; } = new Quaternion(); 
     public DoubleRotation Rotation => new DoubleRotation(RotationAxis, LocalRotation); 
 
     public double MaximumRadius { get; set; }
     public BoundingBox BoundingBox => new BoundingBox(Position, MaximumRadius);
 
-    public int ID => id;
+    public int ID
+    {
+      get => id;
+      set
+      {
+        id = value;
+        RotationCalibration = RotationCalibration;
+        RotationAxis = RotationAxis; 
+      }
+    }
     public double Declination { get; private set; }
     public double RightAscension { get; private set; }
 
@@ -157,7 +187,7 @@ namespace SolarSystem
       else
         SetColorMap(new ColorMap(color));
 
-      rotationCalibration = RotationCalibration(planet);
+      RotationCalibration = RotationCalibrationOf(planet);
       SetExxageration(1.0);
     }
 
@@ -412,18 +442,18 @@ namespace SolarSystem
         CoreDll.PlanetPositionY(),
         CoreDll.PlanetPositionZ());
       AroundAxisRotation = CoreDll.PlanetRotation();
-      LocalRotation = new Quaternion(new Point3D(0, 0, 1), AroundAxisRotation + rotationCalibration);
+      LocalRotation = new Quaternion(new Point3D(0, 0, 1), AroundAxisRotation + RotationCalibration);
     }
 
     private void SetActive()
     {
-      if (id != -1)
-        CoreDll.SetActivePlanetID(id);
+      if (ID != -1)
+        CoreDll.SetActivePlanetID(ID);
       else
-        id = CoreDll.SetActivePlanet(Name);
+        ID = CoreDll.SetActivePlanet(Name);
     }
 
-    private double RotationCalibration(SolarSystemPlanet planet)
+    private double RotationCalibrationOf(SolarSystemPlanet planet)
     {
       switch(planet)
       {

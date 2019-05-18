@@ -451,7 +451,7 @@ void CelestialBody::SetSun()
 
 SolarSystem::SolarSystem()
 {
-
+	time = 0;
 }
 
 Planet * SolarSystem::Earth()
