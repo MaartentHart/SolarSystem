@@ -1,8 +1,9 @@
+//Copyright Maarten 't Hart 2019
 #pragma once
 #include "Point3D.h"
 #include "Color.h"
 #include "Rotation.h"
-//Copyright Maarten 't Hart 2019
+#include "Ray.h"
 #include <vector>
 #include <ctime>
 
@@ -123,9 +124,14 @@ struct Planet : CelestialBody, Orbit
 	double RotationAngleAt(double days) const;
 	Quaternion RotationAt(double days) const;
 	
+	//Quick check if an object may cause an impact. 
+	bool InImpactRange(const Point3D& previousObjectPosition, Point3D& objectPosition, const Point3D& previousPlanetPosition) const; 
+
+	//more accurate check if an object causes an impact and trigger an impact if it does. 
+	void Impact(const Point3D& previousObjectPosition, Point3D& objectPosition, const Point3D& previousPlanetPosition, double startTime, double endTime) const;
+
 	Point3D RotatedScaledPosition(const Point3D&relativePosition) const; 
 	Point3D RotatedScaledPosition(const Point3D&relativePosition, double days) const; 
-
 	Point3D UnScale(const Point3D& point) const; 
 };
 

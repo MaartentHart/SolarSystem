@@ -80,6 +80,7 @@ struct Point3D
 
 	bool IsBetween(const Point3D&A, const Point3D&B)const;
 	Point3D CleanUp() const;
+	bool IsOrigin() const; 
 	Point3D& VectorMe();
 	double Vector2VectorCircularDistance(const Point3D&that) const;//circular distance of two points on a sphere with a radius of 1. 
 	std::string ToString() const; 

@@ -148,6 +148,37 @@ Quaternion Planet::RotationAt(double days) const
 	return Quaternion(rotationAxis, localRotation); 
 }
 
+//Quick check if an object may cause an impact. 
+bool Planet::InImpactRange(const Point3D& previousObjectPosition, Point3D& objectPosition, const Point3D& previousPlanetPosition) const
+{
+	BoundingBox objectBox(previousObjectPosition, objectPosition);
+	BoundingBox planetBox(previousPlanetPosition, position);
+
+	planetBox.Grow(radius);
+
+	return objectBox.Overlaps(planetBox);
+}
+
+
+void Planet::Impact(const Point3D& previousObjectPosition, Point3D& objectPosition, const Point3D& previousPlanetPosition, double startTime, double endTime) const
+{
+	Point3D start = previousObjectPosition - previousPlanetPosition;
+	Point3D end = objectPosition - position;
+
+	//prerotate: Check when is there an impact?
+	Ray ray(RotatedScaledPosition(start), RotatedScaledPosition(end)); 
+
+	Point3D intersection;
+	double position; 
+	if (!ray.IntersectSingleUnitSphere(intersection, position))
+		return; 
+
+	double impactTime = (endTime - startTime) * position + startTime; 
+	Point3D impactPosition = (end - start) * position + start; 
+	Point3D impactVector = RotatedScaledPosition(impactPosition, impactTime); 
+	objectPosition = Point3D(std::nan(""), std::nan(""), std::nan(""));
+}
+
 Point3D Planet::RotatedScaledPosition(const Point3D& relativePosition) const
 {
 	Point3D unrotated = rotationAxis.RotateReverse(relativePosition);

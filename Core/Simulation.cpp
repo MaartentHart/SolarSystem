@@ -25,25 +25,6 @@ double GetTimeStep()
 	return timeStep; 
 }
 
-//Quick check if an object may cause an impact. 
-bool InImpactRange(const Point3D& previousObjectPosition, Point3D& objectPosition, const Point3D& previousPlanetPosition, const Planet& planet)
-{
-	BoundingBox objectBox(previousObjectPosition, objectPosition);
-	BoundingBox planetBox(previousPlanetPosition, planet.position);
-
-	planetBox.Grow(planet.radius);
-
-	return objectBox.Overlaps(planetBox);
-}
-
-//more accurate check if an object causes an impact and trigger an impact if it does. 
-void Impact(const Point3D& previousObjectPosition, Point3D& objectPosition, const Point3D& previousPlanetPosition, const Planet& planet, double startTime, double endTime)
-{
-	Point3D start = previousObjectPosition - previousPlanetPosition;
-	Point3D end = objectPosition - planet.position; 
-
-}
-
 void AddTimeStep(double days)
 {
 	std::vector<Planet*> planets = solarSystem.Planets();
@@ -74,10 +55,9 @@ void AddTimeStep(double days)
 		for (int p = 0; p < planetCount; p++)
 		{
 			Point3D previousPlanetPosition = previousPlanetPositions[i];
-			if (InImpactRange(previousObjectPosition, objectPosition, previousPlanetPosition, *planets[i]))
-			{
-				Impact(previousObjectPosition, objectPosition, previousPlanetPosition, *planets[i], previousTime, time);
-			}
+			Planet* planet = planets[i];
+			if (planet->InImpactRange(previousObjectPosition, objectPosition, previousPlanetPosition))
+				planet->Impact(previousObjectPosition, objectPosition, previousPlanetPosition, previousTime, time);
 		}
 	}
 }

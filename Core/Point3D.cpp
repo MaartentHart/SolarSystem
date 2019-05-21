@@ -82,6 +82,11 @@ Point3D Point3D::CleanUp() const
 	return out;
 }
 
+bool Point3D::IsOrigin()const
+{
+	return X == 0 && Y == 0 && Z == 0;
+}
+
 double Point3D::Vector2VectorCircularDistance(const Point3D&that) const
 {
 	return pi / asin(1 - Vector().DistTo(that.Vector()));//test please
