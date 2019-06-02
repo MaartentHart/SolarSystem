@@ -38,26 +38,38 @@ void AddTimeStep(double days)
 	solarSystem.SetTimeSinceJ2000(time);
 	double seconds = days * 86400;
 
-	int objectCount = gravityObjects.size();
-	std::vector<Point3D> previousObjectPositions(objectCount);
+	int meteorCount = 0;
+	int objectCount = gravityObjects.size(); 
+	
+	for (const GravityAffectedObject&gravityObject : gravityObjects)
+		meteorCount += gravityObject.count;
+	
+	std::vector<Point3D> previousObjectPositions(meteorCount);
 
+	int m = 0; 
 	for (int i = 0; i < objectCount; i++)
-		previousObjectPositions[i] = *gravityObjects[i].position;
+		for (int j =0; j<gravityObjects[i].count;j++)
+			previousObjectPositions[m++] = gravityObjects[i].position[j];
 
 	for (GravityAffectedObject& gravityObject : gravityObjects)
 		gravityObject.MoveByGravity(planets, seconds);
 
+	m = 0; 
 	for (int i = 0; i < objectCount; i++)
 	{
-		Point3D previousObjectPosition = previousObjectPositions[i];
-		Point3D objectPosition = *gravityObjects[i].position;
-
-		for (int p = 0; p < planetCount; p++)
+		int count = gravityObjects[i].count;
+		for (int j = 0; j < count; j++)
 		{
-			Point3D previousPlanetPosition = previousPlanetPositions[i];
-			Planet* planet = planets[i];
-			if (planet->InImpactRange(previousObjectPosition, objectPosition, previousPlanetPosition))
-				planet->Impact(previousObjectPosition, objectPosition, previousPlanetPosition, previousTime, time);
+			Point3D previousObjectPosition = previousObjectPositions[m++];
+			Point3D*objectPosition = gravityObjects[i].position+j;
+
+			for (int p = 0; p < planetCount; p++)
+			{
+				Point3D previousPlanetPosition = previousPlanetPositions[p];
+				Planet* planet = planets[p];
+				if (planet->InImpactRange(previousObjectPosition, *objectPosition, previousPlanetPosition))
+					planet->Impact(previousObjectPosition, *objectPosition, previousPlanetPosition, previousTime, time);
+			}
 		}
 	}
 }
