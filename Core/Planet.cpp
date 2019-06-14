@@ -1,6 +1,7 @@
 //Copyright Maarten 't Hart 2019
 #include "stdafx.h"
 #include "Planet.h"
+#include "Impact.h"
 
 //maximum iterations for ellipse calculation.
 int maxIterations = sizeof(double) * 8 + 1;
@@ -173,9 +174,16 @@ void Planet::Impact(const Point3D& previousObjectPosition, Point3D& objectPositi
 	if (!ray.IntersectSingleUnitSphere(intersection, position))
 		return; 
 
+	double duration = endTime - startTime; 
+
+	double impactSpeed = (end - start).Distance() / duration; 
 	double impactTime = (endTime - startTime) * position + startTime; 
+	
 	Point3D impactPosition = (end - start) * position + start; 
 	Point3D impactVector = RotatedScaledPosition(impactPosition, impactTime); 
+	
+	Register(::Impact(this, impactSpeed, impactTime, impactVector));
+
 	objectPosition = Point3D(std::nan(""), std::nan(""), std::nan(""));
 }
 

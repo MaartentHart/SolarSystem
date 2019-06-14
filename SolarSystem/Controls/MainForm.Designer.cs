@@ -451,28 +451,28 @@
       // SecondsToolStripMenuItem
       // 
       this.SecondsToolStripMenuItem.Name = "SecondsToolStripMenuItem";
-      this.SecondsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.SecondsToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
       this.SecondsToolStripMenuItem.Text = "Seconds";
       this.SecondsToolStripMenuItem.Click += new System.EventHandler(this.SetStepUnit);
       // 
       // MinutesToolStripMenuItem
       // 
       this.MinutesToolStripMenuItem.Name = "MinutesToolStripMenuItem";
-      this.MinutesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.MinutesToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
       this.MinutesToolStripMenuItem.Text = "Minutes";
       this.MinutesToolStripMenuItem.Click += new System.EventHandler(this.SetStepUnit);
       // 
       // HoursToolStripMenuItem
       // 
       this.HoursToolStripMenuItem.Name = "HoursToolStripMenuItem";
-      this.HoursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.HoursToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
       this.HoursToolStripMenuItem.Text = "Hours";
       this.HoursToolStripMenuItem.Click += new System.EventHandler(this.SetStepUnit);
       // 
       // DaysToolStripMenuItem1
       // 
       this.DaysToolStripMenuItem1.Name = "DaysToolStripMenuItem1";
-      this.DaysToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+      this.DaysToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
       this.DaysToolStripMenuItem1.Text = "Days";
       this.DaysToolStripMenuItem1.Click += new System.EventHandler(this.SetStepUnit);
       // 

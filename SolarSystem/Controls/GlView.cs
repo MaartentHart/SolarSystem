@@ -158,5 +158,32 @@ namespace SolarSystem
         PointSizeBox.Text = Scene.PointSize.ToString();
       }
     }
+
+    private void DisplayButton_DropDownOpening(object sender, EventArgs e)
+    {
+      DisplayButton.DropDownItems.Clear();
+
+      HashSet<string> layerNames = new HashSet<string>();
+      foreach (IRenderable renderable in Scene.RenderableObjects)
+        if (renderable is Planet planet)
+          foreach (Layer layer in planet.Layers)
+            layerNames.Add(layer.Name); 
+
+      foreach (string layerName in layerNames)
+      {
+        ToolStripItem toolStripItem = DisplayButton.DropDownItems.Add(layerName);
+        toolStripItem.Click += DisplayLayerButton_Click;
+      }
+    }
+
+    private void DisplayLayerButton_Click(object sender, EventArgs e)
+    {
+      string layerName = (sender as ToolStripItem).Text;
+      DisplayButton.Text = layerName;
+
+      foreach (IRenderable renderable in Scene.RenderableObjects)
+        if (renderable is Planet planet)
+          planet.ActivateLayer(layerName); 
+    }
   }
 }

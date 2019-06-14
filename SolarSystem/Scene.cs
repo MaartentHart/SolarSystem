@@ -181,7 +181,7 @@ namespace SolarSystem
                 changed = true;
                 planet.ApplyExxageration();
               }
-              if (planet.PaintChanged)
+              if (planet.ActiveLayer.Repaint)
               {
                 changed = true;
                 planet.Paint();

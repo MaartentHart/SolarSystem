@@ -81,6 +81,9 @@
     <ClInclude Include="Ray.h">
       <Filter>Header Files\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Impact.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="Ray.cpp">
       <Filter>Source Files\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Impact.cpp">
+      <Filter>Source Files\SolarSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

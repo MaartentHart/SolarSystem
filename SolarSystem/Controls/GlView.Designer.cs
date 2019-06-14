@@ -29,8 +29,8 @@
     private void InitializeComponent()
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlView));
-      SolarSystem.Camera camera2 = new SolarSystem.Camera();
-      SolarSystem.Scene scene2 = new SolarSystem.Scene();
+      SolarSystem.Camera camera1 = new SolarSystem.Camera();
+      SolarSystem.Scene scene1 = new SolarSystem.Scene();
       this.ToolStrip = new System.Windows.Forms.ToolStrip();
       this.ToggleXYZTriadButton = new System.Windows.Forms.ToolStripButton();
       this.BackgroundColorButton = new System.Windows.Forms.ToolStripButton();
@@ -39,12 +39,14 @@
       this.CameraLockDistanceToggleButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
       this.LookatDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+      this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+      this.PointSizeBox = new System.Windows.Forms.ToolStripTextBox();
       this.ViewAngleTrackBar = new System.Windows.Forms.TrackBar();
       this.ViewAngleBox = new System.Windows.Forms.TextBox();
       this.FieldOfViewLabel = new System.Windows.Forms.Label();
       this.GlControlExtended = new SolarSystem.GlControlExtended();
-      this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-      this.PointSizeBox = new System.Windows.Forms.ToolStripTextBox();
+      this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+      this.DisplayButton = new System.Windows.Forms.ToolStripDropDownButton();
       this.ToolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.ViewAngleTrackBar)).BeginInit();
       this.SuspendLayout();
@@ -60,7 +62,9 @@
             this.toolStripLabel1,
             this.LookatDropDownButton,
             this.toolStripLabel2,
-            this.PointSizeBox});
+            this.PointSizeBox,
+            this.toolStripLabel3,
+            this.DisplayButton});
       this.ToolStrip.Location = new System.Drawing.Point(0, 0);
       this.ToolStrip.Name = "ToolStrip";
       this.ToolStrip.Size = new System.Drawing.Size(682, 25);
@@ -133,6 +137,20 @@
       this.LookatDropDownButton.Text = "None";
       this.LookatDropDownButton.DropDownOpening += new System.EventHandler(this.LookatDropDownButton_Click);
       // 
+      // toolStripLabel2
+      // 
+      this.toolStripLabel2.Name = "toolStripLabel2";
+      this.toolStripLabel2.Size = new System.Drawing.Size(61, 22);
+      this.toolStripLabel2.Text = "Point Size:";
+      // 
+      // PointSizeBox
+      // 
+      this.PointSizeBox.Name = "PointSizeBox";
+      this.PointSizeBox.Size = new System.Drawing.Size(20, 25);
+      this.PointSizeBox.Text = "3";
+      this.PointSizeBox.Leave += new System.EventHandler(this.PointSizeBox_Leave);
+      this.PointSizeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PointSizeBox_KeyDown);
+      // 
       // ViewAngleTrackBar
       // 
       this.ViewAngleTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -172,37 +190,42 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.GlControlExtended.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-      camera2.Changed = false;
-      camera2.FieldOfView = 25D;
-      camera2.ViewDistance = 10D;
-      camera2.ViewRadius = 10D;
-      this.GlControlExtended.Camera = camera2;
+      camera1.Changed = true;
+      camera1.FieldOfView = 25D;
+      camera1.LockDistance = true;
+      camera1.ViewDistance = 10D;
+      camera1.ViewRadius = 10D;
+      this.GlControlExtended.Camera = camera1;
       this.GlControlExtended.ColorBits = ((uint)(24u));
       this.GlControlExtended.DepthBits = ((uint)(24u));
       this.GlControlExtended.Location = new System.Drawing.Point(0, 28);
       this.GlControlExtended.MultisampleBits = ((uint)(0u));
       this.GlControlExtended.Name = "GlControlExtended";
-      scene2.Changed = false;
-      scene2.Exxageration = 0D;
-      scene2.SunLight = null;
-      this.GlControlExtended.Scene = scene2;
+      scene1.Changed = false;
+      scene1.Exxageration = 0D;
+      scene1.MaximumDisplayGeneration = 9;
+      scene1.PointSize = 3F;
+      scene1.SunLight = null;
+      this.GlControlExtended.Scene = scene1;
       this.GlControlExtended.Size = new System.Drawing.Size(682, 398);
       this.GlControlExtended.StencilBits = ((uint)(0u));
       this.GlControlExtended.TabIndex = 1;
       // 
-      // toolStripLabel2
+      // toolStripLabel3
       // 
-      this.toolStripLabel2.Name = "toolStripLabel2";
-      this.toolStripLabel2.Size = new System.Drawing.Size(61, 22);
-      this.toolStripLabel2.Text = "Point Size:";
+      this.toolStripLabel3.Name = "toolStripLabel3";
+      this.toolStripLabel3.Size = new System.Drawing.Size(48, 22);
+      this.toolStripLabel3.Text = "Display:";
       // 
-      // PointSizeBox
+      // DisplayButton
       // 
-      this.PointSizeBox.Name = "PointSizeBox";
-      this.PointSizeBox.Size = new System.Drawing.Size(20, 25);
-      this.PointSizeBox.Text = "3";
-      this.PointSizeBox.Leave += new System.EventHandler(this.PointSizeBox_Leave);
-      this.PointSizeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PointSizeBox_KeyDown);
+      this.DisplayButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+      this.DisplayButton.Image = ((System.Drawing.Image)(resources.GetObject("DisplayButton.Image")));
+      this.DisplayButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.DisplayButton.Name = "DisplayButton";
+      this.DisplayButton.Size = new System.Drawing.Size(56, 22);
+      this.DisplayButton.Text = "HeightMap";
+      this.DisplayButton.DropDownOpening += new System.EventHandler(this.DisplayButton_DropDownOpening);
       // 
       // GlView
       // 
@@ -239,5 +262,7 @@
     private System.Windows.Forms.ToolStripButton ToggleSunLightButton;
     private System.Windows.Forms.ToolStripLabel toolStripLabel2;
     private System.Windows.Forms.ToolStripTextBox PointSizeBox;
+    private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+    private System.Windows.Forms.ToolStripDropDownButton DisplayButton;
   }
 }

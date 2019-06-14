@@ -125,6 +125,7 @@
     <Compile Include="Debugging\RotationTest.Designer.cs">
       <DependentUpon>RotationTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Layer.cs" />
     <Compile Include="EquatorialCoordinateSystem.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="Controls\GlControlExtended.cs">
@@ -260,6 +261,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resource\step 1000.cmap">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resource\White0ToBlack1000.cmap">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shaders\PlanetHeightMapVertex.glsl">

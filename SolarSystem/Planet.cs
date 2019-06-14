@@ -30,6 +30,7 @@ namespace SolarSystem
   /// </summary>
   public class Planet : IRenderable, IDisposable, IPositionObject
   {
+    private Layer activeLayer; 
     private double rotationCalibration; 
     private Quaternion rotationAxis = new Quaternion(); 
     private static float pointSize = 3;
@@ -45,7 +46,6 @@ namespace SolarSystem
     private IntPtr colors;
     private ColorFloat color;
     private bool exxagerationChanged = true;
-    private bool paintChanged = true;
     private bool changed = true;
 
     public static double MaxRenderRatio { get; set; } = 1000;
@@ -56,10 +56,45 @@ namespace SolarSystem
     public SolarSystemPlanet PlanetID { get; }
     public CRenderableObject RenderableObject { get; } = new CRenderableObject();
     public HeightMap HeightMap { get; set; }
+    public Layer ValueLayer { get; }
     public Point3D Scale { get; }
-    public double[] ColorableValues { get; set; }
-    public ColorMap ColorMap { get; set; }
+    public double[] ColorableValues => ActiveLayer.Values; 
 
+    public ColorMap ColorMap { get => ActiveLayer.ColorMap;
+      set => ActiveLayer.ColorMap = value; }
+
+    public List<Layer> Layers { get; } = new List<Layer>();
+
+    public Layer ActiveLayer
+    {
+      get
+      {
+        if (activeLayer == null)
+        {
+          if (Layers.Count == 0 || Layers[0] == null)
+          {
+            activeLayer = new Layer("Default");
+            if (Layers.Count == 0)
+              Layers.Add(activeLayer);
+            else
+              Layers[0] = activeLayer;
+          }
+          else
+            activeLayer = Layers[0];
+        }
+        return activeLayer;
+      }
+      set
+      {
+        if (value == null)
+          return;
+        activeLayer = value; 
+        foreach (Layer layer in Layers)
+          if (layer == value)
+            return;
+        Layers.Add(value);
+      }
+    }
     //rotation
     public double AroundAxisRotation { get; set; }
     public Quaternion RotationAxis
@@ -109,16 +144,6 @@ namespace SolarSystem
         bool ret = exxagerationChanged; 
         exxagerationChanged = false;
         return ret;
-      }
-    }
-
-    public bool PaintChanged
-    {
-      get
-      {
-        bool ret = paintChanged;
-        paintChanged = false;
-        return ret; 
       }
     }
 
@@ -183,12 +208,37 @@ namespace SolarSystem
       CoreDll.PlanetColor(ref color);
 
       if (HeightMap.Valid)
-        ColorableValues = HeightMap.Heights;
-      else
-        SetColorMap(new ColorMap(color));
+        AddLayer("HeightMap", HeightMap.Heights);
 
+      Layer defaultLayer = AddLayer("Default", null);
+      defaultLayer.ColorMap = new ColorMap(color);
+
+      int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
+      ValueLayer = AddLayer("Value", new double[verticesCount]);
+      ValueLayer.ColorMap = new ColorMap("White0ToBlack1000"); 
+      
       RotationCalibration = RotationCalibrationOf(planet);
       SetExxageration(1.0);
+    }
+
+    public void ActivateLayer(string layerName)
+    {
+      if (ActiveLayer.Name == layerName)
+        return;
+
+      foreach (Layer layer in Layers)
+        if (layer.Name == layerName)
+        
+          ActiveLayer = layer;
+        
+      ActiveLayer.Repaint = true; 
+    }
+
+    private Layer AddLayer(string name, double[] values)
+    {
+      Layer layer = new Layer(name, values);
+      Layers.Add(layer);
+      return layer; 
     }
 
     public void SetExxageration(double scale)
@@ -198,22 +248,12 @@ namespace SolarSystem
       exxageration = scale;
       exxagerationChanged = true;
     }
-
-    public void SetColorMap(ColorMap colorMap, double[] values)
-    {
-      if (values != null)
-      {
-        ColorableValues = values;
-      }
-      SetColorMap(colorMap);
-    }
-
+      
     public void SetColorMap(ColorMap colorMap)
     {
       ColorMap = colorMap;
 
       //tell the scene backgroundworker to repaint. 
-      paintChanged = true;
     }
 
     //should be called by the backgroundworker. 

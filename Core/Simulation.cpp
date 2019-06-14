@@ -62,6 +62,10 @@ void AddTimeStep(double days)
 		{
 			Point3D previousObjectPosition = previousObjectPositions[m++];
 			Point3D*objectPosition = gravityObjects[i].position+j;
+			
+			if (isnan(objectPosition->X))
+				//already impacted
+				continue; 
 
 			for (int p = 0; p < planetCount; p++)
 			{
