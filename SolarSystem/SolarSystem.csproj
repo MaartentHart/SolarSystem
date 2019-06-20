@@ -125,6 +125,7 @@
     <Compile Include="Debugging\RotationTest.Designer.cs">
       <DependentUpon>RotationTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Impact.cs" />
     <Compile Include="Layer.cs" />
     <Compile Include="EquatorialCoordinateSystem.cs" />
     <Compile Include="ErrorLog.cs" />

@@ -144,5 +144,17 @@ namespace SolarSystem
     [DllImport("Core.dll", EntryPoint = "EarthPositionAt", CallingConvention = CallingConvention.Cdecl)]
     static public extern void EarthPositionAt(double daysSinceJ2000, ref Point3D position);
     #endregion
+
+    #region Impact
+    [DllImport("Core.dll", EntryPoint = "GetImpactCount", CallingConvention = CallingConvention.Cdecl)]
+    static public extern int GetImpactCount();
+
+    [DllImport("Core.dll", EntryPoint = "GetImpact", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void GetImpact(int id, ref int planetID, ref double speed, ref double time, ref Point3D vector);
+
+    [DllImport("Core.dll", EntryPoint = "DrawImpactOn", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void DrawImpactOn(int impactId, int generation, double scaledRadius, double maxValue, double[] layer);
+    #endregion
+
   }
 }

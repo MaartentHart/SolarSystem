@@ -252,3 +252,48 @@ void EarthPositionAt(double daysSinceJ2000, Point3D&value)
 {
 	value = GetSolarSystem().Earth()->PositionByTime(daysSinceJ2000);
 }
+
+
+//Impacts
+int GetImpactCount()
+{
+	return ImpactCount();
+}
+
+void GetImpact(int id, int& planetID, double& speed, double& time, Point3D& vector)
+{
+	struct Impact impact = GetImpact(id);
+	planetID = impact.planetID;
+	speed = impact.speed;
+	time = impact.time;
+	vector = impact.vector; 
+}
+	
+void DrawImpactOn(int impactId, int generation, double scaledRadius, double maxValue, double* layer)
+{
+	struct Impact impact = GetImpact(impactId);
+	GridCellEnumerator gridCellEnumerator(impact.vector, (unsigned short) generation);
+	
+	double part = scaledRadius / Pi() / 2;
+
+	if (scaledRadius > Pi())
+		scaledRadius = Pi();
+
+	double boundarySquared = scaledRadius * scaledRadius; 
+
+	while (gridCellEnumerator.MoveNext())
+	{
+		Point3D current = gridCellEnumerator.Point3D(); 
+		double distanceSquared = (current - impact.vector).DistSquared(); 
+		if (distanceSquared>boundarySquared)
+		{
+			gridCellEnumerator.SetFalse();
+			continue; 
+		}
+
+		double ratio = distanceSquared / boundarySquared; 
+		double value = (1 - ratio) * maxValue; 
+		layer[gridCellEnumerator.Index()] += value; 
+	}
+
+}

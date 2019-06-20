@@ -7,9 +7,9 @@ Impact::Impact()
 {
 }
 
-Impact::Impact(const Planet* planet, double speed, double time, const Point3D& vector)
+Impact::Impact(int planetID, double speed, double time, const Point3D& vector)
 {
-	this->planet = planet;
+	this->planetID = planetID;
 	this->speed = speed;
 	this->time = time;
 	this->vector = vector;

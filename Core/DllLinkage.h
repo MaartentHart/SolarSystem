@@ -6,6 +6,7 @@
 #include "SolarSystem.h"
 #include "Geodesic.h"
 #include "Simulation.h"
+#include "Impact.h"
 #include <string>
 
 #define DLL __declspec(dllexport) 
@@ -63,5 +64,11 @@ extern "C"
 	DLL void __cdecl Simulate(); 
 	//get information from simulation. 
 	DLL double __cdecl GetTime(); 
+
+	//Impacts
+	DLL int GetImpactCount();
+	DLL void GetImpact(int id, int& planetID, double& speed, double& time, Point3D& vector); 
+	//Draw an impact on the given layer. Scaled radius is the radius of the crater divided by the radius of the planet.  
+	DLL void DrawImpactOn(int impactId, int generation, double scaledRadius, double maxValue, double* layer); 
 
 }

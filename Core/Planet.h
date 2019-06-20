@@ -118,6 +118,7 @@ struct Planet : CelestialBody, Orbit
 	Point3D moonLocalPosition; 
 	Quaternion rotationAxis;
 	double rotationCalibration; 
+	int id; 
 
 	Planet(double radius, double secondaryRadius, double surfaceGravity, std::string name = "");
 	void LoadCelestialBodyOrbit();//puts the nasa data in the orbit struct. 
@@ -133,5 +134,6 @@ struct Planet : CelestialBody, Orbit
 	Point3D RotatedScaledPosition(const Point3D&relativePosition) const; 
 	Point3D RotatedScaledPosition(const Point3D&relativePosition, double days) const; 
 	Point3D UnScale(const Point3D& point) const; 
+	
 };
 

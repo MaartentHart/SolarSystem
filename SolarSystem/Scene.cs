@@ -16,9 +16,12 @@ namespace SolarSystem
     private static Scene mainScene;
     private BackgroundWorker decorationBackgroundWorker;
     private double exxageration = 0;
+    private int paintedImpactsCount = 0;
     private bool changed = false;
+
     private List<IRenderable> PreviousRenderableObjects { get; } = new List<IRenderable>();
     private List<ILight> PreviousLights { get; } = new List<ILight>();
+
 
     public int MaximumDisplayGeneration
     {
@@ -171,6 +174,7 @@ namespace SolarSystem
         bool changed = false;
         try
         {
+          PaintImpacts();
           for (int i = 0; i < RenderableObjects.Count; i++)
           {
             IRenderable renderable = RenderableObjects[i];
@@ -201,6 +205,27 @@ namespace SolarSystem
       }
     }
 
+    private void PaintImpacts()
+    {
+      int impactCount = CoreDll.GetImpactCount(); 
+      for (; paintedImpactsCount<impactCount;paintedImpactsCount++)
+      {
+        int currentImpactId = paintedImpactsCount;
+        Impact impact = new Impact(currentImpactId);
+        Planet planet = GetPlanet(impact.planetID);
+        if (planet != null)
+          impact.DrawOn(planet); 
+      }
+    }
+
+    private Planet GetPlanet(int id)
+    {
+      foreach (IRenderable renderable in RenderableObjects)
+        if (renderable is Planet planet)
+          if (planet.ID == id)
+            return planet;
+      return null; 
+    }
   }
 
   public interface IPositionObject

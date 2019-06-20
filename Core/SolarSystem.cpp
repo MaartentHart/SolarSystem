@@ -542,9 +542,11 @@ std::vector<Planet*> SolarSystem::Planets()
 			Sun()
 		};
 
+		int i = 0; 
 		for (Planet*planet:planets)
 		{
 			planet->LoadCelestialBodyOrbit(); 
+			planet->id = i++; 
 		}
 	}
 	return planets; 

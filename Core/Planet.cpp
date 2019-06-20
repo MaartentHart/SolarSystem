@@ -112,6 +112,7 @@ void Orbit::SetCalculationValues()
 
 Planet::Planet(double radius, double secondaryRadius, double surfaceGravity, std::string name)
 {
+	id = -1; 
 	this->name = name;
 	isSun = false;
 	isMoonOf = NULL;
@@ -182,7 +183,7 @@ void Planet::Impact(const Point3D& previousObjectPosition, Point3D& objectPositi
 	Point3D impactPosition = (end - start) * position + start; 
 	Point3D impactVector = RotatedScaledPosition(impactPosition, impactTime); 
 	
-	Register(::Impact(this, impactSpeed, impactTime, impactVector));
+	Register(::Impact(id, impactSpeed, impactTime, impactVector));
 
 	objectPosition = Point3D(std::nan(""), std::nan(""), std::nan(""));
 }
@@ -203,3 +204,4 @@ Point3D Planet::UnScale(const Point3D& point) const
 {
 	return Point3D(point.X / radius, point.Y / radius, point.Z / secondaryRadius);
 }
+

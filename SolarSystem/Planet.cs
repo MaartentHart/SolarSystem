@@ -189,7 +189,7 @@ namespace SolarSystem
       get => RenderableObject.Position;
       set => RenderableObject.Position = value; 
     }
-    
+
     public Planet(SolarSystemPlanet planet, int generation = 9)
     {
       Generation = generation;

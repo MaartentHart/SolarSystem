@@ -4,15 +4,15 @@
 
 struct Impact
 {
-	const Planet* planet;
+	int planetID;
 	double speed; 
 	double time; 
 	Point3D vector;
 
 	Impact(); 
-	Impact(const Planet* planet, double speed, double time, const Point3D& vector);
+	Impact(int planetID, double speed, double time, const Point3D& vector);
 };
 
-void Register(const Impact& impact); 
+void Register(const struct Impact& impact); 
 int ImpactCount(); 
-Impact GetImpact(int index); 
+struct Impact GetImpact(int index); 
