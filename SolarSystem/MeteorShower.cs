@@ -14,8 +14,8 @@ namespace SolarSystem
     
     public CPoint3DArray Positions { get; }
     public CPoint3DArray Velocities { get; }
-    public CIntArrray Indices { get; }
-    public CColorArrray Colors { get; }
+    public CIntArrray Indices { get; private set;  }
+    public CColorArrray Colors { get; private set; }
 
     public int MeteorCount { get; }
     public int ID { get; }
@@ -26,8 +26,8 @@ namespace SolarSystem
     }
     public bool On { get; set; } = true;
     public string Name { get; set; } = "Meteor Shower";
-    public CRenderGeometry RenderObject { get; }
-    public MeteorPositionObject MeteorPosition { get; }
+    public CRenderGeometry RenderObject { get; private set; }
+    public MeteorPositionObject MeteorPosition { get; private set; }
 
     public bool Changed
     {
@@ -42,6 +42,17 @@ namespace SolarSystem
 
     public Point3D Position => MeteorPosition.Position; 
 
+
+    /// <summary>
+    /// Create a spherical meteor shower. 
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="velocity"></param>
+    /// <param name="generation"></param>
+    /// <param name="minimumSpeed"></param>
+    /// <param name="speedStep"></param>
+    /// <param name="steps"></param>
+    /// <param name="initialRadius"></param>
     public MeteorShower (Point3D position, Point3D velocity, int generation, double minimumSpeed, double speedStep, int steps, double initialRadius = 1)
     {
       int verticesCount = CoreDll.GeodesicGridVerticesCount(generation);
@@ -68,6 +79,35 @@ namespace SolarSystem
         Positions.Scale(initialRadius);
         Positions.Move(position); 
       }
+      FinishConstructor(); 
+    }
+
+    public MeteorShower(Point3D position, Point3D velocity, Point3D sheetNormal, int arrayLength, double spacing)
+    {
+      MeteorCount = arrayLength * arrayLength;
+      Positions = new CPoint3DArray(MeteorCount);
+      Velocities = new CPoint3DArray(MeteorCount);
+
+      Point3D xDirection = sheetNormal.Cross(new Point3D(0, 0, 1)).Normal;
+      Point3D yDirection = xDirection.Cross(sheetNormal).Normal;
+
+      Point3D gridSize = xDirection * arrayLength * spacing + yDirection * arrayLength * spacing;
+      Point3D gridCenter = gridSize / 2; 
+
+      int i = 0;
+
+      for (int y = 0; y < arrayLength; y++)
+        for (int x = 0; x < arrayLength; x++, i++)
+        {
+          Positions[i] = position + xDirection * x * spacing + yDirection * y * spacing - gridCenter;
+          Velocities[i] = velocity; 
+        }
+
+      FinishConstructor();
+    }
+
+    private void FinishConstructor()
+    {
       CoreDll.AddFallingObject(Positions.Ptr, Velocities.Ptr, MeteorCount);
 
       Indices = new CIntArrray(MeteorCount);
@@ -84,9 +124,9 @@ namespace SolarSystem
         enableColors = true,
         verticesCount = MeteorCount
       };
-      
+
       RenderObject.renderMode = CRenderGeometry.RenderMode.points;
-      MeteorPosition = new MeteorPositionObject(this); 
+      MeteorPosition = new MeteorPositionObject(this);
     }
 
     public void Render(Camera camera)

@@ -34,12 +34,18 @@
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.label11 = new System.Windows.Forms.Label();
       this.DistanceToBox = new System.Windows.Forms.ComboBox();
+      this.PositionDeclinationTrackBar = new SolarSystem.TextBoxTrackBar();
       this.PositionZBox = new System.Windows.Forms.TextBox();
+      this.PositionRightAscensionTrackBar = new SolarSystem.TextBoxTrackBar();
       this.PositionYBox = new System.Windows.Forms.TextBox();
       this.PositionXBox = new System.Windows.Forms.TextBox();
+      this.DistanceTrackBar = new SolarSystem.TextBoxTrackBar();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.VelocityDeclinationTrackBar = new SolarSystem.TextBoxTrackBar();
       this.VelocityZBox = new System.Windows.Forms.TextBox();
+      this.VelocityRightAscensionTrackBar = new SolarSystem.TextBoxTrackBar();
       this.VelocityYBox = new System.Windows.Forms.TextBox();
+      this.SpeedTrackBar = new SolarSystem.TextBoxTrackBar();
       this.VelocityXBox = new System.Windows.Forms.TextBox();
       this.label4 = new System.Windows.Forms.Label();
       this.label5 = new System.Windows.Forms.Label();
@@ -47,6 +53,7 @@
       this.groupBox3 = new System.Windows.Forms.GroupBox();
       this.label7 = new System.Windows.Forms.Label();
       this.InitialRadiusBox = new System.Windows.Forms.TextBox();
+      this.DetailLevelTrackBar = new SolarSystem.TextBoxTrackBar();
       this.label10 = new System.Windows.Forms.Label();
       this.StepsBox = new System.Windows.Forms.TextBox();
       this.SpeedStepBox = new System.Windows.Forms.TextBox();
@@ -54,16 +61,21 @@
       this.label8 = new System.Windows.Forms.Label();
       this.label9 = new System.Windows.Forms.Label();
       this.AddButton = new System.Windows.Forms.Button();
-      this.DetailLevelTrackBar = new SolarSystem.TextBoxTrackBar();
-      this.VelocityDeclinationTrackBar = new SolarSystem.TextBoxTrackBar();
-      this.VelocityRightAscensionTrackBar = new SolarSystem.TextBoxTrackBar();
-      this.SpeedTrackBar = new SolarSystem.TextBoxTrackBar();
-      this.PositionDeclinationTrackBar = new SolarSystem.TextBoxTrackBar();
-      this.PositionRightAscensionTrackBar = new SolarSystem.TextBoxTrackBar();
-      this.DistanceTrackBar = new SolarSystem.TextBoxTrackBar();
+      this.ExplosionTypeTabControl = new System.Windows.Forms.TabControl();
+      this.SphericalTab = new System.Windows.Forms.TabPage();
+      this.SheetTab = new System.Windows.Forms.TabPage();
+      this.label12 = new System.Windows.Forms.Label();
+      this.label13 = new System.Windows.Forms.Label();
+      this.ArrayLengthBox = new System.Windows.Forms.TextBox();
+      this.SpacingBox = new System.Windows.Forms.TextBox();
+      this.SheetDeclinationTrackbar = new SolarSystem.TextBoxTrackBar();
+      this.SheetRightAscensionTrackBar = new SolarSystem.TextBoxTrackBar();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.groupBox3.SuspendLayout();
+      this.ExplosionTypeTabControl.SuspendLayout();
+      this.SphericalTab.SuspendLayout();
+      this.SheetTab.SuspendLayout();
       this.SuspendLayout();
       // 
       // label1
@@ -132,6 +144,23 @@
       this.DistanceToBox.TabIndex = 12;
       this.DistanceToBox.SelectedIndexChanged += new System.EventHandler(this.DistanceToBox_SelectedIndexChanged);
       // 
+      // PositionDeclinationTrackBar
+      // 
+      this.PositionDeclinationTrackBar.AllowOutOfBounds = true;
+      this.PositionDeclinationTrackBar.ForceInteger = false;
+      this.PositionDeclinationTrackBar.FourthPower = false;
+      this.PositionDeclinationTrackBar.Location = new System.Drawing.Point(3, 128);
+      this.PositionDeclinationTrackBar.Maximum = 90D;
+      this.PositionDeclinationTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.PositionDeclinationTrackBar.Minimum = -90D;
+      this.PositionDeclinationTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.PositionDeclinationTrackBar.Name = "PositionDeclinationTrackBar";
+      this.PositionDeclinationTrackBar.Quadratic = false;
+      this.PositionDeclinationTrackBar.Size = new System.Drawing.Size(375, 25);
+      this.PositionDeclinationTrackBar.TabIndex = 15;
+      this.PositionDeclinationTrackBar.Title = "Declination";
+      this.PositionDeclinationTrackBar.Value = 0D;
+      // 
       // PositionZBox
       // 
       this.PositionZBox.Location = new System.Drawing.Point(278, 13);
@@ -141,6 +170,23 @@
       this.PositionZBox.Text = "0";
       this.PositionZBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PositionBox_KeyDown);
       this.PositionZBox.Leave += new System.EventHandler(this.PositionBox_Leave);
+      // 
+      // PositionRightAscensionTrackBar
+      // 
+      this.PositionRightAscensionTrackBar.AllowOutOfBounds = true;
+      this.PositionRightAscensionTrackBar.ForceInteger = false;
+      this.PositionRightAscensionTrackBar.FourthPower = false;
+      this.PositionRightAscensionTrackBar.Location = new System.Drawing.Point(3, 97);
+      this.PositionRightAscensionTrackBar.Maximum = 360D;
+      this.PositionRightAscensionTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.PositionRightAscensionTrackBar.Minimum = 0D;
+      this.PositionRightAscensionTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.PositionRightAscensionTrackBar.Name = "PositionRightAscensionTrackBar";
+      this.PositionRightAscensionTrackBar.Quadratic = false;
+      this.PositionRightAscensionTrackBar.Size = new System.Drawing.Size(375, 25);
+      this.PositionRightAscensionTrackBar.TabIndex = 14;
+      this.PositionRightAscensionTrackBar.Title = "Right Ascension";
+      this.PositionRightAscensionTrackBar.Value = 0D;
       // 
       // PositionYBox
       // 
@@ -162,6 +208,23 @@
       this.PositionXBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PositionBox_KeyDown);
       this.PositionXBox.Leave += new System.EventHandler(this.PositionBox_Leave);
       // 
+      // DistanceTrackBar
+      // 
+      this.DistanceTrackBar.AllowOutOfBounds = true;
+      this.DistanceTrackBar.ForceInteger = false;
+      this.DistanceTrackBar.FourthPower = true;
+      this.DistanceTrackBar.Location = new System.Drawing.Point(3, 66);
+      this.DistanceTrackBar.Maximum = 300000000D;
+      this.DistanceTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.DistanceTrackBar.Minimum = 0D;
+      this.DistanceTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.DistanceTrackBar.Name = "DistanceTrackBar";
+      this.DistanceTrackBar.Quadratic = false;
+      this.DistanceTrackBar.Size = new System.Drawing.Size(375, 25);
+      this.DistanceTrackBar.TabIndex = 11;
+      this.DistanceTrackBar.Title = "Distance (km)";
+      this.DistanceTrackBar.Value = 10000000D;
+      // 
       // groupBox2
       // 
       this.groupBox2.Controls.Add(this.VelocityDeclinationTrackBar);
@@ -180,6 +243,23 @@
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Velocity";
       // 
+      // VelocityDeclinationTrackBar
+      // 
+      this.VelocityDeclinationTrackBar.AllowOutOfBounds = true;
+      this.VelocityDeclinationTrackBar.ForceInteger = false;
+      this.VelocityDeclinationTrackBar.FourthPower = false;
+      this.VelocityDeclinationTrackBar.Location = new System.Drawing.Point(3, 101);
+      this.VelocityDeclinationTrackBar.Maximum = 90D;
+      this.VelocityDeclinationTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.VelocityDeclinationTrackBar.Minimum = -90D;
+      this.VelocityDeclinationTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.VelocityDeclinationTrackBar.Name = "VelocityDeclinationTrackBar";
+      this.VelocityDeclinationTrackBar.Quadratic = false;
+      this.VelocityDeclinationTrackBar.Size = new System.Drawing.Size(375, 25);
+      this.VelocityDeclinationTrackBar.TabIndex = 18;
+      this.VelocityDeclinationTrackBar.Title = "Declination";
+      this.VelocityDeclinationTrackBar.Value = 0D;
+      // 
       // VelocityZBox
       // 
       this.VelocityZBox.Location = new System.Drawing.Point(278, 13);
@@ -190,6 +270,23 @@
       this.VelocityZBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VelocityBox_KeyDown);
       this.VelocityZBox.Leave += new System.EventHandler(this.VelocityBox_Leave);
       // 
+      // VelocityRightAscensionTrackBar
+      // 
+      this.VelocityRightAscensionTrackBar.AllowOutOfBounds = true;
+      this.VelocityRightAscensionTrackBar.ForceInteger = false;
+      this.VelocityRightAscensionTrackBar.FourthPower = false;
+      this.VelocityRightAscensionTrackBar.Location = new System.Drawing.Point(3, 70);
+      this.VelocityRightAscensionTrackBar.Maximum = 360D;
+      this.VelocityRightAscensionTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.VelocityRightAscensionTrackBar.Minimum = 0D;
+      this.VelocityRightAscensionTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.VelocityRightAscensionTrackBar.Name = "VelocityRightAscensionTrackBar";
+      this.VelocityRightAscensionTrackBar.Quadratic = false;
+      this.VelocityRightAscensionTrackBar.Size = new System.Drawing.Size(375, 25);
+      this.VelocityRightAscensionTrackBar.TabIndex = 17;
+      this.VelocityRightAscensionTrackBar.Title = "Right Ascension";
+      this.VelocityRightAscensionTrackBar.Value = 0D;
+      // 
       // VelocityYBox
       // 
       this.VelocityYBox.Location = new System.Drawing.Point(152, 13);
@@ -199,6 +296,23 @@
       this.VelocityYBox.Text = "30.0";
       this.VelocityYBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VelocityBox_KeyDown);
       this.VelocityYBox.Leave += new System.EventHandler(this.VelocityBox_Leave);
+      // 
+      // SpeedTrackBar
+      // 
+      this.SpeedTrackBar.AllowOutOfBounds = true;
+      this.SpeedTrackBar.ForceInteger = false;
+      this.SpeedTrackBar.FourthPower = false;
+      this.SpeedTrackBar.Location = new System.Drawing.Point(3, 39);
+      this.SpeedTrackBar.Maximum = 300D;
+      this.SpeedTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.SpeedTrackBar.Minimum = 0D;
+      this.SpeedTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.SpeedTrackBar.Name = "SpeedTrackBar";
+      this.SpeedTrackBar.Quadratic = false;
+      this.SpeedTrackBar.Size = new System.Drawing.Size(375, 25);
+      this.SpeedTrackBar.TabIndex = 16;
+      this.SpeedTrackBar.Title = "Speed (km/s)";
+      this.SpeedTrackBar.Value = 30D;
       // 
       // VelocityXBox
       // 
@@ -239,26 +353,18 @@
       // 
       // groupBox3
       // 
-      this.groupBox3.Controls.Add(this.label7);
-      this.groupBox3.Controls.Add(this.InitialRadiusBox);
-      this.groupBox3.Controls.Add(this.DetailLevelTrackBar);
-      this.groupBox3.Controls.Add(this.label10);
-      this.groupBox3.Controls.Add(this.StepsBox);
-      this.groupBox3.Controls.Add(this.SpeedStepBox);
-      this.groupBox3.Controls.Add(this.MinimumSpeedBox);
-      this.groupBox3.Controls.Add(this.label8);
-      this.groupBox3.Controls.Add(this.label9);
+      this.groupBox3.Controls.Add(this.ExplosionTypeTabControl);
       this.groupBox3.Location = new System.Drawing.Point(12, 320);
       this.groupBox3.Name = "groupBox3";
-      this.groupBox3.Size = new System.Drawing.Size(386, 117);
+      this.groupBox3.Size = new System.Drawing.Size(386, 153);
       this.groupBox3.TabIndex = 8;
       this.groupBox3.TabStop = false;
-      this.groupBox3.Text = "Explosion properties";
+      this.groupBox3.Text = "Meteor Shower properties";
       // 
       // label7
       // 
       this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(199, 87);
+      this.label7.Location = new System.Drawing.Point(199, 67);
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(67, 13);
       this.label7.TabIndex = 10;
@@ -266,79 +372,18 @@
       // 
       // InitialRadiusBox
       // 
-      this.InitialRadiusBox.Location = new System.Drawing.Point(285, 84);
+      this.InitialRadiusBox.Location = new System.Drawing.Point(268, 64);
       this.InitialRadiusBox.Name = "InitialRadiusBox";
-      this.InitialRadiusBox.Size = new System.Drawing.Size(100, 20);
+      this.InitialRadiusBox.Size = new System.Drawing.Size(95, 20);
       this.InitialRadiusBox.TabIndex = 9;
       this.InitialRadiusBox.Text = "1.0";
-      // 
-      // label10
-      // 
-      this.label10.AutoSize = true;
-      this.label10.Location = new System.Drawing.Point(199, 61);
-      this.label10.Name = "label10";
-      this.label10.Size = new System.Drawing.Size(34, 13);
-      this.label10.TabIndex = 7;
-      this.label10.Text = "Steps";
-      // 
-      // StepsBox
-      // 
-      this.StepsBox.Location = new System.Drawing.Point(285, 58);
-      this.StepsBox.Name = "StepsBox";
-      this.StepsBox.Size = new System.Drawing.Size(100, 20);
-      this.StepsBox.TabIndex = 6;
-      this.StepsBox.Text = "4";
-      // 
-      // SpeedStepBox
-      // 
-      this.SpeedStepBox.Location = new System.Drawing.Point(93, 84);
-      this.SpeedStepBox.Name = "SpeedStepBox";
-      this.SpeedStepBox.Size = new System.Drawing.Size(100, 20);
-      this.SpeedStepBox.TabIndex = 5;
-      this.SpeedStepBox.Text = "1.0";
-      // 
-      // MinimumSpeedBox
-      // 
-      this.MinimumSpeedBox.Location = new System.Drawing.Point(93, 58);
-      this.MinimumSpeedBox.Name = "MinimumSpeedBox";
-      this.MinimumSpeedBox.Size = new System.Drawing.Size(100, 20);
-      this.MinimumSpeedBox.TabIndex = 4;
-      this.MinimumSpeedBox.Text = "1.0";
-      // 
-      // label8
-      // 
-      this.label8.AutoSize = true;
-      this.label8.Location = new System.Drawing.Point(7, 61);
-      this.label8.Name = "label8";
-      this.label8.Size = new System.Drawing.Size(80, 13);
-      this.label8.TabIndex = 1;
-      this.label8.Text = "Minimum speed";
-      // 
-      // label9
-      // 
-      this.label9.AutoSize = true;
-      this.label9.Location = new System.Drawing.Point(7, 87);
-      this.label9.Name = "label9";
-      this.label9.Size = new System.Drawing.Size(61, 13);
-      this.label9.TabIndex = 2;
-      this.label9.Text = "Speed step";
-      // 
-      // AddButton
-      // 
-      this.AddButton.Location = new System.Drawing.Point(323, 443);
-      this.AddButton.Name = "AddButton";
-      this.AddButton.Size = new System.Drawing.Size(75, 23);
-      this.AddButton.TabIndex = 9;
-      this.AddButton.Text = "Add";
-      this.AddButton.UseVisualStyleBackColor = true;
-      this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
       // 
       // DetailLevelTrackBar
       // 
       this.DetailLevelTrackBar.AllowOutOfBounds = true;
       this.DetailLevelTrackBar.ForceInteger = true;
       this.DetailLevelTrackBar.FourthPower = false;
-      this.DetailLevelTrackBar.Location = new System.Drawing.Point(6, 19);
+      this.DetailLevelTrackBar.Location = new System.Drawing.Point(6, 7);
       this.DetailLevelTrackBar.Maximum = 9D;
       this.DetailLevelTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
       this.DetailLevelTrackBar.Minimum = 0D;
@@ -350,113 +395,187 @@
       this.DetailLevelTrackBar.Title = "Detail Level";
       this.DetailLevelTrackBar.Value = 2D;
       // 
-      // VelocityDeclinationTrackBar
+      // label10
       // 
-      this.VelocityDeclinationTrackBar.AllowOutOfBounds = true;
-      this.VelocityDeclinationTrackBar.ForceInteger = false;
-      this.VelocityDeclinationTrackBar.FourthPower = false;
-      this.VelocityDeclinationTrackBar.Location = new System.Drawing.Point(3, 101);
-      this.VelocityDeclinationTrackBar.Maximum = 90D;
-      this.VelocityDeclinationTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
-      this.VelocityDeclinationTrackBar.Minimum = -90D;
-      this.VelocityDeclinationTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
-      this.VelocityDeclinationTrackBar.Name = "VelocityDeclinationTrackBar";
-      this.VelocityDeclinationTrackBar.Quadratic = false;
-      this.VelocityDeclinationTrackBar.Size = new System.Drawing.Size(375, 25);
-      this.VelocityDeclinationTrackBar.TabIndex = 18;
-      this.VelocityDeclinationTrackBar.Title = "Declination";
-      this.VelocityDeclinationTrackBar.Value = 0D;
+      this.label10.AutoSize = true;
+      this.label10.Location = new System.Drawing.Point(199, 41);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(34, 13);
+      this.label10.TabIndex = 7;
+      this.label10.Text = "Steps";
       // 
-      // VelocityRightAscensionTrackBar
+      // StepsBox
       // 
-      this.VelocityRightAscensionTrackBar.AllowOutOfBounds = true;
-      this.VelocityRightAscensionTrackBar.ForceInteger = false;
-      this.VelocityRightAscensionTrackBar.FourthPower = false;
-      this.VelocityRightAscensionTrackBar.Location = new System.Drawing.Point(3, 70);
-      this.VelocityRightAscensionTrackBar.Maximum = 360D;
-      this.VelocityRightAscensionTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
-      this.VelocityRightAscensionTrackBar.Minimum = 0D;
-      this.VelocityRightAscensionTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
-      this.VelocityRightAscensionTrackBar.Name = "VelocityRightAscensionTrackBar";
-      this.VelocityRightAscensionTrackBar.Quadratic = false;
-      this.VelocityRightAscensionTrackBar.Size = new System.Drawing.Size(375, 25);
-      this.VelocityRightAscensionTrackBar.TabIndex = 17;
-      this.VelocityRightAscensionTrackBar.Title = "Right Ascension";
-      this.VelocityRightAscensionTrackBar.Value = 0D;
+      this.StepsBox.Location = new System.Drawing.Point(268, 38);
+      this.StepsBox.Name = "StepsBox";
+      this.StepsBox.Size = new System.Drawing.Size(95, 20);
+      this.StepsBox.TabIndex = 6;
+      this.StepsBox.Text = "4";
       // 
-      // SpeedTrackBar
+      // SpeedStepBox
       // 
-      this.SpeedTrackBar.AllowOutOfBounds = true;
-      this.SpeedTrackBar.ForceInteger = false;
-      this.SpeedTrackBar.FourthPower = false;
-      this.SpeedTrackBar.Location = new System.Drawing.Point(3, 39);
-      this.SpeedTrackBar.Maximum = 300D;
-      this.SpeedTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
-      this.SpeedTrackBar.Minimum = 0D;
-      this.SpeedTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
-      this.SpeedTrackBar.Name = "SpeedTrackBar";
-      this.SpeedTrackBar.Quadratic = false;
-      this.SpeedTrackBar.Size = new System.Drawing.Size(375, 25);
-      this.SpeedTrackBar.TabIndex = 16;
-      this.SpeedTrackBar.Title = "Speed (km/s)";
-      this.SpeedTrackBar.Value = 30D;
+      this.SpeedStepBox.Location = new System.Drawing.Point(93, 64);
+      this.SpeedStepBox.Name = "SpeedStepBox";
+      this.SpeedStepBox.Size = new System.Drawing.Size(100, 20);
+      this.SpeedStepBox.TabIndex = 5;
+      this.SpeedStepBox.Text = "1.0";
       // 
-      // PositionDeclinationTrackBar
+      // MinimumSpeedBox
       // 
-      this.PositionDeclinationTrackBar.AllowOutOfBounds = true;
-      this.PositionDeclinationTrackBar.ForceInteger = false;
-      this.PositionDeclinationTrackBar.FourthPower = false;
-      this.PositionDeclinationTrackBar.Location = new System.Drawing.Point(3, 128);
-      this.PositionDeclinationTrackBar.Maximum = 90D;
-      this.PositionDeclinationTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
-      this.PositionDeclinationTrackBar.Minimum = -90D;
-      this.PositionDeclinationTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
-      this.PositionDeclinationTrackBar.Name = "PositionDeclinationTrackBar";
-      this.PositionDeclinationTrackBar.Quadratic = false;
-      this.PositionDeclinationTrackBar.Size = new System.Drawing.Size(375, 25);
-      this.PositionDeclinationTrackBar.TabIndex = 15;
-      this.PositionDeclinationTrackBar.Title = "Declination";
-      this.PositionDeclinationTrackBar.Value = 0D;
+      this.MinimumSpeedBox.Location = new System.Drawing.Point(93, 38);
+      this.MinimumSpeedBox.Name = "MinimumSpeedBox";
+      this.MinimumSpeedBox.Size = new System.Drawing.Size(100, 20);
+      this.MinimumSpeedBox.TabIndex = 4;
+      this.MinimumSpeedBox.Text = "1.0";
       // 
-      // PositionRightAscensionTrackBar
+      // label8
       // 
-      this.PositionRightAscensionTrackBar.AllowOutOfBounds = true;
-      this.PositionRightAscensionTrackBar.ForceInteger = false;
-      this.PositionRightAscensionTrackBar.FourthPower = false;
-      this.PositionRightAscensionTrackBar.Location = new System.Drawing.Point(3, 97);
-      this.PositionRightAscensionTrackBar.Maximum = 360D;
-      this.PositionRightAscensionTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
-      this.PositionRightAscensionTrackBar.Minimum = 0D;
-      this.PositionRightAscensionTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
-      this.PositionRightAscensionTrackBar.Name = "PositionRightAscensionTrackBar";
-      this.PositionRightAscensionTrackBar.Quadratic = false;
-      this.PositionRightAscensionTrackBar.Size = new System.Drawing.Size(375, 25);
-      this.PositionRightAscensionTrackBar.TabIndex = 14;
-      this.PositionRightAscensionTrackBar.Title = "Right Ascension";
-      this.PositionRightAscensionTrackBar.Value = 0D;
+      this.label8.AutoSize = true;
+      this.label8.Location = new System.Drawing.Point(7, 41);
+      this.label8.Name = "label8";
+      this.label8.Size = new System.Drawing.Size(80, 13);
+      this.label8.TabIndex = 1;
+      this.label8.Text = "Minimum speed";
       // 
-      // DistanceTrackBar
+      // label9
       // 
-      this.DistanceTrackBar.AllowOutOfBounds = true;
-      this.DistanceTrackBar.ForceInteger = false;
-      this.DistanceTrackBar.FourthPower = true;
-      this.DistanceTrackBar.Location = new System.Drawing.Point(3, 66);
-      this.DistanceTrackBar.Maximum = 300000000D;
-      this.DistanceTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
-      this.DistanceTrackBar.Minimum = 0D;
-      this.DistanceTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
-      this.DistanceTrackBar.Name = "DistanceTrackBar";
-      this.DistanceTrackBar.Quadratic = false;
-      this.DistanceTrackBar.Size = new System.Drawing.Size(375, 25);
-      this.DistanceTrackBar.TabIndex = 11;
-      this.DistanceTrackBar.Title = "Distance (km)";
-      this.DistanceTrackBar.Value = 10000000D;
+      this.label9.AutoSize = true;
+      this.label9.Location = new System.Drawing.Point(7, 67);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(61, 13);
+      this.label9.TabIndex = 2;
+      this.label9.Text = "Speed step";
+      // 
+      // AddButton
+      // 
+      this.AddButton.Location = new System.Drawing.Point(319, 479);
+      this.AddButton.Name = "AddButton";
+      this.AddButton.Size = new System.Drawing.Size(75, 23);
+      this.AddButton.TabIndex = 9;
+      this.AddButton.Text = "Add";
+      this.AddButton.UseVisualStyleBackColor = true;
+      this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+      // 
+      // ExplosionTypeTabControl
+      // 
+      this.ExplosionTypeTabControl.Controls.Add(this.SphericalTab);
+      this.ExplosionTypeTabControl.Controls.Add(this.SheetTab);
+      this.ExplosionTypeTabControl.Location = new System.Drawing.Point(9, 20);
+      this.ExplosionTypeTabControl.Name = "ExplosionTypeTabControl";
+      this.ExplosionTypeTabControl.SelectedIndex = 0;
+      this.ExplosionTypeTabControl.Size = new System.Drawing.Size(373, 124);
+      this.ExplosionTypeTabControl.TabIndex = 10;
+      // 
+      // SphericalTab
+      // 
+      this.SphericalTab.Controls.Add(this.label7);
+      this.SphericalTab.Controls.Add(this.DetailLevelTrackBar);
+      this.SphericalTab.Controls.Add(this.InitialRadiusBox);
+      this.SphericalTab.Controls.Add(this.label9);
+      this.SphericalTab.Controls.Add(this.label8);
+      this.SphericalTab.Controls.Add(this.label10);
+      this.SphericalTab.Controls.Add(this.MinimumSpeedBox);
+      this.SphericalTab.Controls.Add(this.StepsBox);
+      this.SphericalTab.Controls.Add(this.SpeedStepBox);
+      this.SphericalTab.Location = new System.Drawing.Point(4, 22);
+      this.SphericalTab.Name = "SphericalTab";
+      this.SphericalTab.Padding = new System.Windows.Forms.Padding(3);
+      this.SphericalTab.Size = new System.Drawing.Size(365, 98);
+      this.SphericalTab.TabIndex = 0;
+      this.SphericalTab.Text = "Spherical";
+      this.SphericalTab.UseVisualStyleBackColor = true;
+      // 
+      // SheetTab
+      // 
+      this.SheetTab.Controls.Add(this.SheetDeclinationTrackbar);
+      this.SheetTab.Controls.Add(this.SpacingBox);
+      this.SheetTab.Controls.Add(this.SheetRightAscensionTrackBar);
+      this.SheetTab.Controls.Add(this.ArrayLengthBox);
+      this.SheetTab.Controls.Add(this.label13);
+      this.SheetTab.Controls.Add(this.label12);
+      this.SheetTab.Location = new System.Drawing.Point(4, 22);
+      this.SheetTab.Name = "SheetTab";
+      this.SheetTab.Padding = new System.Windows.Forms.Padding(3);
+      this.SheetTab.Size = new System.Drawing.Size(365, 98);
+      this.SheetTab.TabIndex = 1;
+      this.SheetTab.Text = "Sheet";
+      this.SheetTab.UseVisualStyleBackColor = true;
+      // 
+      // label12
+      // 
+      this.label12.AutoSize = true;
+      this.label12.Location = new System.Drawing.Point(6, 13);
+      this.label12.Name = "label12";
+      this.label12.Size = new System.Drawing.Size(70, 13);
+      this.label12.TabIndex = 0;
+      this.label12.Text = "Array Length:";
+      // 
+      // label13
+      // 
+      this.label13.AutoSize = true;
+      this.label13.Location = new System.Drawing.Point(188, 13);
+      this.label13.Name = "label13";
+      this.label13.Size = new System.Drawing.Size(49, 13);
+      this.label13.TabIndex = 1;
+      this.label13.Text = "Spacing:";
+      // 
+      // ArrayLengthBox
+      // 
+      this.ArrayLengthBox.Location = new System.Drawing.Point(82, 10);
+      this.ArrayLengthBox.Name = "ArrayLengthBox";
+      this.ArrayLengthBox.Size = new System.Drawing.Size(100, 20);
+      this.ArrayLengthBox.TabIndex = 5;
+      this.ArrayLengthBox.Text = "100";
+      this.ArrayLengthBox.Leave += new System.EventHandler(this.ArrayLengthBox_Leave);
+      // 
+      // SpacingBox
+      // 
+      this.SpacingBox.Location = new System.Drawing.Point(262, 10);
+      this.SpacingBox.Name = "SpacingBox";
+      this.SpacingBox.Size = new System.Drawing.Size(100, 20);
+      this.SpacingBox.TabIndex = 6;
+      this.SpacingBox.Text = "200";
+      this.SpacingBox.Leave += new System.EventHandler(this.SpacingBox_Leave);
+      // 
+      // SheetDeclinationTrackbar
+      // 
+      this.SheetDeclinationTrackbar.AllowOutOfBounds = true;
+      this.SheetDeclinationTrackbar.ForceInteger = false;
+      this.SheetDeclinationTrackbar.FourthPower = false;
+      this.SheetDeclinationTrackbar.Location = new System.Drawing.Point(3, 67);
+      this.SheetDeclinationTrackbar.Maximum = 90D;
+      this.SheetDeclinationTrackbar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.SheetDeclinationTrackbar.Minimum = -90D;
+      this.SheetDeclinationTrackbar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.SheetDeclinationTrackbar.Name = "SheetDeclinationTrackbar";
+      this.SheetDeclinationTrackbar.Quadratic = false;
+      this.SheetDeclinationTrackbar.Size = new System.Drawing.Size(356, 25);
+      this.SheetDeclinationTrackbar.TabIndex = 20;
+      this.SheetDeclinationTrackbar.Title = "Declination";
+      this.SheetDeclinationTrackbar.Value = 0D;
+      // 
+      // SheetRightAscensionTrackBar
+      // 
+      this.SheetRightAscensionTrackBar.AllowOutOfBounds = true;
+      this.SheetRightAscensionTrackBar.ForceInteger = false;
+      this.SheetRightAscensionTrackBar.FourthPower = false;
+      this.SheetRightAscensionTrackBar.Location = new System.Drawing.Point(3, 36);
+      this.SheetRightAscensionTrackBar.Maximum = 360D;
+      this.SheetRightAscensionTrackBar.MaximumSize = new System.Drawing.Size(10000, 25);
+      this.SheetRightAscensionTrackBar.Minimum = 0D;
+      this.SheetRightAscensionTrackBar.MinimumSize = new System.Drawing.Size(0, 25);
+      this.SheetRightAscensionTrackBar.Name = "SheetRightAscensionTrackBar";
+      this.SheetRightAscensionTrackBar.Quadratic = false;
+      this.SheetRightAscensionTrackBar.Size = new System.Drawing.Size(356, 25);
+      this.SheetRightAscensionTrackBar.TabIndex = 19;
+      this.SheetRightAscensionTrackBar.Title = "Right Ascension";
+      this.SheetRightAscensionTrackBar.Value = 0D;
       // 
       // MeteoriteInitializationForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(405, 471);
+      this.ClientSize = new System.Drawing.Size(405, 527);
       this.Controls.Add(this.AddButton);
       this.Controls.Add(this.groupBox3);
       this.Controls.Add(this.groupBox2);
@@ -469,7 +588,11 @@
       this.groupBox2.ResumeLayout(false);
       this.groupBox2.PerformLayout();
       this.groupBox3.ResumeLayout(false);
-      this.groupBox3.PerformLayout();
+      this.ExplosionTypeTabControl.ResumeLayout(false);
+      this.SphericalTab.ResumeLayout(false);
+      this.SphericalTab.PerformLayout();
+      this.SheetTab.ResumeLayout(false);
+      this.SheetTab.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -509,5 +632,14 @@
     private TextBoxTrackBar VelocityDeclinationTrackBar;
     private TextBoxTrackBar VelocityRightAscensionTrackBar;
     private TextBoxTrackBar SpeedTrackBar;
+    private System.Windows.Forms.TabControl ExplosionTypeTabControl;
+    private System.Windows.Forms.TabPage SphericalTab;
+    private System.Windows.Forms.TabPage SheetTab;
+    private System.Windows.Forms.TextBox SpacingBox;
+    private System.Windows.Forms.TextBox ArrayLengthBox;
+    private System.Windows.Forms.Label label13;
+    private System.Windows.Forms.Label label12;
+    private TextBoxTrackBar SheetDeclinationTrackbar;
+    private TextBoxTrackBar SheetRightAscensionTrackBar;
   }
 }

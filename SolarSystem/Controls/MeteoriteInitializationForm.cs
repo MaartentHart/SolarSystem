@@ -19,6 +19,9 @@ namespace SolarSystem
     public double speedStep = 1;
     public int steps = 10;
     public double initialRadius = 1.0;
+    public int arrayLength = 100;
+    public double spacing = 200;
+    public Point3D sheetNormal = new Point3D(1,0,0); 
 
     public Point3D ObjectPosition { get; set; } = new Point3D();
     private Scene Scene { get; }
@@ -193,13 +196,29 @@ namespace SolarSystem
         velocity = new Point3D(Convert.ToDouble(VelocityXBox.Text),
           Convert.ToDouble(VelocityYBox.Text),
           Convert.ToDouble(VelocityZBox.Text));
-        generation = Convert.ToInt32(DetailLevelTrackBar.Value);
-        minimumSpeed = Convert.ToDouble(MinimumSpeedBox.Text);
-        speedStep = Convert.ToDouble(SpeedStepBox.Text);
-        steps = Convert.ToInt32(StepsBox.Text);
-        initialRadius = Convert.ToDouble(InitialRadiusBox.Text);
 
-        AddMeteorShower();
+        if (ExplosionTypeTabControl.SelectedTab == SphericalTab)
+        {
+          generation = Convert.ToInt32(DetailLevelTrackBar.Value);
+          minimumSpeed = Convert.ToDouble(MinimumSpeedBox.Text);
+          speedStep = Convert.ToDouble(SpeedStepBox.Text);
+          steps = Convert.ToInt32(StepsBox.Text);
+          initialRadius = Convert.ToDouble(InitialRadiusBox.Text);
+
+          AddMeteorShower();
+        }
+        else if (ExplosionTypeTabControl.SelectedTab == SheetTab)
+        {
+          arrayLength = Convert.ToInt32(ArrayLengthBox.Text);
+          spacing = Convert.ToDouble(SpacingBox.Text);
+          double declination = SheetDeclinationTrackbar.Value;
+          double rightAscension = SheetRightAscensionTrackBar.Value;
+
+          sheetNormal = EquatorialCoordinateSystem.Main.EquatorialCoordinate(rightAscension, declination);
+
+          AddMeteorShower(false); 
+        }
+
         Close(); 
       }
       catch
@@ -208,9 +227,14 @@ namespace SolarSystem
       }
     }
 
-    private void AddMeteorShower()
+    private void AddMeteorShower(bool spherical = true)
     {
-      MeteorShower meteorShower = new MeteorShower(position, velocity, generation, minimumSpeed, speedStep, steps, initialRadius);
+      MeteorShower meteorShower;
+
+      if (spherical)
+        meteorShower = new MeteorShower(position, velocity, generation, minimumSpeed, speedStep, steps, initialRadius);
+      else
+        meteorShower = new MeteorShower(position, velocity, sheetNormal, arrayLength, spacing); 
 
       //give meteor shower a unique name. 
       int i = 0;
@@ -223,7 +247,10 @@ namespace SolarSystem
           if (renderable.Name == meteorShower.Name)
           {
             i++;
-            meteorShower.Name = "Meteor Shower " + i.ToString();
+            string name = "Meteor Shower ";
+            if (!spherical)
+              name += "(sheet) "; 
+            meteorShower.Name = name + i.ToString();
             ok = false;
             break;
           }
@@ -269,6 +296,31 @@ namespace SolarSystem
     private void MeteoriteInitializationForm_FormClosed(object sender, FormClosedEventArgs e)
     {
       RemoveTriad(); 
+    }
+
+    private void ArrayLengthBox_Leave(object sender, EventArgs e)
+    {
+      try
+      {
+        int length = Convert.ToInt32(ArrayLengthBox.Text);
+      }
+      catch
+      {
+        ArrayLengthBox.Text = "100"; 
+      }
+    }
+
+    private void SpacingBox_Leave(object sender, EventArgs e)
+    {
+      try
+      {
+        double spacing = Convert.ToDouble(SpacingBox.Text);
+      }
+      catch
+      {
+        SpacingBox.Text = "200"; 
+      }
+
     }
   }
 }
