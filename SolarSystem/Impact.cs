@@ -44,7 +44,7 @@ namespace SolarSystem
       //using default values for now. 
       double radius = 100;
       double scaledRadius = radius / 6000;
-      double maxValue = 10000;
+      double maxValue = 1000;
 
       CoreDll.DrawImpactOn(id, planet.Generation, scaledRadius, maxValue, layer.Values);
       layer.Repaint = true; 
