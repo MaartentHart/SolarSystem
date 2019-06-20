@@ -1195,10 +1195,8 @@ void GridCellEnumerator::Setup(const ::GridCell&that)
 	current->Current = that;
 	current->index = 0;
 	int arraysize = ArraySizeForGeneration(that.generation);
-	UseMask.resize(arraysize);
-	ProcessedMask.resize(arraysize);
-	std::fill(UseMask.begin(), UseMask.end(), false);
-	std::fill(ProcessedMask.begin(), ProcessedMask.end(), false);
+	UseMask = std::vector<bool>(arraysize);
+	ProcessedMask = std::vector<bool>(arraysize);
 	Init = false;
 	CurrentIsValid = true;
 }

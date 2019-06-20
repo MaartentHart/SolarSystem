@@ -42,7 +42,7 @@ namespace SolarSystem
         return;
 
       //using default values for now. 
-      double radius = 200;
+      double radius = 100;
       double scaledRadius = radius / 6000;
       double maxValue = 10000;
 

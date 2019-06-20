@@ -281,6 +281,10 @@ void DrawImpactOn(int impactId, int generation, double scaledRadius, double maxV
 
 	double boundarySquared = scaledRadius * scaledRadius; 
 
+
+	int debugCount = GetGeodesicGrid(generation)->points.size(); 
+	std::vector<int> debug(debugCount);
+
 	while (gridCellEnumerator.MoveNext())
 	{
 		Point3D current = gridCellEnumerator.Point3D(); 
@@ -293,7 +297,14 @@ void DrawImpactOn(int impactId, int generation, double scaledRadius, double maxV
 
 		double ratio = distanceSquared / boundarySquared; 
 		double value = (1 - ratio) * maxValue; 
-		layer[gridCellEnumerator.Index()] += value; 
+		int index = gridCellEnumerator.Index(); 
+
+		layer[index] += value; 
+
+		debug[index]++;
+		if (debug[index] > 1)
+			int hold = 1; 
+		
 	}
 
 }
