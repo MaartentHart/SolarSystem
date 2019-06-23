@@ -253,7 +253,18 @@ void EarthPositionAt(double daysSinceJ2000, Point3D&value)
 	value = GetSolarSystem().Earth()->PositionByTime(daysSinceJ2000);
 }
 
-
+void PlanetPositionAt(int planetId, double daysSinceJ2000, Point3D& position)
+{
+	for (Planet* planet : GetSolarSystem().Planets())
+	{
+		if (planet == NULL)
+			continue;
+		if (planet->id == planetId)
+		{
+			position = planet->PositionByTime(daysSinceJ2000); 
+		}
+	}
+}
 //Impacts
 int GetImpactCount()
 {

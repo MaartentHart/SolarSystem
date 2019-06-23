@@ -55,19 +55,22 @@ namespace SolarSystem
       
       if (ActiveObject is Planet planet)
       {
-        //RotationXBox.Text = planet.RenderableObject.Rotation.axisTilt.ToString();
-        //RotationYBox.Text = planet.RenderableObject.Rotation.axisDirection.ToString();
-        //RotationZBox.Text = planet.RenderableObject.Rotation.aroundAxis.ToString();
-        PositionXBox.Text = planet.RenderableObject.Position.x.ToString();
-        PositionYBox.Text = planet.RenderableObject.Position.y.ToString();
-        PositionZBox.Text = planet.RenderableObject.Position.z.ToString();
+        Point3D position = planet.RenderableObject.Position; 
+        PositionXBox.Text = position.x.ToString();
+        PositionYBox.Text = position.y.ToString();
+        PositionZBox.Text = position.z.ToString();
+        DistanceBox.Text = position.Magnitude.ToString(); 
+
+        Point3D velocity = planet.GetVelocity();
+        VelocityXBox.Text = velocity.x.ToString();
+        VelocityYBox.Text = velocity.y.ToString();
+        VelocityZBox.Text = velocity.z.ToString();
+        SpeedBox.Text = velocity.Magnitude.ToString(); 
+
         TypeBox.Text = "Planet";
       }
       else
       {
-        RotationXBox.Text = "0";
-        RotationYBox.Text = "0";
-        RotationZBox.Text = "0";
         PositionXBox.Text = "0";
         PositionYBox.Text = "0";
         PositionZBox.Text = "0";
@@ -119,19 +122,9 @@ namespace SolarSystem
       }      
     }
 
-    private void XTrack_Scroll(object sender, EventArgs e)
+    private void SetVelocity()
     {
-      RotationXBox.Text = xtrack.Value.ToString();
-    }
 
-    private void YTrack_Scroll(object sender, EventArgs e)
-    {
-      RotationYBox.Text = ytrack.Value.ToString();
-    }
-
-    private void ZTrack_Scroll(object sender, EventArgs e)
-    {
-      RotationZBox.Text = ztrack.Value.ToString();
     }
 
     private int Range360(double value)
@@ -140,42 +133,6 @@ namespace SolarSystem
         return Convert.ToInt32(value);
       int integerValue = Convert.ToInt32(value);
       return integerValue % 360;
-    }
-
-    private void RotationXBox_TextChanged(object sender, EventArgs e)
-    {
-      if (!updating)
-        SetRotation();
-      try
-      {
-        xtrack.Value = Range360(Convert.ToDouble(RotationXBox.Text));
-      }
-      catch
-      { }
-    }
-
-    private void RotationYBox_TextChanged(object sender, EventArgs e)
-    {
-      if (!updating)
-        SetRotation();
-      try
-      {
-        ytrack.Value = Range360(Convert.ToDouble(RotationYBox.Text));
-      }
-      catch
-      { }
-    }
-
-    private void RotationZBox_TextChanged(object sender, EventArgs e)
-    {
-      if (!updating)
-        SetRotation();
-      try
-      {
-        ztrack.Value = Range360(Convert.ToDouble(RotationZBox.Text));
-      }
-      catch
-      { }
     }
 
     private void PositionXBox_TextChanged(object sender, EventArgs e)
@@ -197,6 +154,37 @@ namespace SolarSystem
       if (updating)
         return;
       SetPosition(); 
+    }
+          
+    private void AutoUpdateCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void VelocityXBox_TextChanged(object sender, EventArgs e)
+    {
+      if (updating)
+        return;
+      SetVelocity(); 
+    }
+
+    private void VelocityYBox_TextChanged(object sender, EventArgs e)
+    {
+      if (updating)
+        return;
+      SetVelocity(); 
+    }
+
+    private void VelocityZBox_TextChanged(object sender, EventArgs e)
+    {
+      if (updating)
+        return;
+      SetVelocity(); 
+    }
+
+    private void CelestialPropertiesForm_Load(object sender, EventArgs e)
+    {
+
     }
   }
 }

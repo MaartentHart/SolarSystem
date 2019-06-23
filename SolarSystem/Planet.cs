@@ -137,6 +137,20 @@ namespace SolarSystem
     public double Declination { get; private set; }
     public double RightAscension { get; private set; }
 
+    public Point3D GetVelocity()
+    {
+      double time = CoreDll.GetTime();
+      Point3D positionAtTime = new Point3D();
+      Point3D positionNextSecond = new Point3D();
+
+      CoreDll.PlanetPositionAt(ID, time, ref positionAtTime);
+      time += 1.0 / 86400;
+      CoreDll.PlanetPositionAt(ID, time, ref positionNextSecond);
+
+      return positionNextSecond - positionAtTime; 
+    }
+
+
     public bool ExxagerationChanged
     {
       get

@@ -282,7 +282,6 @@ namespace SolarSystem
 
     private void PropertiesBoxButton_Click(object sender, EventArgs e)
     {
-
       CelestialPropertiesForm.Owner = this; 
       CelestialPropertiesForm.Show(); 
     }

@@ -15,6 +15,7 @@ namespace SolarSystem
     private float pointSize = 3;
     private static Scene mainScene;
     private BackgroundWorker decorationBackgroundWorker;
+    private BackgroundWorker impactBackgroundWorker; 
     private double exxageration = 0;
     private int paintedImpactsCount = 0;
     private bool changed = false;
@@ -146,17 +147,40 @@ namespace SolarSystem
       if (mainScene != null)
         throw new Exception("There should only be 1 main scene!");
       mainScene = this; 
-      StartBackgroundWorker();
+      StartBackgroundWorkers();
     }
 
-    private void StartBackgroundWorker()
+    private void StartBackgroundWorkers()
     {
+      if (impactBackgroundWorker == null)
+        impactBackgroundWorker = new BackgroundWorker();
+      if (!impactBackgroundWorker.IsBusy)
+      {
+        impactBackgroundWorker.DoWork += DrawImpacts;
+        impactBackgroundWorker.RunWorkerAsync(); 
+      }
       if (decorationBackgroundWorker == null)
         decorationBackgroundWorker = new BackgroundWorker();
       if (!decorationBackgroundWorker.IsBusy)
       {
         decorationBackgroundWorker.DoWork += ApplyChanges;
         decorationBackgroundWorker.RunWorkerAsync();
+      }
+    }
+
+    private void DrawImpacts(object sender, DoWorkEventArgs e)
+    {
+      while (Program.Running())
+      {
+        try
+        {
+          PaintImpacts();
+          System.Threading.Thread.Sleep(1);
+        }
+        catch
+        {
+
+        }
       }
     }
 
@@ -174,7 +198,6 @@ namespace SolarSystem
         bool changed = false;
         try
         {
-          PaintImpacts();
           for (int i = 0; i < RenderableObjects.Count; i++)
           {
             IRenderable renderable = RenderableObjects[i];
@@ -214,7 +237,9 @@ namespace SolarSystem
         Impact impact = new Impact(currentImpactId);
         Planet planet = GetPlanet(impact.planetID);
         if (planet != null)
-          impact.DrawOn(planet); 
+        {
+          impact.DrawOn(planet);
+        }
       }
     }
 

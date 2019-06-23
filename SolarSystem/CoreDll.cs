@@ -143,6 +143,11 @@ namespace SolarSystem
     #region EquatorialCoordinateSystemInformation
     [DllImport("Core.dll", EntryPoint = "EarthPositionAt", CallingConvention = CallingConvention.Cdecl)]
     static public extern void EarthPositionAt(double daysSinceJ2000, ref Point3D position);
+
+
+    [DllImport("Core.dll", EntryPoint = "PlanetPositionAt", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void PlanetPositionAt(int planetId, double daysSinceJ2000, ref Point3D position);
+
     #endregion
 
     #region Impact

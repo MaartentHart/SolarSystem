@@ -31,32 +31,30 @@
       this.components = new System.ComponentModel.Container();
       this.NameBox = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
-      this.RotationXBox = new System.Windows.Forms.TextBox();
-      this.groupBox1 = new System.Windows.Forms.GroupBox();
-      this.ytrack = new System.Windows.Forms.TrackBar();
-      this.RotationZBox = new System.Windows.Forms.TextBox();
-      this.label4 = new System.Windows.Forms.Label();
-      this.ztrack = new System.Windows.Forms.TrackBar();
-      this.RotationYBox = new System.Windows.Forms.TextBox();
-      this.label3 = new System.Windows.Forms.Label();
-      this.xtrack = new System.Windows.Forms.TrackBar();
-      this.label2 = new System.Windows.Forms.Label();
       this.AutoUpdateCheckBox = new System.Windows.Forms.CheckBox();
       this.Timer = new System.Windows.Forms.Timer(this.components);
       this.label5 = new System.Windows.Forms.Label();
       this.TypeBox = new System.Windows.Forms.TextBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
-      this.PositionXBox = new System.Windows.Forms.TextBox();
-      this.label6 = new System.Windows.Forms.Label();
-      this.PositionYBox = new System.Windows.Forms.TextBox();
-      this.label7 = new System.Windows.Forms.Label();
       this.PositionZBox = new System.Windows.Forms.TextBox();
       this.label8 = new System.Windows.Forms.Label();
-      this.groupBox1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.ytrack)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.ztrack)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.xtrack)).BeginInit();
+      this.PositionYBox = new System.Windows.Forms.TextBox();
+      this.label7 = new System.Windows.Forms.Label();
+      this.PositionXBox = new System.Windows.Forms.TextBox();
+      this.label6 = new System.Windows.Forms.Label();
+      this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.VelocityZBox = new System.Windows.Forms.TextBox();
+      this.label2 = new System.Windows.Forms.Label();
+      this.VelocityYBox = new System.Windows.Forms.TextBox();
+      this.label3 = new System.Windows.Forms.Label();
+      this.VelocityXBox = new System.Windows.Forms.TextBox();
+      this.label4 = new System.Windows.Forms.Label();
+      this.SpeedBox = new System.Windows.Forms.TextBox();
+      this.label9 = new System.Windows.Forms.Label();
+      this.DistanceBox = new System.Windows.Forms.TextBox();
+      this.label10 = new System.Windows.Forms.Label();
       this.groupBox2.SuspendLayout();
+      this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
       // NameBox
@@ -75,111 +73,16 @@
       this.label1.TabIndex = 1;
       this.label1.Text = "Object";
       // 
-      // RotationXBox
-      // 
-      this.RotationXBox.Location = new System.Drawing.Point(70, 13);
-      this.RotationXBox.Name = "RotationXBox";
-      this.RotationXBox.Size = new System.Drawing.Size(100, 20);
-      this.RotationXBox.TabIndex = 2;
-      this.RotationXBox.TextChanged += new System.EventHandler(this.RotationXBox_TextChanged);
-      // 
-      // groupBox1
-      // 
-      this.groupBox1.Controls.Add(this.ytrack);
-      this.groupBox1.Controls.Add(this.RotationZBox);
-      this.groupBox1.Controls.Add(this.label4);
-      this.groupBox1.Controls.Add(this.ztrack);
-      this.groupBox1.Controls.Add(this.RotationYBox);
-      this.groupBox1.Controls.Add(this.label3);
-      this.groupBox1.Controls.Add(this.xtrack);
-      this.groupBox1.Controls.Add(this.RotationXBox);
-      this.groupBox1.Controls.Add(this.label2);
-      this.groupBox1.Location = new System.Drawing.Point(12, 58);
-      this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(179, 253);
-      this.groupBox1.TabIndex = 4;
-      this.groupBox1.TabStop = false;
-      this.groupBox1.Text = "Rotation";
-      // 
-      // ytrack
-      // 
-      this.ytrack.Location = new System.Drawing.Point(9, 124);
-      this.ytrack.Maximum = 360;
-      this.ytrack.Name = "ytrack";
-      this.ytrack.Size = new System.Drawing.Size(161, 45);
-      this.ytrack.TabIndex = 6;
-      this.ytrack.Scroll += new System.EventHandler(this.YTrack_Scroll);
-      // 
-      // RotationZBox
-      // 
-      this.RotationZBox.Location = new System.Drawing.Point(70, 169);
-      this.RotationZBox.Name = "RotationZBox";
-      this.RotationZBox.Size = new System.Drawing.Size(100, 20);
-      this.RotationZBox.TabIndex = 4;
-      this.RotationZBox.TextChanged += new System.EventHandler(this.RotationZBox_TextChanged);
-      // 
-      // label4
-      // 
-      this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(6, 172);
-      this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(58, 13);
-      this.label4.TabIndex = 2;
-      this.label4.Text = "Revolution";
-      // 
-      // ztrack
-      // 
-      this.ztrack.Location = new System.Drawing.Point(9, 202);
-      this.ztrack.Maximum = 360;
-      this.ztrack.Name = "ztrack";
-      this.ztrack.Size = new System.Drawing.Size(161, 45);
-      this.ztrack.TabIndex = 10;
-      this.ztrack.Scroll += new System.EventHandler(this.ZTrack_Scroll);
-      // 
-      // RotationYBox
-      // 
-      this.RotationYBox.Location = new System.Drawing.Point(70, 92);
-      this.RotationYBox.Name = "RotationYBox";
-      this.RotationYBox.Size = new System.Drawing.Size(100, 20);
-      this.RotationYBox.TabIndex = 3;
-      this.RotationYBox.TextChanged += new System.EventHandler(this.RotationYBox_TextChanged);
-      // 
-      // label3
-      // 
-      this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(6, 95);
-      this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(58, 13);
-      this.label3.TabIndex = 1;
-      this.label3.Text = "Orientation";
-      // 
-      // xtrack
-      // 
-      this.xtrack.Location = new System.Drawing.Point(9, 41);
-      this.xtrack.Maximum = 360;
-      this.xtrack.Name = "xtrack";
-      this.xtrack.Size = new System.Drawing.Size(161, 45);
-      this.xtrack.TabIndex = 5;
-      this.xtrack.Scroll += new System.EventHandler(this.XTrack_Scroll);
-      // 
-      // label2
-      // 
-      this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(6, 16);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(55, 13);
-      this.label2.TabIndex = 0;
-      this.label2.Text = "Inclination";
-      // 
       // AutoUpdateCheckBox
       // 
       this.AutoUpdateCheckBox.AutoSize = true;
-      this.AutoUpdateCheckBox.Location = new System.Drawing.Point(15, 423);
+      this.AutoUpdateCheckBox.Location = new System.Drawing.Point(12, 323);
       this.AutoUpdateCheckBox.Name = "AutoUpdateCheckBox";
       this.AutoUpdateCheckBox.Size = new System.Drawing.Size(86, 17);
       this.AutoUpdateCheckBox.TabIndex = 7;
       this.AutoUpdateCheckBox.Text = "Auto Update";
       this.AutoUpdateCheckBox.UseVisualStyleBackColor = true;
+      this.AutoUpdateCheckBox.CheckedChanged += new System.EventHandler(this.AutoUpdateCheckBox_CheckedChanged);
       // 
       // Timer
       // 
@@ -205,52 +108,20 @@
       // 
       // groupBox2
       // 
+      this.groupBox2.Controls.Add(this.DistanceBox);
+      this.groupBox2.Controls.Add(this.label10);
       this.groupBox2.Controls.Add(this.PositionZBox);
       this.groupBox2.Controls.Add(this.label8);
       this.groupBox2.Controls.Add(this.PositionYBox);
       this.groupBox2.Controls.Add(this.label7);
       this.groupBox2.Controls.Add(this.PositionXBox);
       this.groupBox2.Controls.Add(this.label6);
-      this.groupBox2.Location = new System.Drawing.Point(12, 317);
+      this.groupBox2.Location = new System.Drawing.Point(12, 58);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(179, 100);
+      this.groupBox2.Size = new System.Drawing.Size(179, 126);
       this.groupBox2.TabIndex = 10;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Position";
-      // 
-      // PositionXBox
-      // 
-      this.PositionXBox.Location = new System.Drawing.Point(70, 19);
-      this.PositionXBox.Name = "PositionXBox";
-      this.PositionXBox.Size = new System.Drawing.Size(100, 20);
-      this.PositionXBox.TabIndex = 12;
-      this.PositionXBox.TextChanged += new System.EventHandler(this.PositionXBox_TextChanged);
-      // 
-      // label6
-      // 
-      this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(6, 22);
-      this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(14, 13);
-      this.label6.TabIndex = 11;
-      this.label6.Text = "X";
-      // 
-      // PositionYBox
-      // 
-      this.PositionYBox.Location = new System.Drawing.Point(70, 45);
-      this.PositionYBox.Name = "PositionYBox";
-      this.PositionYBox.Size = new System.Drawing.Size(100, 20);
-      this.PositionYBox.TabIndex = 14;
-      this.PositionYBox.TextChanged += new System.EventHandler(this.PositionYBox_TextChanged);
-      // 
-      // label7
-      // 
-      this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(6, 48);
-      this.label7.Name = "label7";
-      this.label7.Size = new System.Drawing.Size(14, 13);
-      this.label7.TabIndex = 13;
-      this.label7.Text = "Y";
       // 
       // PositionZBox
       // 
@@ -269,27 +140,159 @@
       this.label8.TabIndex = 15;
       this.label8.Text = "Z";
       // 
+      // PositionYBox
+      // 
+      this.PositionYBox.Location = new System.Drawing.Point(70, 45);
+      this.PositionYBox.Name = "PositionYBox";
+      this.PositionYBox.Size = new System.Drawing.Size(100, 20);
+      this.PositionYBox.TabIndex = 14;
+      this.PositionYBox.TextChanged += new System.EventHandler(this.PositionYBox_TextChanged);
+      // 
+      // label7
+      // 
+      this.label7.AutoSize = true;
+      this.label7.Location = new System.Drawing.Point(6, 48);
+      this.label7.Name = "label7";
+      this.label7.Size = new System.Drawing.Size(14, 13);
+      this.label7.TabIndex = 13;
+      this.label7.Text = "Y";
+      // 
+      // PositionXBox
+      // 
+      this.PositionXBox.Location = new System.Drawing.Point(70, 19);
+      this.PositionXBox.Name = "PositionXBox";
+      this.PositionXBox.Size = new System.Drawing.Size(100, 20);
+      this.PositionXBox.TabIndex = 12;
+      this.PositionXBox.TextChanged += new System.EventHandler(this.PositionXBox_TextChanged);
+      // 
+      // label6
+      // 
+      this.label6.AutoSize = true;
+      this.label6.Location = new System.Drawing.Point(6, 22);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(14, 13);
+      this.label6.TabIndex = 11;
+      this.label6.Text = "X";
+      // 
+      // groupBox1
+      // 
+      this.groupBox1.Controls.Add(this.SpeedBox);
+      this.groupBox1.Controls.Add(this.label9);
+      this.groupBox1.Controls.Add(this.VelocityZBox);
+      this.groupBox1.Controls.Add(this.label2);
+      this.groupBox1.Controls.Add(this.VelocityYBox);
+      this.groupBox1.Controls.Add(this.label3);
+      this.groupBox1.Controls.Add(this.VelocityXBox);
+      this.groupBox1.Controls.Add(this.label4);
+      this.groupBox1.Location = new System.Drawing.Point(12, 190);
+      this.groupBox1.Name = "groupBox1";
+      this.groupBox1.Size = new System.Drawing.Size(179, 127);
+      this.groupBox1.TabIndex = 17;
+      this.groupBox1.TabStop = false;
+      this.groupBox1.Text = "Velocity";
+      // 
+      // VelocityZBox
+      // 
+      this.VelocityZBox.Location = new System.Drawing.Point(70, 71);
+      this.VelocityZBox.Name = "VelocityZBox";
+      this.VelocityZBox.Size = new System.Drawing.Size(100, 20);
+      this.VelocityZBox.TabIndex = 16;
+      this.VelocityZBox.TextChanged += new System.EventHandler(this.VelocityZBox_TextChanged);
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(6, 74);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(14, 13);
+      this.label2.TabIndex = 15;
+      this.label2.Text = "Z";
+      // 
+      // VelocityYBox
+      // 
+      this.VelocityYBox.Location = new System.Drawing.Point(70, 45);
+      this.VelocityYBox.Name = "VelocityYBox";
+      this.VelocityYBox.Size = new System.Drawing.Size(100, 20);
+      this.VelocityYBox.TabIndex = 14;
+      this.VelocityYBox.TextChanged += new System.EventHandler(this.VelocityYBox_TextChanged);
+      // 
+      // label3
+      // 
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(6, 48);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(14, 13);
+      this.label3.TabIndex = 13;
+      this.label3.Text = "Y";
+      // 
+      // VelocityXBox
+      // 
+      this.VelocityXBox.Location = new System.Drawing.Point(70, 19);
+      this.VelocityXBox.Name = "VelocityXBox";
+      this.VelocityXBox.Size = new System.Drawing.Size(100, 20);
+      this.VelocityXBox.TabIndex = 12;
+      this.VelocityXBox.TextChanged += new System.EventHandler(this.VelocityXBox_TextChanged);
+      // 
+      // label4
+      // 
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(6, 22);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(14, 13);
+      this.label4.TabIndex = 11;
+      this.label4.Text = "X";
+      // 
+      // SpeedBox
+      // 
+      this.SpeedBox.Location = new System.Drawing.Point(70, 97);
+      this.SpeedBox.Name = "SpeedBox";
+      this.SpeedBox.Size = new System.Drawing.Size(100, 20);
+      this.SpeedBox.TabIndex = 18;
+      // 
+      // label9
+      // 
+      this.label9.AutoSize = true;
+      this.label9.Location = new System.Drawing.Point(6, 100);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(38, 13);
+      this.label9.TabIndex = 17;
+      this.label9.Text = "Speed";
+      // 
+      // DistanceBox
+      // 
+      this.DistanceBox.Location = new System.Drawing.Point(70, 97);
+      this.DistanceBox.Name = "DistanceBox";
+      this.DistanceBox.Size = new System.Drawing.Size(100, 20);
+      this.DistanceBox.TabIndex = 18;
+      // 
+      // label10
+      // 
+      this.label10.AutoSize = true;
+      this.label10.Location = new System.Drawing.Point(6, 100);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(49, 13);
+      this.label10.TabIndex = 17;
+      this.label10.Text = "Distance";
+      // 
       // CelestialPropertiesForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(205, 450);
+      this.ClientSize = new System.Drawing.Size(197, 346);
+      this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.groupBox2);
       this.Controls.Add(this.label5);
       this.Controls.Add(this.TypeBox);
       this.Controls.Add(this.AutoUpdateCheckBox);
-      this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.NameBox);
       this.Name = "CelestialPropertiesForm";
       this.Text = "CelestialPropertiesForm";
-      this.groupBox1.ResumeLayout(false);
-      this.groupBox1.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.ytrack)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.ztrack)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.xtrack)).EndInit();
+      this.Load += new System.EventHandler(this.CelestialPropertiesForm_Load);
       this.groupBox2.ResumeLayout(false);
       this.groupBox2.PerformLayout();
+      this.groupBox1.ResumeLayout(false);
+      this.groupBox1.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -299,20 +302,10 @@
 
     private System.Windows.Forms.TextBox NameBox;
     private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.TextBox RotationXBox;
-    private System.Windows.Forms.GroupBox groupBox1;
-    private System.Windows.Forms.TextBox RotationYBox;
-    private System.Windows.Forms.Label label4;
-    private System.Windows.Forms.Label label3;
-    private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.TextBox RotationZBox;
     private System.Windows.Forms.CheckBox AutoUpdateCheckBox;
     private System.Windows.Forms.Timer Timer;
     private System.Windows.Forms.Label label5;
     private System.Windows.Forms.TextBox TypeBox;
-    private System.Windows.Forms.TrackBar xtrack;
-    private System.Windows.Forms.TrackBar ytrack;
-    private System.Windows.Forms.TrackBar ztrack;
     private System.Windows.Forms.GroupBox groupBox2;
     private System.Windows.Forms.TextBox PositionZBox;
     private System.Windows.Forms.Label label8;
@@ -320,5 +313,16 @@
     private System.Windows.Forms.Label label7;
     private System.Windows.Forms.TextBox PositionXBox;
     private System.Windows.Forms.Label label6;
+    private System.Windows.Forms.GroupBox groupBox1;
+    private System.Windows.Forms.TextBox VelocityZBox;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.TextBox VelocityYBox;
+    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.TextBox VelocityXBox;
+    private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.TextBox SpeedBox;
+    private System.Windows.Forms.Label label9;
+    private System.Windows.Forms.TextBox DistanceBox;
+    private System.Windows.Forms.Label label10;
   }
 }

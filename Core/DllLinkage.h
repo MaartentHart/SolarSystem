@@ -50,6 +50,7 @@ extern "C"
 
 	//EquatorialCoordinateSystem
 	DLL void __cdecl EarthPositionAt(double daysSinceJ2000, Point3D& position);
+	DLL void __cdecl PlanetPositionAt(int planetId, double daysSinceJ2000, Point3D&position);
 
 	//Simulation
 	//initialize simulation

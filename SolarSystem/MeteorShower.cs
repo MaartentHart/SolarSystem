@@ -186,4 +186,109 @@ namespace SolarSystem
       index = meteorShower.Positions.Size - 1; 
     }
   }
+
+  public class MeteorShowerSheetTentative : IRenderable
+  {
+    bool on = true; 
+    bool changed = false; 
+
+    public Point3D[] Extents { get; private set; }
+    public float PointSize { set => throw new NotImplementedException(); }
+    public bool On
+    {
+      get => on;
+      set
+      {
+        if (on == value)
+          return;
+        changed = true;
+        on = value;
+      }
+    }
+
+    public string Name { get; set; } = "Sheet Meteorite Shower Position";
+
+    private Mesh mesh; 
+
+    public bool Changed
+    {
+      get
+      {
+        bool result = changed;
+        changed = false;
+        return result; 
+      }
+      set => changed = value; 
+    }
+
+    public MeteorShowerSheetTentative(Point3D position, Point3D sheetNormal, int arrayLength, double spacing)
+    {
+      SetValues(position, sheetNormal, arrayLength, spacing); 
+    }
+
+    public void SetValues(Point3D position, Point3D sheetNormal, int arrayLength, double spacing)
+    { 
+      Point3D xDirection = sheetNormal.Cross(new Point3D(0, 0, 1)).Normal;
+      Point3D yDirection = xDirection.Cross(sheetNormal).Normal;
+
+      Point3D gridSize = xDirection * arrayLength * spacing + yDirection * arrayLength * spacing;
+      Point3D gridCenter = gridSize / 2;
+
+      Extents = new Point3D[]
+      {
+        new Point3D(position - gridCenter),
+        new Point3D(position + xDirection * arrayLength * spacing  - gridCenter),
+        new Point3D(position + xDirection * arrayLength * spacing   + yDirection * arrayLength * spacing - gridCenter),
+        new Point3D(position + yDirection * arrayLength * spacing - gridCenter)
+      };
+
+      double[] vertices = new double[]
+      {
+        Extents[0].x,Extents[0].y,Extents[0].z,
+        Extents[1].x,Extents[1].y,Extents[1].z,
+        Extents[2].x,Extents[2].y,Extents[2].z,
+        Extents[3].x,Extents[3].y,Extents[3].z,
+      };
+
+      double[] normals = new double[]
+      {
+        sheetNormal.x, sheetNormal.y, sheetNormal.z,
+        sheetNormal.x, sheetNormal.y, sheetNormal.z,
+        sheetNormal.x, sheetNormal.y, sheetNormal.z,
+        sheetNormal.x, sheetNormal.y, sheetNormal.z,
+      };
+
+      float[] colors = new float[]
+      {
+        1,1,1,0.5f,
+        1,1,1,0.5f,
+        1,1,1,0.5f,
+        1,1,1,0.5f,
+      };
+
+      mesh = new Mesh();
+      mesh.vertices = vertices;
+      mesh.normals = normals;
+      mesh.indices = new int[] { 0, 1, 3, 3, 1, 2 };
+      mesh.colors = colors;
+      mesh.Transparent = true; 
+      changed = true; 
+    }
+
+    public void Render(Camera camera)
+    {
+      if (On)
+        mesh?.Render(camera); 
+    }
+
+    public void SetColorMap(ColorMap colorMap)
+    {
+
+    }
+
+    public void TimeUpdate()
+    {
+
+    }
+  }
 }

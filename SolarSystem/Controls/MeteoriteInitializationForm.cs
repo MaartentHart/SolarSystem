@@ -21,12 +21,14 @@ namespace SolarSystem
     public double initialRadius = 1.0;
     public int arrayLength = 100;
     public double spacing = 200;
-    public Point3D sheetNormal = new Point3D(1,0,0); 
+    public Point3D sheetNormal = new Point3D(1, 0, 0);
 
     public Point3D ObjectPosition { get; set; } = new Point3D();
     private Scene Scene { get; }
     private Mesh Triad { get; set; }
     private Mesh Arrow { get; set; }
+
+    private MeteorShowerSheetTentative TentativeSheet {get; set;}
 
     public MeteoriteInitializationForm(Scene scene)
     {
@@ -53,7 +55,8 @@ namespace SolarSystem
       ChangePosition(null,null);
       ChangeVelocity(null, null); 
 
-      ShowTriad(); 
+      ShowTriad();
+      ShowTentativeSheet(); 
     }
 
     private void ShowTriad()
@@ -73,6 +76,17 @@ namespace SolarSystem
       Scene.RenderableObjects.Remove(Triad); 
     }
 
+    private void ShowTentativeSheet()
+    {
+      TentativeSheet = new MeteorShowerSheetTentative(new Point3D(), new Point3D(), 0, 0);
+      TentativeSheet.On = false;
+      Scene.RenderableObjects.Add(TentativeSheet); 
+    }
+
+    private void RemoveTentativeSheet()
+    {
+      Scene.RenderableObjects.Remove(TentativeSheet); 
+    }
 
     private void RepositionTriad()
     {
@@ -97,7 +111,15 @@ namespace SolarSystem
           child.Transform.Scale = scale3D;
       Arrow.Transform.Scale = scale3D; 
 
-      Scene.Changed = true; 
+      Scene.Changed = true;
+      try
+      {
+        ModifyTentativeSheet();
+      }
+      catch
+      {
+
+      }
     }
 
     /// <summary>
@@ -234,7 +256,7 @@ namespace SolarSystem
       if (spherical)
         meteorShower = new MeteorShower(position, velocity, generation, minimumSpeed, speedStep, steps, initialRadius);
       else
-        meteorShower = new MeteorShower(position, velocity, sheetNormal, arrayLength, spacing); 
+        meteorShower = new MeteorShower(position, velocity, sheetNormal, arrayLength, spacing);
 
       //give meteor shower a unique name. 
       int i = 0;
@@ -295,7 +317,8 @@ namespace SolarSystem
 
     private void MeteoriteInitializationForm_FormClosed(object sender, FormClosedEventArgs e)
     {
-      RemoveTriad(); 
+      RemoveTriad();
+      RemoveTentativeSheet(); 
     }
 
     private void ArrayLengthBox_Leave(object sender, EventArgs e)
@@ -322,5 +345,44 @@ namespace SolarSystem
       }
 
     }
+
+    private void ModifyTentativeSheet()
+    {
+      arrayLength = Convert.ToInt32(ArrayLengthBox.Text);
+      spacing = Convert.ToDouble(SpacingBox.Text);
+      double declination = SheetDeclinationTrackbar.Value;
+      double rightAscension = SheetRightAscensionTrackBar.Value;
+
+      sheetNormal = EquatorialCoordinateSystem.Main.EquatorialCoordinate(rightAscension, declination);
+
+      TentativeSheet.SetValues(position, sheetNormal, arrayLength, spacing);
+
+    }
+
+    private void ExplosionTypeTabControl_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      if (ExplosionTypeTabControl.SelectedTab == SheetTab)
+      {
+        try
+        {
+          ModifyTentativeSheet();           
+          TentativeSheet.On = true;
+        }
+        catch
+        {
+
+        }
+      }
+      else
+      {
+        TentativeSheet.On = false; 
+      }
+    }
+
+    private void SheetChanged(object sender, EventArgs e)
+    {
+      ModifyTentativeSheet(); 
+    }
+
   }
 }
