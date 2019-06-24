@@ -255,15 +255,24 @@ void EarthPositionAt(double daysSinceJ2000, Point3D&value)
 
 void PlanetPositionAt(int planetId, double daysSinceJ2000, Point3D& position)
 {
+	Point3D result;
 	for (Planet* planet : GetSolarSystem().Planets())
 	{
 		if (planet == NULL)
 			continue;
 		if (planet->id == planetId)
 		{
-			position = planet->PositionByTime(daysSinceJ2000); 
+			result = planet->PositionByTime(daysSinceJ2000); 
+			Planet*parent = planet; 
+			while (parent->isMoonOf != NULL)
+			{
+				parent = parent->isMoonOf;
+				result += planet->PositionByTime(daysSinceJ2000); 
+			}
+			break; 
 		}
 	}
+	position = result; 
 }
 //Impacts
 int GetImpactCount()

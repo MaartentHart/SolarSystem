@@ -37,12 +37,19 @@ namespace SolarSystem
       InitializeComponent();
 
       DistanceToBox.Items.Clear();
+      VelocityRelativeToBox.Items.Clear();
       foreach (IRenderable renderable in scene.RenderableObjects)
         if (renderable is Planet planet)
+        {
           DistanceToBox.Items.Add(renderable.Name);
+          VelocityRelativeToBox.Items.Add(renderable.Name); 
+        }
 
-      if (DistanceToBox.Items.Count>0)
+      if (DistanceToBox.Items.Count > 0)
+      {
         DistanceToBox.Text = DistanceToBox.Items[0].ToString();
+        VelocityRelativeToBox.Text = VelocityRelativeToBox.Items[0].ToString();
+      }
 
       DistanceTrackBar.ValueChanged += ChangePosition;
       PositionRightAscensionTrackBar.ValueChanged += ChangePosition;
@@ -103,7 +110,7 @@ namespace SolarSystem
 
       Arrow.Transform.Rotation = new Quaternion(yaw,pitch,roll);
 
-      double scale = velocity.Magnitude * 100;
+      double scale = velocity.Magnitude * 500;
       Point3D scale3D = new Point3D(scale, scale, scale);
 
       foreach (Mesh c in Triad.Children)
@@ -207,6 +214,32 @@ namespace SolarSystem
       RepositionTriad(); 
     }
 
+    private Point3D GetVelocity()
+    {
+      Point3D velocity = new Point3D(Convert.ToDouble(VelocityXBox.Text),
+          Convert.ToDouble(VelocityYBox.Text),
+          Convert.ToDouble(VelocityZBox.Text));
+
+      if (VelocityRelativeToBox.Text.ToLower() == "sun")
+        return velocity; 
+
+      if (VelocityRelativeToBox.SelectedIndex>=0 && VelocityRelativeToBox.SelectedIndex<VelocityRelativeToBox.Items.Count)
+      {
+        string relativeObjectName = VelocityRelativeToBox.Items[VelocityRelativeToBox.SelectedIndex] as string;
+
+        foreach (IRenderable renderable in Scene.RenderableObjects)
+        {
+          if (renderable is Planet planet)
+          {
+            if (planet.Name != relativeObjectName)
+              continue;
+
+            velocity += planet.GetVelocity(); 
+          }
+        }
+      }
+      return velocity; 
+    }
 
     private void AddButton_Click(object sender, EventArgs e)
     {
@@ -214,10 +247,9 @@ namespace SolarSystem
       {
         position = new Point3D(Convert.ToDouble(PositionXBox.Text),
           Convert.ToDouble(PositionYBox.Text),
-          Convert.ToDouble(PositionZBox.Text) );
-        velocity = new Point3D(Convert.ToDouble(VelocityXBox.Text),
-          Convert.ToDouble(VelocityYBox.Text),
-          Convert.ToDouble(VelocityZBox.Text));
+          Convert.ToDouble(PositionZBox.Text));
+
+        velocity = GetVelocity();
 
         if (ExplosionTypeTabControl.SelectedTab == SphericalTab)
         {
