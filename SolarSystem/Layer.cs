@@ -10,8 +10,11 @@ namespace SolarSystem
   {
     private ColorMap colorMap; 
     private object locker = new object(); 
-    private bool repaint = false; 
+    private bool repaint = false;
 
+    public Texture Texture { get; set; } 
+    public string Name { get; }
+    public double[] Values { get; set; }
     public bool Repaint
     {
       get
@@ -30,8 +33,6 @@ namespace SolarSystem
       }
     }
 
-    public string Name { get; }
-    public double[] Values { get; set; }
     public ColorMap ColorMap
     {
       get => colorMap;
@@ -41,6 +42,8 @@ namespace SolarSystem
         Repaint = true;
       }
     }
+
+    public bool UseTexture => Texture != null; 
 
     public Layer(string name, double[] values = null)
     {

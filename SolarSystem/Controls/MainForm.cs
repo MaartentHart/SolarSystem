@@ -554,6 +554,20 @@ namespace SolarSystem
       Neptune.Position = new Point3D(Uranus.Position.x + Uranus.MaximumRadius * 2);
       Pluto.Position = new Point3D(Neptune.Position.x + Neptune.MaximumRadius * 2);
 
+      Sun.AddTexture(@"Resource\Texture\8k_sun.jpg",0,false);
+      Mercury.AddTexture(@"Resource\Texture\8k_mercury.jpg",0, false);
+      Venus.AddTexture(@"Resource\Texture\8k_venus_surface.jpg",0, false);
+      Venus.AddTexture(@"Resource\Texture\8k_venus_atmosphere.jpg",0, false);
+      Earth.AddTexture(@"Resource\Texture\8k_earth_daymap.jpg", -5, false);
+      Earth.AddTexture(@"Resource\Texture\8k_earth_daymap+Atmosphere.jpg", -5, false);
+      Moon.AddTexture(@"Resource\Texture\8k_moon.jpg", 180, false);
+      Mars.AddTexture(@"Resource\Texture\8k_mars.jpg", 180, false);
+      Jupiter.AddTexture(@"Resource\Texture\8k_jupiter.jpg", 0, false);
+      Saturn.AddTexture(@"Resource\Texture\8k_saturn.jpg", 0, false);
+      Uranus.AddTexture(@"Resource\Texture\2k_uranus.jpg", 0, false);
+      Neptune.AddTexture(@"Resource\Texture\2k_neputune.jpg", 0, false);
+      Pluto.AddTexture(@"Resource\Texture\Pluto.jpg", 0, false);
+
       if (Camera.Eye is PositionObject eye)
         eye.Position = new Point3D(Pluto.Position.x, Pluto.MaximumRadius * 5);
 
@@ -571,8 +585,6 @@ namespace SolarSystem
         MaxRenderRatioBox.Text = Planet.MaxRenderRatio.ToString(); 
       }
     }
-
-
 
     private void InitializeEquatorialCoordinateSystem()
     {

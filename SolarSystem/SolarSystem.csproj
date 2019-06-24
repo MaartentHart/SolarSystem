@@ -181,6 +181,7 @@
     <Compile Include="Controls\TextBoxTrackBar.Designer.cs">
       <DependentUpon>TextBoxTrackBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Texture.cs" />
     <Compile Include="Translation.cs" />
     <Compile Include="Triad.cs" />
     <EmbeddedResource Include="Controls\CelestialPropertiesForm.resx">
@@ -294,10 +295,58 @@
     <None Include="Resources\TimeIcon.png" />
     <None Include="Resources\Play.png" />
     <None Include="Resources\Pause.png" />
-    <Content Include="Resource\Images\wall.jpg">
+    <Content Include="Resource\meteorInputFile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resource\meteorInputFile.txt">
+    <Content Include="Resource\Texture\2k_neptune.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\2k_uranus.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_earth_clouds.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_earth_daymap+Atmosphere.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_earth_daymap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_jupiter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_mars.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_mercury.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_moon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_saturn.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_saturn_ring_alpha.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_stars_milky_way.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_sun.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_venus_atmosphere.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\8k_venus_surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\Pluto.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\Source.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Solar System.ico" />

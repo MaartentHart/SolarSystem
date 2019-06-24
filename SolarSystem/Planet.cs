@@ -57,12 +57,12 @@ namespace SolarSystem
     public CRenderableObject RenderableObject { get; } = new CRenderableObject();
     public HeightMap HeightMap { get; set; }
     public Layer ValueLayer { get; }
+    public Layer TextureLayer { get; set; }
     public Point3D Scale { get; }
     public double[] ColorableValues => ActiveLayer.Values; 
 
     public ColorMap ColorMap { get => ActiveLayer.ColorMap;
       set => ActiveLayer.ColorMap = value; }
-
     public List<Layer> Layers { get; } = new List<Layer>();
 
     public Layer ActiveLayer
@@ -342,26 +342,36 @@ namespace SolarSystem
     {
       int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
 
-      if (ColorMap == null)
-        return;
+      IntPtr newColors; 
 
-      bool singleColor = false;
-      if (ColorableValues == null || ColorableValues.Length != verticesCount)
-        singleColor = true;
-
-      double[] colorable = ColorableValues;
-      ColorMap colorMap = ColorMap;
-
-      IntPtr newColors = CMemoryBlock.Allocate(verticesCount * 16);
-      unsafe
+      if (ActiveLayer.UseTexture)
       {
-        ColorFloat* color = (ColorFloat*)newColors.ToPointer();
-        for (int i = 0; i < verticesCount; i++, color++)
+        newColors = CMemoryBlock.Allocate(verticesCount * 16);
+        ActiveLayer.Texture.Apply(newColors, Generation);
+      }
+      else
+      { 
+        if (ColorMap == null)
+          return;
+
+        bool singleColor = false;
+        if (ColorableValues == null || ColorableValues.Length != verticesCount)
+          singleColor = true;
+
+        double[] colorable = ColorableValues;
+        ColorMap colorMap = ColorMap;
+
+        newColors = CMemoryBlock.Allocate(verticesCount * 16);
+
+        unsafe
         {
+          ColorFloat* color = (ColorFloat*)newColors.ToPointer();
           if (singleColor)
-            *color = colorMap.StartColor;
+            for (int i = 0; i < verticesCount; i++, color++)
+              *color = colorMap.StartColor;
           else
-            *color = colorMap.GetColor(colorable[i]);
+            for (int i = 0; i < verticesCount; i++, color++)
+              *color = colorMap.GetColor(colorable[i]);
         }
       }
 
@@ -540,6 +550,45 @@ namespace SolarSystem
 
         disposedValue = true;
       }
+    }
+
+    public void AddTexture(string fileName, double rotation = 0, bool messageNotExists = true)
+    {
+      if (!System.IO.File.Exists(fileName))
+      {
+        if (messageNotExists)
+          System.Windows.Forms.MessageBox.Show("Texture file does not exist " + fileName, "Error");
+        return; 
+      }
+      string layerName = "Texture";
+      bool nameExists = false;
+      int count = 0;
+
+      do
+      {
+        nameExists = false; 
+        string checkLayerName = layerName;
+        if (count != 0)
+          checkLayerName += " " + count.ToString();
+        foreach (Layer layer in Layers)
+        {
+          if (layer.Name == checkLayerName)
+          {
+            nameExists = true;
+            count++;
+          }
+        }
+      } while (nameExists);
+      if (count!=0)
+        layerName += " " + count.ToString();
+
+      Layer textureLayer = new Layer(layerName);
+      textureLayer.Texture = new Texture(fileName, rotation);
+
+      if (TextureLayer == null)
+        TextureLayer = textureLayer;
+
+      Layers.Add(textureLayer); 
     }
 
     // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
