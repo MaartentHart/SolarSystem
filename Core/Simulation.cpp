@@ -28,6 +28,12 @@ double GetTimeStep()
 void AddTimeStep(double days)
 {
 	std::vector<Planet*> planets = solarSystem.Planets();
+
+	for (Planet* planet : planets)
+		if (planet->SurfaceGravity == 0)
+			//make sure the SurfaceGravity is set. 
+		  planet->SurfaceAccelleration = planet->SurfaceGravity = planet->surfaceGravity;
+
 	int planetCount = planets.size();
 	std::vector<Point3D> previousPlanetPositions(planets.size());
 	for (int i = 0; i < planetCount; i++)

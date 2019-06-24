@@ -23,6 +23,36 @@ namespace SolarSystem
     [StringValue("Neptune")] Neptune,
     [StringValue("Pluto")] Pluto,
     [StringValue("Moon")] Moon,
+
+    //Jupiters moons
+    [StringValue("Io")] Io,
+    [StringValue("Europa")] Europa,
+    [StringValue("Ganymede")] Ganymede,
+    [StringValue("Callisto")] Callisto,
+
+    //Saturns moons
+    [StringValue("Titan")] Titan,
+    [StringValue("Mimas")] Mimas,
+    [StringValue("Enceladus")] Enceladus,
+    [StringValue("Tethys")] Tethys,
+    [StringValue("Dione")] Dione,
+    [StringValue("Rhea")] Rhea,
+    [StringValue("Hyperion")] Hyperion,
+    [StringValue("Iapetus")] Iapetus,
+
+    //Uranus moons
+    [StringValue("Miranda")] Miranda,
+    [StringValue("Ariel")] Ariel,
+    [StringValue("Umbriel")] Umbriel,
+    [StringValue("Titania")] Titania,
+    [StringValue("Oberon")] Oberon,
+
+	  //Neptunes moons
+    [StringValue("Triton")] Triton,
+
+    //Plutos moons
+    [StringValue("Charon")] Charon,
+
   }
 
   /// <summary>
@@ -242,10 +272,10 @@ namespace SolarSystem
 
       foreach (Layer layer in Layers)
         if (layer.Name == layerName)
-        
+        {
           ActiveLayer = layer;
-        
-      ActiveLayer.Repaint = true; 
+          ActiveLayer.Repaint = true;
+        }
     }
 
     private Layer AddLayer(string name, double[] values)
@@ -552,13 +582,13 @@ namespace SolarSystem
       }
     }
 
-    public void AddTexture(string fileName, double rotation = 0, bool messageNotExists = true)
+    public Layer AddTexture(string fileName, double rotation = 0, bool messageNotExists = true)
     {
       if (!System.IO.File.Exists(fileName))
       {
         if (messageNotExists)
           System.Windows.Forms.MessageBox.Show("Texture file does not exist " + fileName, "Error");
-        return; 
+        return null; 
       }
       string layerName = "Texture";
       bool nameExists = false;
@@ -588,7 +618,8 @@ namespace SolarSystem
       if (TextureLayer == null)
         TextureLayer = textureLayer;
 
-      Layers.Add(textureLayer); 
+      Layers.Add(textureLayer);
+      return textureLayer; 
     }
 
     // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.

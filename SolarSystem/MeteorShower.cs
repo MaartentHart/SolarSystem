@@ -133,6 +133,9 @@ namespace SolarSystem
     {
       if (!On)
         return;
+      if (Position.HasNaN)
+        return; 
+
       lock (locker)
       {
         RenderObject.Render(false);

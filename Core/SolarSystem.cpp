@@ -17,6 +17,38 @@ Planet uranus(25559, 24973, 0.008683, "Uranus");
 Planet neptune(24764, 24341, 0.00111, "Neptune");
 Planet pluto(1195, 1195, 0.00058, "Pluto");
 
+//Jupiters moons
+Planet io(1821.5, 1821.5,0.001796,"Io");
+Planet europa(1560.8, 1560.8,0.001315,"Europa");
+Planet ganymede(2631.2, 2631.2,0.001428,"Ganymede");
+Planet callisto(2410.3, 2410.3,0.001236,"Callisto");
+
+//Saturns moons
+Planet titan(2575, 2575, 0.001352,"Titan");
+Planet mimas(208,197,0.000064,"Mimas");
+Planet enceladus(257,251,0.000113,"Enceladus");
+Planet tethys(538,528,0.000145,"Tethys");
+Planet dione(563,561,0.000232,"Dione");
+Planet rhea(765,763,0.000264,"Rhea");
+Planet hyperion(180,133,0.00002,"Hyperion");
+Planet iapetus(746,746,0.000223,"Iapetus");
+
+//Uranus moons
+Planet miranda(240,243.2,0.000079,"Miranda");
+Planet ariel(581.1,557.9,0.000269,"Ariel");
+Planet umbriel(584.7,584.7,0.0002,"Umbriel");
+Planet titania(788.9,788.9,0.000367,"Titania");
+Planet oberon(761.4,761.4,0.000346,"Oberon");
+
+//Neptunes moons
+Planet triton(1353.4, 1353.4, 0.000779, "Triton");
+
+//Plutos moon
+Planet charon(606,606,0.00029,"Charon");
+
+
+
+
 void CelestialBody::SetMercury()
 {
 	Mass = 0.3301*1.0e24;//kg
@@ -449,6 +481,743 @@ void CelestialBody::SetSun()
 	color = Color(255.f / 255, 255.f / 255, 255.f / 255, 1.0f);
 }
 
+//Jupiters moons
+void CelestialBody::SetIo()
+{
+	Mass = 893.2;//kg
+	Volume = 25314895329.748;//km3
+	EquatorialRadius = 1821.5;//km
+	PolarRadius = 1821.5;//km
+	VolumetricMeanRadius = 1821.5;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 3530;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 421.8;//km
+	SiderealOrbitPeriod = 1.769138;//days
+	TropicalOrbitPeriod = 1.769138;//days
+	Periapsis = 420000;//km
+	Apoapsis = 423400;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.004;// - Undefined
+	OrbitalInclination = 0.04;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.62f, 0.62f, 0.62f, 1.0f);
+}
+void CelestialBody::SetEuropa()
+{
+	Mass = 480;//kg
+	Volume = 15926867918.1251;//km3
+	EquatorialRadius = 1560.8;//km
+	PolarRadius = 1560.8;//km
+	VolumetricMeanRadius = 1560.8;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 3010;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 671.1;//km
+	SiderealOrbitPeriod = 3.551181;//days
+	TropicalOrbitPeriod = 3.551181;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.009;// - Undefined
+	OrbitalInclination = 0.47;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.68f, 0.68f, 0.68f, 1.0f);
+}
+void CelestialBody::SetGanymede()
+{
+	Mass = 1481.9;//kg
+	Volume = 76304506997.7707;//km3
+	EquatorialRadius = 2631.2;//km
+	PolarRadius = 2631.2;//km
+	VolumetricMeanRadius = 2631.2;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 1940;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 1070.4;//km
+	SiderealOrbitPeriod = 7.154553;//days
+	TropicalOrbitPeriod = 7.154553;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.001;// - Undefined
+	OrbitalInclination = 0.18;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.44f, 0.44f, 0.44f, 1.0f);
+}
+void CelestialBody::SetCallisto(){
+	Mass = 1075.9;//kg
+	Volume = 58654577603.0003;//km3
+	EquatorialRadius = 2410.3;//km
+	PolarRadius = 2410.3;//km
+	VolumetricMeanRadius = 2410.3;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 1830;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 1882.7;//km
+	SiderealOrbitPeriod = 16.689017;//days
+	TropicalOrbitPeriod = 16.689017;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.007;// - Undefined
+	OrbitalInclination = 0.19;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.19f, 0.19f, 0.19f, 1.0f);
+}
+
+//Saturns moons
+void CelestialBody::SetTitan()
+{
+	Mass = 1345.5;//kg
+	Volume = 0;//km3
+	EquatorialRadius = 2575;//km
+	PolarRadius = 0;//km
+	VolumetricMeanRadius = 1716.66666666667;//km
+	Ellipticity = 1;//flattening
+	MeanDensity = 1880;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 1221.83;//km
+	SiderealOrbitPeriod = 15.945421;//days
+	TropicalOrbitPeriod = 15.945421;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0292;// - Undefined
+	OrbitalInclination = 0.33;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.22f, 0.22f, 0.22f, 1.0f);
+}
+void CelestialBody::SetMimas()
+{
+	Mass = 0.379;//kg
+	Volume = 35701092.425716;//km3
+	EquatorialRadius = 208;//km
+	PolarRadius = 197;//km
+	VolumetricMeanRadius = 204.333333333333;//km
+	Ellipticity = 0.0528846153846154;//flattening
+	MeanDensity = 1150;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 185.52;//km
+	SiderealOrbitPeriod = 0.9424218;//days
+	TropicalOrbitPeriod = 0.9424218;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0202;// - Undefined
+	OrbitalInclination = 1.53;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.6f, 0.6f, 0.6f, 1.0f);
+}
+void CelestialBody::SetEnceladus()
+{
+	Mass = 1.08;//kg
+	Volume = 69443016.46322;//km3
+	EquatorialRadius = 257;//km
+	PolarRadius = 251;//km
+	VolumetricMeanRadius = 255;//km
+	Ellipticity = 0.0233463035019456;//flattening
+	MeanDensity = 1610;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 238.02;//km
+	SiderealOrbitPeriod = 1.370218;//days
+	TropicalOrbitPeriod = 1.370218;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0045;// - Undefined
+	OrbitalInclination = 0;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(1.0f, 1.0f, 1.0f, 1.0f);
+}
+void CelestialBody::SetTethys()
+{
+	Mass = 6.18;//kg
+	Volume = 640157861.394053;//km3
+	EquatorialRadius = 538;//km
+	PolarRadius = 528;//km
+	VolumetricMeanRadius = 534.666666666667;//km
+	Ellipticity = 0.0185873605947955;//flattening
+	MeanDensity = 985;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 294.66;//km
+	SiderealOrbitPeriod = 1.887802;//days
+	TropicalOrbitPeriod = 1.887802;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0;// - Undefined
+	OrbitalInclination = 1.86;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.8f, 0.8f, 0.8f, 1.0f);
+}
+void CelestialBody::SetDione()
+{
+	Mass = 11;//kg
+	Volume = 744849036.398146;//km3
+	EquatorialRadius = 563;//km
+	PolarRadius = 561;//km
+	VolumetricMeanRadius = 562.333333333333;//km
+	Ellipticity = 0.00355239786856132;//flattening
+	MeanDensity = 1480;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 377.4;//km
+	SiderealOrbitPeriod = 2.736915;//days
+	TropicalOrbitPeriod = 2.736915;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0022;// - Undefined
+	OrbitalInclination = 0.02;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.7f, 0.7f, 0.7f, 1.0f);
+}
+void CelestialBody::SetRhea()
+{
+	Mass = 23.1;//kg
+	Volume = 1870406562.41584;//km3
+	EquatorialRadius = 765;//km
+	PolarRadius = 763;//km
+	VolumetricMeanRadius = 764.333333333333;//km
+	Ellipticity = 0.00261437908496731;//flattening
+	MeanDensity = 1240;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 527.04;//km
+	SiderealOrbitPeriod = 4.5175;//days
+	TropicalOrbitPeriod = 4.5175;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.001;// - Undefined
+	OrbitalInclination = 0.35;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.7f, 0.7f, 0.7f, 1.0f);
+}
+void CelestialBody::SetHyperion()
+{
+	Mass = 0.056;//kg
+	Volume = 18050334.7504655;//km3
+	EquatorialRadius = 180;//km
+	PolarRadius = 133;//km
+	VolumetricMeanRadius = 164.333333333333;//km
+	Ellipticity = 0.261111111111111;//flattening
+	MeanDensity = 550;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 1481.1;//km
+	SiderealOrbitPeriod = 21.276609;//days
+	TropicalOrbitPeriod = 21.276609;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.1042;// - Undefined
+	OrbitalInclination = 0.43;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.3f, 0.3f, 0.3f, 1.0f);
+}
+void CelestialBody::SetIapetus()
+{
+	Mass = 18.1;//kg
+	Volume = 1739022062.12675;//km3
+	EquatorialRadius = 746;//km
+	PolarRadius = 746;//km
+	VolumetricMeanRadius = 746;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 1090;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 3561.3;//km
+	SiderealOrbitPeriod = 79.330183;//days
+	TropicalOrbitPeriod = 79.330183;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0283;// - Undefined
+	OrbitalInclination = 14.72;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.05 / 0.5f, 0.05 / 0.5f, 0.05 / 0.5f, 1.0f);
+}
+
+//Uranus moons
+void CelestialBody::SetMiranda()
+{
+	Mass = 0.66;//kg
+	Volume = 56506444.759352;//km3
+	EquatorialRadius = 240;//km
+	PolarRadius = 234.2;//km
+	VolumetricMeanRadius = 238.066666666667;//km
+	Ellipticity = 0.0241666666666667;//flattening
+	MeanDensity = 1200;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 129.9;//km
+	SiderealOrbitPeriod = 1.413479;//days
+	TropicalOrbitPeriod = 1.413479;//days
+	Periapsis = 129700;//km 
+	Apoapsis = 130100;//km 
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0013;// - Undefined
+	OrbitalInclination = 4.34;//deg
+	LongitudeOfAscendingNode = 326.438;//deg 
+	LongitudeOfPeriapsis = 68.312;//deg
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.32f, 0.32f, 0.32f, 1.0f);
+}
+
+void CelestialBody::SetAriel()
+{
+	Mass = 12.9;//kg
+	Volume = 817415850.105788;//km3
+	EquatorialRadius = 581.1;//km
+	PolarRadius = 577.9;//km
+	VolumetricMeanRadius = 580.033333333333;//km
+	Ellipticity = 0.00550679745310623;//flattening
+	MeanDensity = 1590;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 190.9;//km
+	SiderealOrbitPeriod = 2.520379;//days
+	TropicalOrbitPeriod = 2.520379;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0012;// - Undefined
+	OrbitalInclination = 0.04;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.39f, 0.39f, 0.39f, 1.0f);
+
+}
+void CelestialBody::SetUmbriel()
+{
+	Mass = 12.2;//kg
+	Volume = 837313109.433584;//km3
+	EquatorialRadius = 584.7;//km
+	PolarRadius = 584.7;//km
+	VolumetricMeanRadius = 584.7;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 1460;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 266;//km
+	SiderealOrbitPeriod = 4.144176;//days
+	TropicalOrbitPeriod = 4.144176;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0039;// - Undefined
+	OrbitalInclination = 0.13;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.21f, 0.21f, 0.21f, 1.0f);
+
+}
+
+void CelestialBody::SetTitania()
+{
+	Mass = 34.2;//kg
+	Volume = 2056622001.3056;//km3
+	EquatorialRadius = 788.9;//km
+	PolarRadius = 788.9;//km
+	VolumetricMeanRadius = 788.9;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 1660;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 436.3;//km
+	SiderealOrbitPeriod = 8.705867;//days
+	TropicalOrbitPeriod = 8.705867;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0011;// - Undefined
+	OrbitalInclination = 0.08;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.27f, 0.27f, 0.27f, 1.0f);
+
+}
+void CelestialBody::SetOberon()
+{
+	Mass = 28.8;//kg
+	Volume = 1848958769.22961;//km3
+	EquatorialRadius = 761.4;//km
+	PolarRadius = 761.4;//km
+	VolumetricMeanRadius = 761.4;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 1560;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 583.5;//km
+	SiderealOrbitPeriod = 13.463234;//days
+	TropicalOrbitPeriod = 13.463234;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.0014;// - Undefined
+	OrbitalInclination = 0.07;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.23f, 0.23f, 0.23f, 1.0f);
+}
+
+//Neptunes moons
+void CelestialBody::SetTriton()
+{
+	Mass = 214;//kg
+	Volume = 10384058491.0292;//km3
+	EquatorialRadius = 1353.4;//km
+	PolarRadius = 1353.4;//km
+	VolumetricMeanRadius = 1353.4;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 2050;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 354.76;//km
+	SiderealOrbitPeriod = -5.876854;//days
+	TropicalOrbitPeriod = -5.876854;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0.000016;// - Undefined
+	OrbitalInclination = 157.345;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.72f, 0.72f, 0.72f, 1.0f);
+}
+
+//Plutos moon
+void CelestialBody::SetCharon()
+{
+	Mass = 1.586;//kg
+	Volume = 932194383.144831;//km3
+	EquatorialRadius = 606;//km
+	PolarRadius = 606;//km
+	VolumetricMeanRadius = 606;//km
+	Ellipticity = 0;//flattening
+	MeanDensity = 1700;//kg/m3
+	SurfaceGravity = 0;//m/s2 - Undefined
+	SurfaceAccelleration = 0;//m/s2 - Undefined
+	EscapeVelocity = 0;//km/s - Undefined
+	GM = 0;//km3/s2 - Undefined
+
+	SemiMajorAxis = 19.596;//km
+	SiderealOrbitPeriod = 6.3872;//days
+	TropicalOrbitPeriod = 6.3872;//days
+	Periapsis = 0;//km - Undefined
+	Apoapsis = 0;//km - Undefined
+	SynodicPeriod = 0;//days - Undefined
+	MeanOrbitalVelocity = 0;//km/s - Undefined
+	MaxOrbitalVelocity = 0;//km/s - Undefined
+	MinOrbitalVelocity = 0;//km/s - Undefined
+
+	LenghtOfDay = 0;//hrs - Undefined
+	ObliquityToOrbit = 0;//deg - Undefined
+
+	OrbitalEccentricity = 0;// - Undefined
+	OrbitalInclination = 0.00005;//deg
+	LongitudeOfAscendingNode = 0;//deg - Undefined
+	LongitudeOfPeriapsis = 0;//deg - Undefined
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+	TimeOfPeriapsis = 0;// - Undefined
+	color = Color(0.38f, 0.38f, 0.38f, 1.0f);
+}
+
+
 SolarSystem::SolarSystem()
 {
 	time = 0;
@@ -509,6 +1278,39 @@ Planet * SolarSystem::Sun()
 	return &sun; 
 }
 
+
+//Jupiters moons
+Planet * SolarSystem:: Io() { return &io; }
+Planet * SolarSystem:: Europa() { return &europa; }
+Planet * SolarSystem:: Ganymede() { return &ganymede; }
+Planet * SolarSystem:: Callisto() { return &callisto; }
+
+//Saturns moons
+Planet * SolarSystem:: Titan() { return &titan; }
+Planet * SolarSystem:: Mimas() { return &mimas; }
+Planet * SolarSystem:: Enceladus() { return &enceladus; }
+Planet * SolarSystem:: Tethys() { return &tethys; }
+Planet * SolarSystem:: Dione() { return &dione; }
+Planet * SolarSystem:: Rhea() { return &rhea; }
+Planet * SolarSystem:: Hyperion() { return &hyperion; }
+Planet * SolarSystem:: Iapetus() { return &iapetus; }
+
+//Uranus moons
+Planet * SolarSystem:: Miranda() { return &miranda; }
+Planet * SolarSystem:: Ariel() { return &ariel; }
+Planet * SolarSystem:: Umbriel() { return &umbriel; }
+Planet * SolarSystem:: Titania() { return &titania; }
+Planet * SolarSystem:: Oberon() { return &oberon; }
+
+//Neptunes moons
+Planet * SolarSystem:: Triton() { return &triton; }
+
+//Plutos moon
+Planet * SolarSystem:: Charon() { return &charon; }
+
+
+
+
 std::vector<Planet*> SolarSystem::Planets() 
 {
 	if (planets.size() == 0)
@@ -526,6 +1328,55 @@ std::vector<Planet*> SolarSystem::Planets()
 		sun.SetSun();
 		sun.isSun = true;
 		moon.isMoonOf = &earth;
+	
+		//Jupiters moons
+		io.SetIo();
+		io.isMoonOf = &jupiter;
+		europa.SetEuropa();
+		europa.isMoonOf = &jupiter;
+		ganymede.SetGanymede(); 
+		ganymede.isMoonOf = &jupiter;
+		callisto.SetCallisto();
+		callisto.isMoonOf = &jupiter;
+		
+		//Saturns moons
+		titan.SetTitan(); 
+		titan.isMoonOf = &saturn;
+		mimas.SetMimas(); 
+		mimas.isMoonOf = &saturn;
+		enceladus.SetEnceladus(); 
+		enceladus.isMoonOf = &saturn;
+		tethys.SetTethys(); 
+		tethys.isMoonOf = &saturn;
+		dione.SetDione(); 
+		dione.isMoonOf = &saturn;
+		rhea.SetRhea(); 
+		rhea.isMoonOf = &saturn;
+		hyperion.SetHyperion(); 
+		hyperion.isMoonOf = &saturn;
+		iapetus.SetIapetus(); 
+		iapetus.isMoonOf = &saturn;
+
+		//Uranus moons
+		miranda.SetMiranda(); 
+		miranda.isMoonOf = &uranus;
+		ariel.SetAriel(); 
+		ariel.isMoonOf = &uranus;
+		umbriel.SetUmbriel(); 
+		umbriel.isMoonOf = &uranus;
+		titania.SetTitania(); 
+		titania.isMoonOf = &uranus;
+		oberon.SetOberon(); 
+		oberon.isMoonOf = &uranus;
+
+		//Neptunes moons
+		triton.SetTriton(); 
+		triton.isMoonOf = &neptune;
+
+		//Plutos moon
+		charon.SetCharon(); 
+		charon.isMoonOf = &pluto;
+
 
 		planets = std::vector<Planet*>
 		{
@@ -539,7 +1390,36 @@ std::vector<Planet*> SolarSystem::Planets()
 			Neptune(),
 			Uranus(),
 			Pluto(),
-			Sun()
+			Sun(),
+
+			//Jupiters moons
+			Io(),	
+			Europa(),
+			Ganymede(),
+			Callisto(),
+
+			//Saturns moons
+			Titan(),
+			Mimas(),
+			Enceladus(),
+			Tethys(),
+			Dione(),
+			Rhea(),
+			Hyperion(),
+			Iapetus(),
+
+			//Uranus moons
+			Miranda(),
+			Ariel(),
+			Umbriel(),
+			Titania(),
+			Oberon(),
+
+			//Neptunes moons
+			Triton(),
+
+			//Plutos moon
+			Charon(),
 		};
 
 		int i = 0; 

@@ -22,6 +22,36 @@ struct SolarSystem
 	Planet*Uranus();
 	Planet*Pluto();
 	Planet*Sun();
+
+	//Jupiters moons
+	Planet* Io();
+	Planet* Europa();
+	Planet* Ganymede();
+	Planet* Callisto();
+	
+	//Saturns moons
+	Planet* Titan();
+	Planet* Mimas();
+	Planet* Enceladus();
+	Planet* Tethys();
+	Planet* Dione();
+	Planet* Rhea(); 
+	Planet* Hyperion();
+	Planet* Iapetus();
+
+	//Uranus moons
+	Planet* Miranda();
+	Planet* Ariel();
+	Planet* Umbriel();
+	Planet* Titania();
+	Planet* Oberon(); 
+
+	//Neptunes moons
+	Planet* Triton();
+
+	//Plutos moon
+	Planet* Charon(); 
+
 	std::vector<Planet*> Planets(); 
 	void SetTimeSinceJ2000(double days);
 };

@@ -12,7 +12,9 @@ namespace SolarSystem
   {
     private double rotation; 
     private Image image;
-    private Bitmap bitmap; 
+    private Bitmap bitmap;
+
+    public double Rotation => rotation; 
 
     public string FileName { get; set; }
 

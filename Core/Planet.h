@@ -102,6 +102,36 @@ struct CelestialBody
 	void SetNeptune();
 	void SetPluto();
 	void SetSun();
+
+	//Jupiters moons
+	void SetIo();
+	void SetEuropa();
+	void SetGanymede();
+	void SetCallisto();
+
+	//Saturns moons
+	void SetTitan();
+	void SetMimas();
+	void SetEnceladus();
+	void SetTethys();
+	void SetDione();
+	void SetRhea();
+	void SetHyperion();
+	void SetIapetus();
+
+	//Uranus moons
+	void SetMiranda();
+	void SetAriel();
+	void SetUmbriel();
+	void SetTitania();
+	void SetOberon();
+
+	//Neptunes moons
+	void SetTriton();
+
+	//Plutos moon
+	void SetCharon();
+
 };
 
 struct Planet : CelestialBody, Orbit

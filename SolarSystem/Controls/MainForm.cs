@@ -70,6 +70,37 @@ namespace SolarSystem
     public Planet Neptune { get; private set; }
     public Planet Pluto { get; private set; }
 
+    //Jupiters moons
+    public Planet Io { get; private set; }
+    public Planet Europa { get; private set; }
+    public Planet Ganymede { get; private set; }
+    public Planet Callisto { get; private set; }
+
+    //Saturns moons
+    public Planet Titan { get; private set; }
+    public Planet Mimas { get; private set; }
+    public Planet Enceladus { get; private set; }
+    public Planet Tethys { get; private set; }
+    public Planet Dione { get; private set; }
+    public Planet Rhea { get; private set; }
+    public Planet Hyperion { get; private set; }
+    public Planet Iapetus { get; private set; }
+
+    //Uranus moons
+    public Planet Miranda { get; private set; }
+    public Planet Ariel { get; private set; }
+    public Planet Umbriel { get; private set; }
+    public Planet Titania { get; private set; }
+    public Planet Oberon { get; private set; }
+
+    //Neptunes moon
+    public Planet Triton { get; private set; }
+
+    //Plutos moons
+    public Planet Charon { get; private set; }
+
+
+
     public MainForm()
     {
       SplashScreen splashScreen = new SplashScreen();
@@ -543,16 +574,16 @@ namespace SolarSystem
       Neptune = AddPlanet(SolarSystemPlanet.Neptune);
       Pluto = AddPlanet(SolarSystemPlanet.Pluto);
             
-      Mercury.Position = new Point3D(Sun.MaximumRadius + 2 * Mercury.MaximumRadius);
-      Venus.Position = new Point3D(Mercury.Position.x + Venus.MaximumRadius * 2);
-      Earth.Position = new Point3D(Venus.Position.x + Earth.MaximumRadius * 2);
-      Moon.Position = new Point3D(Earth.Position.x + Earth.MaximumRadius * 2);
-      Mars.Position = new Point3D(Moon.Position.x + Mars.MaximumRadius * 2);
-      Jupiter.Position = new Point3D(Mars.Position.x + Jupiter.MaximumRadius * 1.2);
-      Saturn.Position = new Point3D(Jupiter.Position.x + Jupiter.MaximumRadius * 2);
-      Uranus.Position = new Point3D(Saturn.Position.x + Saturn.MaximumRadius * 2);
-      Neptune.Position = new Point3D(Uranus.Position.x + Uranus.MaximumRadius * 2);
-      Pluto.Position = new Point3D(Neptune.Position.x + Neptune.MaximumRadius * 2);
+      //Mercury.Position = new Point3D(Sun.MaximumRadius + 2 * Mercury.MaximumRadius);
+      //Venus.Position = new Point3D(Mercury.Position.x + Venus.MaximumRadius * 2);
+      //Earth.Position = new Point3D(Venus.Position.x + Earth.MaximumRadius * 2);
+      //Moon.Position = new Point3D(Earth.Position.x + Earth.MaximumRadius * 2);
+      //Mars.Position = new Point3D(Moon.Position.x + Mars.MaximumRadius * 2);
+      //Jupiter.Position = new Point3D(Mars.Position.x + Jupiter.MaximumRadius * 1.2);
+      //Saturn.Position = new Point3D(Jupiter.Position.x + Jupiter.MaximumRadius * 2);
+      //Uranus.Position = new Point3D(Saturn.Position.x + Saturn.MaximumRadius * 2);
+      //Neptune.Position = new Point3D(Uranus.Position.x + Uranus.MaximumRadius * 2);
+      //Pluto.Position = new Point3D(Neptune.Position.x + Neptune.MaximumRadius * 2);
 
       Sun.AddTexture(@"Resource\Texture\8k_sun.jpg",0,false);
       Mercury.AddTexture(@"Resource\Texture\8k_mercury.jpg",0, false);
@@ -568,10 +599,45 @@ namespace SolarSystem
       Neptune.AddTexture(@"Resource\Texture\2k_neputune.jpg", 0, false);
       Pluto.AddTexture(@"Resource\Texture\Pluto.jpg", 0, false);
 
-      if (Camera.Eye is PositionObject eye)
-        eye.Position = new Point3D(Pluto.Position.x, Pluto.MaximumRadius * 5);
+      InitializeMoons(); 
+
+      //if (Camera.Eye is PositionObject eye)
+      //  eye.Position = new Point3D(Pluto.Position.x, Pluto.MaximumRadius * 5);
 
       InitializeEquatorialCoordinateSystem(); 
+    }
+
+    private void InitializeMoons()
+    {
+      //Jupiters moons
+      Io = AddPlanet(SolarSystemPlanet.Io);
+      Europa = AddPlanet(SolarSystemPlanet.Europa);
+      Ganymede = AddPlanet(SolarSystemPlanet.Ganymede);
+      Callisto = AddPlanet(SolarSystemPlanet.Callisto);
+
+      //Saturns moons
+      Titan = AddPlanet(SolarSystemPlanet.Titan);
+      Mimas = AddPlanet(SolarSystemPlanet.Mimas);
+      Enceladus = AddPlanet(SolarSystemPlanet.Enceladus);
+      Tethys = AddPlanet(SolarSystemPlanet.Tethys);
+      Dione = AddPlanet(SolarSystemPlanet.Dione);
+      Rhea = AddPlanet(SolarSystemPlanet.Rhea);
+      Hyperion = AddPlanet(SolarSystemPlanet.Hyperion);
+      Iapetus = AddPlanet(SolarSystemPlanet.Iapetus);
+
+      //Uranus moons
+      Miranda = AddPlanet(SolarSystemPlanet.Miranda);
+      Ariel = AddPlanet(SolarSystemPlanet.Ariel);
+      Umbriel = AddPlanet(SolarSystemPlanet.Umbriel);
+      Titania = AddPlanet(SolarSystemPlanet.Titania);
+      Oberon = AddPlanet(SolarSystemPlanet.Oberon);
+
+      //Neptunes moons
+      Triton = AddPlanet(SolarSystemPlanet.Triton);
+
+      //Plutos moons
+      Charon = AddPlanet(SolarSystemPlanet.Charon);
+
     }
 
     private void MaxRenderRatioBox_Click(object sender, EventArgs e)
@@ -672,6 +738,49 @@ namespace SolarSystem
           i--; 
         }
       }
+    }
+
+    private void LoadTextureMenuItem_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        int index = SceneContentBox.SelectedIndex;
+        if (index < 0 || index >= Scene.RenderableObjects.Count)
+          throw new Exception("Please select a planet in the list.");
+        
+        Planet planet = Scene.RenderableObjects[SceneContentBox.SelectedIndex] as Planet;
+        if (planet == null)
+          throw new Exception("Please select a planet in the list.");
+        
+        using (OpenFileDialog ofd = new OpenFileDialog())
+        {
+          if (ofd.ShowDialog() != DialogResult.OK)
+            return;
+          using (Image image = Image.FromFile(ofd.FileName))
+          {
+
+          }
+          string rotationText = Prompt.ShowDialog("Rotation of image in degrees.", "Rotation");
+          double rotation = 0;
+          try
+           {
+            rotation = Convert.ToDouble(rotationText);
+          }
+          catch
+          {
+
+          }
+
+          planet.AddTexture(ofd.FileName, rotation);
+
+        }
+      }
+
+      catch (Exception ex)
+      {
+        MessageBox.Show("Cannot Apply Texture.\n" + ex.Message, "Error");
+      }
+
     }
   }
 }

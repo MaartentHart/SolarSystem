@@ -129,14 +129,19 @@ namespace SolarSystem
           Lights[i].Render(i + 1);
         foreach (IRenderable renderableObject in RenderableObjects)
         {
+
           if (renderableObject is Planet planet)
-            if (SunLight!=null)
-              SunLight.SetDirection(planet.RenderableObject.Transform.Position); 
-           
+          {
+            if (planet.Position.HasNaN)
+              continue; 
+            if (SunLight != null)
+              SunLight.SetDirection(planet.RenderableObject.Transform.Position);
+
+          } 
           renderableObject.Render(camera);
         }
       }
-      catch
+      catch (Exception ex)
       {
         Changed = true; 
       }

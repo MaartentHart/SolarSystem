@@ -259,6 +259,9 @@ namespace SolarSystem
 
     public void Lookat(IPositionObject target)
     {
+      if (target.Position.HasNaN)
+        return; 
+
       Target = target;
       if (Eye is PositionObject eye && target is Planet planet)
       {

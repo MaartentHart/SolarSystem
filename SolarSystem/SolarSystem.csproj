@@ -104,6 +104,7 @@
     <Compile Include="Controls\ColorMapForm.Designer.cs">
       <DependentUpon>ColorMapForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Prompt.cs" />
     <Compile Include="CoreDll.cs" />
     <Compile Include="CPoint3DArray.cs" />
     <Compile Include="Debugging\DateTesterForm.cs">
