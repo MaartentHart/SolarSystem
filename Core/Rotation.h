@@ -5,8 +5,11 @@ struct Quaternion
 {
 	double x, y, z, w;
 
-	Quaternion(double x = 0, double y = 0, double z = 1, double w = 0);
+	Quaternion(); 
+	Quaternion(double yaw, double pitch, double roll);
+	Quaternion(double x, double y, double z, double w);
 	Quaternion(Point3D vector, double rotation);
+	Quaternion(const Point3D& directionVector, const Point3D& upVector); 
 	Quaternion(Quaternion systemRotation, Quaternion localRotation);
 
 	Quaternion Reverse() const; 

@@ -72,4 +72,5 @@ extern "C"
 	//Draw an impact on the given layer. Scaled radius is the radius of the crater divided by the radius of the planet.  
 	DLL void DrawImpactOn(int impactId, int generation, double scaledRadius, double maxValue, double* layer); 
 
+	DLL void SetGravityThreshold(double threshold); 
 }

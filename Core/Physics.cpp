@@ -38,6 +38,7 @@ void GravityAffectedObject::PullGravity(Planet * planet, double seconds)
 {
 	if (disposed)
 		return;
+
 	Point3D *position = this->position;
 	Point3D *velocity = this->velocity;
 	for (int i = 0; i<count ; i++, velocity++, position++)

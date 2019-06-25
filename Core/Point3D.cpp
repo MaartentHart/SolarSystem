@@ -2,18 +2,42 @@
 #include "stdafx.h"
 #include "Point3D.h"
 
-const double pi = 4 * atan(1.0);
-const double deg2rad = pi / 180;
-const double rad2deg = 180 / pi;
-const double verysmall = 1.0e-15;
+
+struct MathVariables
+{
+	double pi;
+	double deg2rad;
+	double rad2deg;
+	double verysmall;
+
+	MathVariables()
+	{
+		pi = 4 * atan(1.0);
+		deg2rad = pi / 180;
+		rad2deg = 180 / pi;
+		verysmall = 1.0e-15;
+	}
+
+	static MathVariables& Main()
+	{
+		static MathVariables mv;
+		return mv; 
+	}
+};
+
+double Pi() { return MathVariables::Main().pi; }
+double Deg2rad() { return MathVariables::Main().deg2rad; }
+double Rad2deg() { return MathVariables::Main().rad2deg; }
+double Verysmall() { return MathVariables::Main().verysmall; }
+
 
 Point3D::Point3D() : X(1), Y(0), Z(0) {}
 Point3D::Point3D(double x, double y, double z) : X(x), Y(y), Z(z) {}
 Point3D::Point3D(double that) : X(that), Y(that), Z(that) {}
 Point3D::Point3D(const LatLon&that)
 {
-	double N = that.N*(pi / ((double)180));
-	double E = that.E*(pi / ((double)180));
+	double N = that.N*(Pi() / ((double)180));
+	double E = that.E*(Pi() / ((double)180));
 	double xy = cos(N);
 	X = xy * cos(E);
 	Y = xy * sin(E);
@@ -70,13 +94,13 @@ Point3D Point3D::RotateZ(double angle) const
 Point3D Point3D::CleanUp() const
 {
 	Point3D out = *this;
-	if (abs(X) < verysmall)
+	if (abs(X) < Verysmall())
 		if (X != 0.0)
 			out.X = 0.0;
-	if (abs(Y) < verysmall)
+	if (abs(Y) < Verysmall())
 		if (Y != 0)
 			out.Y = 0.0;
-	if (abs(Z) < verysmall)
+	if (abs(Z) < Verysmall())
 		if (Z != 0)
 			out.Z = 0.0;
 	return out;
@@ -89,10 +113,10 @@ bool Point3D::IsOrigin()const
 
 double Point3D::Vector2VectorCircularDistance(const Point3D&that) const
 {
-	return pi / asin(1 - Vector().DistTo(that.Vector()));//test please
+	return Pi() / asin(1 - Vector().DistTo(that.Vector()));//test please
 }
 
-double Pi() { return pi; }
+
 
 Point3D CrossMultiply(const Point3D&A, const Point3D&B)
 {
@@ -123,9 +147,9 @@ double Determinant(const Point3D&A, const Point3D&B, const Point3D&C)
 		- A.Z*B.Y*C.X;
 }
 
-double VerySmall() { return verysmall; }
-double Deg2Rad(double degrees){ return deg2rad * degrees;}
-double Rad2Deg(double radian) { return rad2deg * radian; }
+double VerySmall() { return Verysmall(); }
+double Deg2Rad(double degrees){ return Deg2rad() * degrees;}
+double Rad2Deg(double radian) { return Rad2deg() * radian; }
 
 LatLon::LatLon() : E(0), N(0)
 {}
@@ -133,9 +157,9 @@ LatLon::LatLon() : E(0), N(0)
 LatLon::LatLon(const Point3D&that)
 {
 	Point3D Vector = that.Vector();
-	N = asin(Vector.Z) / pi * (double)180;
+	N = asin(Vector.Z) / Pi() * (double)180;
 	double xy = acos(Vector.Z);
-	E = atan2(Vector.Y, Vector.X) / pi * (double)180;
+	E = atan2(Vector.Y, Vector.X) / Pi() * (double)180;
 }
 
 Rotation::Rotation(double tilt, double direction, double aroundAxis)
@@ -144,17 +168,17 @@ Rotation::Rotation(double tilt, double direction, double aroundAxis)
 
 void Rotation::TiltDegree(double tilt)
 {
-	axisTilt = tilt * deg2rad;
+	axisTilt = tilt * Deg2rad();
 }
 
 void Rotation::DirectionDegree(double dir)
 {
-	axisDirection = dir * deg2rad;
+	axisDirection = dir * Deg2rad();
 }
 
 void Rotation::AroundAxisDegree(double ar)
 {
-	rotationAroundAxis = ar * deg2rad;
+	rotationAroundAxis = ar * Deg2rad();
 }
 
 BoundingBox::BoundingBox()

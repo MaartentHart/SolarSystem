@@ -22,8 +22,7 @@ namespace SolarSystem
 
     private List<IRenderable> PreviousRenderableObjects { get; } = new List<IRenderable>();
     private List<ILight> PreviousLights { get; } = new List<ILight>();
-
-
+    
     public int MaximumDisplayGeneration
     {
       get => maximumDisplayGeneration; 

@@ -18,7 +18,7 @@ namespace SolarSystem
     public CColorArrray Colors { get; private set; }
 
     public int MeteorCount { get; }
-    public int ID { get; }
+    public int ID { get; private set; }
     public float PointSize
     {
       get => RenderObject.pointSize;
@@ -108,7 +108,7 @@ namespace SolarSystem
 
     private void FinishConstructor()
     {
-      CoreDll.AddFallingObject(Positions.Ptr, Velocities.Ptr, MeteorCount);
+      ID = CoreDll.AddFallingObject(Positions.Ptr, Velocities.Ptr, MeteorCount);
 
       Indices = new CIntArrray(MeteorCount);
       Indices.SetDefaultIndex();
@@ -133,8 +133,6 @@ namespace SolarSystem
     {
       if (!On)
         return;
-      if (Position.HasNaN)
-        return; 
 
       lock (locker)
       {

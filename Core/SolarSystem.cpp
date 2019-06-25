@@ -46,8 +46,10 @@ Planet triton(1353.4, 1353.4, 0.000779, "Triton");
 //Plutos moon
 Planet charon(606,606,0.00029,"Charon");
 
-
-
+CelestialBody::CelestialBody() 
+{
+	memset(this, 0, sizeof(this)); 
+}
 
 void CelestialBody::SetMercury()
 {
@@ -519,7 +521,9 @@ void CelestialBody::SetIo()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.62f, 0.62f, 0.62f, 1.0f);
+	SynchronousRotation = true; 
 }
+
 void CelestialBody::SetEuropa()
 {
 	Mass = 480;//kg
@@ -557,7 +561,9 @@ void CelestialBody::SetEuropa()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.68f, 0.68f, 0.68f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetGanymede()
 {
 	Mass = 1481.9;//kg
@@ -595,7 +601,9 @@ void CelestialBody::SetGanymede()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.44f, 0.44f, 0.44f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetCallisto(){
 	Mass = 1075.9;//kg
 	Volume = 58654577603.0003;//km3
@@ -632,6 +640,7 @@ void CelestialBody::SetCallisto(){
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.19f, 0.19f, 0.19f, 1.0f);
+	SynchronousRotation = true;
 }
 
 //Saturns moons
@@ -672,7 +681,9 @@ void CelestialBody::SetTitan()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.22f, 0.22f, 0.22f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetMimas()
 {
 	Mass = 0.379;//kg
@@ -710,7 +721,9 @@ void CelestialBody::SetMimas()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.6f, 0.6f, 0.6f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetEnceladus()
 {
 	Mass = 1.08;//kg
@@ -748,7 +761,9 @@ void CelestialBody::SetEnceladus()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(1.0f, 1.0f, 1.0f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetTethys()
 {
 	Mass = 6.18;//kg
@@ -786,7 +801,9 @@ void CelestialBody::SetTethys()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.8f, 0.8f, 0.8f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetDione()
 {
 	Mass = 11;//kg
@@ -824,7 +841,9 @@ void CelestialBody::SetDione()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.7f, 0.7f, 0.7f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetRhea()
 {
 	Mass = 23.1;//kg
@@ -862,7 +881,9 @@ void CelestialBody::SetRhea()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.7f, 0.7f, 0.7f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetHyperion()
 {
 	Mass = 0.056;//kg
@@ -900,7 +921,9 @@ void CelestialBody::SetHyperion()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.3f, 0.3f, 0.3f, 1.0f);
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetIapetus()
 {
 	Mass = 18.1;//kg
@@ -938,6 +961,7 @@ void CelestialBody::SetIapetus()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.05 / 0.5f, 0.05 / 0.5f, 0.05 / 0.5f, 1.0f);
+	SynchronousRotation = true;
 }
 
 //Uranus moons
@@ -978,6 +1002,7 @@ void CelestialBody::SetMiranda()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.32f, 0.32f, 0.32f, 1.0f);
+	SynchronousRotation = true;
 }
 
 void CelestialBody::SetAriel()
@@ -1017,8 +1042,9 @@ void CelestialBody::SetAriel()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.39f, 0.39f, 0.39f, 1.0f);
-
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetUmbriel()
 {
 	Mass = 12.2;//kg
@@ -1056,7 +1082,7 @@ void CelestialBody::SetUmbriel()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.21f, 0.21f, 0.21f, 1.0f);
-
+	SynchronousRotation = true;
 }
 
 void CelestialBody::SetTitania()
@@ -1096,8 +1122,9 @@ void CelestialBody::SetTitania()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.27f, 0.27f, 0.27f, 1.0f);
-
+	SynchronousRotation = true;
 }
+
 void CelestialBody::SetOberon()
 {
 	Mass = 28.8;//kg
@@ -1135,6 +1162,7 @@ void CelestialBody::SetOberon()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.23f, 0.23f, 0.23f, 1.0f);
+	SynchronousRotation = true;
 }
 
 //Neptunes moons
@@ -1175,6 +1203,7 @@ void CelestialBody::SetTriton()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.72f, 0.72f, 0.72f, 1.0f);
+	SynchronousRotation = true;
 }
 
 //Plutos moon
@@ -1215,12 +1244,13 @@ void CelestialBody::SetCharon()
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.38f, 0.38f, 0.38f, 1.0f);
+	SynchronousRotation = true;
 }
-
 
 SolarSystem::SolarSystem()
 {
 	time = 0;
+	gravityThreshold = 0.0005; 
 }
 
 Planet * SolarSystem::Earth()
@@ -1307,9 +1337,6 @@ Planet * SolarSystem:: Triton() { return &triton; }
 
 //Plutos moon
 Planet * SolarSystem:: Charon() { return &charon; }
-
-
-
 
 std::vector<Planet*> SolarSystem::Planets() 
 {
@@ -1430,6 +1457,24 @@ std::vector<Planet*> SolarSystem::Planets()
 		}
 	}
 	return planets; 
+}
+
+std::vector<Planet*> SolarSystem::GravitySources()
+{
+	std::vector<Planet*> planets = Planets(); 
+	std::vector<Planet*> gravitySources;
+
+	for (Planet*planet:planets)
+	{
+		if (planet->position.HasNaN())
+			continue; 
+
+		if (planet->surfaceGravity < gravityThreshold)
+			continue; 
+
+		gravitySources.push_back(planet);
+	}
+	return gravitySources; 
 }
 
 void SolarSystem::SetTimeSinceJ2000(double days)

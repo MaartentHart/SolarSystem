@@ -76,6 +76,8 @@ struct Point3D
 	inline Point3D ZXY() const { return Point3D(Z, X, Y); }
 	inline Point3D Abs() const { return Point3D(abs(X), abs(Y), abs(Z)); }
 
+	inline bool HasNaN() const { return isnan(X) || isnan(Y) || isnan(Z); }
+
 	Point3D Vector() const;
 
 	bool IsBetween(const Point3D&A, const Point3D&B)const;

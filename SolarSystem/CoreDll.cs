@@ -157,6 +157,12 @@ namespace SolarSystem
 
     [DllImport("Core.dll", EntryPoint = "DrawImpactOn", CallingConvention = CallingConvention.Cdecl)]
     static public extern void DrawImpactOn(int impactId, int generation, double scaledRadius, double maxValue, double[] layer);
+
+    //Default gravity threshold is 0.0005 (which includes pluto, but excludes most moons)
+    //Planets/moons that have lower gravity will not be included in gravity calculations. 
+    [DllImport("Core.dll", EntryPoint = "SetGravityThreshold", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void SetGravityThreshold(double threshold);
+
     #endregion
 
   }

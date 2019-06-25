@@ -41,6 +41,8 @@ struct Orbit
 	double semiminorAxis;
 	double flatFactor;
 
+	Point3D orbitNormal; 
+
 	Orbit();//default is the values for earth;
 	
 	//position in space based on 2D position.
@@ -50,6 +52,8 @@ struct Orbit
 	Point3D PositionByTime(double days) const;//position in space based on time. Time is in days. 
 	double EllipsePosition(double days) const;
 	void SetCalculationValues();
+
+	//Quaternion RotateSynchronousAt(double days) const;
 };
 
 struct CelestialBody
@@ -89,7 +93,12 @@ struct CelestialBody
 	double	Declination;
 	double	TimeOfPeriapsis;
 
+	//if true, object always faces the parent planet in the same direction. 
+	bool SynchronousRotation; 
+
 	Color color;
+
+	CelestialBody();
 
 	void SetMercury();
 	void SetVenus();
@@ -131,7 +140,6 @@ struct CelestialBody
 
 	//Plutos moon
 	void SetCharon();
-
 };
 
 struct Planet : CelestialBody, Orbit
@@ -163,7 +171,6 @@ struct Planet : CelestialBody, Orbit
 
 	Point3D RotatedScaledPosition(const Point3D&relativePosition) const; 
 	Point3D RotatedScaledPosition(const Point3D&relativePosition, double days) const; 
-	Point3D UnScale(const Point3D& point) const; 
-	
+	Point3D UnScale(const Point3D& point) const; 	
 };
 

@@ -108,6 +108,11 @@ void Orbit::SetCalculationValues()
 	relativeFocusDistance = focusDistance / semimajorAxis;
 	semiminorAxis = sqrt(semimajorAxis*semimajorAxis - focusDistance * focusDistance);
 	flatFactor = semiminorAxis / semimajorAxis;
+	 
+	Point3D position0 = PositionByTime(0);
+	Point3D position1 = PositionByTime(period / 4);
+
+	orbitNormal = position0.Cross(position1).Vector();
 }
 
 Planet::Planet(double radius, double secondaryRadius, double surfaceGravity, std::string name)
@@ -132,10 +137,24 @@ void Planet::LoadCelestialBodyOrbit()
 	inclination = OrbitalInclination;
 	longitudeAscendingNode = LongitudeOfAscendingNode;
 	argumentPeriapsis = LongitudeOfPeriapsis - longitudeAscendingNode;
+
 	period = SiderealOrbitPeriod;
 	averageSpeed = MeanOrbitalVelocity;
 	timeOfPeriapsis = TimeOfPeriapsis;
+
 	SetCalculationValues(); 
+
+	if (SynchronousRotation)
+	{
+		SiderealRotationPeriod = period*24; 
+	
+		Point3D axis = orbitNormal; 
+		double yaw = (axis.X == 0 && axis.Y == 0) ? 0 : atan2(axis.Y, axis.X);
+		double pitch = acos(axis.Z);
+		double roll = 0;
+
+		rotationAxis = Quaternion(yaw, pitch, roll);
+	}
 }
 
 double Planet::RotationAngleAt(double days) const

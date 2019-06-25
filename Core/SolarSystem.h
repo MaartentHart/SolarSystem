@@ -7,6 +7,7 @@
 
 struct SolarSystem
 {
+	double gravityThreshold; 
 	double time; 
 
 	SolarSystem(); 
@@ -53,5 +54,6 @@ struct SolarSystem
 	Planet* Charon(); 
 
 	std::vector<Planet*> Planets(); 
+	std::vector<Planet*> GravitySources(); 
 	void SetTimeSinceJ2000(double days);
 };

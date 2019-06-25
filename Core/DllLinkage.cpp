@@ -203,7 +203,10 @@ double PlanetRotation()
 
 void SetPlanetBaseRotation(int planetId, double x, double y, double z, double w)
 {
-	GetSolarSystem().Planets()[planetId]->rotationAxis = Quaternion(x, y, z, w); 
+	Planet* planet = GetSolarSystem().Planets()[planetId];
+	if (planet->SynchronousRotation)
+		return; 
+	planet->rotationAxis = Quaternion(x, y, z, w); 
 }
 
 void SetPlanetRotationCalibration(int planetId, double calibration)
@@ -213,19 +216,26 @@ void SetPlanetRotationCalibration(int planetId, double calibration)
 
 void ClearFallingObjects()
 {
-	GetGravityObjects().clear(); 
+	std::vector<GravityAffectedObject>*gravityObjects = &GetGravityObjectsIncludingDisposed();
+	for (int i = 0; i<gravityObjects->size();i++)
+		(*gravityObjects)[i].disposed = true;
+
+	ReleaseGravityObjectsIncludingDisposed(); 
 }
 
 int AddFallingObject(Point3D*positions, Point3D*velocities, int pointCount)
 {
-	int id = GetGravityObjects().size();
-	GetGravityObjects().push_back(GravityAffectedObject(positions, velocities, pointCount));
+	std::vector<GravityAffectedObject>* gravityObjects = &GetGravityObjectsIncludingDisposed(); 
+	int id = gravityObjects->size();
+	gravityObjects->push_back(GravityAffectedObject(positions, velocities, pointCount));
+	ReleaseGravityObjectsIncludingDisposed(); 
 	return id; 
 }
 
 void RemoveFallingObject(int id)
 {
-	GetGravityObjects()[id].disposed = true;
+	GetGravityObjectsIncludingDisposed()[id].disposed = true;
+	ReleaseGravityObjectsIncludingDisposed(); 
 }
 
 void Run(bool run)
@@ -326,5 +336,9 @@ void DrawImpactOn(int impactId, int generation, double scaledRadius, double maxV
 			int hold = 1; 
 		
 	}
+}
 
+void SetGravityThreshold(double threshold)
+{
+	GetSolarSystem().gravityThreshold = threshold; 
 }
