@@ -2,6 +2,12 @@
 #include "stdafx.h"
 #include "SolarSystem.h"
 
+//sources:
+//http://extras.springer.com/2009/978-3-540-88054-7/16_vi4b_422.pdf
+//https://nssdc.gsfc.nasa.gov/planetary/factsheet/
+//https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html
+
+
 //double undefined = std::numeric_limits<double>::quiet_NaN();
 std::vector<Planet*> planets; 
 
@@ -501,8 +507,8 @@ void CelestialBody::SetIo()
 	SemiMajorAxis = 421.8;//km
 	SiderealOrbitPeriod = 1.769138;//days
 	TropicalOrbitPeriod = 1.769138;//days
-	Periapsis = 420000;//km
-	Apoapsis = 423400;//km - Undefined
+	Periapsis = 420112.799999985;//km
+	Apoapsis = 423487.200000015;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -513,15 +519,15 @@ void CelestialBody::SetIo()
 
 	OrbitalEccentricity = 0.004;// - Undefined
 	OrbitalInclination = 0.04;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 43.977;//deg
+	LongitudeOfPeriapsis = 128.106;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
 	Declination = 90;// - Undefined
 	TimeOfPeriapsis = 0;// - Undefined
 	color = Color(0.62f, 0.62f, 0.62f, 1.0f);
-	SynchronousRotation = true; 
+	SynchronousRotation = true;
 }
 
 void CelestialBody::SetEuropa()
@@ -541,8 +547,8 @@ void CelestialBody::SetEuropa()
 	SemiMajorAxis = 671.1;//km
 	SiderealOrbitPeriod = 3.551181;//days
 	TropicalOrbitPeriod = 3.551181;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 665060.100000004;//km
+	Apoapsis = 677139.899999996;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -553,8 +559,8 @@ void CelestialBody::SetEuropa()
 
 	OrbitalEccentricity = 0.009;// - Undefined
 	OrbitalInclination = 0.47;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 219.106;//deg - Undefined
+	LongitudeOfPeriapsis = 308.076;//deg - Undefined
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -581,8 +587,8 @@ void CelestialBody::SetGanymede()
 	SemiMajorAxis = 1070.4;//km
 	SiderealOrbitPeriod = 7.154553;//days
 	TropicalOrbitPeriod = 7.154553;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 1069329.60000004;//km 
+	Apoapsis = 1071470.39999996;//km 
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -593,8 +599,8 @@ void CelestialBody::SetGanymede()
 
 	OrbitalEccentricity = 0.001;// - Undefined
 	OrbitalInclination = 0.18;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 63.552;//deg
+	LongitudeOfPeriapsis = 255.969;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -620,8 +626,8 @@ void CelestialBody::SetCallisto(){
 	SemiMajorAxis = 1882.7;//km
 	SiderealOrbitPeriod = 16.689017;//days
 	TropicalOrbitPeriod = 16.689017;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 1869521.09999999;//km
+	Apoapsis = 1895878.90000001;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -632,8 +638,8 @@ void CelestialBody::SetCallisto(){
 
 	OrbitalEccentricity = 0.007;// - Undefined
 	OrbitalInclination = 0.19;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 298.848;//deg
+	LongitudeOfPeriapsis = 351.491;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -661,8 +667,8 @@ void CelestialBody::SetTitan()
 	SemiMajorAxis = 1221.83;//km
 	SiderealOrbitPeriod = 15.945421;//days
 	TropicalOrbitPeriod = 15.945421;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 1186152.564;//km
+	Apoapsis = 1257507.436;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -673,8 +679,8 @@ void CelestialBody::SetTitan()
 
 	OrbitalEccentricity = 0.0292;// - Undefined
 	OrbitalInclination = 0.33;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 24.502;//deg
+	LongitudeOfPeriapsis = 210.173;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -701,8 +707,8 @@ void CelestialBody::SetMimas()
 	SemiMajorAxis = 185.52;//km
 	SiderealOrbitPeriod = 0.9424218;//days
 	TropicalOrbitPeriod = 0.9424218;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 181772.496000001;//km
+	Apoapsis = 189267.503999999;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -713,8 +719,8 @@ void CelestialBody::SetMimas()
 
 	OrbitalEccentricity = 0.0202;// - Undefined
 	OrbitalInclination = 1.53;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 153.152;//deg
+	LongitudeOfPeriapsis = 167.504;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -741,8 +747,8 @@ void CelestialBody::SetEnceladus()
 	SemiMajorAxis = 238.02;//km
 	SiderealOrbitPeriod = 1.370218;//days
 	TropicalOrbitPeriod = 1.370218;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 236948.910000001;//km
+	Apoapsis = 239091.089999999;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -753,8 +759,8 @@ void CelestialBody::SetEnceladus()
 
 	OrbitalEccentricity = 0.0045;// - Undefined
 	OrbitalInclination = 0;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 93.204;//deg
+	LongitudeOfPeriapsis = 305.127;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -781,8 +787,8 @@ void CelestialBody::SetTethys()
 	SemiMajorAxis = 294.66;//km
 	SiderealOrbitPeriod = 1.887802;//days
 	TropicalOrbitPeriod = 1.887802;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 294660;//km
+	Apoapsis = 294660;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -793,8 +799,8 @@ void CelestialBody::SetTethys()
 
 	OrbitalEccentricity = 0;// - Undefined
 	OrbitalInclination = 1.86;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 330.882;//deg
+	LongitudeOfPeriapsis = 593.727;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -821,8 +827,8 @@ void CelestialBody::SetDione()
 	SemiMajorAxis = 377.4;//km
 	SiderealOrbitPeriod = 2.736915;//days
 	TropicalOrbitPeriod = 2.736915;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 376569.719999998;//km
+	Apoapsis = 378230.280000002;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -833,8 +839,8 @@ void CelestialBody::SetDione()
 
 	OrbitalEccentricity = 0.0022;// - Undefined
 	OrbitalInclination = 0.02;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 168.909;//deg
+	LongitudeOfPeriapsis = 337.729;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -861,8 +867,8 @@ void CelestialBody::SetRhea()
 	SemiMajorAxis = 527.04;//km
 	SiderealOrbitPeriod = 4.5175;//days
 	TropicalOrbitPeriod = 4.5175;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 526512.959999966;//km
+	Apoapsis = 527567.040000034;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -873,8 +879,8 @@ void CelestialBody::SetRhea()
 
 	OrbitalEccentricity = 0.001;// - Undefined
 	OrbitalInclination = 0.35;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 311.531;//deg
+	LongitudeOfPeriapsis = 568.14;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -901,8 +907,8 @@ void CelestialBody::SetHyperion()
 	SemiMajorAxis = 1481.1;//km
 	SiderealOrbitPeriod = 21.276609;//days
 	TropicalOrbitPeriod = 21.276609;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 1326769.38;//km
+	Apoapsis = 1635430.62;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -913,8 +919,8 @@ void CelestialBody::SetHyperion()
 
 	OrbitalEccentricity = 0.1042;// - Undefined
 	OrbitalInclination = 0.43;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 264.022;//deg
+	LongitudeOfPeriapsis = 588.205;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -941,8 +947,8 @@ void CelestialBody::SetIapetus()
 	SemiMajorAxis = 3561.3;//km
 	SiderealOrbitPeriod = 79.330183;//days
 	TropicalOrbitPeriod = 79.330183;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 3460515.21;//km
+	Apoapsis = 3662084.79;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -953,8 +959,8 @@ void CelestialBody::SetIapetus()
 
 	OrbitalEccentricity = 0.0283;// - Undefined
 	OrbitalInclination = 14.72;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 75.831;//deg
+	LongitudeOfPeriapsis = 351.752;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -982,8 +988,8 @@ void CelestialBody::SetMiranda()
 	SemiMajorAxis = 129.9;//km
 	SiderealOrbitPeriod = 1.413479;//days
 	TropicalOrbitPeriod = 1.413479;//days
-	Periapsis = 129700;//km 
-	Apoapsis = 130100;//km 
+	Periapsis = 129731.130000005;//km
+	Apoapsis = 130068.869999995;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -994,8 +1000,8 @@ void CelestialBody::SetMiranda()
 
 	OrbitalEccentricity = 0.0013;// - Undefined
 	OrbitalInclination = 4.34;//deg
-	LongitudeOfAscendingNode = 326.438;//deg 
-	LongitudeOfPeriapsis = 68.312;//deg
+	LongitudeOfAscendingNode = 326.438;//deg
+	LongitudeOfPeriapsis = 394.75;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -1022,8 +1028,8 @@ void CelestialBody::SetAriel()
 	SemiMajorAxis = 190.9;//km
 	SiderealOrbitPeriod = 2.520379;//days
 	TropicalOrbitPeriod = 2.520379;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 190670.919999982;//km
+	Apoapsis = 191129.080000018;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -1034,8 +1040,8 @@ void CelestialBody::SetAriel()
 
 	OrbitalEccentricity = 0.0012;// - Undefined
 	OrbitalInclination = 0.04;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 22.394;//deg
+	LongitudeOfPeriapsis = 137.743;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -1062,8 +1068,8 @@ void CelestialBody::SetUmbriel()
 	SemiMajorAxis = 266;//km
 	SiderealOrbitPeriod = 4.144176;//days
 	TropicalOrbitPeriod = 4.144176;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 264962.599999987;//km
+	Apoapsis = 267037.400000013;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -1074,8 +1080,8 @@ void CelestialBody::SetUmbriel()
 
 	OrbitalEccentricity = 0.0039;// - Undefined
 	OrbitalInclination = 0.13;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 33.485;//deg
+	LongitudeOfPeriapsis = 118.194;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -1102,8 +1108,8 @@ void CelestialBody::SetTitania()
 	SemiMajorAxis = 436.3;//km
 	SiderealOrbitPeriod = 8.705867;//days
 	TropicalOrbitPeriod = 8.705867;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 435820.070000028;//km
+	Apoapsis = 436779.929999972;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -1114,8 +1120,8 @@ void CelestialBody::SetTitania()
 
 	OrbitalEccentricity = 0.0011;// - Undefined
 	OrbitalInclination = 0.08;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 99.771;//deg
+	LongitudeOfPeriapsis = 384.171;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -1142,8 +1148,8 @@ void CelestialBody::SetOberon()
 	SemiMajorAxis = 583.5;//km
 	SiderealOrbitPeriod = 13.463234;//days
 	TropicalOrbitPeriod = 13.463234;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 582683.099999962;//km
+	Apoapsis = 584316.900000038;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -1154,8 +1160,8 @@ void CelestialBody::SetOberon()
 
 	OrbitalEccentricity = 0.0014;// - Undefined
 	OrbitalInclination = 0.07;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 279.771;//deg
+	LongitudeOfPeriapsis = 384.171;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -1183,8 +1189,8 @@ void CelestialBody::SetTriton()
 	SemiMajorAxis = 354.76;//km
 	SiderealOrbitPeriod = -5.876854;//days
 	TropicalOrbitPeriod = -5.876854;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 354754.323838143;//km
+	Apoapsis = 354765.676161857;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -1195,8 +1201,8 @@ void CelestialBody::SetTriton()
 
 	OrbitalEccentricity = 0.000016;// - Undefined
 	OrbitalInclination = 157.345;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 172.431;//deg
+	LongitudeOfPeriapsis = 516.477;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined
@@ -1224,8 +1230,8 @@ void CelestialBody::SetCharon()
 	SemiMajorAxis = 19.596;//km
 	SiderealOrbitPeriod = 6.3872;//days
 	TropicalOrbitPeriod = 6.3872;//days
-	Periapsis = 0;//km - Undefined
-	Apoapsis = 0;//km - Undefined
+	Periapsis = 19596;//km
+	Apoapsis = 19596;//km
 	SynodicPeriod = 0;//days - Undefined
 	MeanOrbitalVelocity = 0;//km/s - Undefined
 	MaxOrbitalVelocity = 0;//km/s - Undefined
@@ -1236,8 +1242,8 @@ void CelestialBody::SetCharon()
 
 	OrbitalEccentricity = 0;// - Undefined
 	OrbitalInclination = 0.00005;//deg
-	LongitudeOfAscendingNode = 0;//deg - Undefined
-	LongitudeOfPeriapsis = 0;//deg - Undefined
+	LongitudeOfAscendingNode = 85.187;//deg
+	LongitudeOfPeriapsis = 156.442;//deg
 	MeanLongitude = 0;//deg - Undefined
 
 	RightAscension = 0;// - Undefined

@@ -573,7 +573,7 @@ namespace SolarSystem
       Uranus = AddPlanet(SolarSystemPlanet.Uranus);
       Neptune = AddPlanet(SolarSystemPlanet.Neptune);
       Pluto = AddPlanet(SolarSystemPlanet.Pluto);
-            
+
       //Mercury.Position = new Point3D(Sun.MaximumRadius + 2 * Mercury.MaximumRadius);
       //Venus.Position = new Point3D(Mercury.Position.x + Venus.MaximumRadius * 2);
       //Earth.Position = new Point3D(Venus.Position.x + Earth.MaximumRadius * 2);
@@ -584,6 +584,7 @@ namespace SolarSystem
       //Uranus.Position = new Point3D(Saturn.Position.x + Saturn.MaximumRadius * 2);
       //Neptune.Position = new Point3D(Uranus.Position.x + Uranus.MaximumRadius * 2);
       //Pluto.Position = new Point3D(Neptune.Position.x + Neptune.MaximumRadius * 2);
+
 
       Sun.AddTexture(@"Resource\Texture\8k_sun.jpg",0,false);
       Mercury.AddTexture(@"Resource\Texture\8k_mercury.jpg",0, false);
@@ -599,7 +600,7 @@ namespace SolarSystem
       Neptune.AddTexture(@"Resource\Texture\2k_neputune.jpg", 0, false);
       Pluto.AddTexture(@"Resource\Texture\Pluto.jpg", 0, false);
 
-      InitializeMoons(); 
+      InitializeMoons();
 
       //if (Camera.Eye is PositionObject eye)
       //  eye.Position = new Point3D(Pluto.Position.x, Pluto.MaximumRadius * 5);
@@ -615,6 +616,11 @@ namespace SolarSystem
       Ganymede = AddPlanet(SolarSystemPlanet.Ganymede);
       Callisto = AddPlanet(SolarSystemPlanet.Callisto);
 
+      Io.AddTexture(@"Resource\Texture\Europa.jpg", 0, false);
+      Ganymede.AddTexture(@"Resource\Texture\ganymede.jpg", 0, false);
+      Callisto.AddTexture(@"Resource\Texture\callisto.jpg", 0, false);
+      Europa.AddTexture(@"Resource\Texture\Europa.jpg", 0, false);
+
       //Saturns moons
       Titan = AddPlanet(SolarSystemPlanet.Titan);
       Mimas = AddPlanet(SolarSystemPlanet.Mimas);
@@ -625,6 +631,15 @@ namespace SolarSystem
       Hyperion = AddPlanet(SolarSystemPlanet.Hyperion);
       Iapetus = AddPlanet(SolarSystemPlanet.Iapetus);
 
+      Titan.AddTexture(@"Resource\Texture\titan.jpg", 0, false);
+      Mimas.AddTexture(@"Resource\Texture\mimas.jpg", 0, false);
+      Enceladus.AddTexture(@"Resource\Texture\enceladus.jpg", 0, false);
+      Tethys.AddTexture(@"Resource\Texture\tethys.jpg", 0, false);
+      Dione.AddTexture(@"Resource\Texture\dione.jpg", 0, false);
+      Rhea.AddTexture(@"Resource\Texture\rhea.jpg", 0, false);
+      //Hyperion.AddTexture(@"Resource\Texture\hyperion.jpg", 0, false);
+      Iapetus.AddTexture(@"Resource\Texture\iapetus.jpg", 0, false);
+
       //Uranus moons
       Miranda = AddPlanet(SolarSystemPlanet.Miranda);
       Ariel = AddPlanet(SolarSystemPlanet.Ariel);
@@ -632,12 +647,21 @@ namespace SolarSystem
       Titania = AddPlanet(SolarSystemPlanet.Titania);
       Oberon = AddPlanet(SolarSystemPlanet.Oberon);
 
+      Miranda.AddTexture(@"Resource\Texture\miranda.jpg", 0, false);
+      Ariel.AddTexture(@"Resource\Texture\areial.jpg", 0, false);
+      Umbriel.AddTexture(@"Resource\Texture\umbriel.jpg", 0, false);
+      Titania.AddTexture(@"Resource\Texture\titania.jpg", 0, false);
+      Oberon.AddTexture(@"Resource\Texture\oberon.jpg", 0, false);
+
       //Neptunes moons
       Triton = AddPlanet(SolarSystemPlanet.Triton);
+
+      Triton.AddTexture(@"Resource\Texture\triton.jpg", 0, false);
 
       //Plutos moons
       Charon = AddPlanet(SolarSystemPlanet.Charon);
 
+      Charon.AddTexture(@"Resource\Texture\charon.jpg", 0, false);
     }
 
     private void MaxRenderRatioBox_Click(object sender, EventArgs e)
