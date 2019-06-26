@@ -35,14 +35,15 @@ namespace SolarSystem
       if (earthAxisTilt == 0)
         earthAxisTilt = 23.44;
 
-      Point3D triadXAxis = earthPositionAtVernalEquinox.Normal;
+      Origin = -earthPositionAtVernalEquinox.Normal;
+
+      Point3D triadXAxis = Origin;
       double yaw = OpenGL.Angle.ToDegrees(Math.Atan2(triadXAxis.y, triadXAxis.x));
       double pitch = OpenGL.Angle.ToDegrees(-Math.Sin(triadXAxis.z));
       double roll = earthAxisTilt;
       
       SystemRotation = new EulerAngles(roll,pitch,yaw).Quaternion;
-      Origin = earthPositionAtVernalEquinox.Normal;
-
+      
       if (Main == null)
         Main = this; 
     }

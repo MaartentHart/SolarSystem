@@ -134,6 +134,7 @@ void Planet::LoadCelestialBodyOrbit()
 	periapsis = Periapsis;
 	semimajorAxis = (apoapsis + periapsis) / 2;//(apofocus+perifocus)/2
 	eccentricity = (apoapsis - periapsis) / (apoapsis + periapsis);//(apofocus-perifocus)/(apofocus+perifocus)
+		
 	inclination = OrbitalInclination;
 	longitudeAscendingNode = LongitudeOfAscendingNode;
 	argumentPeriapsis = LongitudeOfPeriapsis - longitudeAscendingNode;

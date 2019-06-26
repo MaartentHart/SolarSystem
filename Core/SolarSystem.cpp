@@ -7,6 +7,12 @@
 //https://nssdc.gsfc.nasa.gov/planetary/factsheet/
 //https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html
 
+//notes:
+//if apoapsis and periapsis are unknown, they can be calculated using the eccentricity and the semi major axis
+//SemiminorAxis = SemiMajorAxis * sqrt(1-Eccentricity*Eccentricity)
+//FocalDistance = sqrt(SemiMajorAxis*SemiMajorAxis-SemiMinorAxis*SemiMinorAxis
+//Apoapsis = SemiMajorAxis+FocalDistance
+//Periapsis = SemiMajorAxis-FocalDistance
 
 //double undefined = std::numeric_limits<double>::quiet_NaN();
 std::vector<Planet*> planets; 
