@@ -180,6 +180,7 @@ namespace SolarSystem
       return positionNextSecond - positionAtTime; 
     }
 
+    public IntPtr GetColors() => colors;
 
     public bool ExxagerationChanged
     {

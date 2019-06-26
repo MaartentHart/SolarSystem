@@ -133,6 +133,18 @@ namespace SolarSystem
       Scene.RenderableObjects.Add(renderable); 
     }
 
+    private IRenderable SelectedRenderable()
+    {
+      if (SceneContentBox.SelectedIndex >= 0 && SceneContentBox.SelectedIndex < Scene.RenderableObjects.Count)
+        return Scene.RenderableObjects[SceneContentBox.SelectedIndex];
+      return null; 
+    }
+
+    private Planet SelectedPlanet()
+    {
+      return SelectedRenderable() as Planet; 
+    }
+
     private Planet AddPlanet(SolarSystemPlanet planetID)
     {
       foreach (IRenderable renderable in Scene.RenderableObjects)
@@ -303,12 +315,32 @@ namespace SolarSystem
 
     private void TestImageButton_Click(object sender, EventArgs e)
     {
-      Mesh texture = new Mesh()
+      Planet selectedPlanet = SelectedPlanet();
+      if (selectedPlanet == null)
       {
-        Name = "texture test"
-      };
-      texture.InitializeAsTexture(@"Resource\Images\wall.jpg");
-      Scene.RenderableObjects.Add(texture); 
+        MessageBox.Show("Please select a planet.");
+        return;
+      }
+
+      /*
+      string fileName;
+      using (SaveFileDialog sfd = new SaveFileDialog())
+      {
+        sfd.Filter = "*.png|*.png";
+        if (sfd.ShowDialog() != DialogResult.OK)
+          return;
+        fileName = sfd.FileName; 
+      }
+      string value = Prompt.ShowDialog("0-9", "Tile Index");
+      int index = Convert.ToInt32(value);
+
+      if (index < 0 || index > 9)
+        throw new ArgumentOutOfRangeException("Value must be between 0 and 9"); 
+        */
+      TextureCache cache = new TextureCache(selectedPlanet);
+      cache.Save(); 
+      //Bitmap bitmap = cache.GetTile(index);
+      //bitmap.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
     }
 
     private void PropertiesBoxButton_Click(object sender, EventArgs e)

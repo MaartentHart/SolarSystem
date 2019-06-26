@@ -18,6 +18,9 @@ namespace SolarSystem
 
     public string FileName { get; set; }
 
+    public string Name => System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetFileName(FileName));
+    public string Extension => System.IO.Path.GetExtension(FileName); 
+
     /// <summary>
     /// 
     /// </summary>

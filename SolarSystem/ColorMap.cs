@@ -100,20 +100,25 @@ namespace SolarSystem
     public double EndValue; 
 
     public List<ColorMapBand> Bands { get; } = new List<ColorMapBand>();
+    public string Name { get; }
 
     public ColorMap()
     {
-
+      Name = "Default"; 
     }
 
     public ColorMap(ColorFloat color)
     {
       StartColor = color;
-      EndColor = color; 
+      EndColor = color;
+
+      Name = "S" + StartColor.RGBString.Replace('\t', '_') +
+        "_E" + EndColor.RGBString.Replace('\t', '_');
     }
 
     public ColorMap(string name, bool isFullFileName = false)
     {
+      Name = name;
       try
       {
         string fileName = @"Resource\" + name + ".cmap";

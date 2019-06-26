@@ -193,7 +193,7 @@
       // 
       this.LoadTextureMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("LoadTextureMenuItem.Image")));
       this.LoadTextureMenuItem.Name = "LoadTextureMenuItem";
-      this.LoadTextureMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.LoadTextureMenuItem.Size = new System.Drawing.Size(141, 22);
       this.LoadTextureMenuItem.Text = "Load Texture";
       this.LoadTextureMenuItem.Click += new System.EventHandler(this.LoadTextureMenuItem_Click);
       // 
