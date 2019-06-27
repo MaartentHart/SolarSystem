@@ -85,6 +85,8 @@
       this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
       this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
       this.GlView = new SolarSystem.GlView();
+      this.saveTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.clearCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -182,7 +184,9 @@
       // 
       this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
       this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LoadTextureMenuItem});
+            this.LoadTextureMenuItem,
+            this.saveTextureToolStripMenuItem,
+            this.clearCacheToolStripMenuItem});
       this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
       this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -193,7 +197,7 @@
       // 
       this.LoadTextureMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("LoadTextureMenuItem.Image")));
       this.LoadTextureMenuItem.Name = "LoadTextureMenuItem";
-      this.LoadTextureMenuItem.Size = new System.Drawing.Size(141, 22);
+      this.LoadTextureMenuItem.Size = new System.Drawing.Size(180, 22);
       this.LoadTextureMenuItem.Text = "Load Texture";
       this.LoadTextureMenuItem.Click += new System.EventHandler(this.LoadTextureMenuItem_Click);
       // 
@@ -584,6 +588,22 @@
       this.GlView.Size = new System.Drawing.Size(1005, 414);
       this.GlView.TabIndex = 10;
       // 
+      // saveTextureToolStripMenuItem
+      // 
+      this.saveTextureToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveTextureToolStripMenuItem.Image")));
+      this.saveTextureToolStripMenuItem.Name = "saveTextureToolStripMenuItem";
+      this.saveTextureToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.saveTextureToolStripMenuItem.Text = "Save Texture";
+      this.saveTextureToolStripMenuItem.Click += new System.EventHandler(this.SaveTextureToolStripMenuItem_Click);
+      // 
+      // clearCacheToolStripMenuItem
+      // 
+      this.clearCacheToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clearCacheToolStripMenuItem.Image")));
+      this.clearCacheToolStripMenuItem.Name = "clearCacheToolStripMenuItem";
+      this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.clearCacheToolStripMenuItem.Text = "Clear Cache";
+      this.clearCacheToolStripMenuItem.Click += new System.EventHandler(this.ClearCacheToolStripMenuItem_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -662,6 +682,8 @@
     private System.Windows.Forms.ToolStripButton DeleteMeteorShowerButton;
     private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
     private System.Windows.Forms.ToolStripMenuItem LoadTextureMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem saveTextureToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem clearCacheToolStripMenuItem;
   }
 }
 

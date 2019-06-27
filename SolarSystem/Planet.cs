@@ -373,15 +373,22 @@ namespace SolarSystem
     {
       int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
 
-      IntPtr newColors; 
+      IntPtr newColors;
 
       if (ActiveLayer.UseTexture)
       {
+        TextureCache textureCache = new TextureCache(this);
+        if (textureCache.TryLoad())
+          return;
+
+        //cache loading did not work. 
         newColors = CMemoryBlock.Allocate(verticesCount * 16);
         ActiveLayer.Texture.Apply(newColors, Generation);
+        textureCache.AlternativeColorArray = newColors;
+        textureCache.Save();
       }
       else
-      { 
+      {
         if (ColorMap == null)
           return;
 
@@ -393,7 +400,6 @@ namespace SolarSystem
         ColorMap colorMap = ColorMap;
 
         newColors = CMemoryBlock.Allocate(verticesCount * 16);
-
         unsafe
         {
           ColorFloat* color = (ColorFloat*)newColors.ToPointer();
@@ -414,8 +420,8 @@ namespace SolarSystem
         colors = newColors;
         RenderableObject.RenderGeometry.colors = colors;
         RenderableObject.RenderGeometry.enableColors = true;
-        changed = true;
       }
+      Changed = true;
     }
 
     private void DisposeVerticesNormals()

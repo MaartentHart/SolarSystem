@@ -38,7 +38,7 @@ namespace SolarSystem
       Origin = -earthPositionAtVernalEquinox.Normal;
 
       Point3D triadXAxis = Origin;
-      double yaw = OpenGL.Angle.ToDegrees(Math.Atan2(triadXAxis.y, triadXAxis.x));
+      double yaw = OpenGL.Angle.ToDegrees(Math.Atan2(triadXAxis.y, triadXAxis.x))+180;
       double pitch = OpenGL.Angle.ToDegrees(-Math.Sin(triadXAxis.z));
       double roll = earthAxisTilt;
       

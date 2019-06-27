@@ -209,13 +209,13 @@ namespace SolarSystem
             {
               if (planet.ExxagerationChanged)
               {
-                changed = true;
                 planet.ApplyExxageration();
+                changed = true;
               }
               if (planet.ActiveLayer.Repaint)
               {
-                changed = true;
                 planet.Paint();
+                changed = true;
               }
             }
           }
@@ -228,7 +228,9 @@ namespace SolarSystem
             ErrorLog.LogException(ex, "Decoration painter error.");
         }
         if (!changed)
-          System.Threading.Thread.Sleep(1); 
+          System.Threading.Thread.Sleep(1);
+        else
+          Changed = true; 
       }
     }
 

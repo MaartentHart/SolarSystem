@@ -313,34 +313,10 @@ namespace SolarSystem
       }
     }
 
+
     private void TestImageButton_Click(object sender, EventArgs e)
     {
-      Planet selectedPlanet = SelectedPlanet();
-      if (selectedPlanet == null)
-      {
-        MessageBox.Show("Please select a planet.");
-        return;
-      }
-
-      /*
-      string fileName;
-      using (SaveFileDialog sfd = new SaveFileDialog())
-      {
-        sfd.Filter = "*.png|*.png";
-        if (sfd.ShowDialog() != DialogResult.OK)
-          return;
-        fileName = sfd.FileName; 
-      }
-      string value = Prompt.ShowDialog("0-9", "Tile Index");
-      int index = Convert.ToInt32(value);
-
-      if (index < 0 || index > 9)
-        throw new ArgumentOutOfRangeException("Value must be between 0 and 9"); 
-        */
-      TextureCache cache = new TextureCache(selectedPlanet);
-      cache.Save(); 
-      //Bitmap bitmap = cache.GetTile(index);
-      //bitmap.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
+ 
     }
 
     private void PropertiesBoxButton_Click(object sender, EventArgs e)
@@ -807,28 +783,43 @@ namespace SolarSystem
         Planet planet = Scene.RenderableObjects[SceneContentBox.SelectedIndex] as Planet;
         if (planet == null)
           throw new Exception("Please select a planet in the list.");
-        
+
         using (OpenFileDialog ofd = new OpenFileDialog())
         {
           if (ofd.ShowDialog() != DialogResult.OK)
             return;
-          using (Image image = Image.FromFile(ofd.FileName))
+
+          if (System.IO.Path.GetExtension(ofd.FileName).ToLower() == ".zip")
           {
-
+            try
+            {
+              TextureCache textureCache = new TextureCache(planet);
+              textureCache.Load(ofd.FileName);
+            }
+            catch (Exception ex)
+            {
+              MessageBox.Show("This zip file does not contain a texture that can be drawn upon the object.\n" + ex.Message, "Error");
+            }
           }
-          string rotationText = Prompt.ShowDialog("Rotation of image in degrees.", "Rotation");
-          double rotation = 0;
-          try
-           {
-            rotation = Convert.ToDouble(rotationText);
-          }
-          catch
+          else
           {
+            using (Image image = Image.FromFile(ofd.FileName))
+            {
 
+            }
+            string rotationText = Prompt.ShowDialog("Rotation of image in degrees.", "Rotation");
+            double rotation = 0;
+            try
+            {
+              rotation = Convert.ToDouble(rotationText);
+            }
+            catch
+            {
+
+            }
+
+            planet.AddTexture(ofd.FileName, rotation);
           }
-
-          planet.AddTexture(ofd.FileName, rotation);
-
         }
       }
 
@@ -837,6 +828,38 @@ namespace SolarSystem
         MessageBox.Show("Cannot Apply Texture.\n" + ex.Message, "Error");
       }
 
+    }
+
+    private void SaveTextureToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Planet selectedPlanet = SelectedPlanet();
+      if (selectedPlanet == null)
+      {
+        MessageBox.Show("Please select a planet.");
+        return;
+      }
+
+      string fileName;
+      using (SaveFileDialog sfd = new SaveFileDialog())
+      {
+        sfd.Filter = "*.zip|*.zip";
+        if (sfd.ShowDialog() != DialogResult.OK)
+          return;
+        fileName = sfd.FileName;
+      }
+
+      TextureCache cache = new TextureCache(selectedPlanet);
+      cache.Save(fileName);
+    }
+
+    private void ClearCacheToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (MessageBox.Show("Do you want to delete the cache folder?", "Question", MessageBoxButtons.OKCancel) == DialogResult.OK)
+      {
+        foreach(string file in System.IO.Directory.GetFiles("Cache"))
+          System.IO.File.Delete(file); 
+        System.IO.Directory.Delete("Cache");
+      }
     }
   }
 }
