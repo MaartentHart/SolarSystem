@@ -36,16 +36,30 @@
       this.ExxagerationGroupBox = new System.Windows.Forms.GroupBox();
       this.SceneContentBox = new System.Windows.Forms.CheckedListBox();
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+      this.DayBox = new System.Windows.Forms.ToolStripTextBox();
+      this.YearBox = new System.Windows.Forms.ToolStripTextBox();
+      this.TimeBox = new System.Windows.Forms.ToolStripTextBox();
+      this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+      this.TimeStepBox = new System.Windows.Forms.ToolStripTextBox();
+      this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+      this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+      this.MaxRenderRatioBox = new System.Windows.Forms.ToolStripTextBox();
+      this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+      this.QualityBox = new System.Windows.Forms.ToolStripTextBox();
+      this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+      this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+      this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
       this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
       this.LoadTextureMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.saveTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.clearCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.InitializeMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
       this.DeleteMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
       this.ColorMapButton = new System.Windows.Forms.ToolStripButton();
       this.PropertiesBoxButton = new System.Windows.Forms.ToolStripButton();
       this.InitializePlanetsButton = new System.Windows.Forms.ToolStripButton();
-      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.TimeLockButton = new System.Windows.Forms.ToolStripButton();
-      this.DayBox = new System.Windows.Forms.ToolStripTextBox();
       this.MonthDropDown = new System.Windows.Forms.ToolStripDropDownButton();
       this.januaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.februaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,34 +73,19 @@
       this.octoberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.novemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.decemberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.YearBox = new System.Windows.Forms.ToolStripTextBox();
       this.ADBCDropDown = new System.Windows.Forms.ToolStripDropDownButton();
       this.aDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.bCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.TimeBox = new System.Windows.Forms.ToolStripTextBox();
       this.PlayPauseButton = new System.Windows.Forms.ToolStripButton();
       this.TimeStepButton = new System.Windows.Forms.ToolStripButton();
-      this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-      this.TimeStepBox = new System.Windows.Forms.ToolStripTextBox();
+      this.RecordButton = new System.Windows.Forms.ToolStripButton();
       this.TimeStepUnitButton = new System.Windows.Forms.ToolStripDropDownButton();
       this.SecondsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.MinutesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.HoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.DaysToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-      this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-      this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-      this.MaxRenderRatioBox = new System.Windows.Forms.ToolStripTextBox();
-      this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
-      this.QualityBox = new System.Windows.Forms.ToolStripTextBox();
-      this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-      this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
-      this.TestImageButton = new System.Windows.Forms.ToolStripButton();
-      this.TestTriadButton = new System.Windows.Forms.ToolStripButton();
-      this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
-      this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
       this.GlView = new SolarSystem.GlView();
-      this.saveTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.clearCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.DebugSaveImageButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -160,6 +159,7 @@
             this.TimeBox,
             this.PlayPauseButton,
             this.TimeStepButton,
+            this.RecordButton,
             this.toolStripLabel1,
             this.TimeStepBox,
             this.TimeStepUnitButton,
@@ -169,16 +169,107 @@
             this.toolStripLabel3,
             this.QualityBox,
             this.toolStripSeparator3,
-            this.toolStripLabel5,
-            this.TestImageButton,
-            this.TestTriadButton,
             this.toolStripLabel4,
-            this.CalibrationBox});
+            this.CalibrationBox,
+            this.DebugSaveImageButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(1177, 25);
       this.toolStrip1.TabIndex = 19;
       this.toolStrip1.Text = "toolStrip1";
+      // 
+      // toolStripSeparator1
+      // 
+      this.toolStripSeparator1.Name = "toolStripSeparator1";
+      this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+      // 
+      // DayBox
+      // 
+      this.DayBox.Name = "DayBox";
+      this.DayBox.Size = new System.Drawing.Size(20, 25);
+      this.DayBox.Text = "01";
+      this.DayBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
+      this.DayBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
+      // 
+      // YearBox
+      // 
+      this.YearBox.Name = "YearBox";
+      this.YearBox.Size = new System.Drawing.Size(40, 25);
+      this.YearBox.Text = "2000";
+      this.YearBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
+      this.YearBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
+      // 
+      // TimeBox
+      // 
+      this.TimeBox.Name = "TimeBox";
+      this.TimeBox.Size = new System.Drawing.Size(70, 25);
+      this.TimeBox.Text = "12:00:00.000";
+      this.TimeBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
+      this.TimeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
+      // 
+      // toolStripLabel1
+      // 
+      this.toolStripLabel1.Name = "toolStripLabel1";
+      this.toolStripLabel1.Size = new System.Drawing.Size(62, 22);
+      this.toolStripLabel1.Text = "Time step:";
+      // 
+      // TimeStepBox
+      // 
+      this.TimeStepBox.Name = "TimeStepBox";
+      this.TimeStepBox.Size = new System.Drawing.Size(50, 25);
+      this.TimeStepBox.Text = "1";
+      this.TimeStepBox.Leave += new System.EventHandler(this.TimeStepBox_Leave);
+      this.TimeStepBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TimeStepBox_KeyDown);
+      // 
+      // toolStripSeparator2
+      // 
+      this.toolStripSeparator2.Name = "toolStripSeparator2";
+      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+      // 
+      // toolStripLabel2
+      // 
+      this.toolStripLabel2.Name = "toolStripLabel2";
+      this.toolStripLabel2.Size = new System.Drawing.Size(102, 22);
+      this.toolStripLabel2.Text = "Max Render Ratio:";
+      // 
+      // MaxRenderRatioBox
+      // 
+      this.MaxRenderRatioBox.Name = "MaxRenderRatioBox";
+      this.MaxRenderRatioBox.Size = new System.Drawing.Size(40, 25);
+      this.MaxRenderRatioBox.Text = "1000";
+      this.MaxRenderRatioBox.Click += new System.EventHandler(this.MaxRenderRatioBox_Click);
+      // 
+      // toolStripLabel3
+      // 
+      this.toolStripLabel3.Name = "toolStripLabel3";
+      this.toolStripLabel3.Size = new System.Drawing.Size(48, 22);
+      this.toolStripLabel3.Text = "Quality:";
+      // 
+      // QualityBox
+      // 
+      this.QualityBox.Name = "QualityBox";
+      this.QualityBox.Size = new System.Drawing.Size(15, 25);
+      this.QualityBox.Text = "9";
+      this.QualityBox.ToolTipText = "Quality";
+      this.QualityBox.Leave += new System.EventHandler(this.QualityBox_Leave);
+      this.QualityBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QualityBox_KeyDown);
+      // 
+      // toolStripSeparator3
+      // 
+      this.toolStripSeparator3.Name = "toolStripSeparator3";
+      this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+      // 
+      // toolStripLabel4
+      // 
+      this.toolStripLabel4.Name = "toolStripLabel4";
+      this.toolStripLabel4.Size = new System.Drawing.Size(68, 22);
+      this.toolStripLabel4.Text = "Calibration:";
+      // 
+      // CalibrationBox
+      // 
+      this.CalibrationBox.Name = "CalibrationBox";
+      this.CalibrationBox.Size = new System.Drawing.Size(100, 25);
+      this.CalibrationBox.TextChanged += new System.EventHandler(this.CalibrationBox_TextChanged);
       // 
       // toolStripDropDownButton1
       // 
@@ -197,9 +288,25 @@
       // 
       this.LoadTextureMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("LoadTextureMenuItem.Image")));
       this.LoadTextureMenuItem.Name = "LoadTextureMenuItem";
-      this.LoadTextureMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.LoadTextureMenuItem.Size = new System.Drawing.Size(141, 22);
       this.LoadTextureMenuItem.Text = "Load Texture";
       this.LoadTextureMenuItem.Click += new System.EventHandler(this.LoadTextureMenuItem_Click);
+      // 
+      // saveTextureToolStripMenuItem
+      // 
+      this.saveTextureToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveTextureToolStripMenuItem.Image")));
+      this.saveTextureToolStripMenuItem.Name = "saveTextureToolStripMenuItem";
+      this.saveTextureToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+      this.saveTextureToolStripMenuItem.Text = "Save Texture";
+      this.saveTextureToolStripMenuItem.Click += new System.EventHandler(this.SaveTextureToolStripMenuItem_Click);
+      // 
+      // clearCacheToolStripMenuItem
+      // 
+      this.clearCacheToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clearCacheToolStripMenuItem.Image")));
+      this.clearCacheToolStripMenuItem.Name = "clearCacheToolStripMenuItem";
+      this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+      this.clearCacheToolStripMenuItem.Text = "Clear Cache";
+      this.clearCacheToolStripMenuItem.Click += new System.EventHandler(this.ClearCacheToolStripMenuItem_Click);
       // 
       // InitializeMeteorShowerButton
       // 
@@ -252,11 +359,6 @@
       this.InitializePlanetsButton.Visible = false;
       this.InitializePlanetsButton.Click += new System.EventHandler(this.InitializePlanets_Click);
       // 
-      // toolStripSeparator1
-      // 
-      this.toolStripSeparator1.Name = "toolStripSeparator1";
-      this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-      // 
       // TimeLockButton
       // 
       this.TimeLockButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -266,14 +368,6 @@
       this.TimeLockButton.Size = new System.Drawing.Size(23, 22);
       this.TimeLockButton.Text = "TimeLockButton";
       this.TimeLockButton.Click += new System.EventHandler(this.TimeLockButton_Click);
-      // 
-      // DayBox
-      // 
-      this.DayBox.Name = "DayBox";
-      this.DayBox.Size = new System.Drawing.Size(20, 25);
-      this.DayBox.Text = "01";
-      this.DayBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
-      this.DayBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
       // 
       // MonthDropDown
       // 
@@ -382,14 +476,6 @@
       this.decemberToolStripMenuItem.Text = "December";
       this.decemberToolStripMenuItem.Click += new System.EventHandler(this.MonthStripMenuItem_Click);
       // 
-      // YearBox
-      // 
-      this.YearBox.Name = "YearBox";
-      this.YearBox.Size = new System.Drawing.Size(40, 25);
-      this.YearBox.Text = "2000";
-      this.YearBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
-      this.YearBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
-      // 
       // ADBCDropDown
       // 
       this.ADBCDropDown.AutoSize = false;
@@ -417,14 +503,6 @@
       this.bCToolStripMenuItem.Text = "BC";
       this.bCToolStripMenuItem.Click += new System.EventHandler(this.ADBCToolStripMenuItem_Click);
       // 
-      // TimeBox
-      // 
-      this.TimeBox.Name = "TimeBox";
-      this.TimeBox.Size = new System.Drawing.Size(70, 25);
-      this.TimeBox.Text = "12:00:00.000";
-      this.TimeBox.Leave += new System.EventHandler(this.DateTimeBox_Leave);
-      this.TimeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DayBox_KeyDown);
-      // 
       // PlayPauseButton
       // 
       this.PlayPauseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -445,19 +523,15 @@
       this.TimeStepButton.Text = "Add Single Time Step";
       this.TimeStepButton.Click += new System.EventHandler(this.TimeStepButton_Click);
       // 
-      // toolStripLabel1
+      // RecordButton
       // 
-      this.toolStripLabel1.Name = "toolStripLabel1";
-      this.toolStripLabel1.Size = new System.Drawing.Size(62, 22);
-      this.toolStripLabel1.Text = "Time step:";
-      // 
-      // TimeStepBox
-      // 
-      this.TimeStepBox.Name = "TimeStepBox";
-      this.TimeStepBox.Size = new System.Drawing.Size(50, 25);
-      this.TimeStepBox.Text = "1";
-      this.TimeStepBox.Leave += new System.EventHandler(this.TimeStepBox_Leave);
-      this.TimeStepBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TimeStepBox_KeyDown);
+      this.RecordButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.RecordButton.Image = ((System.Drawing.Image)(resources.GetObject("RecordButton.Image")));
+      this.RecordButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.RecordButton.Name = "RecordButton";
+      this.RecordButton.Size = new System.Drawing.Size(23, 22);
+      this.RecordButton.Text = "Record";
+      this.RecordButton.Click += new System.EventHandler(this.RecordButton_Click);
       // 
       // TimeStepUnitButton
       // 
@@ -502,82 +576,6 @@
       this.DaysToolStripMenuItem1.Text = "Days";
       this.DaysToolStripMenuItem1.Click += new System.EventHandler(this.SetStepUnit);
       // 
-      // toolStripSeparator2
-      // 
-      this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-      // 
-      // toolStripLabel2
-      // 
-      this.toolStripLabel2.Name = "toolStripLabel2";
-      this.toolStripLabel2.Size = new System.Drawing.Size(102, 22);
-      this.toolStripLabel2.Text = "Max Render Ratio:";
-      // 
-      // MaxRenderRatioBox
-      // 
-      this.MaxRenderRatioBox.Name = "MaxRenderRatioBox";
-      this.MaxRenderRatioBox.Size = new System.Drawing.Size(40, 25);
-      this.MaxRenderRatioBox.Text = "1000";
-      this.MaxRenderRatioBox.Click += new System.EventHandler(this.MaxRenderRatioBox_Click);
-      // 
-      // toolStripLabel3
-      // 
-      this.toolStripLabel3.Name = "toolStripLabel3";
-      this.toolStripLabel3.Size = new System.Drawing.Size(48, 22);
-      this.toolStripLabel3.Text = "Quality:";
-      // 
-      // QualityBox
-      // 
-      this.QualityBox.Name = "QualityBox";
-      this.QualityBox.Size = new System.Drawing.Size(15, 25);
-      this.QualityBox.Text = "9";
-      this.QualityBox.ToolTipText = "Quality";
-      this.QualityBox.Leave += new System.EventHandler(this.QualityBox_Leave);
-      this.QualityBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QualityBox_KeyDown);
-      // 
-      // toolStripSeparator3
-      // 
-      this.toolStripSeparator3.Name = "toolStripSeparator3";
-      this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-      // 
-      // toolStripLabel5
-      // 
-      this.toolStripLabel5.Name = "toolStripLabel5";
-      this.toolStripLabel5.Size = new System.Drawing.Size(69, 22);
-      this.toolStripLabel5.Text = "Debugging:";
-      // 
-      // TestImageButton
-      // 
-      this.TestImageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TestImageButton.Image = ((System.Drawing.Image)(resources.GetObject("TestImageButton.Image")));
-      this.TestImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TestImageButton.Name = "TestImageButton";
-      this.TestImageButton.Size = new System.Drawing.Size(23, 22);
-      this.TestImageButton.Text = "TestImage";
-      this.TestImageButton.Click += new System.EventHandler(this.TestImageButton_Click);
-      // 
-      // TestTriadButton
-      // 
-      this.TestTriadButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TestTriadButton.Image = ((System.Drawing.Image)(resources.GetObject("TestTriadButton.Image")));
-      this.TestTriadButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TestTriadButton.Name = "TestTriadButton";
-      this.TestTriadButton.Size = new System.Drawing.Size(23, 22);
-      this.TestTriadButton.Text = "Test Triad";
-      this.TestTriadButton.Click += new System.EventHandler(this.TestTriadButton_Click);
-      // 
-      // toolStripLabel4
-      // 
-      this.toolStripLabel4.Name = "toolStripLabel4";
-      this.toolStripLabel4.Size = new System.Drawing.Size(68, 22);
-      this.toolStripLabel4.Text = "Calibration:";
-      // 
-      // CalibrationBox
-      // 
-      this.CalibrationBox.Name = "CalibrationBox";
-      this.CalibrationBox.Size = new System.Drawing.Size(100, 23);
-      this.CalibrationBox.TextChanged += new System.EventHandler(this.CalibrationBox_TextChanged);
-      // 
       // GlView
       // 
       this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -588,21 +586,15 @@
       this.GlView.Size = new System.Drawing.Size(1005, 414);
       this.GlView.TabIndex = 10;
       // 
-      // saveTextureToolStripMenuItem
+      // DebugSaveImageButton
       // 
-      this.saveTextureToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveTextureToolStripMenuItem.Image")));
-      this.saveTextureToolStripMenuItem.Name = "saveTextureToolStripMenuItem";
-      this.saveTextureToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.saveTextureToolStripMenuItem.Text = "Save Texture";
-      this.saveTextureToolStripMenuItem.Click += new System.EventHandler(this.SaveTextureToolStripMenuItem_Click);
-      // 
-      // clearCacheToolStripMenuItem
-      // 
-      this.clearCacheToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clearCacheToolStripMenuItem.Image")));
-      this.clearCacheToolStripMenuItem.Name = "clearCacheToolStripMenuItem";
-      this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.clearCacheToolStripMenuItem.Text = "Clear Cache";
-      this.clearCacheToolStripMenuItem.Click += new System.EventHandler(this.ClearCacheToolStripMenuItem_Click);
+      this.DebugSaveImageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.DebugSaveImageButton.Image = ((System.Drawing.Image)(resources.GetObject("DebugSaveImageButton.Image")));
+      this.DebugSaveImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.DebugSaveImageButton.Name = "DebugSaveImageButton";
+      this.DebugSaveImageButton.Size = new System.Drawing.Size(23, 22);
+      this.DebugSaveImageButton.Text = "DebugSaveImage";
+      this.DebugSaveImageButton.Click += new System.EventHandler(this.DebugSaveImageButton_Click);
       // 
       // MainForm
       // 
@@ -635,7 +627,6 @@
     private System.Windows.Forms.CheckedListBox SceneContentBox;
     private System.Windows.Forms.ToolStrip toolStrip1;
     private System.Windows.Forms.ToolStripButton ColorMapButton;
-    private System.Windows.Forms.ToolStripButton TestImageButton;
     private System.Windows.Forms.ToolStripButton PropertiesBoxButton;
     private System.Windows.Forms.ToolStripTextBox DayBox;
     private System.Windows.Forms.ToolStripDropDownButton MonthDropDown;
@@ -657,7 +648,6 @@
     private System.Windows.Forms.ToolStripMenuItem bCToolStripMenuItem;
     private System.Windows.Forms.ToolStripTextBox TimeBox;
     private System.Windows.Forms.ToolStripButton TimeLockButton;
-    private System.Windows.Forms.ToolStripButton TestTriadButton;
     private System.Windows.Forms.ToolStripButton PlayPauseButton;
     private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     private System.Windows.Forms.ToolStripTextBox TimeStepBox;
@@ -678,12 +668,13 @@
     private System.Windows.Forms.ToolStripLabel toolStripLabel4;
     private System.Windows.Forms.ToolStripTextBox CalibrationBox;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-    private System.Windows.Forms.ToolStripLabel toolStripLabel5;
     private System.Windows.Forms.ToolStripButton DeleteMeteorShowerButton;
     private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
     private System.Windows.Forms.ToolStripMenuItem LoadTextureMenuItem;
     private System.Windows.Forms.ToolStripMenuItem saveTextureToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem clearCacheToolStripMenuItem;
+    private System.Windows.Forms.ToolStripButton RecordButton;
+    private System.Windows.Forms.ToolStripButton DebugSaveImageButton;
   }
 }
 

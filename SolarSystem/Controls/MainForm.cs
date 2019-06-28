@@ -1,5 +1,6 @@
 ﻿//Copyright Maarten 't Hart 2019
 using OpenGL;
+using SolarSystem.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,17 +15,22 @@ namespace SolarSystem
 {
   public partial class MainForm : Form
   {
-    private double timeStep = 0; 
+    private double timeStep = 0;
+    private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm();
+    private MeteoriteInitializationForm meteoriteInitializationForm;
+
     private bool SimulationRunning { get; set; } = false;
     private bool SimulationWorkerReady { get; set; } = true;
     private HistoricDateTime PreviousDateTime { get; set; } = new HistoricDateTime(); 
     private HistoricDateTime DateTime { get; set; } = new HistoricDateTime(); 
     private bool TimeUnlocked { get; set; } = true; 
-    private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm();
-    private MeteoriteInitializationForm meteoriteInitializationForm;
     private ColorMapForm ColorMapForm { get; } = new ColorMapForm();
-
     private IRenderable ActiveObject { get; set; }
+    private GlControlExtended RecordControl { get; set; }
+    private int RecordIndex { get; set; }
+    private bool RecordAddTimeStamp { get; set; } 
+    private string RecordDirectory { get; set; }
+    private double RecordTimeStep { get; set; }
 
     private BackgroundWorker SimulationWorker { get; set; } = new BackgroundWorker();
     private double TimeStep
@@ -776,11 +782,7 @@ namespace SolarSystem
     {
       try
       {
-        int index = SceneContentBox.SelectedIndex;
-        if (index < 0 || index >= Scene.RenderableObjects.Count)
-          throw new Exception("Please select a planet in the list.");
-        
-        Planet planet = Scene.RenderableObjects[SceneContentBox.SelectedIndex] as Planet;
+        Planet planet = SelectedPlanet(); 
         if (planet == null)
           throw new Exception("Please select a planet in the list.");
 
@@ -860,6 +862,62 @@ namespace SolarSystem
           System.IO.File.Delete(file); 
         System.IO.Directory.Delete("Cache");
       }
+    }
+
+    private void RecordButton_Click(object sender, EventArgs e)
+    {
+      if (RecordControl != null)
+      {
+        RecordControl.Dispose(); 
+        RecordControl = null;
+        RecordIndex = 0; 
+        return; 
+      }
+
+      using (RecordForm recordForm = new RecordForm())
+      {
+        if (recordForm.ShowDialog() != DialogResult.OK)
+          return; 
+
+        RecordTimeStep = recordForm.timeStep;
+        try
+        {
+          RecordControl = new GlControlExtended();
+          RecordControl.Width = recordForm.width;
+          RecordControl.Height = recordForm.height;
+          RecordControl.Scene = Scene;
+          RecordControl.Camera = Camera;
+          RecordControl.Parent = this;
+          RecordControl.Visible = false; 
+          
+          RecordDirectory = recordForm.folderName; 
+        }
+        catch
+        {
+          RecordControl.Dispose();
+          RecordControl = null;
+        }
+      }
+    }
+
+    private void RecordFrame()
+    {
+      if (RecordControl == null)
+        return;
+      RecordControl.Location = new Point(Width,Height);
+      RecordControl.Show();
+      RecordControl.Refresh(); 
+      using (Bitmap b = new Bitmap(RecordControl.Width, RecordControl.Height))
+      {
+        RecordControl.DrawToBitmap(b, new Rectangle(0, 0, b.Width, b.Height));
+        b.Save(RecordDirectory + RecordIndex++.ToString() + ".png", System.Drawing.Imaging.ImageFormat.Png);
+      }
+      RecordControl.Hide(); 
+    }
+
+    private void DebugSaveImageButton_Click(object sender, EventArgs e)
+    {
+      RecordFrame(); 
     }
   }
 }

@@ -1,3 +1,4 @@
+//Copyright (C) Maarten 't Hart 2019
 #pragma once
 #include <exception>
 #include <string>

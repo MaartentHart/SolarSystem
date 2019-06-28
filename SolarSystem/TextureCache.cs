@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Copyright (C) Maarten 't Hart 2019
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
