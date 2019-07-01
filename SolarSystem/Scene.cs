@@ -20,6 +20,9 @@ namespace SolarSystem
     private int paintedImpactsCount = 0;
     private bool changed = false;
 
+    internal bool paintingImpacts = false;
+    internal bool applyingChanges = false; 
+
     private List<IRenderable> PreviousRenderableObjects { get; } = new List<IRenderable>();
     private List<ILight> PreviousLights { get; } = new List<ILight>();
     
@@ -199,6 +202,7 @@ namespace SolarSystem
       int errorCount = 0; 
       while (Program.Running())
       {
+        applyingChanges = false; 
         bool changed = false;
         try
         {
@@ -209,11 +213,13 @@ namespace SolarSystem
             {
               if (planet.ExxagerationChanged)
               {
+                applyingChanges = true; 
                 planet.ApplyExxageration();
                 changed = true;
               }
               if (planet.ActiveLayer.Repaint)
               {
+                applyingChanges = true;
                 planet.Paint();
                 changed = true;
               }
@@ -239,6 +245,7 @@ namespace SolarSystem
       int impactCount = CoreDll.GetImpactCount(); 
       for (; paintedImpactsCount<impactCount;paintedImpactsCount++)
       {
+        paintingImpacts = true; 
         int currentImpactId = paintedImpactsCount;
         Impact impact = new Impact(currentImpactId);
         Planet planet = GetPlanet(impact.planetID);
@@ -247,6 +254,7 @@ namespace SolarSystem
           impact.DrawOn(planet);
         }
       }
+      paintingImpacts = false; 
     }
 
     private Planet GetPlanet(int id)

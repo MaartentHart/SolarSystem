@@ -125,6 +125,9 @@ namespace SolarSystem
     [DllImport("Core.dll", EntryPoint = "Run", CallingConvention = CallingConvention.Cdecl)]
     static public extern void Run(bool run);
 
+    [DllImport("Core.dll", EntryPoint = "SetPauseTime", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void SetPauseTime(double pauseTime);
+
     [DllImport("Core.dll", EntryPoint = "SetTimeStep", CallingConvention = CallingConvention.Cdecl)]
     static public extern double SetTimeStep(double timeStep);
 
@@ -138,6 +141,9 @@ namespace SolarSystem
     //get information from simulation. 
     [DllImport("Core.dll", EntryPoint = "GetTime", CallingConvention = CallingConvention.Cdecl)]
     static public extern double GetTime();
+
+    [DllImport("Core.dll", EntryPoint = "PausingAt", CallingConvention = CallingConvention.Cdecl)]
+    static public extern double PausingAt();
     #endregion
 
     #region EquatorialCoordinateSystemInformation

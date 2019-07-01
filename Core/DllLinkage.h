@@ -58,6 +58,7 @@ extern "C"
 	DLL int __cdecl AddFallingObject(Point3D*positions, Point3D*velocities, int pointCount);
 	DLL void __cdecl RemoveFallingObject(int id);
 	DLL void __cdecl Run(bool run);
+	DLL void __cdecl SetPauseTime(double pauseTime); 
 	DLL double __cdecl SetTimeStep(double timeStep);
 	//add a single time step. 
 	DLL void __cdecl AddTimeStep(double timeStep);
@@ -65,6 +66,7 @@ extern "C"
 	DLL void __cdecl Simulate(); 
 	//get information from simulation. 
 	DLL double __cdecl GetTime(); 
+	DLL double __cdecl PausingAt(); 
 
 	//Impacts
 	DLL int GetImpactCount();

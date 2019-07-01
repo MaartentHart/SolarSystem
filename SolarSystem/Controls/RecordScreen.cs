@@ -12,6 +12,12 @@ namespace SolarSystem.Controls
 {
   public partial class RecordScreen : Form
   {
+
+    protected override bool ShowWithoutActivation
+    {
+      get { return true; }
+    }
+
     public RecordScreen()
     {
       InitializeComponent();

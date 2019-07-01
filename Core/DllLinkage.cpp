@@ -4,6 +4,8 @@
 
 Planet* activePlanet; 
 bool run = false; 
+double pauseTime = 10E99; 
+double pausingAtTime = -10E99;
 
 //Tests and Examples. 
 void ExampleSetString(const char*theString)
@@ -243,12 +245,23 @@ void Run(bool run)
 	::run = run; 
 }
 
+void SetPauseTime(double pauseTime)
+{
+	::pauseTime = pauseTime; 
+}
+
 //run the simulation until run is set false. 
 void Simulate()
 {
 	while (run)
 	{
-		AddTimeStep(GetTimeStep()); 
+		if (GetSolarSystem().time >= pauseTime)
+		{
+			pausingAtTime = GetSolarSystem().time;
+			Sleep(1); 
+		}
+		else
+			AddTimeStep(GetTimeStep()); 
 	}
 }
 
@@ -256,6 +269,14 @@ void Simulate()
 double GetTime()
 {
 	return GetSolarSystem().time;
+}
+
+double PausingAt()
+{
+	if (!run)
+		return GetSolarSystem().time; 
+
+	return pausingAtTime; 
 }
 
 void EarthPositionAt(double daysSinceJ2000, Point3D&value)

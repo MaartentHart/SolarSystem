@@ -33,7 +33,14 @@ namespace SolarSystem
     private string RecordDirectory { get; set; }
     private double RecordTimeStep { get; set; }
 
+    private bool RunRecordingThread { get; set; } = false; 
+    public bool Recording => RecordScreen != null;
+    private double pauseTime; 
+
     private BackgroundWorker SimulationWorker { get; set; } = new BackgroundWorker();
+
+    private BackgroundWorker recordBackgroundWorker; 
+
     private double TimeStep
     {
       get => timeStep;
@@ -454,25 +461,6 @@ namespace SolarSystem
         TimeLockButton.Image = Properties.Resources.TimeLockIcon;
     }
 
-    private void TestTriadButton_Click(object sender, EventArgs e)
-    {
-      Mesh arrow = TriadGeometry.GenerateArrow();
-      Mesh childArrow = TriadGeometry.GenerateArrow();
-      childArrow.SetColor(new ColorFloat(1, 1, 0));
-      arrow.Children.Add(childArrow); 
-      Mesh xTriangle = TriadGeometry.XTriangle;
-      
-      Scene.RenderableObjects.Add(new TriadGeometry().Arrows);
-      Scene.RenderableObjects.Add(arrow);
-      Scene.RenderableObjects.Add(xTriangle); 
-
-      Debugging.RotationTest test = new Debugging.RotationTest(arrow, xTriangle)
-      {
-        Owner = this
-      };
-
-      test.Show(); 
-    }
 
     private void PlayPauseButton_Click(object sender, EventArgs e)
     {
@@ -500,9 +488,84 @@ namespace SolarSystem
       }
     }
 
-    private void Simulate(object sender, DoWorkEventArgs e)
+    private void StopRecordThread()
     {
-      
+      if (recordBackgroundWorker == null)
+        return;
+      RunRecordingThread = false; 
+      recordBackgroundWorker.Dispose();
+      recordBackgroundWorker = null;
+
+      RecordButton.Image = Properties.Resources.Record;
+      CoreDll.SetPauseTime(1e99);
+      return;
+
+    }
+
+    private void StartRecordThread()
+    {
+      RunRecordingThread = true;
+      recordBackgroundWorker = new BackgroundWorker();
+      recordBackgroundWorker.DoWork += RecordingWork; 
+      recordBackgroundWorker.RunWorkerAsync();
+      RecordButton.Image = Properties.Resources.Stop;
+    }
+
+    private void RecordingWork(object sender, DoWorkEventArgs e)
+    {
+      using (RecordSettingsForm recordForm = new RecordSettingsForm())
+      {
+        if (recordForm.ShowDialog() != DialogResult.OK)
+          return;
+
+        RecordTimeStep = recordForm.timeStep;
+        try
+        {
+          RecordScreen = new RecordScreen();
+          RecordScreen.Width = recordForm.width;
+          RecordScreen.Height = recordForm.height;
+          RecordScreen.GlControl.Scene = Scene;
+          RecordScreen.GlControl.Camera = Camera;
+          RecordScreen.Visible = false;
+          RecordAddTimeStamp = recordForm.addTimeStamp;
+
+          RecordDirectory = recordForm.folderName;
+          //this.Owner = RecordScreen;
+
+        }
+        catch
+        {
+          RecordScreen.Dispose();
+          RecordScreen = null;
+          MessageBox.Show("Error initializing recording."); 
+        }
+      }
+
+
+
+      while (RunRecordingThread)
+      {
+        SetNextPauseTime();
+
+        while (CoreDll.PausingAt()<pauseTime || Scene.paintingImpacts || Scene.applyingChanges)
+        {
+          System.Threading.Thread.Sleep(1);
+          if (!RunRecordingThread)
+          {
+            return;
+          }
+        }
+
+        RecordFrame();
+
+      }
+
+      RecordScreen.Dispose();
+      RecordScreen = null;
+    }
+
+    private void Simulate(object sender, DoWorkEventArgs e)
+    {      
       SimulationWorkerReady = false;
       //while (SimulationRunning)
       //  AddTimeStep(); 
@@ -868,43 +931,16 @@ namespace SolarSystem
     private void RecordButton_Click(object sender, EventArgs e)
     {
       if (RecordScreen != null)
-      {
-        this.Owner = null; 
-        RecordScreen.Dispose();
-        RecordScreen = null;
-        RecordIndex = 0;
-        RecordButton.Image = Properties.Resources.Record;
-        return; 
-      }
-
-      using (RecordSettingsForm recordForm = new RecordSettingsForm())
-      {
-        if (recordForm.ShowDialog() != DialogResult.OK)
-          return; 
-
-        RecordTimeStep = recordForm.timeStep;
-        try
-        {
-          RecordScreen = new RecordScreen();
-          RecordScreen.Width = recordForm.width;
-          RecordScreen.Height = recordForm.height;
-          RecordScreen.GlControl.Scene = Scene;
-          RecordScreen.GlControl.Camera = Camera;
-          RecordScreen.Visible = false;
-          RecordAddTimeStamp = recordForm.addTimeStamp; 
-
-          RecordDirectory = recordForm.folderName;
-          this.Owner = RecordScreen; 
-          RecordButton.Image = Properties.Resources.Stop; 
-        }
-        catch
-        {
-          RecordScreen.Dispose();
-          RecordScreen = null;
-        }
-      }
+        StopRecordThread();
+      else
+        StartRecordThread();
     }
 
+    private void SetNextPauseTime()
+    {
+      pauseTime = CoreDll.GetTime() + RecordTimeStep;
+      CoreDll.SetPauseTime(pauseTime); 
+    }
 
     [DllImportAttribute("gdi32.dll")]
     private static extern bool BitBlt(
@@ -964,7 +1000,7 @@ namespace SolarSystem
       RecordScreen.GlControl.Refresh();
       using (Bitmap bitmap = CaptureControl(RecordScreen))
       {
-        RecordScreen.Hide();
+        //RecordScreen.Hide();
         if (RecordAddTimeStamp)
           AddTimeStamp(bitmap);
        
