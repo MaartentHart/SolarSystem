@@ -357,6 +357,16 @@ namespace SolarSystem
       return day + "-" + month + "-" + year; 
     }
 
+    public string ToBCADDateString()
+    {
+      long yearVal = Year;
+      string year = Convert.ToInt64(Math.Abs(yearVal)).ToString() +
+        (yearVal > 0 ? " AD" : " BC");
+      string month = TwoDigits(Month.ToString());
+      string day = TwoDigits(Day.ToString());
+      return day + "-" + month + "-" + year;
+    }
+
     public string ToPrettyDateString()
     {
       long yearVal = Year; 

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace SolarSystem.Controls
 {
-  public partial class RecordForm : Form
+  public partial class RecordSettingsForm : Form
   {
     public bool addTimeStamp; 
     public int height; 
@@ -18,7 +18,7 @@ namespace SolarSystem.Controls
     public double timeStep;
     public string folderName; 
 
-    public RecordForm()
+    public RecordSettingsForm()
     {
       InitializeComponent();
       TimeStepTypeBox.SelectedIndex = 1; 

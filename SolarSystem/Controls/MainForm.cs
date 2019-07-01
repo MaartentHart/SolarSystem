@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,7 +27,7 @@ namespace SolarSystem
     private bool TimeUnlocked { get; set; } = true; 
     private ColorMapForm ColorMapForm { get; } = new ColorMapForm();
     private IRenderable ActiveObject { get; set; }
-    private GlControlExtended RecordControl { get; set; }
+    private RecordScreen RecordScreen { get; set; }
     private int RecordIndex { get; set; }
     private bool RecordAddTimeStamp { get; set; } 
     private string RecordDirectory { get; set; }
@@ -866,15 +867,17 @@ namespace SolarSystem
 
     private void RecordButton_Click(object sender, EventArgs e)
     {
-      if (RecordControl != null)
+      if (RecordScreen != null)
       {
-        RecordControl.Dispose(); 
-        RecordControl = null;
-        RecordIndex = 0; 
+        this.Owner = null; 
+        RecordScreen.Dispose();
+        RecordScreen = null;
+        RecordIndex = 0;
+        RecordButton.Image = Properties.Resources.Record;
         return; 
       }
 
-      using (RecordForm recordForm = new RecordForm())
+      using (RecordSettingsForm recordForm = new RecordSettingsForm())
       {
         if (recordForm.ShowDialog() != DialogResult.OK)
           return; 
@@ -882,42 +885,125 @@ namespace SolarSystem
         RecordTimeStep = recordForm.timeStep;
         try
         {
-          RecordControl = new GlControlExtended();
-          RecordControl.Width = recordForm.width;
-          RecordControl.Height = recordForm.height;
-          RecordControl.Scene = Scene;
-          RecordControl.Camera = Camera;
-          RecordControl.Parent = this;
-          RecordControl.Visible = false; 
-          
-          RecordDirectory = recordForm.folderName; 
+          RecordScreen = new RecordScreen();
+          RecordScreen.Width = recordForm.width;
+          RecordScreen.Height = recordForm.height;
+          RecordScreen.GlControl.Scene = Scene;
+          RecordScreen.GlControl.Camera = Camera;
+          RecordScreen.Visible = false;
+          RecordAddTimeStamp = recordForm.addTimeStamp; 
+
+          RecordDirectory = recordForm.folderName;
+          this.Owner = RecordScreen; 
+          RecordButton.Image = Properties.Resources.Stop; 
         }
         catch
         {
-          RecordControl.Dispose();
-          RecordControl = null;
+          RecordScreen.Dispose();
+          RecordScreen = null;
         }
+      }
+    }
+
+
+    [DllImportAttribute("gdi32.dll")]
+    private static extern bool BitBlt(
+    IntPtr hdcDest,
+    int nXDest,
+    int nYDest,
+    int nWidth,
+    int nHeight,
+    IntPtr hdcSrc,
+    int nXSrc,
+    int nYSrc,
+    int dwRop);
+
+    public Bitmap CaptureControl(Control control)
+    {
+      Bitmap controlBmp;
+      using (Graphics g1 = control.CreateGraphics())
+      {
+        controlBmp = new Bitmap(control.Width, control.Height, g1);
+        using (Graphics g2 = Graphics.FromImage(controlBmp))
+        {
+          IntPtr dc1 = g1.GetHdc();
+          IntPtr dc2 = g2.GetHdc(); 
+          BitBlt(dc2, 0, 0, control.Width, control.Height, dc1, 0, 0, 13369376);
+          g1.ReleaseHdc(dc1);
+          g2.ReleaseHdc(dc2);
+        }
+      }
+
+      return controlBmp;
+    }
+
+    private void SaveControlImage(Control control, string fileName)
+    {
+      /*
+      using (Bitmap bitmap = new Bitmap(control.Width, control.Height))
+      {
+        control.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+        control.Refresh(); 
+        bitmap.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
+      }*/
+      using (Bitmap bitmap = CaptureControl(control))
+      {
+        bitmap.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
       }
     }
 
     private void RecordFrame()
     {
-      if (RecordControl == null)
+      if (RecordScreen == null)
         return;
-      RecordControl.Location = new Point(Width,Height);
-      RecordControl.Show();
-      RecordControl.Refresh(); 
-      using (Bitmap b = new Bitmap(RecordControl.Width, RecordControl.Height))
+
+      RecordScreen.Location = new Point(0,0);
+
+      string fileName = RecordDirectory + RecordIndex++.ToString() + ".png";
+      RecordScreen.Show();
+      RecordScreen.GlControl.Refresh();
+      using (Bitmap bitmap = CaptureControl(RecordScreen))
       {
-        RecordControl.DrawToBitmap(b, new Rectangle(0, 0, b.Width, b.Height));
-        b.Save(RecordDirectory + RecordIndex++.ToString() + ".png", System.Drawing.Imaging.ImageFormat.Png);
+        RecordScreen.Hide();
+        if (RecordAddTimeStamp)
+          AddTimeStamp(bitmap);
+       
+        bitmap.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
       }
-      RecordControl.Hide(); 
+    }
+
+    private void AddTimeStamp(Bitmap bitmap)
+    {
+      int height = bitmap.Height / 20;
+      int width = height * 11;
+      using (Graphics g = Graphics.FromImage(bitmap))
+      {
+        Rectangle rectangle = new Rectangle(
+          bitmap.Width - width, 
+          bitmap.Height - height *2,
+          width,  
+          height);
+
+        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+
+        string date = DateTime.ToBCADDateString() + " " + DateTime.ToTimeString(); 
+
+        g.DrawString(date, new Font("Calibri", height, FontStyle.Bold, GraphicsUnit.Pixel), Brushes.White, rectangle);
+
+        g.Flush();
+      }
     }
 
     private void DebugSaveImageButton_Click(object sender, EventArgs e)
     {
       RecordFrame(); 
+    }
+
+    private void TestSaveFrame_Click(object sender, EventArgs e)
+    {
+      SaveControlImage(GlView, "D:\\test.png");
     }
   }
 }

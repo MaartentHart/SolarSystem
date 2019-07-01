@@ -107,11 +107,17 @@
       <DependentUpon>ColorMapForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\Prompt.cs" />
-    <Compile Include="Controls\RecordForm.cs">
+    <Compile Include="Controls\RecordSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\RecordForm.Designer.cs">
-      <DependentUpon>RecordForm.cs</DependentUpon>
+    <Compile Include="Controls\RecordSettingsForm.Designer.cs">
+      <DependentUpon>RecordSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RecordScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\RecordScreen.Designer.cs">
+      <DependentUpon>RecordScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="CoreDll.cs" />
     <Compile Include="CPoint3DArray.cs" />
@@ -200,8 +206,11 @@
     <EmbeddedResource Include="Controls\ColorMapForm.resx">
       <DependentUpon>ColorMapForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\RecordForm.resx">
-      <DependentUpon>RecordForm.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\RecordScreen.resx">
+      <DependentUpon>RecordScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RecordSettingsForm.resx">
+      <DependentUpon>RecordSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Debugging\DateTesterForm.resx">
       <DependentUpon>DateTesterForm.cs</DependentUpon>
@@ -311,6 +320,8 @@
     <Content Include="ReadMe.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Record.png" />
+    <None Include="Resources\Stop.png" />
     <Content Include="Resource\meteorInputFile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

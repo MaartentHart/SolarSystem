@@ -1,6 +1,6 @@
 ﻿namespace SolarSystem.Controls
 {
-  partial class RecordForm
+  partial class RecordSettingsForm
   {
     /// <summary>
     /// Required designer variable.
