@@ -10,9 +10,21 @@ namespace SolarSystem
 {
   public class MeteorShower: IRenderable, IDisposable, IPositionObject
   {
+    private ColorFloat color; 
+
     private readonly object locker = new object(); 
     public bool changed = false;
     
+    public ColorFloat Color
+    {
+      get => color;
+      set
+      {
+        color = value;
+        Colors.SetColor(color); 
+      }
+    }
+
     public CPoint3DArray Positions { get; }
     public CPoint3DArray Velocities { get; }
     public CIntArrray Indices { get; private set;  }
@@ -54,7 +66,7 @@ namespace SolarSystem
     /// <param name="speedStep"></param>
     /// <param name="steps"></param>
     /// <param name="initialRadius"></param>
-    public MeteorShower (Point3D position, Point3D velocity, int generation, double minimumSpeed, double speedStep, int steps, double initialRadius = 1)
+    public MeteorShower (Point3D position, Point3D velocity, int generation, double minimumSpeed, double speedStep, int steps, double initialRadius, ColorFloat color)
     {
       int verticesCount = CoreDll.GeodesicGridVerticesCount(generation);
       IntPtr geodesicGridVertices = CoreDll.GeodesicGridVertices(generation);
@@ -80,10 +92,11 @@ namespace SolarSystem
         Positions.Scale(initialRadius);
         Positions.Move(position); 
       }
+      this.color = color; 
       FinishConstructor(); 
     }
 
-    public MeteorShower(Point3D position, Point3D velocity, Point3D sheetNormal, int arrayLength, double spacing)
+    public MeteorShower(Point3D position, Point3D velocity, Point3D sheetNormal, int arrayLength, double spacing, ColorFloat color)
     {
       MeteorCount = arrayLength * arrayLength;
       Positions = new CPoint3DArray(MeteorCount);
@@ -104,6 +117,7 @@ namespace SolarSystem
           Velocities[i] = velocity; 
         }
 
+      this.color = color;
       FinishConstructor();
     }
 
@@ -115,7 +129,7 @@ namespace SolarSystem
       Indices.SetDefaultIndex();
 
       Colors = new CColorArrray(MeteorCount);
-      Colors.SetColor(new ColorFloat(0, 1, 0, 1));
+      Colors.SetColor(Color);
 
       RenderObject = new CRenderGeometry
       {

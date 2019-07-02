@@ -30,6 +30,21 @@ namespace SolarSystem
 
     private MeteorShowerSheetTentative TentativeSheet {get; set;}
 
+    public Color Color { get
+      {
+        try
+        {
+          if (SetColorButton.BackColor != null)
+            return SetColorButton.BackColor; 
+        }
+        catch
+        {
+
+        }
+        return Color.White; 
+      }
+    }
+
     public MeteoriteInitializationForm(Scene scene)
     {
       Scene = scene;
@@ -284,11 +299,12 @@ namespace SolarSystem
     private void AddMeteorShower(bool spherical = true)
     {
       MeteorShower meteorShower;
+      ColorFloat color = new ColorFloat(Color); 
 
       if (spherical)
-        meteorShower = new MeteorShower(position, velocity, generation, minimumSpeed, speedStep, steps, initialRadius);
+        meteorShower = new MeteorShower(position, velocity, generation, minimumSpeed, speedStep, steps, initialRadius, color);
       else
-        meteorShower = new MeteorShower(position, velocity, sheetNormal, arrayLength, spacing);
+        meteorShower = new MeteorShower(position, velocity, sheetNormal, arrayLength, spacing, color);
 
       //give meteor shower a unique name. 
       int i = 0;
@@ -416,5 +432,14 @@ namespace SolarSystem
       ModifyTentativeSheet(); 
     }
 
+    private void SetColorButton_Click(object sender, EventArgs e)
+    {
+      using (ColorDialog colorDialog = new ColorDialog())
+      {
+        if (colorDialog.ShowDialog() != DialogResult.OK)
+          return;
+        SetColorButton.BackColor = colorDialog.Color; 
+      }
+    }
   }
 }
