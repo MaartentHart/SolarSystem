@@ -58,7 +58,6 @@ namespace SolarSystem
     [StringValue("Pallas")] Pallas,
     [StringValue("Vesta")] Vesta,
 
-
   }
 
   /// <summary>

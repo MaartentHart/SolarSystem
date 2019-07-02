@@ -784,7 +784,7 @@ namespace SolarSystem
       Pallas = AddPlanet(SolarSystemPlanet.Pallas);
       Vesta = AddPlanet(SolarSystemPlanet.Vesta);
 
-      Ceres.AddTexture(@"Resource\Texture\ceres.jpg", 0, false);
+      Ceres.AddTexture(@"Resource\Texture\ceres.png", 0, false);
       Vesta.AddTexture(@"Resource\Texture\vesta.jpg", 0, false);
     }
 

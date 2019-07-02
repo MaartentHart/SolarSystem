@@ -1268,11 +1268,15 @@ void CelestialBody::SetCharon()
 //Other
 void CelestialBody::SetCeres()
 {
-	SemiMajorAxis = 414086906.928;//km
+	EquatorialRadius = 965;//km
+	PolarRadius = 961;//km
+	SemiMajorAxis = 414086.906928;//km
 	SiderealOrbitPeriod = 1680.15;//days
 	TropicalOrbitPeriod = 1680.15;//days
-	Periapsis = 382699119382.858;//km
-	Apoapsis = 445474694473.142;//km
+	Periapsis = 382699119.382858;//km
+	Apoapsis = 445474694.473142;//km
+
+	SiderealRotationPeriod = 9.074;
 
 	OrbitalEccentricity = 0.0758;// - Undefined
 	OrbitalInclination = 10.59;//deg
@@ -1287,11 +1291,15 @@ void CelestialBody::SetCeres()
 
 void CelestialBody::SetPallas()
 {
-	SemiMajorAxis = 414685298.412;//km
+	EquatorialRadius = 582;//km
+	PolarRadius = 556;//km
+	SemiMajorAxis = 414685.298412;//km
 	SiderealOrbitPeriod = 1683.8025;//days
 	TropicalOrbitPeriod = 1683.8025;//days
-	Periapsis = 318892994478.828;//km
-	Apoapsis = 510477602345.172;//km
+	Periapsis = 318892994.478828;//km
+	Apoapsis = 510477602.345172;//km
+
+	SiderealRotationPeriod = 7.813;
 
 	OrbitalEccentricity = 0.231;// - Undefined
 	OrbitalInclination = 34.84;//deg
@@ -1307,11 +1315,15 @@ void CelestialBody::SetPallas()
 
 void CelestialBody::SetVesta()
 {
-	SemiMajorAxis = 353350171.302;//km
+	EquatorialRadius = 569;//km
+	PolarRadius = 555;//km
+	SemiMajorAxis = 353350.171302;//km
 	SiderealOrbitPeriod = 1325.8575;//days
 	TropicalOrbitPeriod = 1325.8575;//days
-	Periapsis = 321937341073.253;//km
-	Apoapsis = 384763001530.747;//km
+	Periapsis = 321937341.073252;//km
+	Apoapsis = 384763001.530748;//km
+
+	SiderealRotationPeriod = 5.342;
 
 	OrbitalEccentricity = 0.0889;// - Undefined
 	OrbitalInclination = 7.14;//deg
