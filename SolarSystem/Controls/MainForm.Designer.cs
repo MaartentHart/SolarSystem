@@ -44,7 +44,6 @@
       this.DeleteMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
       this.ColorMapButton = new System.Windows.Forms.ToolStripButton();
       this.PropertiesBoxButton = new System.Windows.Forms.ToolStripButton();
-      this.InitializePlanetsButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.TimeLockButton = new System.Windows.Forms.ToolStripButton();
       this.DayBox = new System.Windows.Forms.ToolStripTextBox();
@@ -85,6 +84,7 @@
       this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
       this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
       this.GlView = new SolarSystem.GlView();
+      this.ShowImpactsButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -148,7 +148,7 @@
             this.DeleteMeteorShowerButton,
             this.ColorMapButton,
             this.PropertiesBoxButton,
-            this.InitializePlanetsButton,
+            this.ShowImpactsButton,
             this.toolStripSeparator1,
             this.TimeLockButton,
             this.DayBox,
@@ -193,7 +193,7 @@
       // 
       this.LoadTextureMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("LoadTextureMenuItem.Image")));
       this.LoadTextureMenuItem.Name = "LoadTextureMenuItem";
-      this.LoadTextureMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.LoadTextureMenuItem.Size = new System.Drawing.Size(141, 22);
       this.LoadTextureMenuItem.Text = "Load Texture";
       this.LoadTextureMenuItem.Click += new System.EventHandler(this.LoadTextureMenuItem_Click);
       // 
@@ -252,17 +252,6 @@
       this.PropertiesBoxButton.Size = new System.Drawing.Size(23, 22);
       this.PropertiesBoxButton.Text = "Properties";
       this.PropertiesBoxButton.Click += new System.EventHandler(this.PropertiesBoxButton_Click);
-      // 
-      // InitializePlanetsButton
-      // 
-      this.InitializePlanetsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.InitializePlanetsButton.Image = ((System.Drawing.Image)(resources.GetObject("InitializePlanetsButton.Image")));
-      this.InitializePlanetsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.InitializePlanetsButton.Name = "InitializePlanetsButton";
-      this.InitializePlanetsButton.Size = new System.Drawing.Size(23, 22);
-      this.InitializePlanetsButton.Text = "Initialize Planets";
-      this.InitializePlanetsButton.Visible = false;
-      this.InitializePlanetsButton.Click += new System.EventHandler(this.InitializePlanets_Click);
       // 
       // toolStripSeparator1
       // 
@@ -584,6 +573,16 @@
       this.GlView.Size = new System.Drawing.Size(1005, 414);
       this.GlView.TabIndex = 10;
       // 
+      // ShowImpactsButton
+      // 
+      this.ShowImpactsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.ShowImpactsButton.Image = ((System.Drawing.Image)(resources.GetObject("ShowImpactsButton.Image")));
+      this.ShowImpactsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.ShowImpactsButton.Name = "ShowImpactsButton";
+      this.ShowImpactsButton.Size = new System.Drawing.Size(23, 22);
+      this.ShowImpactsButton.Text = "Show Impact List";
+      this.ShowImpactsButton.Click += new System.EventHandler(this.ShowImpactsButton_Click);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -644,7 +643,6 @@
     private System.Windows.Forms.ToolStripMenuItem MinutesToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem HoursToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem DaysToolStripMenuItem1;
-    private System.Windows.Forms.ToolStripButton InitializePlanetsButton;
     private System.Windows.Forms.ToolStripLabel toolStripLabel2;
     private System.Windows.Forms.ToolStripTextBox MaxRenderRatioBox;
     private System.Windows.Forms.ToolStripButton TimeStepButton;
@@ -662,6 +660,7 @@
     private System.Windows.Forms.ToolStripMenuItem saveTextureToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem clearCacheToolStripMenuItem;
     private System.Windows.Forms.ToolStripButton RecordButton;
+    private System.Windows.Forms.ToolStripButton ShowImpactsButton;
   }
 }
 

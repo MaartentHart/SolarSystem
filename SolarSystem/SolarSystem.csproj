@@ -106,6 +106,12 @@
     <Compile Include="Controls\ColorMapForm.Designer.cs">
       <DependentUpon>ColorMapForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImpactListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ImpactListForm.Designer.cs">
+      <DependentUpon>ImpactListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Prompt.cs" />
     <Compile Include="Controls\RecordSettingsForm.cs">
       <SubType>Form</SubType>
@@ -205,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ColorMapForm.resx">
       <DependentUpon>ColorMapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ImpactListForm.resx">
+      <DependentUpon>ImpactListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\RecordScreen.resx">
       <DependentUpon>RecordScreen.cs</DependentUpon>

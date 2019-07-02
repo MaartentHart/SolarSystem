@@ -43,6 +43,7 @@ namespace SolarSystem
 
     public static MainForm Main; 
 
+    private ImpactListForm ImpactListForm { get; set; }
     private double TimeStep
     {
       get => timeStep;
@@ -1077,6 +1078,23 @@ namespace SolarSystem
     private void TestSaveFrame_Click(object sender, EventArgs e)
     {
       SaveControlImage(GlView, "D:\\test.png");
+    }
+
+    public static string GetPlanetName(int planetID)
+    {
+      foreach (IRenderable renderable in Main.Scene.RenderableObjects)
+        if (renderable is Planet planet)
+          if (planet.ID == planetID)
+            return planet.Name;
+
+      return "Unkown"; 
+    }
+
+    private void ShowImpactsButton_Click(object sender, EventArgs e)
+    {
+      if (ImpactListForm == null || ImpactListForm.IsDisposed)
+        ImpactListForm = new ImpactListForm();
+      ImpactListForm.Show();
     }
   }
 }

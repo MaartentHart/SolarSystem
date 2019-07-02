@@ -197,7 +197,7 @@ void Planet::Impact(const Point3D& previousObjectPosition, Point3D& objectPositi
 
 	double duration = endTime - startTime; 
 
-	double impactSpeed = (end - start).Distance() / duration; 
+	double impactSpeed = (end - start).Distance() / duration / 86400; 
 	double impactTime = (endTime - startTime) * position + startTime; 
 	
 	Point3D impactPosition = (end - start) * position + start; 
