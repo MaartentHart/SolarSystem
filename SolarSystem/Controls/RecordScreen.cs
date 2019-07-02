@@ -12,6 +12,7 @@ namespace SolarSystem.Controls
 {
   public partial class RecordScreen : Form
   {
+    private delegate void FocusMainForm(); 
 
     protected override bool ShowWithoutActivation
     {
@@ -22,5 +23,21 @@ namespace SolarSystem.Controls
     {
       InitializeComponent();
     }
+
+    private void FormKeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Escape)
+      {
+        var d = new FocusMainForm(FocusMainFormFunction);
+        Invoke(d);
+      }
+    }
+
+    private void FocusMainFormFunction()
+    {
+      MainForm.Main.Hide();
+      MainForm.Main.Show(); 
+    }
+
   }
 }

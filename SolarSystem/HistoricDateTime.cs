@@ -387,6 +387,16 @@ namespace SolarSystem
       return hours + ":" + minutes + ":" + seconds;
     }
 
+    public string ToRoundedTimeString()
+    {
+      string hours = TwoDigits(Hours.ToString());
+      string minutes = TwoDigits(Minutes.ToString());
+      string seconds = Math.Round((Seconds + Milliseconds / 1000), 0).ToString();
+      if (Seconds < 10)
+        seconds = "0" + seconds;
+      return hours + ":" + minutes + ":" + seconds;
+    }
+
     public override string ToString()
     {
       return ToPrettyDateString() + " " + ToTimeString(); 

@@ -84,8 +84,6 @@
       this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
       this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
       this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
-      this.DebugSaveImageButton = new System.Windows.Forms.ToolStripButton();
-      this.TestSaveFrame = new System.Windows.Forms.ToolStripButton();
       this.GlView = new SolarSystem.GlView();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
@@ -171,9 +169,7 @@
             this.QualityBox,
             this.toolStripSeparator3,
             this.toolStripLabel4,
-            this.CalibrationBox,
-            this.DebugSaveImageButton,
-            this.TestSaveFrame});
+            this.CalibrationBox});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(1177, 25);
@@ -197,7 +193,7 @@
       // 
       this.LoadTextureMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("LoadTextureMenuItem.Image")));
       this.LoadTextureMenuItem.Name = "LoadTextureMenuItem";
-      this.LoadTextureMenuItem.Size = new System.Drawing.Size(141, 22);
+      this.LoadTextureMenuItem.Size = new System.Drawing.Size(180, 22);
       this.LoadTextureMenuItem.Text = "Load Texture";
       this.LoadTextureMenuItem.Click += new System.EventHandler(this.LoadTextureMenuItem_Click);
       // 
@@ -578,26 +574,6 @@
       this.CalibrationBox.Size = new System.Drawing.Size(100, 25);
       this.CalibrationBox.TextChanged += new System.EventHandler(this.CalibrationBox_TextChanged);
       // 
-      // DebugSaveImageButton
-      // 
-      this.DebugSaveImageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.DebugSaveImageButton.Image = ((System.Drawing.Image)(resources.GetObject("DebugSaveImageButton.Image")));
-      this.DebugSaveImageButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.DebugSaveImageButton.Name = "DebugSaveImageButton";
-      this.DebugSaveImageButton.Size = new System.Drawing.Size(23, 22);
-      this.DebugSaveImageButton.Text = "DebugSaveImage";
-      this.DebugSaveImageButton.Click += new System.EventHandler(this.DebugSaveImageButton_Click);
-      // 
-      // TestSaveFrame
-      // 
-      this.TestSaveFrame.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.TestSaveFrame.Image = ((System.Drawing.Image)(resources.GetObject("TestSaveFrame.Image")));
-      this.TestSaveFrame.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.TestSaveFrame.Name = "TestSaveFrame";
-      this.TestSaveFrame.Size = new System.Drawing.Size(23, 22);
-      this.TestSaveFrame.Text = "TestSaveFrame";
-      this.TestSaveFrame.Click += new System.EventHandler(this.TestSaveFrame_Click);
-      // 
       // GlView
       // 
       this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -686,8 +662,6 @@
     private System.Windows.Forms.ToolStripMenuItem saveTextureToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem clearCacheToolStripMenuItem;
     private System.Windows.Forms.ToolStripButton RecordButton;
-    private System.Windows.Forms.ToolStripButton DebugSaveImageButton;
-    private System.Windows.Forms.ToolStripButton TestSaveFrame;
   }
 }
 

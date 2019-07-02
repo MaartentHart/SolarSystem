@@ -39,7 +39,9 @@ namespace SolarSystem
 
     private BackgroundWorker SimulationWorker { get; set; } = new BackgroundWorker();
 
-    private BackgroundWorker recordBackgroundWorker; 
+    private BackgroundWorker recordBackgroundWorker;
+
+    public static MainForm Main; 
 
     private double TimeStep
     {
@@ -113,8 +115,6 @@ namespace SolarSystem
     //Plutos moons
     public Planet Charon { get; private set; }
 
-
-
     public MainForm()
     {
       SplashScreen splashScreen = new SplashScreen();
@@ -128,7 +128,9 @@ namespace SolarSystem
       SetDateTime(new HistoricDateTime(0.0));
       GlView.Lookat(Earth, Earth.Name);
       splashScreen.Close();
-      splashScreen.Dispose(); 
+      splashScreen.Dispose();
+      if (Main == null)
+        Main = this; 
     }
 
     private void InitializeEarth(object sender, DoWorkEventArgs e)
@@ -461,7 +463,6 @@ namespace SolarSystem
         TimeLockButton.Image = Properties.Resources.TimeLockIcon;
     }
 
-
     private void PlayPauseButton_Click(object sender, EventArgs e)
     {
       SimulationRunning = !SimulationRunning;
@@ -497,9 +498,9 @@ namespace SolarSystem
       recordBackgroundWorker = null;
 
       RecordButton.Image = Properties.Resources.Record;
+      RecordButton.Text = "Record";
       CoreDll.SetPauseTime(1e99);
       return;
-
     }
 
     private void StartRecordThread()
@@ -509,6 +510,7 @@ namespace SolarSystem
       recordBackgroundWorker.DoWork += RecordingWork; 
       recordBackgroundWorker.RunWorkerAsync();
       RecordButton.Image = Properties.Resources.Stop;
+      RecordButton.Text = "Stop Recording";
     }
 
     private void RecordingWork(object sender, DoWorkEventArgs e)
@@ -541,23 +543,28 @@ namespace SolarSystem
         }
       }
 
-
+      bool nextSet = false; 
 
       while (RunRecordingThread)
       {
-        SetNextPauseTime();
+        if (!nextSet)
+          SetNextPauseTime();
 
         while (CoreDll.PausingAt()<pauseTime || Scene.paintingImpacts || Scene.applyingChanges)
         {
           System.Threading.Thread.Sleep(1);
           if (!RunRecordingThread)
           {
+            RecordScreen.Dispose();
+            RecordScreen = null;
             return;
           }
+          Application.DoEvents(); 
         }
 
-        RecordFrame();
+        nextSet = RecordFrame(true);
 
+        Application.DoEvents();
       }
 
       RecordScreen.Dispose();
@@ -938,7 +945,10 @@ namespace SolarSystem
 
     private void SetNextPauseTime()
     {
-      pauseTime = CoreDll.GetTime() + RecordTimeStep;
+      double simulationTime = CoreDll.GetTime();
+      pauseTime += RecordTimeStep;
+      if (pauseTime <= simulationTime)
+        pauseTime = simulationTime + RecordTimeStep; 
       CoreDll.SetPauseTime(pauseTime); 
     }
 
@@ -954,23 +964,36 @@ namespace SolarSystem
     int nYSrc,
     int dwRop);
 
+    bool warnedCapture = false; 
     public Bitmap CaptureControl(Control control)
     {
-      Bitmap controlBmp;
-      using (Graphics g1 = control.CreateGraphics())
+      try
       {
-        controlBmp = new Bitmap(control.Width, control.Height, g1);
-        using (Graphics g2 = Graphics.FromImage(controlBmp))
+        Bitmap controlBmp;
+        using (Graphics g1 = control.CreateGraphics())
         {
-          IntPtr dc1 = g1.GetHdc();
-          IntPtr dc2 = g2.GetHdc(); 
-          BitBlt(dc2, 0, 0, control.Width, control.Height, dc1, 0, 0, 13369376);
-          g1.ReleaseHdc(dc1);
-          g2.ReleaseHdc(dc2);
+          controlBmp = new Bitmap(control.Width, control.Height, g1);
+          using (Graphics g2 = Graphics.FromImage(controlBmp))
+          {
+            IntPtr dc1 = g1.GetHdc();
+            IntPtr dc2 = g2.GetHdc();
+            BitBlt(dc2, 0, 0, control.Width, control.Height, dc1, 0, 0, 13369376);
+            g1.ReleaseHdc(dc1);
+            g2.ReleaseHdc(dc2);
+          }
+        }
+
+        return controlBmp;
+      }
+      catch
+      {
+        if (!warnedCapture)
+        {
+          warnedCapture = true;
+          MessageBox.Show("Error capturing image"); 
         }
       }
-
-      return controlBmp;
+      return null;
     }
 
     private void SaveControlImage(Control control, string fileName)
@@ -988,10 +1011,10 @@ namespace SolarSystem
       }
     }
 
-    private void RecordFrame()
+    private bool RecordFrame(bool setNext = false)
     {
       if (RecordScreen == null)
-        return;
+        return false;
 
       RecordScreen.Location = new Point(0,0);
 
@@ -1000,35 +1023,49 @@ namespace SolarSystem
       RecordScreen.GlControl.Refresh();
       using (Bitmap bitmap = CaptureControl(RecordScreen))
       {
+        if (bitmap == null)
+          return false;
+
+        if (setNext)
+          SetNextPauseTime();
+
         //RecordScreen.Hide();
         if (RecordAddTimeStamp)
           AddTimeStamp(bitmap);
-       
+
         bitmap.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
+        return setNext; 
       }
     }
 
     private void AddTimeStamp(Bitmap bitmap)
     {
-      int height = bitmap.Height / 20;
-      int width = height * 11;
-      using (Graphics g = Graphics.FromImage(bitmap))
+      try
       {
-        Rectangle rectangle = new Rectangle(
-          bitmap.Width - width, 
-          bitmap.Height - height *2,
-          width,  
-          height);
+        int height = bitmap.Height / 20;
+        int width = height * 11;
+        using (Graphics g = Graphics.FromImage(bitmap))
+        {
+          Rectangle rectangle = new Rectangle(
+            bitmap.Width - width,
+            bitmap.Height - height * 2,
+            width,
+            height);
 
-        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-        g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+          g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+          g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+          g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
-        string date = DateTime.ToBCADDateString() + " " + DateTime.ToTimeString(); 
+          string date = DateTime.ToBCADDateString() + " " + DateTime.ToRoundedTimeString();
 
-        g.DrawString(date, new Font("Calibri", height, FontStyle.Bold, GraphicsUnit.Pixel), Brushes.White, rectangle);
+          g.DrawString(date, new Font("Calibri", height, FontStyle.Bold, GraphicsUnit.Pixel), Brushes.White, rectangle);
 
-        g.Flush();
+          g.Flush();
+        }
+      }
+      catch
+      {
+
       }
     }
 

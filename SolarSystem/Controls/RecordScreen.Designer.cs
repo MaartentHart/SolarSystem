@@ -39,7 +39,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.GlControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-      camera1.Changed = false;
+      camera1.Changed = true;
       camera1.FieldOfView = 25D;
       camera1.LockDistance = true;
       camera1.ViewDistance = 10D;
@@ -50,7 +50,7 @@
       this.GlControl.Location = new System.Drawing.Point(0, 0);
       this.GlControl.MultisampleBits = ((uint)(0u));
       this.GlControl.Name = "GlControl";
-      scene1.Changed = false;
+      scene1.Changed = true;
       scene1.Exxageration = 0D;
       scene1.MaximumDisplayGeneration = 9;
       scene1.PointSize = 3F;
@@ -59,6 +59,7 @@
       this.GlControl.Size = new System.Drawing.Size(800, 450);
       this.GlControl.StencilBits = ((uint)(0u));
       this.GlControl.TabIndex = 0;
+      this.GlControl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormKeyDown);
       // 
       // RecordScreen
       // 
@@ -73,6 +74,7 @@
       this.Name = "RecordScreen";
       this.ShowIcon = false;
       this.Text = "RecordScreen";
+      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormKeyDown);
       this.ResumeLayout(false);
 
     }

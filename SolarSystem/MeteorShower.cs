@@ -115,7 +115,7 @@ namespace SolarSystem
       Indices.SetDefaultIndex();
 
       Colors = new CColorArrray(MeteorCount);
-      Colors.SetColor(new ColorFloat(1, 1, 1, 1));
+      Colors.SetColor(new ColorFloat(0, 1, 0, 1));
 
       RenderObject = new CRenderGeometry
       {
