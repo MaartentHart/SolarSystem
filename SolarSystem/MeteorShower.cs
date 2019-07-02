@@ -42,6 +42,8 @@ namespace SolarSystem
     public CRenderGeometry RenderObject { get; private set; }
     public MeteorPositionObject MeteorPosition { get; private set; }
 
+    public MeteorShowerOriginalInput OriginalInput { get; }
+
     public bool Changed
     {
       get
@@ -68,6 +70,8 @@ namespace SolarSystem
     /// <param name="initialRadius"></param>
     public MeteorShower (Point3D position, Point3D velocity, int generation, double minimumSpeed, double speedStep, int steps, double initialRadius, ColorFloat color)
     {
+      OriginalInput = new MeteorShowerOriginalInput(position, velocity, generation, minimumSpeed, speedStep, steps, initialRadius, color);
+
       int verticesCount = CoreDll.GeodesicGridVerticesCount(generation);
       IntPtr geodesicGridVertices = CoreDll.GeodesicGridVertices(generation);
 
@@ -98,6 +102,7 @@ namespace SolarSystem
 
     public MeteorShower(Point3D position, Point3D velocity, Point3D sheetNormal, int arrayLength, double spacing, ColorFloat color)
     {
+      OriginalInput = new MeteorShowerOriginalInput(position, velocity, sheetNormal, arrayLength, spacing, color);
       MeteorCount = arrayLength * arrayLength;
       Positions = new CPoint3DArray(MeteorCount);
       Velocities = new CPoint3DArray(MeteorCount);
@@ -305,6 +310,80 @@ namespace SolarSystem
     public void TimeUpdate()
     {
 
+    }
+  }
+
+  [Serializable]
+  public class MeteorShowerOriginalInput
+  {
+    public bool spherical;
+    public Point3D position;
+    public Point3D velocity;
+    public int generation;
+    public double minimumSpeed;
+    public double speedStep;
+    public int steps;
+    public double initialRadius;
+    public ColorFloat color;
+    public Point3D sheetNormal;
+    public int arrayLength;
+    public double spacing;
+    public double time;
+
+    public MeteorShowerOriginalInput()
+    { }
+
+    public MeteorShowerOriginalInput(Point3D position, Point3D velocity, int generation, double minimumSpeed, double speedStep, int steps, double initialRadius, ColorFloat color)
+    {
+      this.spherical = true;
+      this.position = position;
+      this.velocity = velocity;
+      this.generation = generation;
+      this.minimumSpeed = minimumSpeed;
+      this.speedStep = speedStep;
+      this.steps = steps;
+      this.initialRadius = initialRadius;
+      this.color = color;
+      time = CoreDll.GetTime();
+    }
+
+    public MeteorShowerOriginalInput(Point3D position, Point3D velocity, Point3D sheetNormal, int arrayLength, double spacing, ColorFloat color)
+    {
+      this.spherical = false;
+      this.position = position;
+      this.velocity = velocity;
+      this.sheetNormal = sheetNormal;
+      this.arrayLength = arrayLength;
+      this.spacing = spacing;
+      this.color = color;
+      time = CoreDll.GetTime();
+    }
+
+    public MeteorShower GetMeteorShower()
+    {
+      if (spherical)
+        return new MeteorShower(position, velocity, generation, minimumSpeed, speedStep, steps, initialRadius, color);
+      else
+        return new MeteorShower(position, velocity, sheetNormal, arrayLength, spacing, color);
+    }
+
+    public void SetTime()
+    {
+      CoreDll.SetDaysSinceJ2000(time); 
+    }
+
+    public void Save(string fileName)
+    {
+      System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(MeteorShowerOriginalInput));
+      using (System.IO.StreamWriter writer = new System.IO.StreamWriter(fileName))
+        serializer.Serialize(writer, this); 
+    }
+
+    public static MeteorShowerOriginalInput FromFile(string fileName)
+    {
+      System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(MeteorShowerOriginalInput));
+      using (System.IO.StreamReader reader = new System.IO.StreamReader(fileName))
+        return serializer.Deserialize(reader) as MeteorShowerOriginalInput; 
     }
   }
 }

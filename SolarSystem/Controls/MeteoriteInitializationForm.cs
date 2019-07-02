@@ -306,28 +306,7 @@ namespace SolarSystem
       else
         meteorShower = new MeteorShower(position, velocity, sheetNormal, arrayLength, spacing, color);
 
-      //give meteor shower a unique name. 
-      int i = 0;
-      bool ok = false;
-      while (!ok)
-      {
-        ok = true;
-        foreach (IRenderable renderable in Scene.RenderableObjects)
-        {
-          if (renderable.Name == meteorShower.Name)
-          {
-            i++;
-            string name = "Meteor Shower ";
-            if (!spherical)
-              name += "(sheet) "; 
-            meteorShower.Name = name + i.ToString();
-            ok = false;
-            break;
-          }
-        }
-      }
-
-      Scene.RenderableObjects.Add(meteorShower);
+      MainForm.Main.AddMeteorShower(meteorShower, spherical); 
     }
 
     private void DistanceToBox_SelectedIndexChanged(object sender, EventArgs e)

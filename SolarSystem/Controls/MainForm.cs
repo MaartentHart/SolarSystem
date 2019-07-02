@@ -330,6 +330,31 @@ namespace SolarSystem
       }
     }
 
+    internal void AddMeteorShower(MeteorShower meteorShower, bool spherical)
+    {
+      //give meteor shower a unique name. 
+      int i = 0;
+      bool ok = false;
+      while (!ok)
+      {
+        ok = true;
+        foreach (IRenderable renderable in Scene.RenderableObjects)
+        {
+          if (renderable.Name == meteorShower.Name)
+          {
+            i++;
+            string name = "Meteor Shower ";
+            if (!spherical)
+              name += "(sheet) ";
+            meteorShower.Name = name + i.ToString();
+            ok = false;
+            break;
+          }
+        }
+      }
+
+      Scene.RenderableObjects.Add(meteorShower);
+    }
 
     private void TestImageButton_Click(object sender, EventArgs e)
     {
@@ -1095,6 +1120,56 @@ namespace SolarSystem
       if (ImpactListForm == null || ImpactListForm.IsDisposed)
         ImpactListForm = new ImpactListForm();
       ImpactListForm.Show();
+    }
+
+    private void SaveMeteorShowerToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      IRenderable selected = SelectedRenderable();
+      if (!(selected is MeteorShower meteorShower))
+      {
+        MessageBox.Show("Please select a meteor shower.");
+        return;
+      }
+      try
+      {
+        using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+        {
+          saveFileDialog.Filter = "*.sxml|*.sxml";
+          if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            return;
+          meteorShower.OriginalInput.Save(saveFileDialog.FileName);
+        }
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show("Cannot save meteor shower.\n" + ex.Message, "Error");
+      }
+    }
+
+    private void LoadMeteorShowerToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        using (OpenFileDialog openFileDialog = new OpenFileDialog())
+        {
+          openFileDialog.Filter = "*.sxml|*.sxml";
+          if (openFileDialog.ShowDialog() != DialogResult.OK)
+            return;
+          MeteorShowerOriginalInput input = MeteorShowerOriginalInput.FromFile(openFileDialog.FileName);
+          if (input.time != CoreDll.GetTime())
+          {
+            HistoricDateTime date = new HistoricDateTime(input.time);
+            if (MessageBox.Show("Do you want to set the time to " + date.ToPrettyDateString() + " " + date.ToTimeString() + "?", 
+              "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+              input.SetTime();
+          }
+          AddMeteorShower(input.GetMeteorShower(), input.spherical);
+        }        
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Cannot save meteor shower.\n" + ex.Message, "Error");
+      }
     }
   }
 }

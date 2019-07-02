@@ -602,7 +602,7 @@
       // SetColorButton
       // 
       this.SetColorButton.BackColor = System.Drawing.Color.Lime;
-      this.SetColorButton.Location = new System.Drawing.Point(21, 508);
+      this.SetColorButton.Location = new System.Drawing.Point(12, 508);
       this.SetColorButton.Name = "SetColorButton";
       this.SetColorButton.Size = new System.Drawing.Size(75, 23);
       this.SetColorButton.TabIndex = 10;
