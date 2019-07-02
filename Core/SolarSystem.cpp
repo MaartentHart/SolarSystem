@@ -6,6 +6,7 @@
 //http://extras.springer.com/2009/978-3-540-88054-7/16_vi4b_422.pdf
 //https://nssdc.gsfc.nasa.gov/planetary/factsheet/
 //https://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html
+//https://nssdc.gsfc.nasa.gov/planetary/factsheet/asteroidfact.html
 
 //notes:
 //if apoapsis and periapsis are unknown, they can be calculated using the eccentricity and the semi major axis
@@ -57,6 +58,11 @@ Planet triton(1353.4, 1353.4, 0.000779, "Triton");
 
 //Plutos moon
 Planet charon(606,606,0.00029,"Charon");
+
+//Other
+Planet ceres(965, 961, 0.00027, "Ceres");
+Planet pallas(582, 556, 0.00022, "Pallas");
+Planet vesta(569, 555, 0.00022, "Vesta");
 
 CelestialBody::CelestialBody() 
 {
@@ -1259,6 +1265,67 @@ void CelestialBody::SetCharon()
 	SynchronousRotation = true;
 }
 
+//Other
+void CelestialBody::SetCeres()
+{
+	SemiMajorAxis = 414086906.928;//km
+	SiderealOrbitPeriod = 1680.15;//days
+	TropicalOrbitPeriod = 1680.15;//days
+	Periapsis = 382699119382.858;//km
+	Apoapsis = 445474694473.142;//km
+
+	OrbitalEccentricity = 0.0758;// - Undefined
+	OrbitalInclination = 10.59;//deg
+	LongitudeOfAscendingNode = 80.3055315683;//deg
+	LongitudeOfPeriapsis = 153.9032256843;//deg
+
+	RightAscension = 291.42744;// - Undefined
+	Declination = 66.764;// - Undefined
+
+	color = Color(0.549019608f,		0.521568627f,		0.450980392f, 1.0f);
+}
+
+void CelestialBody::SetPallas()
+{
+	SemiMajorAxis = 414685298.412;//km
+	SiderealOrbitPeriod = 1683.8025;//days
+	TropicalOrbitPeriod = 1683.8025;//days
+	Periapsis = 318892994478.828;//km
+	Apoapsis = 510477602345.172;//km
+
+	OrbitalEccentricity = 0.231;// - Undefined
+	OrbitalInclination = 34.84;//deg
+	LongitudeOfAscendingNode = 173.080062747;//deg
+	LongitudeOfPeriapsis = 483.128920174;//deg
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 0;// - Undefined
+	Declination = 90;// - Undefined
+
+	color = Color(0.643f, 0.643f, 0.643f, 1.0f);
+}
+
+void CelestialBody::SetVesta()
+{
+	SemiMajorAxis = 353350171.302;//km
+	SiderealOrbitPeriod = 1325.8575;//days
+	TropicalOrbitPeriod = 1325.8575;//days
+	Periapsis = 321937341073.253;//km
+	Apoapsis = 384763001530.747;//km
+
+	OrbitalEccentricity = 0.0889;// - Undefined
+	OrbitalInclination = 7.14;//deg
+	LongitudeOfAscendingNode = 103.810804427;//deg
+	LongitudeOfPeriapsis = 254.539345714;//deg
+	MeanLongitude = 0;//deg - Undefined
+
+	RightAscension = 308;// - Undefined
+	Declination = 48;// - Undefined
+
+	color = Color(0.55f, 0.54f, 0.49f, 1.0f);
+}
+
+
 SolarSystem::SolarSystem()
 {
 	time = 0;
@@ -1350,6 +1417,12 @@ Planet * SolarSystem:: Triton() { return &triton; }
 //Plutos moon
 Planet * SolarSystem:: Charon() { return &charon; }
 
+//Other
+Planet* SolarSystem::Ceres() { return &ceres; }
+Planet* SolarSystem::Pallas() { return &pallas; }
+Planet* SolarSystem::Vesta() { return &vesta; }
+
+
 std::vector<Planet*> SolarSystem::Planets() 
 {
 	if (planets.size() == 0)
@@ -1416,6 +1489,10 @@ std::vector<Planet*> SolarSystem::Planets()
 		charon.SetCharon(); 
 		charon.isMoonOf = &pluto;
 
+		//other
+		ceres.SetCeres();
+		pallas.SetPallas();
+		vesta.SetVesta(); 
 
 		planets = std::vector<Planet*>
 		{
@@ -1459,6 +1536,11 @@ std::vector<Planet*> SolarSystem::Planets()
 
 			//Plutos moon
 			Charon(),
+
+			//Other
+			Ceres(),
+			Pallas(),
+			Vesta(),
 		};
 
 		int i = 0; 

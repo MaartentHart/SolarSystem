@@ -53,6 +53,11 @@ struct SolarSystem
 	//Plutos moon
 	Planet* Charon(); 
 
+	//Other
+	Planet* Ceres();
+	Planet* Pallas();
+	Planet* Vesta(); 
+
 	std::vector<Planet*> Planets(); 
 	std::vector<Planet*> GravitySources(); 
 	void SetTimeSinceJ2000(double days);

@@ -140,6 +140,11 @@ struct CelestialBody
 
 	//Plutos moon
 	void SetCharon();
+
+	//Other
+	void SetCeres(); 
+	void SetPallas();
+	void SetVesta(); 
 };
 
 struct Planet : CelestialBody, Orbit

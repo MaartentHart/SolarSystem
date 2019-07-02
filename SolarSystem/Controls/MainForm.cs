@@ -116,6 +116,11 @@ namespace SolarSystem
     //Plutos moons
     public Planet Charon { get; private set; }
 
+    //Other
+    public Planet Ceres { get; private set; }
+    public Planet Pallas { get; private set; }
+    public Planet Vesta { get; private set; }
+
     public MainForm()
     {
       SplashScreen splashScreen = new SplashScreen();
@@ -773,6 +778,14 @@ namespace SolarSystem
       Charon = AddPlanet(SolarSystemPlanet.Charon);
 
       Charon.AddTexture(@"Resource\Texture\charon.jpg", 0, false);
+
+      //Other
+      Ceres = AddPlanet(SolarSystemPlanet.Ceres);
+      Pallas = AddPlanet(SolarSystemPlanet.Pallas);
+      Vesta = AddPlanet(SolarSystemPlanet.Vesta);
+
+      Ceres.AddTexture(@"Resource\Texture\ceres.jpg", 0, false);
+      Vesta.AddTexture(@"Resource\Texture\vesta.jpg", 0, false);
     }
 
     private void MaxRenderRatioBox_Click(object sender, EventArgs e)

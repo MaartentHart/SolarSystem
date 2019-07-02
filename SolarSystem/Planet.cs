@@ -53,6 +53,12 @@ namespace SolarSystem
     //Plutos moons
     [StringValue("Charon")] Charon,
 
+    //Other
+    [StringValue("Ceres")] Ceres,
+    [StringValue("Pallas")] Pallas,
+    [StringValue("Vesta")] Vesta,
+
+
   }
 
   /// <summary>
