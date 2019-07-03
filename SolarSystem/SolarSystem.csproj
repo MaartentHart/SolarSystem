@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="CoreDll.cs" />
     <Compile Include="CPoint3DArray.cs" />
+    <Compile Include="BaiscCsvReader.cs" />
     <Compile Include="Debugging\DateTesterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,6 +196,7 @@
     <Compile Include="Controls\SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="SolarSystemSource.cs" />
     <Compile Include="StringValueAttribute.cs" />
     <Compile Include="Controls\TextBoxTrackBar.cs">
       <SubType>UserControl</SubType>
@@ -269,6 +271,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resource\CSV\SolarSystem.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resource\Earth.cmap">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -29,6 +29,10 @@ extern "C"
 	DLL const int* __cdecl GeodesicGridMipMapIndices(int generation, int mipmapGeneration);
 
 	//Planet properties
+	DLL int __cdecl AddPlanet(const char* name, double equatorialRadius, double polarRadius, 
+		double surfaceGravity, double apoapsis, double periapsis, double orbitalInclination, double siderealOrbitPeriod, double siderealRotationPeriod,
+		double longitudeOfAscendingNode, double longitudeOfPeriapsis, double rightAscension, double declination, 
+		double timeOfPeriapsis, float r, float g, float b);
 	DLL int __cdecl SetActivePlanet(const char*name);
 	DLL void __cdecl SetActivePlanetID(int id);
 	DLL double __cdecl PlanetScaleX(); 

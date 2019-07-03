@@ -93,6 +93,60 @@ int GeodesicGridMipMapIndicesCount(int generation, int mipmapGeneration)
 	return grid->GetMipMapIndices(mipmapGeneration).indices.size()*3;
 }
 
+int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
+	double surfaceGravity, double apoapsis, double periapsis, double orbitalInclination, double siderealOrbitPeriod, double siderealRotationPeriod,
+	double longitudeOfAscendingNode, double longitudeOfPeriapsis, double rightAscension, double declination,
+	double timeOfPeriapsis, float r, float g, float b)
+{
+	int i = 0; 
+	for (Planet* planet : GetSolarSystem().Planets())
+	{
+		if (planet->name == name)
+		{
+			activePlanet = planet;
+			return i;
+		}
+		i++;
+	}
+
+	Planet* planet = new Planet(equatorialRadius, polarRadius, surfaceGravity, name); 
+
+	planet->inclination = orbitalInclination;
+	planet->longitudeAscendingNode = longitudeOfAscendingNode;
+		 
+	planet->EquatorialRadius = equatorialRadius;//km
+	planet->PolarRadius = polarRadius;//km
+	planet->SemiMajorAxis = (periapsis + apoapsis)/2;//km
+	planet->SiderealOrbitPeriod = siderealOrbitPeriod;//days
+	planet->TropicalOrbitPeriod = siderealOrbitPeriod;//days
+	planet->Periapsis = periapsis;//km
+	planet->Apoapsis = apoapsis;//km
+
+	planet->SiderealRotationPeriod = siderealRotationPeriod;
+
+	planet->OrbitalInclination = orbitalInclination;//deg
+	planet->LongitudeOfAscendingNode = longitudeOfAscendingNode;//deg
+	planet->LongitudeOfPeriapsis = longitudeOfPeriapsis;//deg
+
+	planet->RightAscension = rightAscension;// - Undefined
+	planet->Declination = declination;// - Undefined
+
+	planet->color = Color(r, g, b, 1.0f);
+
+	planet->semimajorAxis = planet->SemiMajorAxis;
+	planet->focusDistance = planet->semimajorAxis - planet->periapsis;
+
+	planet->semiminorAxis = sqrt(planet->semimajorAxis * planet->semimajorAxis - planet->focusDistance * planet->focusDistance);
+	planet->relativeFocusDistance = planet->focusDistance / planet->semimajorAxis;
+	planet->flatFactor = planet->semiminorAxis / planet->semimajorAxis;
+
+	planet->SetCalculationValues();
+
+	GetSolarSystem().Planets().push_back(planet); 
+
+	return i; 
+}
+
 int SetActivePlanet(const char*name)
 {
 	int i = 0; 

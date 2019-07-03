@@ -271,6 +271,38 @@ namespace SolarSystem
       SetExxageration(1.0);
     }
 
+    public Planet(int id, string name, double calibaration, int generation = 9)
+    {
+      Generation = generation;
+      this.id = id;
+      RenderableObject.RenderGeometry.SetGeodesicGrid(generation);
+      string heightMapFileName = @"Resource\" + name + ".map";
+      HeightMap = new HeightMap(heightMapFileName, false);
+      //Shader = new Shader("PlanetHeightMapVertex", "TestFrag", PlanetUniforms, PlanetAttributes); 
+      //Color = new ColorFloat[CoreDll.GeodesicGridVerticesCount(9)];
+      Name = name;
+      CoreDll.SetActivePlanet(name);
+
+      Scale = new Point3D(CoreDll.PlanetScaleX(), CoreDll.PlanetScaleY(), CoreDll.PlanetScaleZ());
+      Declination = CoreDll.PlanetDeclination();
+      RightAscension = CoreDll.PlanetRightAscension();
+      MaximumRadius = Scale.x > Scale.y ? Scale.x > Scale.z ? Scale.x : Scale.z : Scale.y > Scale.z ? Scale.y : Scale.z;
+      CoreDll.PlanetColor(ref color);
+
+      if (HeightMap.Valid)
+        AddLayer("HeightMap", HeightMap.Heights);
+
+      Layer defaultLayer = AddLayer("Default", null);
+      defaultLayer.ColorMap = new ColorMap(color);
+
+      int verticesCount = CoreDll.GeodesicGridVerticesCount(Generation);
+      ValueLayer = AddLayer("Value", new double[verticesCount]);
+      ValueLayer.ColorMap = new ColorMap("White0ToBlack1000");
+
+      RotationCalibration = calibaration;
+      SetExxageration(1.0);
+    }
+
     public void ActivateLayer(string layerName)
     {
       if (ActiveLayer.Name == layerName)

@@ -61,4 +61,6 @@ struct SolarSystem
 	std::vector<Planet*> Planets(); 
 	std::vector<Planet*> GravitySources(); 
 	void SetTimeSinceJ2000(double days);
+
+	Planet* GetPlanet(std::string name);
 };

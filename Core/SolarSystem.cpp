@@ -1605,3 +1605,11 @@ void SolarSystem::SetTimeSinceJ2000(double days)
 	//sun is always at 0. 
 	Sun()->position = 0;
 }
+
+Planet* SolarSystem::GetPlanet(std::string name)
+{
+	for (Planet* planet : Planets())
+		if (planet->name == name)
+			return planet;
+	return NULL; 
+}

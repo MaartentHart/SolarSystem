@@ -1184,5 +1184,18 @@ namespace SolarSystem
         MessageBox.Show("Cannot save meteor shower.\n" + ex.Message, "Error");
       }
     }
+
+    private void LoadPlanetsTestButton_Click(object sender, EventArgs e)
+    {
+      string fileName; 
+      using (OpenFileDialog ofd = new OpenFileDialog())
+      {
+        ofd.Filter = "*.csv|*.csv";
+        if (ofd.ShowDialog() != DialogResult.OK)
+          return; 
+        fileName = ofd.FileName;
+      }
+      
+    }
   }
 }

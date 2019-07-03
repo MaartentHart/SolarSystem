@@ -40,6 +40,8 @@
       this.LoadTextureMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.saveTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.clearCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.saveMeteorShowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.loadMeteorShowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.InitializeMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
       this.DeleteMeteorShowerButton = new System.Windows.Forms.ToolStripButton();
       this.ColorMapButton = new System.Windows.Forms.ToolStripButton();
@@ -85,8 +87,7 @@
       this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
       this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
       this.GlView = new SolarSystem.GlView();
-      this.saveMeteorShowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.loadMeteorShowerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.LoadPlanetsTestButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -171,7 +172,8 @@
             this.QualityBox,
             this.toolStripSeparator3,
             this.toolStripLabel4,
-            this.CalibrationBox});
+            this.CalibrationBox,
+            this.LoadPlanetsTestButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(1177, 25);
@@ -216,6 +218,22 @@
       this.clearCacheToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
       this.clearCacheToolStripMenuItem.Text = "Clear Texture Cache";
       this.clearCacheToolStripMenuItem.Click += new System.EventHandler(this.ClearCacheToolStripMenuItem_Click);
+      // 
+      // saveMeteorShowerToolStripMenuItem
+      // 
+      this.saveMeteorShowerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveMeteorShowerToolStripMenuItem.Image")));
+      this.saveMeteorShowerToolStripMenuItem.Name = "saveMeteorShowerToolStripMenuItem";
+      this.saveMeteorShowerToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+      this.saveMeteorShowerToolStripMenuItem.Text = "Save Meteor Shower";
+      this.saveMeteorShowerToolStripMenuItem.Click += new System.EventHandler(this.SaveMeteorShowerToolStripMenuItem_Click);
+      // 
+      // loadMeteorShowerToolStripMenuItem
+      // 
+      this.loadMeteorShowerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadMeteorShowerToolStripMenuItem.Image")));
+      this.loadMeteorShowerToolStripMenuItem.Name = "loadMeteorShowerToolStripMenuItem";
+      this.loadMeteorShowerToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+      this.loadMeteorShowerToolStripMenuItem.Text = "Load Meteor Shower";
+      this.loadMeteorShowerToolStripMenuItem.Click += new System.EventHandler(this.LoadMeteorShowerToolStripMenuItem_Click);
       // 
       // InitializeMeteorShowerButton
       // 
@@ -587,21 +605,15 @@
       this.GlView.Size = new System.Drawing.Size(1005, 414);
       this.GlView.TabIndex = 10;
       // 
-      // saveMeteorShowerToolStripMenuItem
+      // LoadPlanetsTestButton
       // 
-      this.saveMeteorShowerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveMeteorShowerToolStripMenuItem.Image")));
-      this.saveMeteorShowerToolStripMenuItem.Name = "saveMeteorShowerToolStripMenuItem";
-      this.saveMeteorShowerToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-      this.saveMeteorShowerToolStripMenuItem.Text = "Save Meteor Shower";
-      this.saveMeteorShowerToolStripMenuItem.Click += new System.EventHandler(this.SaveMeteorShowerToolStripMenuItem_Click);
-      // 
-      // loadMeteorShowerToolStripMenuItem
-      // 
-      this.loadMeteorShowerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadMeteorShowerToolStripMenuItem.Image")));
-      this.loadMeteorShowerToolStripMenuItem.Name = "loadMeteorShowerToolStripMenuItem";
-      this.loadMeteorShowerToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-      this.loadMeteorShowerToolStripMenuItem.Text = "Load Meteor Shower";
-      this.loadMeteorShowerToolStripMenuItem.Click += new System.EventHandler(this.LoadMeteorShowerToolStripMenuItem_Click);
+      this.LoadPlanetsTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.LoadPlanetsTestButton.Image = ((System.Drawing.Image)(resources.GetObject("LoadPlanetsTestButton.Image")));
+      this.LoadPlanetsTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.LoadPlanetsTestButton.Name = "LoadPlanetsTestButton";
+      this.LoadPlanetsTestButton.Size = new System.Drawing.Size(23, 22);
+      this.LoadPlanetsTestButton.Text = "Load Planets Test";
+      this.LoadPlanetsTestButton.Click += new System.EventHandler(this.LoadPlanetsTestButton_Click);
       // 
       // MainForm
       // 
@@ -683,6 +695,7 @@
     private System.Windows.Forms.ToolStripButton ShowImpactsButton;
     private System.Windows.Forms.ToolStripMenuItem saveMeteorShowerToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem loadMeteorShowerToolStripMenuItem;
+    private System.Windows.Forms.ToolStripButton LoadPlanetsTestButton;
   }
 }
 
