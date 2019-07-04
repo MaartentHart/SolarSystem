@@ -85,6 +85,7 @@ namespace SolarSystem
         SurfaceGravity, Apoapsis, Periapsis, OrbitalInclination, SiderealOrbitPeriod, SiderealRotationPeriod, LongitudeOfAscendingNode, 
         LongitudeOfPeriapsis, RightAscension, Declination, TimeOfPeriapsis.TotalDays, R, G, B);
       Planet planet = new Planet(planetID, Name, Calibration);
+      planet.AddTexture(Texture, Calibration, false); 
       scene.RenderableObjects.Add(planet); 
     }
   }

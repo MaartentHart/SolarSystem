@@ -142,11 +142,10 @@ int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 	planet->relativeFocusDistance = planet->focusDistance / planet->semimajorAxis;
 	planet->flatFactor = planet->semiminorAxis / planet->semimajorAxis;
 
-	planet->timeOfPeriapsis = timeOfPeriapsis;
-
+	planet->timeOfPeriapsis = planet->TimeOfPeriapsis = timeOfPeriapsis;
+	planet->LoadCelestialBodyOrbit();
 
 	planet->SetCalculationValues();
-
 
 	GetSolarSystem().AddPlanet(planet); 
 	
