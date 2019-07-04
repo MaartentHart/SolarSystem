@@ -96,24 +96,37 @@ int GeodesicGridMipMapIndicesCount(int generation, int mipmapGeneration)
 int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 	double surfaceGravity, double apoapsis, double periapsis, double orbitalInclination, double siderealOrbitPeriod, double siderealRotationPeriod,
 	double longitudeOfAscendingNode, double longitudeOfPeriapsis, double rightAscension, double declination,
-	double timeOfPeriapsis, float r, float g, float b)
+	double timeOfPeriapsis, bool synchronousRotation, float r, float g, float b)
 {
 	int i = 0; 
-	for (Planet* planet : GetSolarSystem().Planets())
+	Planet* planet = NULL; 
+	bool addPlanet = false; 
+
+	for (Planet* currentPlanet : GetSolarSystem().Planets())
 	{
-		if (planet->name == name)
+		if (currentPlanet->name == name)
 		{
-			activePlanet = planet;
-			return i;
+			activePlanet = planet = currentPlanet;
+			break; 
 		}
 		i++;
 	}
 
-	Planet* planet = new Planet(equatorialRadius, polarRadius, surfaceGravity, name); 
+	if (planet == NULL)
+	{
+		addPlanet = true; 
+		planet = new Planet(equatorialRadius, polarRadius, surfaceGravity, name);
+	}
+	else
+	{
+		planet->radius = equatorialRadius;
+		planet->secondaryRadius = polarRadius;
+		planet->surfaceGravity = surfaceGravity;		
+	}
 
+	planet->SurfaceGravity = surfaceGravity; 
 	planet->inclination = orbitalInclination;
 	planet->longitudeAscendingNode = longitudeOfAscendingNode;
-		 
 	planet->EquatorialRadius = equatorialRadius;//km
 	planet->PolarRadius = polarRadius;//km
 	planet->SemiMajorAxis = (periapsis + apoapsis)/2;//km
@@ -121,33 +134,27 @@ int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 	planet->TropicalOrbitPeriod = siderealOrbitPeriod;//days
 	planet->periapsis = planet->Periapsis = periapsis;//km
 	planet->apoapsis = planet->Apoapsis = apoapsis;//km
-
 	planet->period = siderealOrbitPeriod; 
-
 	planet->SiderealRotationPeriod = siderealRotationPeriod;
-
 	planet->OrbitalInclination = orbitalInclination;//deg
 	planet->LongitudeOfAscendingNode = longitudeOfAscendingNode;//deg
 	planet->LongitudeOfPeriapsis = longitudeOfPeriapsis;//deg
-
 	planet->RightAscension = rightAscension;// - Undefined
 	planet->Declination = declination;// - Undefined
-
 	planet->color = Color(r, g, b, 1.0f);
-
 	planet->semimajorAxis = planet->SemiMajorAxis;
 	planet->focusDistance = planet->semimajorAxis - planet->periapsis;
-
 	planet->semiminorAxis = sqrt(planet->semimajorAxis * planet->semimajorAxis - planet->focusDistance * planet->focusDistance);
 	planet->relativeFocusDistance = planet->focusDistance / planet->semimajorAxis;
 	planet->flatFactor = planet->semiminorAxis / planet->semimajorAxis;
-
 	planet->timeOfPeriapsis = planet->TimeOfPeriapsis = timeOfPeriapsis;
-	planet->LoadCelestialBodyOrbit();
+	planet->SynchronousRotation = synchronousRotation; 
 
+	planet->LoadCelestialBodyOrbit();
 	planet->SetCalculationValues();
 
-	GetSolarSystem().AddPlanet(planet); 
+	if (addPlanet)
+		GetSolarSystem().AddPlanet(planet); 
 	
 	return i; 
 }

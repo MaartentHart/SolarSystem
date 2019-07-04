@@ -624,7 +624,7 @@
       this.SetGravityThresholdButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.SetGravityThresholdButton.Name = "SetGravityThresholdButton";
       this.SetGravityThresholdButton.Size = new System.Drawing.Size(23, 22);
-      this.SetGravityThresholdButton.Text = "Set Gravity Threashold";
+      this.SetGravityThresholdButton.Text = "Set Gravity Threshold";
       this.SetGravityThresholdButton.Click += new System.EventHandler(this.SetGravityThresholdButton_Click);
       // 
       // MainForm
