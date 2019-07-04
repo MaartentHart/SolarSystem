@@ -58,7 +58,7 @@ namespace SolarSystem
     static public extern int AddPlanet(string name, double equatorialRadius, double polarRadius,
     double surfaceGravity, double apoapsis, double periapsis, double orbitalInclination, double siderealOrbitPeriod, double siderealRotationPeriod,
     double longitudeOfAscendingNode, double longitudeOfPeriapsis, double rightAscension, double declination,
-    double timeOfPeriapsis, bool synchronousRotation, float r, float g, float b);
+    double timeOfPeriapsis, bool synchronousRotation, string isMoonOf, bool isSun, float r, float g, float b);
 
 
     [DllImport("Core.dll", EntryPoint = "SetActivePlanet", CallingConvention = CallingConvention.Cdecl)]

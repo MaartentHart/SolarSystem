@@ -96,7 +96,7 @@ int GeodesicGridMipMapIndicesCount(int generation, int mipmapGeneration)
 int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 	double surfaceGravity, double apoapsis, double periapsis, double orbitalInclination, double siderealOrbitPeriod, double siderealRotationPeriod,
 	double longitudeOfAscendingNode, double longitudeOfPeriapsis, double rightAscension, double declination,
-	double timeOfPeriapsis, bool synchronousRotation, float r, float g, float b)
+	double timeOfPeriapsis, bool synchronousRotation, const char* isMoonOf, bool isSun, float r, float g, float b)
 {
 	int i = 0; 
 	Planet* planet = NULL; 
@@ -149,9 +149,22 @@ int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 	planet->flatFactor = planet->semiminorAxis / planet->semimajorAxis;
 	planet->timeOfPeriapsis = planet->TimeOfPeriapsis = timeOfPeriapsis;
 	planet->SynchronousRotation = synchronousRotation; 
+	planet->isSun = isSun; 
+
+	if (isMoonOf != "")
+	{
+		for (Planet* currentPlanet : GetSolarSystem().Planets())
+		{
+			if (currentPlanet->name == isMoonOf)
+			{
+				planet->isMoonOf = currentPlanet;
+				break;
+			}
+		}
+	}
 
 	planet->LoadCelestialBodyOrbit();
-	planet->SetCalculationValues();
+	planet->SetCalculationValues();	
 
 	if (addPlanet)
 		GetSolarSystem().AddPlanet(planet); 

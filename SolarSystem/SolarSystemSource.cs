@@ -81,9 +81,10 @@ namespace SolarSystem
 
     public void AddToScene(Scene scene)
     {
-      int planetID = CoreDll.AddPlanet(Name, EquatorialRadius, PolarRadius, 
-        SurfaceGravity, Apoapsis, Periapsis, OrbitalInclination, SiderealOrbitPeriod, SiderealRotationPeriod, LongitudeOfAscendingNode, 
-        LongitudeOfPeriapsis, RightAscension, Declination, TimeOfPeriapsis.TotalDays, SynchronousRotation, R, G, B);
+      int planetID = CoreDll.AddPlanet(Name, EquatorialRadius, PolarRadius,
+        SurfaceGravity, Apoapsis, Periapsis, OrbitalInclination, SiderealOrbitPeriod, SiderealRotationPeriod, 
+        LongitudeOfAscendingNode, LongitudeOfPeriapsis, RightAscension, Declination, TimeOfPeriapsis.TotalDays, 
+        SynchronousRotation, IsMoonOf, IsSun, R, G, B) ;
       Planet planet = new Planet(planetID, Name, Calibration);
       planet.AddTexture(Texture, Calibration, false);
       planet.RotationAxis = EquatorialCoordinateSystem.Main.PlanetQuaternion(planet.RightAscension, planet.Declination);
