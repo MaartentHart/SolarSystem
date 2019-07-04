@@ -2,6 +2,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Planet.h"
+#include <mutex>
 
 //Places all the planets in the right position at a given time. Days relative to 01-01-2000. 
 
@@ -63,4 +64,6 @@ struct SolarSystem
 	void SetTimeSinceJ2000(double days);
 
 	Planet* GetPlanet(std::string name);
+	Planet* GetPlanet(int id); 
+	void AddPlanet(Planet* planet);
 };

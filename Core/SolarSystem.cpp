@@ -18,6 +18,8 @@
 //double undefined = std::numeric_limits<double>::quiet_NaN();
 std::vector<Planet*> planets; 
 
+std::mutex planetMutex; 
+
 Planet earth(6378.137, 6356.752315, 0.00981, "Earth");
 Planet moon(1737.10, 1735.97, 0.00162, "Moon");
 Planet mercury(2439.7, 2439.7, 0.0037, "Mercury");
@@ -1435,8 +1437,9 @@ Planet* SolarSystem::Pallas() { return &pallas; }
 Planet* SolarSystem::Vesta() { return &vesta; }
 
 
-std::vector<Planet*> SolarSystem::Planets() 
+std::vector<Planet*> SolarSystem::Planets()
 {
+	planetMutex.lock();
 	if (planets.size() == 0)
 	{
 		earth.SetEarth();
@@ -1562,7 +1565,9 @@ std::vector<Planet*> SolarSystem::Planets()
 			planet->id = i++; 
 		}
 	}
-	return planets; 
+	std::vector<Planet*> threadSafePlanets = planets; 
+	planetMutex.unlock();
+	return threadSafePlanets; 
 }
 
 std::vector<Planet*> SolarSystem::GravitySources()
@@ -1606,10 +1611,26 @@ void SolarSystem::SetTimeSinceJ2000(double days)
 	Sun()->position = 0;
 }
 
-Planet* SolarSystem::GetPlanet(std::string name)
+Planet* SolarSystem::GetPlanet(std::string name) 
 {
 	for (Planet* planet : Planets())
 		if (planet->name == name)
 			return planet;
 	return NULL; 
+}
+
+Planet* SolarSystem::GetPlanet(int id) 
+{
+	planetMutex.lock();
+	Planet* planet = (id<0 || id>=planets.size())?
+		NULL:planets[id];
+	planetMutex.unlock();
+	return planet; 
+}
+
+void SolarSystem::AddPlanet(Planet* planet)
+{
+	planetMutex.lock();
+	planets.push_back(planet);
+	planetMutex.unlock();
 }

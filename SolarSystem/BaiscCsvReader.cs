@@ -9,8 +9,8 @@ namespace SolarSystem
 {
   public class BasicCsvReader
   {
-    private List<string[]> Table { get; } = new List<string[]>(); 
-    private Dictionary<string, int> ColumnHeaders { get; }
+    private List<string[]> Table { get; } = new List<string[]>();
+    private Dictionary<string, int> ColumnHeaders { get; } = new Dictionary<string, int>(); 
     public int RowCount => Table.Count;
 
     public BasicCsvReader(string fileName)
@@ -31,9 +31,9 @@ namespace SolarSystem
           Table.Add(values); 
         }
       }
-      catch
+      catch (Exception ex)
       {
-
+        System.Windows.Forms.MessageBox.Show("Error reading CSV file " + fileName + "\n" + ex.Message, "Error");
       }
     }
 

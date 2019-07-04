@@ -63,9 +63,9 @@ namespace SolarSystem
       RightAscension = reader.GetDouble("RightAscension", index);
       Declination = reader.GetDouble("Declination", index);
       TimeOfPeriapsis = new HistoricDateTime(reader.GetString("TimeOfPeriapsis", index));
-      R = reader.GetFloat("",index);
-      G = reader.GetFloat("",index);
-      B = reader.GetFloat("",index);
+      R = reader.GetFloat("R",index);
+      G = reader.GetFloat("G",index);
+      B = reader.GetFloat("B",index);
       if (R>1 || G>1 || B>1)
       {
         R /= 255;

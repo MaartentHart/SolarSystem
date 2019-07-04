@@ -1195,7 +1195,28 @@ namespace SolarSystem
           return; 
         fileName = ofd.FileName;
       }
-      
+      SolarSystemSource solarSystemSource = new SolarSystemSource(fileName);
+      foreach (PlanetProperties properties in solarSystemSource.PlanetProperties)
+        properties.AddToScene(Scene);
+
+      //resetting planet positions. 
+      CoreDll.SetDaysSinceJ2000(CoreDll.GetTime()); 
+    }
+
+    private void SetGravityThresholdButton_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        string result = Prompt.ShowDialog(
+          "Don't do gravity calculations for gravity sources weaker than (default: 0.0005 km/s2):",
+          "Set Gravity Threshold");
+        double value = Convert.ToDouble(result);
+        CoreDll.SetGravityThreshold(value); 
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("An error occured.\n" + ex.Message, "Error");
+      }
     }
   }
 }

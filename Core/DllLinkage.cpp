@@ -119,8 +119,10 @@ int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 	planet->SemiMajorAxis = (periapsis + apoapsis)/2;//km
 	planet->SiderealOrbitPeriod = siderealOrbitPeriod;//days
 	planet->TropicalOrbitPeriod = siderealOrbitPeriod;//days
-	planet->Periapsis = periapsis;//km
-	planet->Apoapsis = apoapsis;//km
+	planet->periapsis = planet->Periapsis = periapsis;//km
+	planet->apoapsis = planet->Apoapsis = apoapsis;//km
+
+	planet->period = siderealOrbitPeriod; 
 
 	planet->SiderealRotationPeriod = siderealRotationPeriod;
 
@@ -140,10 +142,14 @@ int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 	planet->relativeFocusDistance = planet->focusDistance / planet->semimajorAxis;
 	planet->flatFactor = planet->semiminorAxis / planet->semimajorAxis;
 
+	planet->timeOfPeriapsis = timeOfPeriapsis;
+
+
 	planet->SetCalculationValues();
 
-	GetSolarSystem().Planets().push_back(planet); 
 
+	GetSolarSystem().AddPlanet(planet); 
+	
 	return i; 
 }
 
@@ -165,10 +171,7 @@ int SetActivePlanet(const char*name)
 
 void SetActivePlanetID(int id)
 {
-	if (id < 0 || id >= (int) GetSolarSystem().Planets().size())
-		activePlanet = NULL;
-	else
-		activePlanet = GetSolarSystem().Planets()[id];
+	activePlanet = GetSolarSystem().GetPlanet(id);
 }
 
 double PlanetScaleX()
@@ -259,7 +262,7 @@ double PlanetRotation()
 
 void SetPlanetBaseRotation(int planetId, double x, double y, double z, double w)
 {
-	Planet* planet = GetSolarSystem().Planets()[planetId];
+	Planet* planet = GetSolarSystem().GetPlanet(planetId);
 	if (planet->SynchronousRotation)
 		return; 
 	planet->rotationAxis = Quaternion(x, y, z, w); 
@@ -267,7 +270,7 @@ void SetPlanetBaseRotation(int planetId, double x, double y, double z, double w)
 
 void SetPlanetRotationCalibration(int planetId, double calibration)
 {
-	GetSolarSystem().Planets()[planetId]->rotationCalibration = calibration; 
+	GetSolarSystem().GetPlanet(planetId)->rotationCalibration = calibration;
 }
 
 void ClearFallingObjects()

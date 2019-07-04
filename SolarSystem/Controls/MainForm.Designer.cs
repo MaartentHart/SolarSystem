@@ -86,8 +86,9 @@
       this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
       this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
       this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
-      this.GlView = new SolarSystem.GlView();
       this.LoadPlanetsTestButton = new System.Windows.Forms.ToolStripButton();
+      this.GlView = new SolarSystem.GlView();
+      this.SetGravityThresholdButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -173,6 +174,7 @@
             this.toolStripSeparator3,
             this.toolStripLabel4,
             this.CalibrationBox,
+            this.SetGravityThresholdButton,
             this.LoadPlanetsTestButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
@@ -595,6 +597,16 @@
       this.CalibrationBox.Size = new System.Drawing.Size(100, 25);
       this.CalibrationBox.TextChanged += new System.EventHandler(this.CalibrationBox_TextChanged);
       // 
+      // LoadPlanetsTestButton
+      // 
+      this.LoadPlanetsTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.LoadPlanetsTestButton.Image = ((System.Drawing.Image)(resources.GetObject("LoadPlanetsTestButton.Image")));
+      this.LoadPlanetsTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.LoadPlanetsTestButton.Name = "LoadPlanetsTestButton";
+      this.LoadPlanetsTestButton.Size = new System.Drawing.Size(23, 22);
+      this.LoadPlanetsTestButton.Text = "Load Planets Test";
+      this.LoadPlanetsTestButton.Click += new System.EventHandler(this.LoadPlanetsTestButton_Click);
+      // 
       // GlView
       // 
       this.GlView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -605,15 +617,15 @@
       this.GlView.Size = new System.Drawing.Size(1005, 414);
       this.GlView.TabIndex = 10;
       // 
-      // LoadPlanetsTestButton
+      // SetGravityThresholdButton
       // 
-      this.LoadPlanetsTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.LoadPlanetsTestButton.Image = ((System.Drawing.Image)(resources.GetObject("LoadPlanetsTestButton.Image")));
-      this.LoadPlanetsTestButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.LoadPlanetsTestButton.Name = "LoadPlanetsTestButton";
-      this.LoadPlanetsTestButton.Size = new System.Drawing.Size(23, 22);
-      this.LoadPlanetsTestButton.Text = "Load Planets Test";
-      this.LoadPlanetsTestButton.Click += new System.EventHandler(this.LoadPlanetsTestButton_Click);
+      this.SetGravityThresholdButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.SetGravityThresholdButton.Image = ((System.Drawing.Image)(resources.GetObject("SetGravityThresholdButton.Image")));
+      this.SetGravityThresholdButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.SetGravityThresholdButton.Name = "SetGravityThresholdButton";
+      this.SetGravityThresholdButton.Size = new System.Drawing.Size(23, 22);
+      this.SetGravityThresholdButton.Text = "Set Gravity Threashold";
+      this.SetGravityThresholdButton.Click += new System.EventHandler(this.SetGravityThresholdButton_Click);
       // 
       // MainForm
       // 
@@ -696,6 +708,7 @@
     private System.Windows.Forms.ToolStripMenuItem saveMeteorShowerToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem loadMeteorShowerToolStripMenuItem;
     private System.Windows.Forms.ToolStripButton LoadPlanetsTestButton;
+    private System.Windows.Forms.ToolStripButton SetGravityThresholdButton;
   }
 }
 
