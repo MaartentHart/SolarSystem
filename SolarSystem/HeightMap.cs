@@ -121,6 +121,16 @@ namespace SolarSystem
       Int16[] ints = new Int16[size];
       Buffer.BlockCopy(bytes, 0, ints, 0, size * bytesPerPixel);
       bytes = null;
+      bool invert = MessageBox.Show("Invert z?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes;
+      double rotation = 0;
+
+      try
+      {
+        rotation = Convert.ToDouble(Prompt.ShowDialog("Rotation (deg):", "Question"));
+      }
+      catch
+      { }
+
       unsafe
       {
         int verticesCount = CoreDll.GeodesicGridVerticesCount(Parent.Generation);
@@ -130,16 +140,18 @@ namespace SolarSystem
         Heights = new double[verticesCount]; 
 
         for (int i = 0; i < verticesCount; i++,  vertex++)
-          Heights[i] = Convert.ToDouble(GetHeight(ints, width, height, *vertex));
+          Heights[i] = Convert.ToDouble(GetHeight(ints, width, height, *vertex, rotation, invert));
       }
       Valid = true;
       return true; 
     }
 
     
-    private Int16 GetHeight(Int16[] ints, int width, int height, Point3D vertex)
+    private Int16 GetHeight(Int16[] ints, int width, int height, Point3D vertex, double rotation, bool invert)
     {
-      TextureVertex textureVertex = new TextureVertex(vertex);
+      rotation /= 360;
+      rotation *= Math.PI; 
+      TextureVertex textureVertex = new TextureVertex(vertex,rotation,invert);
       int px = textureVertex.Px(width);
       int py = textureVertex.Py(height);
       int index = py * width + px;

@@ -93,14 +93,16 @@ namespace SolarSystem
       return py;
     }
 
-    public TextureVertex(Point3D vertex, double rotation = 0)
+    public TextureVertex(Point3D vertex, double rotation = 0, bool invertZ = false)
     {
+      if (invertZ)
+        vertex.z = -vertex.z;
       y = (1 - (Math.Asin(vertex.z) + Math.PI / 2) / Math.PI);
       x = (Math.Atan2(vertex.y, vertex.x) + Math.PI) / (Math.PI * 2);
       x += rotation;
-      if (x >= 1)
+      while (x >= 1)
         x -= 1;
-      if (x < 0)
+      while (x < 0)
         x += 1;
     }
   }
