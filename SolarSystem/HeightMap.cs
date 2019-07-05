@@ -150,7 +150,6 @@ namespace SolarSystem
     private Int16 GetHeight(Int16[] ints, int width, int height, Point3D vertex, double rotation, bool invert)
     {
       rotation /= 360;
-      rotation *= Math.PI; 
       TextureVertex textureVertex = new TextureVertex(vertex,rotation,invert);
       int px = textureVertex.Px(width);
       int py = textureVertex.Py(height);

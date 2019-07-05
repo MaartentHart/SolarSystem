@@ -131,11 +131,14 @@ namespace SolarSystem
       }
 
       string colorMapName = @"Resource\" + planet.Name + ".cmap";
+      string defaultColorMap = @"Resource\default.cmap";
 
       if (System.IO.File.Exists(colorMapName))
         planet.SetColorMap(new ColorMap(colorMapName,true));
-      
-      foreach(string texture in Texture.Split(','))
+      else
+        planet.SetColorMap(new ColorMap(defaultColorMap, true));
+
+      foreach (string texture in Texture.Split(','))
         planet.AddTexture(texture, TextureRotation, false);
 
       if (EquatorialCoordinateSystem.Main!=null)
