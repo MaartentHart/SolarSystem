@@ -215,6 +215,11 @@ namespace SolarSystem
         exxagerationChanged = false;
         return ret;
       }
+      set
+      {
+        if (value == true)
+          exxagerationChanged = true; 
+      }
     }
 
     public List<string> PlanetUniforms { get; } = new List<string>
@@ -297,7 +302,7 @@ namespace SolarSystem
       this.id = id;
       RenderableObject.RenderGeometry.SetGeodesicGrid(generation);
       string heightMapFileName = @"Resource\" + name + ".map";
-      HeightMap = new HeightMap(heightMapFileName, false);
+      HeightMap = new HeightMap(heightMapFileName, this, false);
       //Shader = new Shader("PlanetHeightMapVertex", "TestFrag", PlanetUniforms, PlanetAttributes); 
       //Color = new ColorFloat[CoreDll.GeodesicGridVerticesCount(9)];
       Name = name;

@@ -1254,14 +1254,21 @@ namespace SolarSystem
       string fileName;
       using (OpenFileDialog openFileDialog = new OpenFileDialog())
       {
-        openFileDialog.Filter = "*.tif;*.map|*.tif;*.map|*.*|*.*";
+        openFileDialog.Filter = "*.tif|*.tif|*.map|*.map";
         if (openFileDialog.ShowDialog() != DialogResult.OK)
           return;
         fileName = openFileDialog.FileName; 
       }
 
-      planet.HeightMap.Load(fileName);
-      
+      if (planet.HeightMap.Load(fileName))
+      {
+        planet.ExxagerationChanged = true;
+        MessageBox.Show("Heightmap applied");
+      }
+      else
+      {
+        MessageBox.Show("Heightmap could not be applied.");
+      }
     }
 
     private void SaveHeightMapToolStripMenuItem_Click(object sender, EventArgs e)
