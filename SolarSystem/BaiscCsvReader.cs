@@ -28,7 +28,18 @@ namespace SolarSystem
           string[] values = lines[i].Split(';');
           if (values.Length != headers.Length)
             continue;
-          Table.Add(values); 
+
+          //check if row isn't empty.
+          bool ok = false; 
+          foreach (string value in values)
+            if (value!="")
+            {
+              ok = true;
+              break;
+            }
+
+          if (ok)
+            Table.Add(values); 
         }
       }
       catch (Exception ex)

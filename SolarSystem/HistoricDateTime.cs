@@ -217,20 +217,43 @@ namespace SolarSystem
     public HistoricDateTime(string dateString)
     {
       string[] vals = dateString.Split(' ');
-      int day = Convert.ToInt32(vals[0]);
-      int month = TextMonth(vals[1]);
-      long year = Convert.ToInt32(vals[2]);
-      if (vals[3].ToLower() == "bc")
-        year = -year;
+      if (!vals[0].Contains('-'))
+      {
+        //normal format 01 January 2000 AD 10:00:00.000
+        int day = Convert.ToInt32(vals[0]);
+        int month = TextMonth(vals[1]);
+        long year = Convert.ToInt32(vals[2]);
+        if (vals[3].ToLower() == "bc")
+          year = -year;
 
-      string[] time = vals[4].Split(':');
-      int hours = Convert.ToInt32(time[0]);
-      int minutes = Convert.ToInt32(time[1]);
-      string[] secondsSplit = time[2].Split('.');
-      double seconds = Convert.ToInt32(secondsSplit[0]);
-      if (secondsSplit.Length > 1)
-        seconds += Convert.ToDouble("0." + secondsSplit[1]);
-      Set(day, month, year, hours, minutes, seconds);
+        string[] time = vals[4].Split(':');
+        int hours = Convert.ToInt32(time[0]);
+        int minutes = Convert.ToInt32(time[1]);
+        string[] secondsSplit = time[2].Split('.');
+        double seconds = Convert.ToInt32(secondsSplit[0]);
+        if (secondsSplit.Length > 1)
+          seconds += Convert.ToDouble("0." + secondsSplit[1]);
+        Set(day, month, year, hours, minutes, seconds);
+      }
+      else
+      {
+        //number format 01-01-2000 AD 10:00:00.000
+        string[] dateVals = vals[0].Split('-'); 
+        int day = Convert.ToInt32(dateVals[0]);
+        int month = Convert.ToInt32(dateVals[1]);
+        long year = Convert.ToInt32(dateVals[2]);
+        if (vals[1].ToLower() == "bc")
+          year = -year;
+
+        string[] time = vals[2].Split(':');
+        int hours = Convert.ToInt32(time[0]);
+        int minutes = Convert.ToInt32(time[1]);
+        string[] secondsSplit = time[2].Split('.');
+        double seconds = Convert.ToInt32(secondsSplit[0]);
+        if (secondsSplit.Length > 1)
+          seconds += Convert.ToDouble("0." + secondsSplit[1]);
+        Set(day, month, year, hours, minutes, seconds);
+      }
     }
 
     private void Set(int day = 1, int month = 1, long year = 2000, int hours = 0, int minutes = 0, double seconds = 0, double milliseconds = 0)

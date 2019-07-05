@@ -175,6 +175,15 @@ namespace SolarSystem
       }
     }
 
+    public List<Planet> GetPlanets()
+    {
+      List<Planet> planets = new List<Planet>();
+      foreach (IRenderable renderable in RenderableObjects)
+        if (renderable is Planet planet)
+          planets.Add(planet);
+      return planets; 
+    }
+
     private void DrawImpacts(object sender, DoWorkEventArgs e)
     {
       while (Program.Running())

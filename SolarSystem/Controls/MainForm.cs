@@ -75,6 +75,8 @@ namespace SolarSystem
     private Camera Camera => GlView.Camera;
     private Scene Scene => GlView.Scene;
 
+
+    //depricated hard coded planets. 
     public Planet Sun { get; private set; }
     public Planet Mercury { get; private set; }
     public Planet Venus { get; private set; }
@@ -126,9 +128,17 @@ namespace SolarSystem
       SplashScreen splashScreen = new SplashScreen();
       splashScreen.Show(); 
       InitializeComponent();
+      string sourceFileName = "";
+      using (InitializePlanetsFileForm initForm = new InitializePlanetsFileForm())
+      {
+        initForm.ShowDialog();
+        sourceFileName = initForm.SourceFile; 
+      }
+      if (sourceFileName != "")
+        InitializePlanets(sourceFileName);
+      else
+        InitializePlanetsHardCoded(); 
 
-      //InitializeEarth(null, null); 
-      InitializePlanets(); 
       TimeStep = 1.0 / 86400;
       Scene.SetAsMainScene();
       SetDateTime(new HistoricDateTime(0.0));
@@ -142,7 +152,8 @@ namespace SolarSystem
     private void InitializeEarth(object sender, DoWorkEventArgs e)
     {
       Earth = AddPlanet(SolarSystemPlanet.Earth);
-      Earth.SetColorMap(new ColorMap("Earth")); 
+      Earth.SetColorMap(new ColorMap("Earth"));
+      Earth.ID = CoreDll.SetActivePlanet(Earth.Name);
     }
        
     private void TestButton_Click(object sender, EventArgs e)
@@ -664,18 +675,30 @@ namespace SolarSystem
       }
     }
 
-    private void InitializePlanets_Click(object sender, EventArgs e)
+    private void InitializePlanets(string csvFileName)
     {
-      InitializePlanets(); 
+      InitializeEarth(null, null);
+      SolarSystemSource source = new SolarSystemSource(csvFileName);
+      foreach(PlanetProperties planetProperties in source.PlanetProperties)
+      {
+        if (planetProperties.Name == "Earth")
+        {
+          planetProperties.AddToScene(Scene); 
+          break; 
+        }
+      }
+
+      InitializeEquatorialCoordinateSystem();
+      foreach (PlanetProperties planetProperties in source.PlanetProperties)
+        planetProperties.AddToScene(Scene); 
     }
 
-    private void InitializePlanets()
-    { 
-      //if (Earth == null)
-      //{
-      //  MessageBox.Show("Wait for earth to initialize first.");
-      //  return; 
-      //}
+    /// <summary>
+    /// Depricated: initializes hard coded planets. 
+    /// </summary>
+    private void InitializePlanetsHardCoded()
+    {
+
       InitializeEarth(null,null); 
       Sun = AddSun();
       Mercury = AddPlanet(SolarSystemPlanet.Mercury);

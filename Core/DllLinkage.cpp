@@ -107,6 +107,7 @@ int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 		if (currentPlanet->name == name)
 		{
 			activePlanet = planet = currentPlanet;
+			i = currentPlanet->id; 
 			break; 
 		}
 		i++;

@@ -19,6 +19,7 @@ namespace SolarSystem
 
   public class PlanetProperties
   {
+    private bool formatWarned = false; 
     public string Name { get; }
     public double EquatorialRadius { get; }
     public double PolarRadius { get; }
@@ -38,6 +39,7 @@ namespace SolarSystem
     public float B { get; }
     public string Texture { get; }
     public double Calibration { get; }
+    public double TextureRotation { get; }
     public string IsMoonOf { get; }
     public bool SynchronousRotation { get; }
     public bool IsSun { get; }
@@ -62,7 +64,25 @@ namespace SolarSystem
       LongitudeOfPeriapsis = reader.GetDouble("LongitudeOfPeriapsis", index);
       RightAscension = reader.GetDouble("RightAscension", index);
       Declination = reader.GetDouble("Declination", index);
-      TimeOfPeriapsis = new HistoricDateTime(reader.GetString("TimeOfPeriapsis", index));
+
+      try
+      {
+        string date = reader.GetString("TimeOfPeriapsis", index);
+        if (date != "")
+          TimeOfPeriapsis = new HistoricDateTime(date);
+        else
+          TimeOfPeriapsis = new HistoricDateTime();
+      }
+      catch
+      {
+        if (!formatWarned)
+        {
+          formatWarned = true;
+          System.Windows.Forms.MessageBox.Show("Please provide date in form " + new HistoricDateTime().ToString());
+        }
+        TimeOfPeriapsis = new HistoricDateTime();
+      }
+
       R = reader.GetFloat("R",index);
       G = reader.GetFloat("G",index);
       B = reader.GetFloat("B",index);
@@ -74,6 +94,7 @@ namespace SolarSystem
       }
       Texture = reader.GetString("Texture", index);
       Calibration = reader.GetDouble("Calibration", index);
+      TextureRotation = reader.GetDouble("TextureRotation", index); 
       IsMoonOf = reader.GetString("IsMoonOf", index);
       SynchronousRotation = reader.GetBool("SynchronousRotation", index);
       IsSun = reader.GetBool("IsSun", index);
@@ -85,9 +106,24 @@ namespace SolarSystem
         SurfaceGravity, Apoapsis, Periapsis, OrbitalInclination, SiderealOrbitPeriod, SiderealRotationPeriod, 
         LongitudeOfAscendingNode, LongitudeOfPeriapsis, RightAscension, Declination, TimeOfPeriapsis.TotalDays, 
         SynchronousRotation, IsMoonOf, IsSun, R, G, B) ;
+
       Planet planet = new Planet(planetID, Name, Calibration);
-      planet.AddTexture(Texture, Calibration, false);
-      planet.RotationAxis = EquatorialCoordinateSystem.Main.PlanetQuaternion(planet.RightAscension, planet.Declination);
+
+      string colorMapName = @"Resource\" + planet.Name + ".cmap";
+
+      if (System.IO.File.Exists(colorMapName))
+        planet.SetColorMap(new ColorMap(colorMapName,true));
+      
+      foreach(string texture in Texture.Split(','))
+        planet.AddTexture(texture, TextureRotation, false);
+
+      if (EquatorialCoordinateSystem.Main!=null)
+        planet.RotationAxis = EquatorialCoordinateSystem.Main.PlanetQuaternion(planet.RightAscension, planet.Declination);
+
+      foreach (Planet existingPlanet in scene.GetPlanets())
+        if (existingPlanet.ID == planetID)
+          return;
+
       scene.RenderableObjects.Add(planet); 
     }
   }

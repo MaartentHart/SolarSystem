@@ -112,6 +112,12 @@
     <Compile Include="Controls\ImpactListForm.Designer.cs">
       <DependentUpon>ImpactListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\InitializePlanetsFileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\InitializePlanetsFileForm.Designer.cs">
+      <DependentUpon>InitializePlanetsFileForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Prompt.cs" />
     <Compile Include="Controls\RecordSettingsForm.cs">
       <SubType>Form</SubType>
@@ -217,6 +223,9 @@
     <EmbeddedResource Include="Controls\ImpactListForm.resx">
       <DependentUpon>ImpactListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InitializePlanetsFileForm.resx">
+      <DependentUpon>InitializePlanetsFileForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\RecordScreen.resx">
       <DependentUpon>RecordScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -271,7 +280,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resource\CSV\SolarSystem.csv">
+    <None Include="Resource\CSV\SolarSystem - Planets only.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resource\CSV\AA - SolarSystem.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resource\Earth.cmap">

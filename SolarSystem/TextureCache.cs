@@ -121,6 +121,9 @@ namespace SolarSystem
             throw new Exception("File does not exist:\n" + fileName);
           return false;
         }
+
+        Planet.InitializeColors(); 
+
         bool ok = true;
         using (ZipArchive archive = ZipFile.Open(fileName, ZipArchiveMode.Read))
         {

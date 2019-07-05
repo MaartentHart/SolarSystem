@@ -100,6 +100,7 @@ struct CelestialBody
 
 	CelestialBody();
 
+	//Depricated hard coded planets. 
 	void SetMercury();
 	void SetVenus();
 	void SetEarth();

@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace SolarSystem
 {
+  
+  /// <summary>
+  /// Depricated hard coded planets. 
+  /// </summary>
   public enum SolarSystemPlanet
   {
     [StringValue("Sun")] Sun,
@@ -130,6 +134,18 @@ namespace SolarSystem
         Layers.Add(value);
       }
     }
+
+    internal void InitializeColors()
+    {
+      if (colors != IntPtr.Zero)
+        return;
+
+      lock(locker)
+        colors = CMemoryBlock.Allocate(CoreDll.GeodesicGridVerticesCount(Generation) * 16);
+
+      ActiveLayer.Repaint = true; 
+    }
+
     //rotation
     public double AroundAxisRotation { get; set; }
     public Quaternion RotationAxis
@@ -185,8 +201,12 @@ namespace SolarSystem
       return positionNextSecond - positionAtTime; 
     }
 
-    public IntPtr GetColors() => colors;
-
+    public IntPtr GetColors()
+    {
+      if (colors == IntPtr.Zero)
+        throw new Exception("Colors are not initialized."); 
+      return colors; 
+    }
     public bool ExxagerationChanged
     {
       get
