@@ -1,0 +1,12 @@
+Earth:
+https://www.gebco.net/data_and_products/gridded_bathymetry_data/
+Moon:
+https://astrogeology.usgs.gov/search/details/Moon/LRO/LOLA/Lunar_LRO_LOLA_Global_LDEM_118m_Mar2014/cub
+Mars:
+https://astrogeology.usgs.gov/search/details/Mars/GlobalSurveyor/MOLA/Mars_MGS_MOLA_DEM_mosaic_global_463m/cub
+Mercury:
+https://astrogeology.usgs.gov/maps/mercury-messenger-global-digital-elevation-model
+Ceres:
+https://astrogeology.usgs.gov/search/map/Ceres/Dawn/DLR/FramingCamera/Ceres_Dawn_FC_HAMO_DTM_DLR_Global_60ppd_Oct2016
+Venus:
+https://astrogeology.usgs.gov/search/map/Venus/Magellan/RadarProperties/Venus_Magellan_Topography_Global_4641m
