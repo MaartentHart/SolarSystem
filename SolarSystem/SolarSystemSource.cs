@@ -100,14 +100,35 @@ namespace SolarSystem
       IsSun = reader.GetBool("IsSun", index);
     }
 
-    public void AddToScene(Scene scene)
+    public void AddToScene(Scene scene, Camera camera)
     {
       int planetID = CoreDll.AddPlanet(Name, EquatorialRadius, PolarRadius,
         SurfaceGravity, Apoapsis, Periapsis, OrbitalInclination, SiderealOrbitPeriod, SiderealRotationPeriod, 
         LongitudeOfAscendingNode, LongitudeOfPeriapsis, RightAscension, Declination, TimeOfPeriapsis.TotalDays, 
         SynchronousRotation, IsMoonOf, IsSun, R, G, B) ;
 
-      Planet planet = new Planet(planetID, Name, Calibration);
+      List<Planet> planets = scene.GetPlanets();
+      Planet planet = null;
+      foreach (Planet existingPlanet in planets)
+      {
+        if (existingPlanet.Name == Name)
+        {
+          planet = existingPlanet;
+          planet.ID = planetID;
+          planet.RotationCalibration = Calibration; 
+        }
+      }
+      if (planet == null)
+        planet = new Planet(planetID, Name, Calibration);
+
+      if (IsSun)
+      {
+        planet.RenderableObject.UseLight = false;
+        scene.SunLight = new SunLight(planet);
+        scene.Lights.Add(scene.SunLight);
+        if (camera!=null)
+          camera.Light.On = false;
+      }
 
       string colorMapName = @"Resource\" + planet.Name + ".cmap";
 

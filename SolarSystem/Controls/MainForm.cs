@@ -683,14 +683,15 @@ namespace SolarSystem
       {
         if (planetProperties.Name == "Earth")
         {
-          planetProperties.AddToScene(Scene); 
+          planetProperties.AddToScene(Scene, Camera); 
           break; 
         }
       }
 
       InitializeEquatorialCoordinateSystem();
       foreach (PlanetProperties planetProperties in source.PlanetProperties)
-        planetProperties.AddToScene(Scene); 
+        if (planetProperties.Name != "Earth")
+          planetProperties.AddToScene(Scene, Camera); 
     }
 
     /// <summary>
@@ -1220,7 +1221,7 @@ namespace SolarSystem
       }
       SolarSystemSource solarSystemSource = new SolarSystemSource(fileName);
       foreach (PlanetProperties properties in solarSystemSource.PlanetProperties)
-        properties.AddToScene(Scene);
+        properties.AddToScene(Scene,Camera);
 
       //resetting planet positions. 
       CoreDll.SetDaysSinceJ2000(CoreDll.GetTime()); 
@@ -1239,6 +1240,53 @@ namespace SolarSystem
       catch (Exception ex)
       {
         MessageBox.Show("An error occured.\n" + ex.Message, "Error");
+      }
+    }
+
+    private void LoadHeightMapToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Planet planet = SelectedPlanet(); 
+      if (planet == null)
+      {
+        MessageBox.Show("Please select a planet");
+        return;
+      }
+      string fileName;
+      using (OpenFileDialog openFileDialog = new OpenFileDialog())
+      {
+        openFileDialog.Filter = "*.tif;*.map|*.tif;*.map|*.*|*.*";
+        if (openFileDialog.ShowDialog() != DialogResult.OK)
+          return;
+        fileName = openFileDialog.FileName; 
+      }
+
+      planet.HeightMap.Load(fileName);
+      
+    }
+
+    private void SaveHeightMapToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      Planet planet = SelectedPlanet();
+
+      if (planet==null)
+      {
+        MessageBox.Show("Please select a planet.");
+        return;
+      }
+
+      if (planet.HeightMap == null || !planet.HeightMap.Valid)
+      {
+        MessageBox.Show("Please select a planet with a valid heightmap.");
+        return;
+      }
+
+      using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+      {
+        saveFileDialog.Filter = "*.map|*.map";
+        if (saveFileDialog.ShowDialog() != DialogResult.OK)
+          return;
+
+        planet.HeightMap.Save(saveFileDialog.FileName); 
       }
     }
   }

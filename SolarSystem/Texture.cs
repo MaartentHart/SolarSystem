@@ -59,27 +59,49 @@ namespace SolarSystem
 
     private ColorFloat GetColor(Point3D vertex)
     {
-      double y = (1-(Math.Asin(vertex.z) + Math.PI/2)/Math.PI);
-      double x = (Math.Atan2(vertex.y, vertex.x) + Math.PI)/(Math.PI*2);
+      TextureVertex textureVertex = new TextureVertex(vertex, rotation); 
 
-      x += rotation;
-      if (x >= 1)
-        x -= 1;
-      if (x < 0)
-        x += 1; 
-
-      int px = (int)(x * bitmap.Width);
-      int py = (int)(y * bitmap.Height);
-
-      if (px >= bitmap.Width)
-        px = 0;
-      if (py >= bitmap.Height)
-        py = bitmap.Height - 1;
+      int px = textureVertex.Px(bitmap.Width);
+      int py = textureVertex.Py(bitmap.Height); 
 
       Color color = bitmap.GetPixel(px, py);
 
       return new ColorFloat(color); 
 
+    }
+  }
+
+  public class TextureVertex
+  {
+    public double rotation = 0; 
+    public double x;
+    public double y;
+
+    public int Px(int width)
+    {
+      int px = (int)(x * width);
+      if (px >= width)
+        px = 0;
+      return px; 
+    }
+
+    public int Py(int height)
+    {
+      int py = (int)(y * height);
+      if (py >= height)
+        py = height - 1;
+      return py;
+    }
+
+    public TextureVertex(Point3D vertex, double rotation = 0)
+    {
+      y = (1 - (Math.Asin(vertex.z) + Math.PI / 2) / Math.PI);
+      x = (Math.Atan2(vertex.y, vertex.x) + Math.PI) / (Math.PI * 2);
+      x += rotation;
+      if (x >= 1)
+        x -= 1;
+      if (x < 0)
+        x += 1;
     }
   }
 }

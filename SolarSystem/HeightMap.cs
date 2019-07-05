@@ -33,34 +33,49 @@ namespace SolarSystem
 
     public void Load(string fileName, bool messageNotExist = true)
     {
-      try
+      string extension = Path.GetExtension(fileName).ToLower();
+      if (extension == ".map")
       {
-        if (!File.Exists(fileName))
+        try
         {
-          Heights = new double[0];
-          if (messageNotExist)
-            MessageBox.Show(fileName + " does not exist.", "Error.");
-          return;
-        }
-
-        FileInfo fileInfo = new FileInfo(fileName);
-        long arrayLength = fileInfo.Length / 8;
-        Heights = new double[arrayLength];
-
-        using (BinaryReader reader = new BinaryReader(File.OpenRead(fileName)))
-        {
-          for (int i = 0; i < arrayLength; i++)
+          if (!File.Exists(fileName))
           {
-            Heights[i] = reader.ReadDouble();
+            Heights = new double[0];
+            if (messageNotExist)
+              MessageBox.Show(fileName + " does not exist.", "Error.");
+            return;
           }
+
+          FileInfo fileInfo = new FileInfo(fileName);
+          long arrayLength = fileInfo.Length / 8;
+          Heights = new double[arrayLength];
+
+          using (BinaryReader reader = new BinaryReader(File.OpenRead(fileName)))
+          {
+            for (int i = 0; i < arrayLength; i++)
+            {
+              Heights[i] = reader.ReadDouble();
+            }
+          }
+          Valid = true;
         }
-        Valid = true; 
+        catch (Exception ex)
+        {
+          MessageBox.Show("Error loading heightmap " + fileName + "\n" + ex.Message);
+          Valid = false;
+        }
       }
-      catch (Exception ex)
-      {
-        MessageBox.Show("Error loading heightmap " + fileName+ "\n" + ex.Message);
-        Valid = false; 
-      }
+    }
+
+    public void Save(string fileName)
+    {
+      if (!Valid)
+        return;
+
+      int arrayLength = Heights.Length;
+      using (BinaryWriter writer = new BinaryWriter(File.OpenWrite(fileName)))
+        for (int i = 0; i < arrayLength; i++)
+          writer.Write(Heights[i]);
     }
   }
 }

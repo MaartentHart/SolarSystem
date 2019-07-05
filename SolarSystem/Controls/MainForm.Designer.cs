@@ -86,9 +86,11 @@
       this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
       this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
       this.CalibrationBox = new System.Windows.Forms.ToolStripTextBox();
+      this.SetGravityThresholdButton = new System.Windows.Forms.ToolStripButton();
       this.LoadPlanetsTestButton = new System.Windows.Forms.ToolStripButton();
       this.GlView = new SolarSystem.GlView();
-      this.SetGravityThresholdButton = new System.Windows.Forms.ToolStripButton();
+      this.loadHeightMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.saveHeightMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.ExxagerationBar)).BeginInit();
       this.ExxagerationGroupBox.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -187,10 +189,12 @@
       this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
       this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoadTextureMenuItem,
+            this.loadHeightMapToolStripMenuItem,
+            this.loadMeteorShowerToolStripMenuItem,
             this.saveTextureToolStripMenuItem,
-            this.clearCacheToolStripMenuItem,
+            this.saveHeightMapToolStripMenuItem,
             this.saveMeteorShowerToolStripMenuItem,
-            this.loadMeteorShowerToolStripMenuItem});
+            this.clearCacheToolStripMenuItem});
       this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
       this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -597,6 +601,16 @@
       this.CalibrationBox.Size = new System.Drawing.Size(100, 25);
       this.CalibrationBox.TextChanged += new System.EventHandler(this.CalibrationBox_TextChanged);
       // 
+      // SetGravityThresholdButton
+      // 
+      this.SetGravityThresholdButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.SetGravityThresholdButton.Image = ((System.Drawing.Image)(resources.GetObject("SetGravityThresholdButton.Image")));
+      this.SetGravityThresholdButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.SetGravityThresholdButton.Name = "SetGravityThresholdButton";
+      this.SetGravityThresholdButton.Size = new System.Drawing.Size(23, 22);
+      this.SetGravityThresholdButton.Text = "Set Gravity Threshold";
+      this.SetGravityThresholdButton.Click += new System.EventHandler(this.SetGravityThresholdButton_Click);
+      // 
       // LoadPlanetsTestButton
       // 
       this.LoadPlanetsTestButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -617,15 +631,21 @@
       this.GlView.Size = new System.Drawing.Size(1005, 414);
       this.GlView.TabIndex = 10;
       // 
-      // SetGravityThresholdButton
+      // loadHeightMapToolStripMenuItem
       // 
-      this.SetGravityThresholdButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-      this.SetGravityThresholdButton.Image = ((System.Drawing.Image)(resources.GetObject("SetGravityThresholdButton.Image")));
-      this.SetGravityThresholdButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.SetGravityThresholdButton.Name = "SetGravityThresholdButton";
-      this.SetGravityThresholdButton.Size = new System.Drawing.Size(23, 22);
-      this.SetGravityThresholdButton.Text = "Set Gravity Threshold";
-      this.SetGravityThresholdButton.Click += new System.EventHandler(this.SetGravityThresholdButton_Click);
+      this.loadHeightMapToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadHeightMapToolStripMenuItem.Image")));
+      this.loadHeightMapToolStripMenuItem.Name = "loadHeightMapToolStripMenuItem";
+      this.loadHeightMapToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+      this.loadHeightMapToolStripMenuItem.Text = "Load Height Map";
+      this.loadHeightMapToolStripMenuItem.Click += new System.EventHandler(this.LoadHeightMapToolStripMenuItem_Click);
+      // 
+      // saveHeightMapToolStripMenuItem
+      // 
+      this.saveHeightMapToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveHeightMapToolStripMenuItem.Image")));
+      this.saveHeightMapToolStripMenuItem.Name = "saveHeightMapToolStripMenuItem";
+      this.saveHeightMapToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+      this.saveHeightMapToolStripMenuItem.Text = "Save Height Map";
+      this.saveHeightMapToolStripMenuItem.Click += new System.EventHandler(this.SaveHeightMapToolStripMenuItem_Click);
       // 
       // MainForm
       // 
@@ -709,6 +729,8 @@
     private System.Windows.Forms.ToolStripMenuItem loadMeteorShowerToolStripMenuItem;
     private System.Windows.Forms.ToolStripButton LoadPlanetsTestButton;
     private System.Windows.Forms.ToolStripButton SetGravityThresholdButton;
+    private System.Windows.Forms.ToolStripMenuItem loadHeightMapToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem saveHeightMapToolStripMenuItem;
   }
 }
 
