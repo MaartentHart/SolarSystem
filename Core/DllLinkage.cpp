@@ -122,10 +122,10 @@ int AddPlanet(const char* name, double equatorialRadius, double polarRadius,
 	{
 		planet->radius = equatorialRadius;
 		planet->secondaryRadius = polarRadius;
-		planet->surfaceGravity = surfaceGravity;		
+		planet->surfaceGravity = surfaceGravity/1000;		
 	}
 
-	planet->SurfaceGravity = surfaceGravity*1000; 
+	planet->SurfaceGravity = surfaceGravity; 
 	planet->inclination = orbitalInclination;
 	planet->longitudeAscendingNode = longitudeOfAscendingNode;
 	planet->EquatorialRadius = equatorialRadius;//km
