@@ -1,11 +1,11 @@
-Name;EquatorialRadius;PolarRadius;SurfaceGravity;SemiMajorAxis;OrbitalEccentricity;OrbitalInclination;SiderealOrbitPeriod;SiderealRotationPeriod;LongitudeOfAscendingNode;LongitudeOfPeriapsis;RightAscension;Declination;TimeOfPeriapsis;R;G;B;Texture;TextureRotation;Calibration;IsMoonOf;SynchronousRotation;IsSun
-Earth;6378.1;6356.8;9.81;150000000;0.01671022;0.00005;365.256;23.9345;-11.26064;102.94719;0;90;2-1-2016 AD 22:49:0;133;137;168;Resource\Texture\8k_earth_daymap.jpg,Resource\Texture\8k_earth_daymap+Atmosphere.jpg;-5;180;;;
-Sun;696342;696332;1.62;0;0;0;0;609.12;0;0;0;0;1-1-2000 AD 0:0:0;255;255;255;Resource\Texture\8k_sun.jpg;;;;;TRUE
-Mercury;2439.7;2439.7;3.7;57900000;0.20563069;7.00487;87.969;1407.6;48.33167;77.45645;281.01;61.416;21-1-2015 AD 20:33:0;158;136;99;Resource\Texture\8k_mercury.jpg,Resource\Texture\mercury_rgb_cyl_www.jpg;;;;;
-Venus;6051.8;6051.8;3.74;108000000;0.00677323;3.39471;224.701;-5832.6;76.68069;131.53298;272.76;67.16;18-4-2015 AD 9:15:0;250;221;124;Resource\Texture\8k_venus_surface.jpg,Resource\Texture\8k_venus_atmosphere.jpg;;;;;
-Moon;1738.1;1736;8.7;384000;0.0549;5.145;27.3217;655.728;0;0;0;90;2-8-2015 AD 10:4:0;189;182;180;Resource\Texture\8k_moon.jpg;180;74;Earth;;
-Mars;3396.2;3376.2;247;228000000;0.09341233;1.85061;686.98;24.6229;49.57854;336.04084;317.681;52.887;29-10-2016 AD 13:13:0;212;145;118;Resource\Texture\8k_mars.jpg;180;250;;;
-Jupiter;71492;66854;24.81;779000000;0.04839266;1.3053;4332.589;9.925;100.55615;14.75385;268.05;64.49;20-1-2023 AD 11:42:0;197;183;154;Resource\Texture\8k_jupiter.jpg;;;;;
-Saturn;60268;54364;10.45;1430000000;0.0541506;2.48446;10759.22;10.656;113.71504;92.43194;40.5954;83.538;17-4-2018 AD 11:32:0;248;191;77;Resource\Texture\8k_saturn.jpg;;;;;
-Uranus;25559;24973;8.683;2870000000;0.04716771;0.76986;30685.4;-17.24;74.22988;170.96424;257.43;-15.1;27-2-2009 AD 0:23:0;67;170;216;Resource\Texture\2k_uranus.jpg;;;;;
-Neptune;24764;24341;1.11;4500000000;0.00858587;1.76917;60189;16.11;131.72169;44.97135;299.36;43.46;1-3-2030 AD 0:0:0;69;117;251;Resource\Texture\2k_neputune.jpg;;;;;
+Name;EquatorialRadius;PolarRadius;SurfaceGravity;SemiMajorAxis;OrbitalEccentricity;OrbitalInclination;SiderealOrbitPeriod;SiderealRotationPeriod;LongitudeOfAscendingNode;LongitudeOfPeriapsis;RightAscension;Declination;TimeOfPeriapsis;R;G;B;Texture;TextureRotation;Calibration;IsMoonOf;SynchronousRotation;IsSun;RingRadius;RingTexture;RingTextureInnerRadius
+Earth;6378.1;6356.8;9.81;150000000;0.01671022;0.00005;365.256;23.9345;-11.26064;102.94719;0;90;2-1-2016 AD 22:49:0;133;137;168;Resource\Texture\8k_earth_daymap.jpg,Resource\Texture\8k_earth_daymap+Atmosphere.jpg;-5;180;;;;;;
+Sun;696342;696332;1.62;0;0;0;0;609.12;0;0;0;0;1-1-2000 AD 0:0:0;255;255;255;Resource\Texture\8k_sun.jpg;;;;;TRUE;;;
+Mercury;2439.7;2439.7;3.7;57900000;0.20563069;7.00487;87.969;1407.6;48.33167;77.45645;281.01;61.416;21-1-2015 AD 20:33:0;158;136;99;Resource\Texture\8k_mercury.jpg,Resource\Texture\mercury_rgb_cyl_www.jpg;;;;;;;;
+Venus;6051.8;6051.8;3.74;108000000;0.00677323;3.39471;224.701;-5832.6;76.68069;131.53298;272.76;67.16;18-4-2015 AD 9:15:0;250;221;124;Resource\Texture\8k_venus_surface.jpg,Resource\Texture\8k_venus_atmosphere.jpg;;;;;;;;
+Moon;1738.1;1736;8.7;384000;0.0549;5.145;27.3217;655.728;0;0;0;90;2-8-2015 AD 10:4:0;189;182;180;Resource\Texture\8k_moon.jpg;180;74;Earth;;;;;
+Mars;3396.2;3376.2;247;228000000;0.09341233;1.85061;686.98;24.6229;49.57854;336.04084;317.681;52.887;29-10-2016 AD 13:13:0;212;145;118;Resource\Texture\8k_mars.jpg;180;250;;;;;;
+Jupiter;71492;66854;24.81;779000000;0.04839266;1.3053;4332.589;9.925;100.55615;14.75385;268.05;64.49;20-1-2023 AD 11:42:0;197;183;154;Resource\Texture\8k_jupiter.jpg;;;;;;;;
+Saturn;60268;54364;10.45;1430000000;0.0541506;2.48446;10759.22;10.656;113.71504;92.43194;40.5954;83.538;17-4-2018 AD 11:32:0;248;191;77;Resource\Texture\8k_saturn.jpg;;;;;;140220;Resource\Texture\Saturn_Ring_74500_140220.jpg;74500
+Uranus;25559;24973;8.683;2870000000;0.04716771;0.76986;30685.4;-17.24;74.22988;170.96424;257.43;-15.1;27-2-2009 AD 0:23:0;67;170;216;Resource\Texture\2k_uranus.jpg;;;;;;;;
+Neptune;24764;24341;1.11;4500000000;0.00858587;1.76917;60189;16.11;131.72169;44.97135;299.36;43.46;1-3-2030 AD 0:0:0;69;117;251;Resource\Texture\2k_neptune.jpg;;;;;;;;

@@ -264,7 +264,13 @@ namespace SolarSystem
       get => RenderableObject.Position;
       set => RenderableObject.Position = value; 
     }
+    public PlanetaryRingSystem RingSystem { get; internal set; }
 
+    /// <summary>
+    /// Old method, using hard coded values in stead of CSV. 
+    /// </summary>
+    /// <param name="planet"></param>
+    /// <param name="generation"></param>
     public Planet(SolarSystemPlanet planet, int generation = 9)
     {
       Generation = generation;
@@ -461,6 +467,9 @@ namespace SolarSystem
         double[] colorable = ColorableValues;
         ColorMap colorMap = ColorMap;
 
+        if (ActiveLayer.Name == "Default")
+          ColorMap = new ColorMap(color); 
+
         newColors = CMemoryBlock.Allocate(verticesCount * 16);
         unsafe
         {
@@ -542,8 +551,19 @@ namespace SolarSystem
           using (GlPushPop rotationPushPop = new GlPushPop())
           {
             if (RotationAxis != null)
-              RenderableObject.Transform.Rotation = Rotation; 
+            {
+              RenderableObject.Transform.Rotation = Rotation;
+            }
+
             RenderableObject.Render(camera);
+
+            if (RingSystem != null)
+            {
+              RingSystem.Transform.Position = Position;
+              if (RotationAxis != null)
+                RingSystem.Transform.Rotation = Rotation.SystemRotation;
+              RingSystem.Render(camera);
+            }
           }
         }
       }
@@ -581,7 +601,7 @@ namespace SolarSystem
       }
 
       RenderableObject.RenderGeometry.indices = indices;
-      RenderableObject.RenderGeometry.indicesCount = indicesCount; 
+      RenderableObject.RenderGeometry.indicesCount = indicesCount;
     }
 
     private void RenderPoint()

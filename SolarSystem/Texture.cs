@@ -57,6 +57,48 @@ namespace SolarSystem
       }
     }
 
+    public void ApplyRing(IntPtr target, int generation, double innerRadiusRatio)
+    {
+      try
+      {
+        using (image = Image.FromFile(FileName))
+        using (bitmap = image as Bitmap)
+          unsafe
+          {
+            int verticesCount = CoreDll.GeodesicGridVerticesCount(generation);
+            IntPtr vertices = CoreDll.GeodesicGridVertices(generation);
+
+            ColorFloat* color = (ColorFloat*)target.ToPointer();
+            Point3D* vertex = (Point3D*)vertices.ToPointer();
+
+            for (int i = 0; i < verticesCount; i++, color++, vertex++)
+            {
+              double position = Math.Sqrt(vertex->x * vertex->x + vertex->y * vertex->y);
+              if (position < innerRadiusRatio)
+                //transparent. 
+                *color = new ColorFloat(0, 0, 0, 0);
+
+              else
+              {
+                position -= innerRadiusRatio;
+
+                position /= (1 - innerRadiusRatio);
+                int x = Convert.ToInt32(position * (bitmap.Width - 1));
+                Color color32 = bitmap.GetPixel(x, 0);
+                if (color32.R < 2 && color32.G < 2 && color32.B < 2)
+                  *color = new ColorFloat(0, 0, 0, 0);
+                else
+                  *color = new ColorFloat(bitmap.GetPixel(x, 0));
+              }
+            }
+          }
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show("Error applying texture " + FileName + "\n" + ex.Message, "Error");
+      }
+    }
+
     private ColorFloat GetColor(Point3D vertex)
     {
       TextureVertex textureVertex = new TextureVertex(vertex, rotation); 

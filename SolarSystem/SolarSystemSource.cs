@@ -49,6 +49,10 @@ namespace SolarSystem
     public double Apoapsis => SemiMajorAxis + FocalDistance;
     public double Periapsis => SemiMajorAxis - FocalDistance; 
 
+    public double RingRadius { get; }
+    public string RingTexture { get; }
+    public double RingTextureInnerRadius { get; }
+
     public PlanetProperties(BasicCsvReader reader, int index)
     {    
       Name = reader.GetString("Name", index);
@@ -98,6 +102,10 @@ namespace SolarSystem
       IsMoonOf = reader.GetString("IsMoonOf", index);
       SynchronousRotation = reader.GetBool("SynchronousRotation", index);
       IsSun = reader.GetBool("IsSun", index);
+
+      RingRadius = reader.GetDouble("RingRadius", index);
+      RingTexture = reader.GetString("RingTexture", index);
+      RingTextureInnerRadius = reader.GetDouble("RingTextureInnerRadius", index); 
     }
 
     public void AddToScene(Scene scene, Camera camera)
@@ -149,6 +157,11 @@ namespace SolarSystem
           return;
 
       scene.RenderableObjects.Add(planet); 
+
+      if (RingRadius!=0)
+        planet.RingSystem = new PlanetaryRingSystem(planet, RingRadius, RingTexture, RingTextureInnerRadius);
+      
+
     }
   }
 }

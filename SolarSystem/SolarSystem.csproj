@@ -187,6 +187,7 @@
     </Compile>
     <Compile Include="MeteorShower.cs" />
     <Compile Include="Planet.cs" />
+    <Compile Include="PlanetaryRingSystem.cs" />
     <Compile Include="Point3D.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -455,6 +456,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resource\Texture\rhea.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resource\Texture\Saturn_Ring_74500_140220.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resource\Texture\Source.txt">

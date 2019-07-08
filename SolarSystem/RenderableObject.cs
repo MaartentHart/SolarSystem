@@ -42,6 +42,7 @@ namespace SolarSystem
     public int indicesCount;
     public RenderMode renderMode;
     public float pointSize = 2;
+    public bool Transparent { get; set; } = false; 
 
     public void Render(bool useLight)
     {
@@ -77,6 +78,15 @@ namespace SolarSystem
 
     private void RenderTriangles(bool useLight)
     {
+      if (Transparent)
+      {
+        Gl.Enable(EnableCap.Blend);
+        Gl.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+      }
+      //else
+      //{
+      //  Gl.Disable(EnableCap.Blend);
+      //}
       Gl.EnableClientState(EnableCap.VertexArray);
       Gl.VertexPointer(3, VertexPointerType.Double, 0, vertices);
       if (enableNormals && useLight)
@@ -104,8 +114,9 @@ namespace SolarSystem
       Gl.DisableVertexAttribArray(2);
 
       Gl.DrawElements(PrimitiveType.Triangles, indicesCount, DrawElementsType.UnsignedInt, indices);
+      //if (Transparent)
+      //  Gl.Disable(EnableCap.Blend);
     }
-
 
     public void SetGeodesicGrid(int generation)
     {
