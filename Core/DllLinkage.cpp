@@ -247,6 +247,11 @@ double PlanetDeclination()
 	return activePlanet->Declination; 
 }
 
+void GetOrbitNormal(int planetID, Point3D& normal)
+{
+	normal = GetSolarSystem().GetPlanet(planetID)->orbitNormal; 
+}
+
 void SetDaysSinceJ2000(double days)
 {
 	GetSolarSystem().SetTimeSinceJ2000(days);

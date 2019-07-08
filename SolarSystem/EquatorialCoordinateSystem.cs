@@ -31,14 +31,14 @@ namespace SolarSystem
         vernalEquinox = VernalEquinox2000; 
 
       CoreDll.EarthPositionAt(VernalEquinox2000.TotalDays, ref earthPositionAtVernalEquinox);
-      double earthAxisTilt = CoreDll.EarthAxisTilt();
+      double earthAxisTilt = -CoreDll.EarthAxisTilt();
       if (earthAxisTilt == 0)
-        earthAxisTilt = 23.44;
+        earthAxisTilt = -23.44;
 
       Origin = -earthPositionAtVernalEquinox.Normal;
 
       Point3D triadXAxis = Origin;
-      double yaw = OpenGL.Angle.ToDegrees(Math.Atan2(triadXAxis.y, triadXAxis.x))+180;
+      double yaw = OpenGL.Angle.ToDegrees(Math.Atan2(triadXAxis.y, triadXAxis.x));
       double pitch = OpenGL.Angle.ToDegrees(-Math.Sin(triadXAxis.z));
       double roll = earthAxisTilt;
       

@@ -36,6 +36,8 @@
       this.label5 = new System.Windows.Forms.Label();
       this.TypeBox = new System.Windows.Forms.TextBox();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.DistanceBox = new System.Windows.Forms.TextBox();
+      this.label10 = new System.Windows.Forms.Label();
       this.PositionZBox = new System.Windows.Forms.TextBox();
       this.label8 = new System.Windows.Forms.Label();
       this.PositionYBox = new System.Windows.Forms.TextBox();
@@ -43,16 +45,15 @@
       this.PositionXBox = new System.Windows.Forms.TextBox();
       this.label6 = new System.Windows.Forms.Label();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.SpeedBox = new System.Windows.Forms.TextBox();
+      this.label9 = new System.Windows.Forms.Label();
       this.VelocityZBox = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.VelocityYBox = new System.Windows.Forms.TextBox();
       this.label3 = new System.Windows.Forms.Label();
       this.VelocityXBox = new System.Windows.Forms.TextBox();
       this.label4 = new System.Windows.Forms.Label();
-      this.SpeedBox = new System.Windows.Forms.TextBox();
-      this.label9 = new System.Windows.Forms.Label();
-      this.DistanceBox = new System.Windows.Forms.TextBox();
-      this.label10 = new System.Windows.Forms.Label();
+      this.AdditionalBox = new System.Windows.Forms.TextBox();
       this.groupBox2.SuspendLayout();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
@@ -76,7 +77,7 @@
       // AutoUpdateCheckBox
       // 
       this.AutoUpdateCheckBox.AutoSize = true;
-      this.AutoUpdateCheckBox.Location = new System.Drawing.Point(12, 323);
+      this.AutoUpdateCheckBox.Location = new System.Drawing.Point(12, 388);
       this.AutoUpdateCheckBox.Name = "AutoUpdateCheckBox";
       this.AutoUpdateCheckBox.Size = new System.Drawing.Size(86, 17);
       this.AutoUpdateCheckBox.TabIndex = 7;
@@ -122,6 +123,22 @@
       this.groupBox2.TabIndex = 10;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Position";
+      // 
+      // DistanceBox
+      // 
+      this.DistanceBox.Location = new System.Drawing.Point(70, 97);
+      this.DistanceBox.Name = "DistanceBox";
+      this.DistanceBox.Size = new System.Drawing.Size(100, 20);
+      this.DistanceBox.TabIndex = 18;
+      // 
+      // label10
+      // 
+      this.label10.AutoSize = true;
+      this.label10.Location = new System.Drawing.Point(6, 100);
+      this.label10.Name = "label10";
+      this.label10.Size = new System.Drawing.Size(49, 13);
+      this.label10.TabIndex = 17;
+      this.label10.Text = "Distance";
       // 
       // PositionZBox
       // 
@@ -191,6 +208,22 @@
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Velocity";
       // 
+      // SpeedBox
+      // 
+      this.SpeedBox.Location = new System.Drawing.Point(70, 97);
+      this.SpeedBox.Name = "SpeedBox";
+      this.SpeedBox.Size = new System.Drawing.Size(100, 20);
+      this.SpeedBox.TabIndex = 18;
+      // 
+      // label9
+      // 
+      this.label9.AutoSize = true;
+      this.label9.Location = new System.Drawing.Point(6, 100);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(38, 13);
+      this.label9.TabIndex = 17;
+      this.label9.Text = "Speed";
+      // 
       // VelocityZBox
       // 
       this.VelocityZBox.Location = new System.Drawing.Point(70, 71);
@@ -242,43 +275,21 @@
       this.label4.TabIndex = 11;
       this.label4.Text = "X";
       // 
-      // SpeedBox
+      // AdditionalBox
       // 
-      this.SpeedBox.Location = new System.Drawing.Point(70, 97);
-      this.SpeedBox.Name = "SpeedBox";
-      this.SpeedBox.Size = new System.Drawing.Size(100, 20);
-      this.SpeedBox.TabIndex = 18;
-      // 
-      // label9
-      // 
-      this.label9.AutoSize = true;
-      this.label9.Location = new System.Drawing.Point(6, 100);
-      this.label9.Name = "label9";
-      this.label9.Size = new System.Drawing.Size(38, 13);
-      this.label9.TabIndex = 17;
-      this.label9.Text = "Speed";
-      // 
-      // DistanceBox
-      // 
-      this.DistanceBox.Location = new System.Drawing.Point(70, 97);
-      this.DistanceBox.Name = "DistanceBox";
-      this.DistanceBox.Size = new System.Drawing.Size(100, 20);
-      this.DistanceBox.TabIndex = 18;
-      // 
-      // label10
-      // 
-      this.label10.AutoSize = true;
-      this.label10.Location = new System.Drawing.Point(6, 100);
-      this.label10.Name = "label10";
-      this.label10.Size = new System.Drawing.Size(49, 13);
-      this.label10.TabIndex = 17;
-      this.label10.Text = "Distance";
+      this.AdditionalBox.Location = new System.Drawing.Point(12, 323);
+      this.AdditionalBox.Multiline = true;
+      this.AdditionalBox.Name = "AdditionalBox";
+      this.AdditionalBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+      this.AdditionalBox.Size = new System.Drawing.Size(179, 59);
+      this.AdditionalBox.TabIndex = 18;
       // 
       // CelestialPropertiesForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(197, 346);
+      this.ClientSize = new System.Drawing.Size(197, 417);
+      this.Controls.Add(this.AdditionalBox);
       this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.groupBox2);
       this.Controls.Add(this.label5);
@@ -324,5 +335,6 @@
     private System.Windows.Forms.Label label9;
     private System.Windows.Forms.TextBox DistanceBox;
     private System.Windows.Forms.Label label10;
+    private System.Windows.Forms.TextBox AdditionalBox;
   }
 }

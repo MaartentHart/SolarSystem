@@ -68,6 +68,9 @@ namespace SolarSystem
         SpeedBox.Text = velocity.Magnitude.ToString(); 
 
         TypeBox.Text = "Planet";
+
+        AdditionalBox.Text = "Obliquity to orbit (deg): " + (planet.GetInclination()/Math.PI*180).ToString(); 
+
       }
       else
       {
@@ -75,6 +78,7 @@ namespace SolarSystem
         PositionYBox.Text = "0";
         PositionZBox.Text = "0";
         TypeBox.Text = "Other";
+        AdditionalBox.Text = ""; 
       }
       updating = false; 
     }

@@ -654,6 +654,19 @@ namespace SolarSystem
       }
     }
 
+    /// <summary>
+    /// Gets the inclination of the planets axis relative to its orbit normal in radian.  
+    /// </summary>
+    /// <returns></returns>
+    public double GetInclination()
+    {
+      Point3D orbitNormal = new Point3D();
+      Point3D axisNormal = Rotation.SystemRotation.Rotate(new Point3D(0, 0, 1)); 
+      CoreDll.GetOrbitNormal(ID, ref orbitNormal);
+      double distance = (orbitNormal - axisNormal).Magnitude;
+      return 2 * Math.Asin(distance / 2);
+    }
+
     #region IDisposable Support
     private bool disposedValue = false; // To detect redundant calls
 

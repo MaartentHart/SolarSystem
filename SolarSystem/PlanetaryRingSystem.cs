@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SolarSystem
 {
-  public class PlanetaryRingSystem : IRenderable
+  public class PlanetaryRingSystem : IRenderable, IDisposable
   {
     object locker = new object(); 
     private Planet planet;
@@ -121,5 +121,9 @@ namespace SolarSystem
       RenderableObject.RenderGeometry.indicesCount = indicesCount;
     }
 
+    public void Dispose()
+    {
+      DisposeColors(); 
+    }
   }
 }

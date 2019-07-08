@@ -42,6 +42,7 @@ extern "C"
 	DLL double __cdecl EarthAxisTilt();
 	DLL double __cdecl PlanetRightAscension(); 
 	DLL double __cdecl PlanetDeclination(); 
+	DLL void __cdecl GetOrbitNormal(int planetID, Point3D& normal); 
 
 	//Planet update
 	DLL void __cdecl SetDaysSinceJ2000(double days); 

@@ -87,6 +87,9 @@ namespace SolarSystem
 
     [DllImport("Core.dll", EntryPoint = "PlanetDeclination", CallingConvention = CallingConvention.Cdecl)]
     static public extern double PlanetDeclination();
+
+    [DllImport("Core.dll", EntryPoint = "GetOrbitNormal", CallingConvention = CallingConvention.Cdecl)]
+    static public extern void GetOrbitNormal(int planetID, ref Point3D normal);
     #endregion
 
     #region PlanetUpdate
