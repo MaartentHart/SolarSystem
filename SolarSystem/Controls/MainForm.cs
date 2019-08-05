@@ -17,6 +17,7 @@ namespace SolarSystem
   public partial class MainForm : Form
   {
     private double timeStep = 0;
+    private CompareForm compareForm; 
     private CelestialPropertiesForm celestialPropertiesForm = new CelestialPropertiesForm();
     private MeteoriteInitializationForm meteoriteInitializationForm;
 
@@ -64,6 +65,16 @@ namespace SolarSystem
           SetSelectedObject(); 
         }
         return celestialPropertiesForm;
+      }
+    }
+
+    private CompareForm CompareForm
+    {
+      get
+      {
+        if (compareForm == null || compareForm.IsDisposed)
+          compareForm = new CompareForm(); 
+        return compareForm; 
       }
     }
 
@@ -1295,6 +1306,11 @@ namespace SolarSystem
 
         planet.HeightMap.Save(saveFileDialog.FileName); 
       }
+    }
+
+    private void ComparePlanetsButton_Click(object sender, EventArgs e)
+    {
+      CompareForm.Show();
     }
   }
 }

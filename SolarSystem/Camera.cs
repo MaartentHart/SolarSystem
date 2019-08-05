@@ -121,8 +121,13 @@ namespace SolarSystem
       set => changed = true; 
     }
 
+    public bool IgnoreObjectPositions { get; set; } = false; 
+
     public void Render(int width, int height)
     {
+      //if (IgnoreObjectPositions)
+      //  Target = new PositionObject(0, 0, 0);
+
       this.width = width;
       this.height = height; 
       if (LockDistance)
@@ -276,6 +281,8 @@ namespace SolarSystem
 
     public double ViewRatio(Point3D position, double radius)
     {
+      if (IgnoreObjectPositions)
+        position = new Point3D(0, 0, 0); 
       return (position - Eye.Position).Magnitude / radius * FieldOfViewRatio / height * 1000;
     }
   }

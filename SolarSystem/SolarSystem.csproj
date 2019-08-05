@@ -110,6 +110,12 @@
     <Compile Include="Controls\ColorMapForm.Designer.cs">
       <DependentUpon>ColorMapForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CompareForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\CompareForm.Designer.cs">
+      <DependentUpon>CompareForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImpactListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ColorMapForm.resx">
       <DependentUpon>ColorMapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CompareForm.resx">
+      <DependentUpon>CompareForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ImpactListForm.resx">
       <DependentUpon>ImpactListForm.cs</DependentUpon>
@@ -357,6 +366,33 @@
     <None Include="Resources\TimeIcon.png" />
     <None Include="Resources\Play.png" />
     <None Include="Resources\Pause.png" />
+    <Content Include="Icons\background-color-icon-256.png" />
+    <Content Include="Icons\ball-6x6.png" />
+    <Content Include="Icons\Camera.png" />
+    <Content Include="Icons\clock.png" />
+    <Content Include="Icons\configure.png" />
+    <Content Include="Icons\Explosion.png" />
+    <Content Include="Icons\Gravity.png" />
+    <Content Include="Icons\InsertRow.png" />
+    <Content Include="Icons\LightBulb.png" />
+    <Content Include="Icons\list.png" />
+    <Content Include="Icons\lock-icon.png" />
+    <Content Include="Icons\openfile.png" />
+    <Content Include="Icons\Palette.png" />
+    <Content Include="Icons\Paste.png" />
+    <Content Include="Icons\Pause-Normal-Red-icon.png" />
+    <Content Include="Icons\pick color.png" />
+    <Content Include="Icons\planets.png" />
+    <Content Include="Icons\Play-1-Normal-Red-icon.png" />
+    <Content Include="Icons\Red dot.png" />
+    <Content Include="Icons\savefile.png" />
+    <Content Include="Icons\Sign-Error-icon.png" />
+    <Content Include="Icons\sun.png" />
+    <Content Include="Icons\texture.png" />
+    <Content Include="Icons\Time-lock-icon.png" />
+    <Content Include="Icons\TimeStep.png" />
+    <Content Include="Icons\triad.png" />
+    <Content Include="Icons\work.png" />
     <Content Include="ReadMe.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

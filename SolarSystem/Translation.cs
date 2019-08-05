@@ -46,13 +46,14 @@ namespace SolarSystem
     private readonly GlPushPop translate;
     private readonly GlPushPop rotate;
 
-    public ApplyTransform(Transform transform)
+    public ApplyTransform(Transform transform, bool ignorePosition = false)
     {
       Transform = transform;
       scale = new GlPushPop(transform.ScaleActive);
       Transform.GlScale();
       translate = new GlPushPop(transform.TranslationActive);
-      Transform.GlTranslate();
+      if (!ignorePosition)
+        Transform.GlTranslate();
       rotate = new GlPushPop(transform.Rotation!=null && transform.RotationActive);
       Transform.GlRotate();
     }

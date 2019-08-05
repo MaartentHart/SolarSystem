@@ -542,7 +542,8 @@ namespace SolarSystem
       lock (locker)
       {
         SetDetailLevel(camera);
-        RenderPoint();
+        if (!camera.IgnoreObjectPositions)
+          RenderPoint();
 
         //don't render if it's too far away. 
         double ratio = camera.ViewRatio(Position, MaximumRadius);

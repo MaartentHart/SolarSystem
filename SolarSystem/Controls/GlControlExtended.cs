@@ -12,10 +12,22 @@ namespace SolarSystem
 {
   class GlControlExtended : GlControl
   {
+    private bool scrolled = false; 
+
     private Point mouseLeftDownLocation;
     
     public Camera Camera { get; set; } = new Camera();
     public Scene Scene { get; set; } = new Scene();
+
+    public bool Scrolled
+    {
+      get
+      {
+        bool ret = scrolled;
+        scrolled = false;
+        return ret; 
+      }
+    }
 
     public GlControlExtended()
     {
@@ -31,6 +43,7 @@ namespace SolarSystem
     {
       double zoomFactor = Math.Pow(0.8, e.Delta/120);
       Camera.Zoom(zoomFactor);
+      scrolled = true; 
     }
 
     private void ContextCreatedEvent(object sender, GlControlEventArgs e)

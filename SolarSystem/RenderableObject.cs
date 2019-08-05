@@ -197,7 +197,7 @@ namespace SolarSystem
 
     public void Render(Camera camera)
     {
-      using (ApplyTransform apply = new ApplyTransform(Transform))
+      using (ApplyTransform apply = new ApplyTransform(Transform, camera.IgnoreObjectPositions))
       {
         RenderGeometry.Render(UseLight);
       }   
