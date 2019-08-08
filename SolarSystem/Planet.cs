@@ -86,6 +86,8 @@ namespace SolarSystem
     private ColorFloat color;
     private bool exxagerationChanged = true;
     private bool changed = true;
+    private Layer previousActiveLayer = null;
+
 
     public static double MaxRenderRatio { get; set; } = 1000;
     public static int MaximumDisplayGeneration { get; set; } = 9;
@@ -103,6 +105,8 @@ namespace SolarSystem
     public ColorMap ColorMap { get => ActiveLayer.ColorMap;
       set => ActiveLayer.ColorMap = value; }
     public List<Layer> Layers { get; } = new List<Layer>();
+
+
 
     public Layer ActiveLayer
     {
@@ -125,6 +129,7 @@ namespace SolarSystem
       }
       set
       {
+        previousActiveLayer = activeLayer; 
         if (value == null)
           return;
         activeLayer = value; 
@@ -468,8 +473,11 @@ namespace SolarSystem
         ColorMap colorMap = ColorMap;
 
         if (ActiveLayer.Name == "Default")
-          ColorMap = new ColorMap(color); 
-
+          if (previousActiveLayer != ActiveLayer)
+          {
+            ColorMap = new ColorMap(color);
+            previousActiveLayer = ActiveLayer; 
+          }
         newColors = CMemoryBlock.Allocate(verticesCount * 16);
         unsafe
         {
